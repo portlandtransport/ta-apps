@@ -1,0 +1,38 @@
+body::before {
+	background-image: url(/apps/assets/images/dt_by_hilton_299.png);
+  background-size: 195px 150px;
+	width: 195px;
+	height: 150px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  content: "";
+  
+}
+
+body {
+	background-color: #A8B400;
+}
+
+h1 {
+	position: relative;
+	height: 150px;
+}
+
+h1::after {
+	background-image: url(/apps/assets/images/hilton_honors_299.png);
+  background-size: 468px 150px;
+  /*margin-left: 100px;*/
+  display: inline-block;
+  content:"";
+	width: 468px;
+	height: 150px;
+	
+	position: absolute;
+   display: block;
+   top: 0px;
+   right: 0px;
+
+}
+
+

@@ -1,0 +1,26 @@
+h1 { 
+	margin-left: 550px; 
+	margin-top: 50px;
+	height: 190px; 
+	color: #004284;
+	font-size: 96px;
+	width: 600px;	
+	text-align: center;
+}  
+
+#tb_top {
+	background-image: url(../images/ohsu-logo-33.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+}
+
+#tb_clock { background-color: #004284; color: #FFFFFF  }
+#tb_ticker { background-color: #CCCCCC; }
+
+tr.odd { background-color: #004284; color: #FFFFFF }
+tr.even { background-color: #FFFFFF; color: #004284 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+
+

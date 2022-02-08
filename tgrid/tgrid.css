@@ -1,0 +1,7 @@
+.box {float: left; width: 50%; height: 0%; text-align: center; 
+      color: #ffffff; 
+      font-family: "Trebuchet MS", Futura, sans-serif; 
+       -moz-border-radius: 2%; border-radius: 2%}
+#leftbox { background-color: #226E52 }
+#rightbox { background-color: #22366E }
+.mins { line-height: 105%; letter-spacing: 0px }

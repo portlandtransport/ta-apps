@@ -1,0 +1,49 @@
+h1 { 
+	margin-top: 10px;
+	margin-left: 430px; 
+	height: 130px;
+	font-size: 30px;
+} 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/pdxseal150.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 10px;
+}
+
+#tb_clock { background-color: #000000; color: #FFFFFF }
+
+tr.odd { background-color: #EEEEEE; color: #000000 }
+tr.even { background-color: #FFFFFF; color: #000000 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+/* Flag configuration
+
+h1 { 
+	margin-top: 20px;
+	margin-left: 430px; 
+	height: 170px;
+	font-size: 30px;
+} 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/PortlandFlag200.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 0px;
+}
+
+#tb_clock { background-color: #437AB3; color: #FFFFFF }
+
+tr.odd { background-color: #008043; color: #FFFFFF }
+tr.even { background-color: #F6C022; color: #000000 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+*/
+
+
+
+

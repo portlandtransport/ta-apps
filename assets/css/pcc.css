@@ -1,0 +1,72 @@
+/* Orange */
+table.trip_wrapper tbody.route_32.agency_PCC td.route,
+table.trip_wrapper tbody.route_32.agency_PCC td.destination,
+table.trip_wrapper tbody.route_32.agency_PCC td.destination div {
+	background-color: #FF8000;
+	border-color: #FF8000;
+	color: black;
+}
+
+/*  Blue */
+table.trip_wrapper tbody.route_33.agency_PCC td.route,
+table.trip_wrapper tbody.route_33.agency_PCC td.destination,
+table.trip_wrapper tbody.route_33.agency_PCC td.destination div {
+	background-color: #0000FF;
+	border-color: #0000FF;
+	color: white;
+}
+
+/*  Yellow */
+table.trip_wrapper tbody.route_35.agency_PCC td.route,
+table.trip_wrapper tbody.route_35.agency_PCC td.destination,
+table.trip_wrapper tbody.route_35.agency_PCC td.destination div {
+	background-color: #F0CD04;
+	border-color: #F0CD04;
+	color: black;
+}
+
+/*  Yellow Express */
+table.trip_wrapper tbody.route_36.agency_PCC td.route,
+table.trip_wrapper tbody.route_36.agency_PCC td.destination,
+table.trip_wrapper tbody.route_36.agency_PCC td.destination div{
+	background-color: #F0CD04;
+	border-color: #F0CD04;
+	color: black;
+}
+
+/*  Green */
+table.trip_wrapper tbody.route_37.agency_PCC td.route,
+table.trip_wrapper tbody.route_37.agency_PCC td.destination,
+table.trip_wrapper tbody.route_37.agency_PCC td.destination div {
+	background-color: #00CC00;
+	border-color: #00CC00;
+	color: black;
+}
+
+/*  Purple */
+table.trip_wrapper tbody.route_41.agency_PCC td.route,
+table.trip_wrapper tbody.route_41.agency_PCC td.destination,
+table.trip_wrapper tbody.route_41.agency_PCC td.destination div {
+	background-color: #8000FF;
+	border-color: #8000FF;
+	color: white;
+}
+
+/*  Red */
+table.trip_wrapper tbody.route_42.agency_PCC td.route,
+table.trip_wrapper tbody.route_42.agency_PCC td.destination,
+table.trip_wrapper tbody.route_42.agency_PCC td.destination div{
+	background-color: #FF0000;
+	border-color: #FF0000;
+	color: black;
+}
+
+/* Remap TriMet local service to white */
+table.trip_wrapper tbody.service_color_6 td.route,
+table.trip_wrapper tbody.service_color_6 td.destination,
+table.trip_wrapper tbody.service_color_6 td.destination div,
+div.trip.service_color_6 div.route_wrapper, 
+div.trip.service_color_6 div.destination_wrapper {
+	background-color: white;
+	border-color: black;
+}

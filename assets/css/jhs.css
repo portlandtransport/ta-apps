@@ -1,0 +1,19 @@
+h1 { margin-left: 490px; height: 110px } 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/jhslogo.gif);
+  background-repeat: no-repeat;
+  background-position: 20px 0px;
+}
+
+#tb_clock { background-color: #009; color: #FFFFFF }
+
+tr.odd { background-color: #009; color: #FFCD00 }
+tr.even { background-color: #FFFFFF; color: #009 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+
+
+

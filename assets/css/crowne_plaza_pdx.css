@@ -1,0 +1,19 @@
+
+
+td#banner h1 {
+	text-align: left;
+	font-size: 72px;
+	padding-left: 30px;
+	padding-top: 35px;
+	font-family: Arial, sans-serif;
+	height: 164px;
+	color: #830051 !important;
+	background-image: url('../images/crowne_plaza_pdx_164.jpg');
+	background-position: right top;
+	background-repeat: no-repeat;
+}
+
+table.trip_wrapper td.route {
+	width: 12em;
+}
+

@@ -1,0 +1,26 @@
+h1 { margin-left: 490px; height: 110px } 
+
+body.transitBoardByLine h1 {
+	margin-left: 448px;
+	width: 876;
+	text-align: center;
+	font-family: DejaVuSansBold, sans-serif; 
+}
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/cbrelogo.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 0px;
+}
+
+#tb_clock { background-color: #016F54; color: #FFFFFF }
+
+tr.odd { background-color: #016F54; color: #FFFFFF }
+tr.even { background-color: #FFFFFF; color: #000000 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+
+
+

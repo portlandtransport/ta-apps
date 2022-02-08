@@ -1,0 +1,38 @@
+h1 { 
+	margin-top: 10px;
+	margin-left: 430px; 
+	height: 130px;
+	font-size: 30px;
+	transform: scaleY(1.2);
+	-webkit-transform: scaleY(1.2);
+	-moz-transform: scaleY(1.2); 
+} 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/pdxseal150.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 10px;
+}
+
+#tb_clock { background-color: #000000; color: #FFFFFF }
+
+tr.odd { background-color: #EEEEEE; color: #000000 }
+tr.even { background-color: #FFFFFF; color: #000000 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+tr.odd td, tr.even td {
+	transform: scaleY(1.6);
+	-webkit-transform: scaleY(1.6);
+	-moz-transform: scaleY(1.6);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-family: Arial, sans-serif;
+}
+
+
+
+
+
+

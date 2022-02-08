@@ -1,0 +1,51 @@
+/*
+body::before {
+	background-image: url(/apps/assets/images/northrup_logo.jpg);
+  background-size: 375px 112px;
+	height: 150px;
+	width: 600px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  content: "";
+  
+}
+*/
+
+
+
+h1 {
+	font-size: 50px !important;
+}
+
+
+#tb_top {
+	margin-top: 0px;
+}
+
+#tb_bottom {
+	bottom: 20px !important;
+}
+
+/*
+#tb_top::before {
+	content: "";
+	height: 150px;
+	width: 100%;
+	background-image: url(/apps/assets/images/northrup_logo.jpg);
+  background-size: 375px 112px;
+  position: absolute;
+  top: -150px;
+  left: 0px;
+}
+*/
+
+#tb_top::before {
+    content: url(/apps/assets/images/northrup_logo_500.jpg);
+    height: 150px;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}
+
+

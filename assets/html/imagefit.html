@@ -1,0 +1,60 @@
+<html>
+	<head>
+	  <title></title>
+	  
+	  
+	  <script src="../js/libraries/jquery-1.11.0.js"></script>		
+		
+		<script>
+			window.onload = function() {
+		
+		  	$image = $('img#photo');
+		  	// load image
+		    setTimeout(function(){
+		        $image.attr('src',window.location.search.substring(1));  
+		        
+		        setTimeout(function(){       
+		        
+			        var css;
+						  var ratio=$image.width() / $image.height();
+						  var pratio = $image.parent().width() / $image.parent().height();
+						  console.log([ratio,pratio]);
+						  if (ratio<pratio) {
+						  	css={width:'auto', height: $image.parent().height()+"px"};
+						  } else { 
+						  	css={width: $image.parent().width()+"px", height:'auto'};
+						  }
+						  $image.css(css);
+						  
+						  // now use margins to centers
+						  setTimeout(function(){
+						  	var css;
+						  	if (ratio<pratio) {
+						  		diff = $image.parent().width() - $image.width();
+						  		css = {"margin-left": diff/2+"px"};
+						  		console.log("width differential:"+diff);
+						  	} else {
+						  		diff = $image.parent().height() - $image.height();
+						  		css = {"margin-top": diff/2+"px"};
+						  		console.log("height differential:"+diff);
+						  	}
+						  	$image.css(css);
+						  }, 1000);
+						}, 1000);
+		
+		    }, 2000);			
+				
+			}
+			
+	  
+	  </script>
+	
+	</head>
+	
+	
+	<body style="margin: 0">
+		<div id="photo_holder" style="height: 100%; width: 100%; background-color: white"><img id="photo"/></div>
+	</body>
+
+
+</html>

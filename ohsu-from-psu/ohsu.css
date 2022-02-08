@@ -1,0 +1,29 @@
+.box {width: 100%; height: 100%; text-align: center; 
+      color: #ffffff; margin-right: 50px;
+      font-family: DejaVuSansBold, sans-serif;
+      margin: 0; border: 0;
+     }
+.box .headsign, .box .also  { color: #ccc }
+.box .logo { text-align: left }
+.box .logo2 { margin-top: 25px; margin-right: 96px }
+.box .logo img { margin-left: 0 }
+#boxes div.box div.board span { color: #ccc }
+.boxodd { background-color: #004080 }
+.boxeven { background-color: #004080 }
+.mins { letter-spacing: 0px;  }
+.clear { clear: both; height: 0 }
+#boxes { overflow: hidden; }
+.marquee { font-family: DejaVuSansBold, sans-serif; }
+
+.mins { font-size: 3.2em; }
+.headsign { font-size: 1em; }
+.also { font-size: 1.1em; }
+.walking { font-size: 1.2em; }
+
+/* Hide the cursor */
+body { 
+	cursor: none; 
+	margin: 0; border: 0 ;
+	
+}
+

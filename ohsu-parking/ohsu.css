@@ -1,0 +1,51 @@
+.box {width: 100%; height: 100%; text-align: center; 
+      color: #ffffff; margin-right: 50px;
+      font-family: DejaVuSansBold, sans-serif;
+      margin: 0; border: 0;
+     }
+.box .headsign, .box .also  { color: #ccc }
+.box .logo { text-align: left }
+.box .logo img { margin-left: 0 }
+#boxes div.box div.board span { color: #ccc }
+.boxodd { background-color: #004080 }
+.boxeven { background-color: #004080 }
+.mins { line-height: 105%; letter-spacing: 0px }
+.clear { clear: both; }
+#boxes { overflow: hidden; }
+.marquee { font-family: DejaVuSansBold, sans-serif; }
+
+table#tb_bottom {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-spacing: 0;
+}
+
+table#tb_bottom td#tb_clock {
+	vertical-align: middle;
+	background-color: black;
+	color: white;
+	font-size: 3em;
+	padding: 0.25em;
+	font-weight: bold;
+	font-family: DejaVuSansBold, sans-serif;
+}
+
+table#tb_bottom td#tb_ticker {
+	width: 100%;
+	vertical-align: middle;
+	background-color: #ccc;
+	text-align: center;
+	font-size: 2em;
+	padding: 0.25em;
+	font-weight: bold;
+	font-family: DejaVuSansBold, sans-serif;
+}
+
+/* Hide the cursor */
+body { 
+	cursor: none; 
+	margin: 0; border: 0 ; padding: 0;
+	background-color: #000;
+}
+

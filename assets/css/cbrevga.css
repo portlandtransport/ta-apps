@@ -1,0 +1,43 @@
+h1 { 
+	margin-left: 490px; 
+	margin-top: 40px;
+	height: 100px;
+	transform: scaleY(1.2);
+	-webkit-transform: scaleY(1.2);
+	-moz-transform: scaleY(1.2); 
+	font-family: Arial, sans-serif;
+} 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/cbrelogo.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 0px;
+}
+
+#tb_clock { background-color: #016F54; color: #FFFFFF; font-family: Arial, sans-serif; }
+
+tr.odd { 
+	background-color: #016F54; 
+	color: #FFFFFF;
+}
+tr.even { 
+	background-color: #FFFFFF; 
+	color: #000000;
+}
+
+tr.odd td, tr.even td {
+	transform: scaleY(1.6);
+	-webkit-transform: scaleY(1.6);
+	-moz-transform: scaleY(1.6);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-family: Arial, sans-serif;
+}
+
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+
+
+

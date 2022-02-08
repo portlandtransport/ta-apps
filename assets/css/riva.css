@@ -1,0 +1,19 @@
+h1 { margin-left: 350px; height: 110px } 
+
+#tb_top {
+	padding-top: 30px;
+	background-image: url(../images/riva_logo.jpg);
+  background-repeat: no-repeat;
+  background-position: 20px 0px;
+}
+
+#tb_clock { background-color: #C7DD42; color: #FFFFFF }
+
+tr.odd { background-color: #C7DD42; color: #FFFFFF }
+tr.even { background-color: #FFFFFF; color: #000000 }
+
+#tb_opaque {  background-color: #FFFFFF; }
+
+
+
+
