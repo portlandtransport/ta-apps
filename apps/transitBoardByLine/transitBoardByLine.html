@@ -8,6 +8,27 @@
 			;NREUM.loader_config={accountID:"2942400",trustKey:"2942400",agentID:"594321722",licenseKey:"NRJS-e9247bbb19506362b7d",applicationID:"594321722"}
 			;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"NRJS-e9247bbb19506362b7d",applicationID:"594321722",sa:1}
 		</script>
+
+		<script>
+			<!-- extra parameters to pass to New Relic -->
+			function getParameterByName( name )
+				{
+				name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+				var regexS = "[\\?&]"+name+"=([^&#]*)";
+				var regex = new RegExp( regexS );
+				var results = regex.exec( window.location.href );
+				if( results == null )
+					return "";
+				else
+					return decodeURIComponent(results[1].replace(/\+/g, " "));
+				}
+			var applianceId = getParameterByName("appl[id]");
+			if (applianceId) {
+				console.log(applianceId);
+				newrelic.setCustomAttribute('applianceId', applianceId);
+			}
+			
+		</script>
 			
 		
 		<script src="../assets/js/libraries/head.min.js"></script>
