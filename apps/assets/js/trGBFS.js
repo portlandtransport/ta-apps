@@ -257,7 +257,11 @@ function trGBFS(options) {
 			  		cache: false,
 		    		success: gbfs_obj.station_status,
 					  error: function(XMLHttpRequest, textStatus, errorThrown) {
-					  	throw "GB1: error fetching GBFS station status";
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("GB1: error fetching GBFS station status");
+						} else {
+							throw "GB1: error fetching GBFS station status";
+						}
 					  }
 		    	});
 			  }
@@ -270,20 +274,24 @@ function trGBFS(options) {
     		dataType: 'json',
     		cache: false,
     		success: gbfs_obj.free_bike_status,
-  		  error: function(XMLHttpRequest, textStatus, errorThrown) {
-  		  	/* retry once before we throw an error */
-  	    	jQuery.ajax({
-  	    		url: gbfs_obj.feeds_object.free_bike_status,
-  	    		dataType: 'json',
-  		  		cache: false,
-  	    		success: gbfs_obj.free_bike_status,
-  				  error: function(XMLHttpRequest, textStatus, errorThrown) {
-  				  	throw "GB2: error fetching GBFS single bike status";
-  				  }
-  	    	});
-  		  }
-    	});
-    }
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				/* retry once before we throw an error */
+				jQuery.ajax({
+					url: gbfs_obj.feeds_object.free_bike_status,
+					dataType: 'json',
+					cache: false,
+					success: gbfs_obj.free_bike_status,
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("GB2: error fetching GBFS station status");
+						} else {
+							throw "GB2: error fetching GBFS station status";
+						}
+					}
+					});
+				}
+			});
+		}
 		
 	}
 	
