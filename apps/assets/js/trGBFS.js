@@ -283,9 +283,9 @@ function trGBFS(options) {
 					success: gbfs_obj.free_bike_status,
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						if (typeof newrelic === "object") {
-							newrelic.addPageAction("GB2: error fetching GBFS station status");
+							newrelic.addPageAction("GB2: error fetching GBFS bike status");
 						} else {
-							throw "GB2: error fetching GBFS station status";
+							throw "GB2: error fetching GBFS bike status";
 						}
 					}
 					});
