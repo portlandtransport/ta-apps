@@ -1172,7 +1172,7 @@ head.ready(function() {
 	}
 	
 	var bugsnag = getQueryVariable("option[bugsnag]") == false;
-	bugsnag = false;
+	bugsnag = true;
 	//console.log("bugsnag: "+bugsnag);
 	
 	// set up error handler if not on development site
