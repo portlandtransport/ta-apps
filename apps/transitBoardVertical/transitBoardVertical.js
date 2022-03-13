@@ -253,8 +253,13 @@ if (typeof options.platform === 'object') {
 jQuery.ajax({
 		dataType: transitBoardVertical.access_method,
 		url: "http://ta-web-services.com/health_update.php",
-		data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform }
-});
+		data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+		error: function(data) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("HC1: Startup not recorded");
+			}
+		}
+	});
 
 // logging of startup, beat every 30 min goes here
 setInterval(function(){
@@ -266,6 +271,11 @@ setInterval(function(){
 			success: function(data) {
 				if( typeof data != "undefined" && data.reset == true ) {
 					reset_app();
+				}
+			},
+			error: function(data) {
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("HC2: Health Check not recorded");
 				}
 			}
 	});
