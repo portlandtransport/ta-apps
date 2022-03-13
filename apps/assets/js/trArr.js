@@ -560,7 +560,12 @@ function trArr(input_params) {
 							jQuery.ajax({
 									dataType: access_method,
 									url: "//ta-web-services.com/health_update.php",
-									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform }
+									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+									error: function(data) {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("HC1: Startup not recorded");
+										}
+									}
 							});
 							
 							// logging of startup, beat every 30 minutes goes here
@@ -574,6 +579,11 @@ function trArr(input_params) {
 											if( typeof data != "undefined" && data.reset == true ) {
 												arrivals_object.reset_app();
 											}
+										},
+										error: function(data) {
+										  if (typeof newrelic === "object") {
+											  newrelic.addPageAction("HC2: Health Check not recorded");
+										  }
 										}
 								});
 							}, 30*60*1000); // 30 min
