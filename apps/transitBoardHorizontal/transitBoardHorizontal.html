@@ -27,7 +27,12 @@
 				console.log(applianceId);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 			}
-			
+			if (document.domain == "dev.transitboard.com") {
+				newrelic.setCustomAttribute('applianceTier', 'development');
+			} else {
+				newrelic.setCustomAttribute('applianceTier', 'production');
+			}
+			newrelic.setCustomAttribute('applianceApplication', 'TransitBoard Horizontal');		
 		</script>
 	
 		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>		
