@@ -1265,19 +1265,24 @@ head.ready(function() {
 	}
 
 	*/
+
+	if (typeof trArr != "function") {
+		console.log(typeof trArr);
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
+			location.reload();
+		}
+	}
 	
-	console.log("typeof trArr:");
-	console.log(typeof trArr);
-	
-  trArr({
-  	applicationName: 			transitBoardByLine.APP_NAME,
-  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-  	applicationId: 				transitBoardByLine.APP_ID,
-  	assetsDir:						"../assets",
-  	configString: 				window.location.search, // use the query string
-  	displayInterval: 			40*1000, //milliseconds
-  	initializeCallback: 	transitBoardByLine.initializePage,
-  	displayCallback: 			transitBoardByLine.displayPage
-  });
+	trArr({
+		applicationName: 			transitBoardByLine.APP_NAME,
+		applicationVersion: 	transitBoardByLine.APP_VERSION,
+		applicationId: 				transitBoardByLine.APP_ID,
+		assetsDir:						"../assets",
+		configString: 				window.location.search, // use the query string
+		displayInterval: 			40*1000, //milliseconds
+		initializeCallback: 	transitBoardByLine.initializePage,
+		displayCallback: 			transitBoardByLine.displayPage
+	});
 });
 				
