@@ -29,7 +29,7 @@ function localTime(epoch) {
 		t.setTimezone(timezone);
 		t.setTime(epoch);
 	}
-	catch {
+	catch (err) {
 		if (typeof newrelic === "object") {
 			newrelic.addPageAction("TR3: Timezone error, reloading page");
 			location.reload();
@@ -55,7 +55,7 @@ function timeInZone(zone, epoch) {
 		t.setTimezone(zone);
 		t.setTime(epoch);
 	}
-	catch {
+	catch (err) {
 		if (typeof newrelic === "object") {
 			newrelic.addPageAction("TR4: Timezone error, reloading page");
 			location.reload();
