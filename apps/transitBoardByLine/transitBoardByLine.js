@@ -1266,6 +1266,8 @@ head.ready(function() {
 
 	*/
 	
+	console.log("typeof trArr:");
+	console.log(typeof trArr);
 	
   trArr({
   	applicationName: 			transitBoardByLine.APP_NAME,
