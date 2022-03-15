@@ -56,6 +56,13 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trWeather.js"
 ];
 
+// make sure jQuery is loaded
+if (typeof jQuery != "function") {
+	console.log(typeof jQuery);
+}
+
+console.log("testing head");
+console.log(typeof head);
 
 (function () {
 
