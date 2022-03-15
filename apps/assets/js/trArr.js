@@ -23,9 +23,19 @@ function localTime(epoch) {
     // Local time
     if (epoch == undefined) { var epoch = new Date().getTime(); }
  
-    var t = new timezoneJS.Date();
-    t.setTimezone(timezone);
-    t.setTime(epoch);
+	var t;
+	try {
+		t = new timezoneJS.Date();
+		t.setTimezone(timezone);
+		t.setTime(epoch);
+	}
+	catch {
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("TR3: Timezone error, reloading page");
+			location.reload();
+		}
+	}
+
 
     return t;
 }
@@ -39,9 +49,19 @@ function timeInZone(zone, epoch) {
     // Local time
     if (epoch == undefined) { var epoch = new Date().getTime(); }
     
-    var t = new tzDate();
-    t.setTimezone(zone);
-    t.setTime(epoch);
+	var t;
+	try {
+		t = new tzDate();
+		t.setTimezone(zone);
+		t.setTime(epoch);
+	}
+	catch {
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("TR4: Timezone error, reloading page");
+			location.reload();
+		}
+	}
+
 
     return t;
 }
