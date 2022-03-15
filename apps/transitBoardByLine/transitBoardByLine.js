@@ -59,10 +59,23 @@ transitBoardByLine.dependencies = [
 // make sure jQuery is loaded
 if (typeof jQuery != "function") {
 	console.log(typeof jQuery);
+	if (typeof newrelic === "object") {
+		newrelic.addPageAction("TBL1: jQuery not loaded, reloading page");
+		location.reload();
+	}
 }
 
-console.log("testing head");
-console.log(typeof head);
+
+// make sure head library is loaded
+if (typeof head != "function") {
+	console.log(typeof head);
+	if (typeof newrelic === "object") {
+		newrelic.addPageAction("TBL2: head library not loaded, reloading page");
+		location.reload();
+	}
+}
+
+
 
 (function () {
 
@@ -1167,15 +1180,15 @@ head.ready(function() {
 	// early parsing of query string
 	
 	function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-    return "";
+		var query = window.location.search.substring(1);
+		var vars = query.split('&');
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split('=');
+			if (decodeURIComponent(pair[0]) == variable) {
+				return decodeURIComponent(pair[1]);
+			}
+		}
+		return "";
 	}
 	
 	var bugsnag = getQueryVariable("option[bugsnag]") == false;
@@ -1184,6 +1197,7 @@ head.ready(function() {
 	
 	// set up error handler if not on development site
 	
+	/*
 	if (!bugsnag) {
 		var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
 		if (transitBoardByLine.is_development) {
@@ -1239,6 +1253,7 @@ head.ready(function() {
 		
 		// throw new Error("Startup Event");
 	}
+
 	
 	if (bugsnag) {
 		var s = document.createElement("script");
@@ -1248,6 +1263,8 @@ head.ready(function() {
 		$("head").append(s);
 		console.log("appended bugsnag");
 	}
+
+	*/
 	
 	
   trArr({
