@@ -39,6 +39,16 @@
 		
 		<script src="../assets/js/libraries/head.min.js"></script>
 		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>		
+		<script>
+		// make sure jQuery is loaded
+		if (typeof jQuery != "function") {
+			console.log(typeof jQuery);
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TBL1: jQuery not loaded, reloading page");
+				location.reload();
+			}
+		}
+		</script>
 		<script src="../assets/js/libraries/jquery-migrate-1.2.1.js"></script>		
 		<script>jQuery.migrateMute = true;</script>
 		<script src="transitBoardByLine.js"></script>
