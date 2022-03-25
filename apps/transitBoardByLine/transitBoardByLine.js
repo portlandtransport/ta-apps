@@ -56,15 +56,6 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trWeather.js"
 ];
 
-// make sure jQuery is loaded
-if (typeof jQuery != "function") {
-	console.log(typeof jQuery);
-	if (typeof newrelic === "object") {
-		newrelic.addPageAction("TBL1: jQuery not loaded, reloading page");
-		location.reload();
-	}
-}
-
 
 // make sure head library is loaded
 if (typeof head != "function") {
