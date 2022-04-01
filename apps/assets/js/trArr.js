@@ -284,6 +284,9 @@ function trArr(input_params) {
 	// v1.16 - pass platform and user agent on health_update
 	// v1.17 - hooks for working with https
 	this.assets_dir = input_params.assetsDir || "assets";
+
+	alert('timezoneJS object:');
+	alert(typeof timezoneJS);
 	
 	timezoneJS.timezone.zoneFileBasePath = this.assets_dir + "/tz";
 	timezoneJS.timezone.init();
