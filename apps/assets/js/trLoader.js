@@ -600,7 +600,7 @@ function trLoader(hwid) {
     	
     	    if (i > VALIDATORS*10) {
     				wtolog('No validators responded correctly!');
-    				showError('validdown');
+    				showError('validdown', {});
     				return;
     	    }
     	
@@ -786,7 +786,7 @@ function trLoader(hwid) {
 	
 	    // Check to make sure the hardware ID was written
 	    if (typeof hwid == 'undefined') {
-				showError('nohwid');
+				showError('nohwid', {});
 				return false;
 	    }
 	    
