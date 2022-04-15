@@ -95,8 +95,8 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 		catch (err) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TR6: Timezone error, reloading page");
-				location.reload();
 			}
+			location.reload();
 		}
 	    updater.connection_health.unshift( { success: success_status, 'timestamp': timestamp } );
 		if (updater.connection_health.length > this.health_limit) {
