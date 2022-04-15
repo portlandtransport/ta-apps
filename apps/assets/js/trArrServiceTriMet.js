@@ -88,10 +88,20 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 	}	
 	
 	this.update_connection_health = function(success_status) {
-	    updater.connection_health.unshift( { success: success_status, timestamp: localTime().getTime() } );
-  	if (updater.connection_health.length > this.health_limit) {
-  		updater.connection_health.length = this.health_limit; // limit to last hour
-  	}
+		var timestamp;
+		try {
+			timestamp = localTime().getTime();
+		}
+		catch (err) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TR6: Timezone error, reloading page");
+			}
+			location.reload();
+		}
+	    updater.connection_health.unshift( { success: success_status, 'timestamp': timestamp } );
+		if (updater.connection_health.length > this.health_limit) {
+			updater.connection_health.length = this.health_limit; // limit to last hour
+		}
 	}
 	
 	this.trArrTriMetRequestLoop = function() {
