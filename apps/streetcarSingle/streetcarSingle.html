@@ -44,10 +44,15 @@
 				else
 					return decodeURIComponent(results[1].replace(/\+/g, " "));
 				}
-			var applianceId = getParameterByName("appl[id]");
+      var applianceId = getParameterByName("appl[id]");
+			var applianceParentName = getParameterByName("option[parentname]");
+			if (applianceParentName.length < 5) {
+				applianceParentName = applianceId;
+			}
 			if (applianceId) {
 				console.log(applianceId);
 				newrelic.setCustomAttribute('applianceId', applianceId);
+				newrelic.setCustomAttribute('applianceName', applianceParentName);
 			}
 			if (document.domain == "dev.transitboard.com") {
 				newrelic.setCustomAttribute('applianceTier', 'development');
