@@ -428,7 +428,7 @@ transitBoardByLine.initializePage = function(data) {
 
 	var timefill = '<span>10:08AMa<br><span class="second_arrival">2 min</span><span>';
 	if (transitBoardByLine.max_arrivals_size) {
-		timefill = '<span class="big_arrivals"><nobr>10:08AMa</nobr> <span class="second_arrival"><nobr>10:08AMa</nobr></span></span>';
+		timefill = '<span class="big_arrivals"><nobr>10:08AMa <span class="second_arrival">10:08AMa</span></nobr></span>';
 	}
 	html += '\
 </div>\
