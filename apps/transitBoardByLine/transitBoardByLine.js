@@ -440,7 +440,7 @@ transitBoardByLine.initializePage = function(data) {
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
 					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">"+timefill+"\
+					<td class="arrivals">'+timefill+'\
 					</td>\
 				</tr>\
 			</tbody>\
@@ -452,9 +452,7 @@ transitBoardByLine.initializePage = function(data) {
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
 					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">\
-							<span>10:08AMa<br>\
-							<span class="second_arrival">2 min</span><span>\
+					<td class="arrivals">'+timefill+'\
 					</td>\
 				</tr>\
 			</tbody>\
