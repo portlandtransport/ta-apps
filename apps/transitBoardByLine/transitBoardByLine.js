@@ -822,7 +822,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 		var trip_key = sorted_trip_keys[i];
 
 		if (transitBoardByLine.max_arrivals_size) {
-			var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0])";
+			var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0]);
 		} else {
 			var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0])+"<br><span class=\"second_arrival\">";
 			if (by_trip[trip_key].arrivals[1]) {
