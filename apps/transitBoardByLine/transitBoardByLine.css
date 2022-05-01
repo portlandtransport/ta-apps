@@ -153,7 +153,7 @@ table.trip_wrapper td.destination span.terminus {
 }
 
 table.trip_wrapper td.arrivals {
-	font-size: 2.4em;
+	font-size: 2.5em;
 	/*line-height: 90%;*/
 	font-weight: bold;
 	color: gold;
@@ -163,9 +163,11 @@ table.trip_wrapper td.arrivals {
   border: solid #333;
 }
 
+/*
 table.trip_wrapper td.arrivals span.big_arrivals {
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
+*/
 
 table.trip_wrapper td.route img {
 	height: 1em;
