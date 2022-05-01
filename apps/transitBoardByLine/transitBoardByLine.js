@@ -425,6 +425,11 @@ transitBoardByLine.initializePage = function(data) {
 </tr></table>\
 		';
 	}
+
+	var timefill = '<span>10:08AMa<br><span class="second_arrival">2 min</span><span>';
+	if (transitBoardByLine.max_arrivals_size) {
+		timefill = '<span class="big_arrivals"><nobr>20 min</nobr> <span class="second_arrival"><nobr>10:08AMa</nobr></span></span>';
+	}
 	html += '\
 </div>\
 <div id="tb_middle">\
@@ -435,9 +440,7 @@ transitBoardByLine.initializePage = function(data) {
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
 					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">\
-							<span>10:08AMa<br>\
-							<span class="second_arrival">2 min</span><span>\
+					<td class="arrivals">"+timefill+"\
 					</td>\
 				</tr>\
 			</tbody>\
