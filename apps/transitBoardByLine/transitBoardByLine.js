@@ -109,6 +109,7 @@ transitBoardByLine.weather = false;
 transitBoardByLine.suppress_scrolling = false;
 transitBoardByLine.alerts = false;
 transitBoardByLine.suppress_downtown_only = false;
+transitBoardByLine.max_arrivals_size = false;
 
 transitBoardByLine.platform = "";
 
@@ -310,6 +311,10 @@ transitBoardByLine.initializePage = function(data) {
 	
 	if (data.optionsConfig.suppress_downtown_only != undefined && data.optionsConfig.suppress_downtown_only[0] != undefined && data.optionsConfig.suppress_downtown_only[0] != "" && data.optionsConfig.suppress_downtown_only[0] != 0) {
 		transitBoardByLine.suppress_downtown_only = true;
+	}
+
+	if (data.optionsConfig.max_arrivals_size != undefined && data.optionsConfig.max_arrivals_size[0] != undefined && data.optionsConfig.max_arrivals_size[0] != "" && data.optionsConfig.max_arrivals_size[0] != 0) {
+		transitBoardByLine.max_arrivals_size = true;
 	}
 	
 	if (data.optionsConfig.minutes_limit != undefined && data.optionsConfig.minutes_limit[0] != undefined && data.optionsConfig.minutes_limit[0] != 0) {
@@ -815,11 +820,19 @@ transitBoardByLine.displayPage = function(data, callback) {
 	var trip_arrivals_html = {};
 	for (var i = 0; i < sorted_trip_keys.length; i++) {
 		var trip_key = sorted_trip_keys[i];
-		var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0])+"<br><span class=\"second_arrival\">";
-		if (by_trip[trip_key].arrivals[1]) {
-			trip_arrival += transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[1])+"</span>";
+
+		if (transitBoardByLine.max_arrivals_size){
+			var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0])+"<br><span class=\"second_arrival\">";
+			if (by_trip[trip_key].arrivals[1]) {
+				trip_arrival += transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[1])+"</span>";
+			}
 		} else {
-			trip_arrival += "&nbsp;</span>";
+			var trip_arrival = transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[0])+"<br><span class=\"second_arrival\">";
+			if (by_trip[trip_key].arrivals[1]) {
+				trip_arrival += transitBoardByLine.formatted_arrival_time(by_trip[trip_key].arrivals[1])+"</span>";
+			} else {
+				trip_arrival += "&nbsp;</span>";
+			}
 		}
 		
 		var trip_inner = '<tr valign="middle"><td class="route">'+by_trip[trip_key].arrivals[0].app_route_id+"</td>\n";
