@@ -164,7 +164,7 @@ table.trip_wrapper td.arrivals {
 }
 
 table.trip_wrapper td.arrivals span.big_arrivals {
-	font-size: 2.6em;
+	font-size: 2em;
 }
 
 table.trip_wrapper td.route img {
@@ -173,10 +173,6 @@ table.trip_wrapper td.route img {
 
 table.trip_wrapper td.arrivals span.second_arrival {
 	font-size: .7em;
-}
-
-table.trip_wrapper td.arrivals span.big_arrivals span.second_arrival {
-	font-size: 1.3em;
 }
 
 /* colors */
@@ -345,9 +341,11 @@ div.trip.service_color_gbfs div.destination_wrapper {
 	border-color: #FC4C02;
 }
 
+/*
 table.trip_wrapper tbody.service_color_gbfs td.route {
-	/*background-color: #343434;*/
+	background-color: #343434;
 }
+*/
 
 table.trip_wrapper tbody.service_color_gbfs td.route img {
 	height: 1.3em;
