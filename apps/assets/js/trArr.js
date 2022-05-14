@@ -586,9 +586,9 @@ function trArr(input_params) {
 									dataType: access_method,
 									url: "//ta-web-services.com/health_update.php",
 									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-									error: function(data) {
+									error: function(xhrObj,errorText,errorThrown) {
 										if (typeof newrelic === "object") {
-											newrelic.addPageAction("HC1: Startup not recorded");
+											newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
 										}
 									}
 							});
