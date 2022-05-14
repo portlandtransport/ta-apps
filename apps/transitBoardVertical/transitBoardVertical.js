@@ -139,7 +139,7 @@ var suppl_url 		= options.suppl_url;
 var suppl_loc			= options.suppl_loc;
 
 if (suppl_url == "") {
-	suppl_url = "http://transitappliance.com/size_info.html";
+	suppl_url = "//transitappliance.com/size_info.html";
 }
 
 var effective_width = body_width - left_border - right_border;
@@ -252,11 +252,11 @@ if (typeof options.platform === 'object') {
 
 jQuery.ajax({
 		dataType: transitBoardVertical.access_method,
-		url: "http://ta-web-services.com/health_update.php",
+		url: "//ta-web-services.com/health_update.php",
 		data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-		error: function(data) {
+		error: function(xhrObj,errorText,errorThrown) {
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("HC1: Startup not recorded");
+				newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
 			}
 		}
 	});
@@ -264,7 +264,7 @@ jQuery.ajax({
 // logging of startup, beat every 30 min goes here
 setInterval(function(){
 	jQuery.ajax({
-			url: "http://ta-web-services.com/health_update.php",
+			url: "//ta-web-services.com/health_update.php",
 			dataType: transitBoardVertical.access_method,
 			cache: false,
 			data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
@@ -273,9 +273,9 @@ setInterval(function(){
 					reset_app();
 				}
 			},
-			error: function(data) {
+			error: function(xhrObj,errorText,errorThrown) {
 				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC2: Health Check not recorded");
+					newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
 				}
 			}
 	});
@@ -287,7 +287,7 @@ var reset_app = function() {
 		if(typeof trLoader == 'function') {
 			trLoader(appliance['id']);
 		} else {
-			window.location = "http://transitappliance.com/cgi-bin/launch_by_id.pl?id="+appliance['id'];
+			window.location = "//transitappliance.com/cgi-bin/launch_by_id.pl?id="+appliance['id'];
 		}
 	} else {
 		window.location.reload(true);
