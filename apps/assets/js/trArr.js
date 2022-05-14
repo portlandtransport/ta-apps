@@ -605,10 +605,10 @@ function trArr(input_params) {
 												arrivals_object.reset_app();
 											}
 										},
-										error: function(data) {
-										  if (typeof newrelic === "object") {
-											  newrelic.addPageAction("HC2: Health Check not recorded");
-										  }
+										error: function(xhrObj,errorText,errorThrown) {
+											if (typeof newrelic === "object") {
+												newrelic.addPageAction("HC2: Health Check not recorded"",{'errorText': errorText, 'errorThrown': errorThrown});
+											}
 										}
 								});
 							}, 30*60*1000); // 30 min
