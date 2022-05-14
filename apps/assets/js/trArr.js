@@ -607,7 +607,7 @@ function trArr(input_params) {
 										},
 										error: function(xhrObj,errorText,errorThrown) {
 											if (typeof newrelic === "object") {
-												newrelic.addPageAction("HC2: Health Check not recorded"",{'errorText': errorText, 'errorThrown': errorThrown});
+												newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
 											}
 										}
 								});
