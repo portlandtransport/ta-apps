@@ -346,7 +346,8 @@
     sortBy : 'original-order',
     sortAscending : true,
     resizesContainer : true,
-    transformsEnabled: !$.browser.opera, // disable transforms in Opera
+    transformsEnabled: true, // overriden for transit board purposes
+    // transformsEnabled: !$.browser.opera, // disable transforms in Opera
     itemPositionDataEnabled: false
   };
 
