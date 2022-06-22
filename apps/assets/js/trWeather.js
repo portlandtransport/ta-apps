@@ -71,7 +71,7 @@
 						dataType: "jsonp",
 						success: function(data){
 							if (typeof newrelic === "object") {
-								newrelic.addPageAction("WE0: Weather request",{'errorText': errorText, 'errorThrown': errorThrown});
+								newrelic.addPageAction("WE0: Weather request");
 							}
 							if (data.minutely) {
 								weather.summary = data.minutely.summary;
