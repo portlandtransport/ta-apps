@@ -70,6 +70,9 @@
 						url: weather_url,
 						dataType: "jsonp",
 						success: function(data){
+							if (typeof newrelic === "object") {
+								newrelic.addPageAction("WE0: Weather request");
+							}
 							if (data.minutely) {
 								weather.summary = data.minutely.summary;
 								weather.temperature = Math.floor(data.currently.temperature + 0.5)+"&deg;";
@@ -80,6 +83,11 @@
 								weather.temperature = Math.floor(data.currently.temperature + 0.5)+"&deg;";
 								weather.icon = data.currently.icon;
 								weather.timestamp = new Date();
+							}
+						},
+						error: function(xhrObj,errorText,errorThrown) {
+							if (typeof newrelic === "object") {
+								newrelic.addPageAction("WE1: Failure on weather request",{'errorText': errorText, 'errorThrown': errorThrown});
 							}
 						}
 
