@@ -319,6 +319,27 @@ div.trip.tbody.route_293 div.destination_wrapper {
 	color: black;
 }
 
+table.trip_wrapper tbody.route_2a td.route,
+table.trip_wrapper tbody.route_2a td.destination,
+table.trip_wrapper tbody.route_2a td.destination div,
+div.trip.tbody.route_2a div.route_wrapper, 
+div.trip.tbody.route_2a div.destination_wrapper {
+	background-color: #61A6OE;
+	border-color: #61A6OE;;
+	color: white;
+}
+
+table.trip_wrapper tbody.route_2a td.route,
+table.trip_wrapper tbody.route_2a td.destination,
+table.trip_wrapper tbody.route_2a td.destination div,
+div.trip.tbody.route_2a div.route_wrapper, 
+div.trip.tbody.route_2a div.destination_wrapper {
+	background-color: #61A6OE;
+	border-color: #61A6OE;;
+	color: white;
+}
+
+
 
 
 table.trip_wrapper tbody.service_color_car2go td.route,
