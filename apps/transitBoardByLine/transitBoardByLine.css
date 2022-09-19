@@ -324,8 +324,8 @@ table.trip_wrapper tbody.route_2a td.destination,
 table.trip_wrapper tbody.route_2a td.destination div,
 div.trip.tbody.route_2a div.route_wrapper, 
 div.trip.tbody.route_2a div.destination_wrapper {
-	background-color: #61A6OE;
-	border-color: #61A6OE;;
+	background-color: #61A60E;
+	border-color: #61A60E;
 	color: white;
 }
 
@@ -334,13 +334,10 @@ table.trip_wrapper tbody.route_2 td.destination,
 table.trip_wrapper tbody.route_2 td.destination div,
 div.trip.tbody.route_2 div.route_wrapper, 
 div.trip.tbody.route_2 div.destination_wrapper {
-	background-color: #61A6OE;
-	border-color: #61A6OE;;
+	background-color: #61A60E;
+	border-color: #61A60E;
 	color: white;
 }
-
-
-
 
 table.trip_wrapper tbody.service_color_car2go td.route,
 table.trip_wrapper tbody.service_color_car2go td.destination,
