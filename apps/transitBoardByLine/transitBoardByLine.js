@@ -52,7 +52,7 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trArr.js",
 		"../assets/js/libraries/jquery.isotope.js",
 		"../assets/js/trCar2Go.js",
-		//"../assets/js/trGBFS.js",
+		"../assets/js/trGBFS.js",
 		"../assets/js/trWeather.js"
 ];
 
@@ -243,6 +243,7 @@ transitBoardByLine.initializePage = function(data) {
 				  free_bikes = data.optionsConfig.include_free_bikes[0];
 				}
 				if (transitBoardByLine.gbfs != 0 ) {
+					console.log(typeoff trGBFS);
 					transitBoardByLine.bikes = new trGBFS({
 						lat: data.optionsConfig.lat[0],
 						lng: data.optionsConfig.lng[0],
