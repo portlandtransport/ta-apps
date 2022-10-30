@@ -52,7 +52,7 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trArr.js",
 		"../assets/js/libraries/jquery.isotope.js",
 		"../assets/js/trCar2Go.js",
-		"../assets/js/trGBFS.js",
+		//"../assets/js/trGBFS.js",
 		"../assets/js/trWeather.js"
 ];
 
@@ -251,8 +251,14 @@ transitBoardByLine.initializePage = function(data) {
 						include_free_bikes: free_bikes
 					});
 					// ToDo: test for failure of object creation
-					console.log(transitBoardByLine.bikes);
-					console.log(typeof transitBoardByLine.bikes);
+					if (typeof transitBoardByLine.bikes != "object") {
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("GB3: error failure to create GBFS object");
+						} else {
+							throw "GB3: error failure to create GBFS object";
+						}
+
+					}
 				}
 			}
 		}
