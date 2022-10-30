@@ -39,7 +39,7 @@ transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/tracekit.js",
+		// "../assets/js/tracekit.js",
 		"../assets/js/libraries/fleegix.js",
 		"../assets/js/libraries/tzdate.js",
 		"../assets/js/libraries/jquery-ui-1.8.7.custom.min.js",	
@@ -243,13 +243,24 @@ transitBoardByLine.initializePage = function(data) {
 				  free_bikes = data.optionsConfig.include_free_bikes[0];
 				}
 				if (transitBoardByLine.gbfs != 0 ) {
-					transitBoardByLine.bikes = new trGBFS({
-						lat: data.optionsConfig.lat[0],
-						lng: data.optionsConfig.lng[0],
-						loc: 'http://gbfs.biketownpdx.com/gbfs/gbfs.json',
-						num_locations: transitBoardByLine.gbfs,
-						include_free_bikes: free_bikes
-					});
+					if (typeof trGBFS != "function") {
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("GB3: unable to create GBFS object");
+						} else {
+							throw "GB3: unable to create GBFS object";
+						}
+						setTimeout(function(){
+							window.location.reload();
+						},5000);
+					} else {
+						transitBoardByLine.bikes = new trGBFS({
+							lat: data.optionsConfig.lat[0],
+							lng: data.optionsConfig.lng[0],
+							loc: 'http://gbfs.biketownpdx.com/gbfs/gbfs.json',
+							num_locations: transitBoardByLine.gbfs,
+							include_free_bikes: free_bikes
+						});
+					}
 				}
 			}
 		}
