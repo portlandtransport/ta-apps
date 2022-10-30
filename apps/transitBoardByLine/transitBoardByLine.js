@@ -39,7 +39,7 @@ transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/tracekit.js",
+		// "../assets/js/tracekit.js",
 		"../assets/js/libraries/fleegix.js",
 		"../assets/js/libraries/tzdate.js",
 		"../assets/js/libraries/jquery-ui-1.8.7.custom.min.js",	
@@ -250,6 +250,9 @@ transitBoardByLine.initializePage = function(data) {
 						num_locations: transitBoardByLine.gbfs,
 						include_free_bikes: free_bikes
 					});
+					// ToDo: test for failure of object creation
+					console.log(transitBoardByLine.bikes);
+					console.log(typeof transitBoardByLine.bikes);
 				}
 			}
 		}
