@@ -249,7 +249,9 @@ transitBoardByLine.initializePage = function(data) {
 						} else {
 							throw "GB3: unable to create GBFS object";
 						}
-
+						setTimeout(function(){
+							window.location.reload();
+						},5000);
 					} else {
 						transitBoardByLine.bikes = new trGBFS({
 							lat: data.optionsConfig.lat[0],
