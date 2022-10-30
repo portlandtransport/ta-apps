@@ -243,7 +243,7 @@ transitBoardByLine.initializePage = function(data) {
 				  free_bikes = data.optionsConfig.include_free_bikes[0];
 				}
 				if (transitBoardByLine.gbfs != 0 ) {
-					console.log(typeoff trGBFS);
+					console.log(typeof trGBFS);
 					transitBoardByLine.bikes = new trGBFS({
 						lat: data.optionsConfig.lat[0],
 						lng: data.optionsConfig.lng[0],
