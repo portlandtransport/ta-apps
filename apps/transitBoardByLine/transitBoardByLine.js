@@ -52,7 +52,7 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trArr.js",
 		"../assets/js/libraries/jquery.isotope.js",
 		"../assets/js/trCar2Go.js",
-		"../assets/js/trGBFS.js",
+		//"../assets/js/trGBFS.js",
 		"../assets/js/trWeather.js"
 ];
 
