@@ -1,4 +1,4 @@
-			function trWeather(options) {
+			function trWeather(options) { 
 				
 				// ensure this is called as constructor
 				
