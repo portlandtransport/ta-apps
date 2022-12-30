@@ -412,7 +412,7 @@ transitBoardByLine.initializePage = function(data) {
 		transitBoardByLine.standing_messages.push("<span>"+data.agencyCache.agencyData(agency).rights_notice+"</span>");
 	}
 	if (transitBoardByLine.weather) {
-		transitBoardByLine.standing_messages.push("<span>Weather Powered by Dark Sky</span>");
+		transitBoardByLine.standing_messages.push("<span>Weather Powered by Weather API</span>");
 	}
 	transitBoardByLine.standing_messages.push("<span>HH:MM = scheduled arrival, real-time estimate unavailable.</span>");
 		
