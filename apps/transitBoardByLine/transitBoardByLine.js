@@ -53,7 +53,8 @@ transitBoardByLine.dependencies = [
 		"../assets/js/libraries/jquery.isotope.js",
 		"../assets/js/trCar2Go.js",
 		"../assets/js/trGBFS.js",
-		"../assets/js/trWeather.js"
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trWeatherAPI.js"
 ];
 
 
@@ -411,7 +412,7 @@ transitBoardByLine.initializePage = function(data) {
 		transitBoardByLine.standing_messages.push("<span>"+data.agencyCache.agencyData(agency).rights_notice+"</span>");
 	}
 	if (transitBoardByLine.weather) {
-		transitBoardByLine.standing_messages.push("<span>Weather Powered by Dark Sky</span>");
+		transitBoardByLine.standing_messages.push("<span>Weather Powered by WeatherAPI.com</span>");
 	}
 	transitBoardByLine.standing_messages.push("<span>HH:MM = scheduled arrival, real-time estimate unavailable.</span>");
 		
