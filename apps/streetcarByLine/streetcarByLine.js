@@ -123,7 +123,7 @@ streetcarByLine.initializePage = function(data) {
 		}
 	}
 	
-	if (data.optionsConfig != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
+	if (false && data.optionsConfig != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
 		if (data.optionsConfig.lng != undefined && data.optionsConfig.lng[0] != undefined) {
 			streetcarByLine.gbfs = 1;
 			streetcarByLine.bikes = new trGBFS({
