@@ -15,9 +15,14 @@ function trGBFS(options) {
 	//this.gbfs_feed = "//gbfs.biketownpdx.com/gbfs/gbfs.json";
 	// as of August 2023 use the below per Steve Hoyt-McBeth
 	this.gbfs_feed = "https://gbfs.lyft.com/gbfs/2.3/pdx/gbfs.json";
+
+	/* initializations */
+
+	this.gbfs_feed_retry_period = 5*60*1000; // start at 5 minutes, double on each retry
+	this.gbfs_feed_proxy_prefix = "https://proxy.cors.sh/";
+	this.gbfs_feed_proxy_key = "temp_868b7a9b8d940b1709af818d20500f61";
 	
 	this.address_cache = {};
-	this.station_info = {};
 	this.station_locations = [];
 	this.free_locations = [];
 	
@@ -254,7 +259,10 @@ function trGBFS(options) {
 
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
     	jQuery.ajax({
-    		url: gbfs_obj.feeds_object.station_status,
+			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
+			headers: {
+				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_prefix,
+			  },
     		dataType: 'json',
 	  		cache: false,
     		success: gbfs_obj.station_status,
@@ -279,7 +287,10 @@ function trGBFS(options) {
     
 	  if (gbfs_obj.include_free_bikes == 1) {
     	jQuery.ajax({
-    		url: gbfs_obj.feeds_object.free_bike_status,
+			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
+			headers: {
+				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_prefix,
+			  },
     		dataType: 'json',
     		cache: false,
     		success: gbfs_obj.free_bike_status,
@@ -304,16 +315,14 @@ function trGBFS(options) {
 		
 	}
 	
-	/* initializations */
-	
-	this.gbfs_feed_retry_period = 5*60*1000; // start at 5 minutes, double on each retry
+
 	
 	
 	function initialize_feeds() {
 		jQuery.ajax({
-			url: "https://proxy.cors.sh/"+gbfs_obj.gbfs_feed,
+			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.gbfs_feed,
 			headers: {
-				'x-cors-api-key': 'temp_868b7a9b8d940b1709af818d20500f61',
+				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_prefix,
 			  },
 			dataType: 'json',
 			cache: false,
@@ -347,7 +356,10 @@ function trGBFS(options) {
 		
 		if (gbfs_obj.feeds_object.station_information) {
     	jQuery.ajax({
-    		url: gbfs_obj.feeds_object.station_information,
+			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_information,
+			headers: {
+				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_prefix,
+			  },
     		dataType: 'json',
 	  		cache: false,
     		success: initialize_stations,
