@@ -20,7 +20,7 @@ function trGBFS(options) {
 
 	this.gbfs_feed_retry_period = 5*60*1000; // start at 5 minutes, double on each retry
 	this.gbfs_feed_proxy_prefix = "https://proxy.cors.sh/";
-	this.gbfs_feed_proxy_key = "temp_868b7a9b8d940b1709af818d20500f61";
+	this.gbfs_feed_proxy_key = trCorsCredentials('CorsAPI');
 	
 	this.address_cache = {};
 	this.station_locations = [];

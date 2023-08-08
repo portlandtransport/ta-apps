@@ -1,5 +1,6 @@
-# ignore firebase credentials
+# ignore credentials
 apps/assets/js/trWeatherCredentials.js
+apps/assets/js/trCorsCredentials.js
 
 # ignore log files and databases
 *.log

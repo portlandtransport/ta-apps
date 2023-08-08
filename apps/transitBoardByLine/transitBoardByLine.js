@@ -54,6 +54,7 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trCar2Go.js",
 		"../assets/js/trGBFS.js",
 		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trCorsCredentials.js",
 		"../assets/js/trWeatherAPI.js"
 ];
 
