@@ -5,10 +5,19 @@ function trGBFS(options) {
 	if (!(this instanceof trGBFS)) {
 		return new trGBFS(options);
 	}
+
+
 	
 	var gbfs_obj = this;
+
+	// feed history
+	//this.gbfs_feed = "http://biketownpdx.socialbicycles.com/opendata/gbfs.json";
+	//this.gbfs_feed = "//gbfs.biketownpdx.com/gbfs/gbfs.json";
+	// as of August 2023 use the below per Steve Hoyt-McBeth
+	this.gbfs_feed = "https://gbfs.lyft.com/gbfs/2.3/pdx/gbfs.json";
 	
 	this.address_cache = {};
+	this.station_info = {};
 	this.station_locations = [];
 	this.free_locations = [];
 	
@@ -297,8 +306,6 @@ function trGBFS(options) {
 	
 	/* initializations */
 	
-	//this.gbfs_feed = "http://biketownpdx.socialbicycles.com/opendata/gbfs.json";
-	this.gbfs_feed = "//gbfs.biketownpdx.com/gbfs/gbfs.json";
 	this.gbfs_feed_retry_period = 5*60*1000; // start at 5 minutes, double on each retry
 	
 	
