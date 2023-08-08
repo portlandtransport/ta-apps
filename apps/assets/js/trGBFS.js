@@ -312,6 +312,9 @@ function trGBFS(options) {
 	function initialize_feeds() {
 		jQuery.ajax({
 			url: "https://proxy.cors.sh/"+gbfs_obj.gbfs_feed,
+			headers: {
+				'x-cors-api-key': 'temp_868b7a9b8d940b1709af818d20500f61',
+			  },
 			dataType: 'json',
 			cache: false,
 			success: initialize_gbfs,
