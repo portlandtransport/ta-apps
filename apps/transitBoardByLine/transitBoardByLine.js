@@ -236,7 +236,7 @@ transitBoardByLine.initializePage = function(data) {
 	
 	// initialize GBFS object if needed
 	
-	if (data.optionsConfig != undefined && data.optionsConfig.gbfstest != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
+	if (location.hostname.match(/transitboard/) !== null && data.optionsConfig != undefined && data.optionsConfig.gbfstest != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
 		if (data.optionsConfig.lng != undefined && data.optionsConfig.lng[0] != undefined) {
 			if (data.optionsConfig.gbfs != undefined && data.optionsConfig.gbfs[0] != undefined) {
 				transitBoardByLine.gbfs = data.optionsConfig.gbfs[0];
