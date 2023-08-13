@@ -389,7 +389,7 @@ function trGBFS(options) {
 		
 		gbfs_obj.update_locations();
 	
-		setInterval(function() {gbfs_obj.update_locations()}, 60*1000); // update every minute
+		setInterval(function() {gbfs_obj.update_locations()}, 2*60*1000); // update every two minutes
 	}
 
 
