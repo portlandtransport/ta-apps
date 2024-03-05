@@ -258,58 +258,58 @@ function trGBFS(options) {
 		gbfs_obj.flush_cache();
 
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
-    	jQuery.ajax({
-			//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
-			url: gbfs_obj.feeds_object.station_status,
-			/*headers: {
-				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-			  },*/
-    		dataType: 'json',
-	  		cache: false,
-    		success: gbfs_obj.station_status,
-			  error: function(XMLHttpRequest, textStatus, errorThrown) {
-			  	/* retry once before we throw an error */
-		    	jQuery.ajax({
-		    		url: gbfs_obj.feeds_object.station_status,
-		    		dataType: 'json',
-			  		cache: false,
-		    		success: gbfs_obj.station_status,
-					  error: function(XMLHttpRequest, textStatus, errorThrown) {
-						if (typeof newrelic === "object") {
-							newrelic.addPageAction("GB1: error fetching GBFS station status");
-						} else {
-							throw "GB1: error fetching GBFS station status";
+			jQuery.ajax({
+				//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
+				url: gbfs_obj.feeds_object.station_status,
+				/*headers: {
+					'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
+				},*/
+				dataType: 'json',
+				cache: false,
+				success: gbfs_obj.station_status,
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					/* retry once before we throw an error */
+					jQuery.ajax({
+						url: gbfs_obj.feeds_object.station_status,
+						dataType: 'json',
+						cache: false,
+						success: gbfs_obj.station_status,
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							if (typeof newrelic === "object") {
+								newrelic.addPageAction("GB1: error fetching GBFS station status");
+							} else {
+								throw "GB1: error fetching GBFS station status";
+							}
 						}
-					  }
-		    	});
-			  }
-    	});
-    }
+					});
+				}
+			});
+    	}
     
-	  if (gbfs_obj.include_free_bikes == 1) {
-    	jQuery.ajax({
-			//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
-			url: feeds_object.free_bike_status,
-			/*headers: {
-				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-			  },*/
-    		dataType: 'json',
-    		cache: false,
-    		success: gbfs_obj.free_bike_status,
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				/* retry once before we throw an error */
-				jQuery.ajax({
-					url: gbfs_obj.feeds_object.free_bike_status,
-					dataType: 'json',
-					cache: false,
-					success: gbfs_obj.free_bike_status,
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						if (typeof newrelic === "object") {
-							newrelic.addPageAction("GB2: error fetching GBFS bike status");
-						} else {
-							throw "GB2: error fetching GBFS bike status";
+		if (gbfs_obj.include_free_bikes == 1 && typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.free_bike_status ) {
+			jQuery.ajax({
+				//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
+				url: feeds_object.free_bike_status,
+				/*headers: {
+					'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
+				},*/
+				dataType: 'json',
+				cache: false,
+				success: gbfs_obj.free_bike_status,
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					/* retry once before we throw an error */
+					jQuery.ajax({
+						url: gbfs_obj.feeds_object.free_bike_status,
+						dataType: 'json',
+						cache: false,
+						success: gbfs_obj.free_bike_status,
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							if (typeof newrelic === "object") {
+								newrelic.addPageAction("GB2: error fetching GBFS bike status");
+							} else {
+								throw "GB2: error fetching GBFS bike status";
+							}
 						}
-					}
 					});
 				}
 			});
