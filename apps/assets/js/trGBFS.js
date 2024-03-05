@@ -259,10 +259,11 @@ function trGBFS(options) {
 
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
     	jQuery.ajax({
-			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
-			headers: {
+			//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
+			url: gbfs_obj.feeds_object.station_status,
+			/*headers: {
 				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-			  },
+			  },*/
     		dataType: 'json',
 	  		cache: false,
     		success: gbfs_obj.station_status,
@@ -287,10 +288,11 @@ function trGBFS(options) {
     
 	  if (gbfs_obj.include_free_bikes == 1) {
     	jQuery.ajax({
-			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
-			headers: {
+			//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
+			url: feeds_object.free_bike_status,
+			/*headers: {
 				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-			  },
+			  },*/
     		dataType: 'json',
     		cache: false,
     		success: gbfs_obj.free_bike_status,
@@ -357,10 +359,11 @@ function trGBFS(options) {
 		
 		if (gbfs_obj.feeds_object.station_information) {
     	jQuery.ajax({
-			url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_information,
-			headers: {
+			//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_information,
+			url: gbfs_obj.feeds_object.station_information,
+			/*headers: {
 				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-			  },
+			  },*/
     		dataType: 'json',
 	  		cache: false,
     		success: initialize_stations,
