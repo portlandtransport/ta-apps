@@ -323,8 +323,7 @@ function trGBFS(options) {
 			// url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.gbfs_feed,
 			url: gbfs_obj.gbfs_feed,
 			headers: {
-				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
-				'Origin': 'https://dev.transitboard.com'
+				'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key
 			  },
 			dataType: 'json',
 			cache: false,
