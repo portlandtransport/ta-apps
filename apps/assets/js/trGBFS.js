@@ -257,6 +257,8 @@ function trGBFS(options) {
 	this.update_locations = function() {
 		gbfs_obj.flush_cache();
 
+		console.log("feeds object: "+typeof gbfs_obj.feeds_object);
+
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
 			jQuery.ajax({
 				//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
@@ -353,7 +355,7 @@ function trGBFS(options) {
 		gbfs_obj.feeds_object = {};
 		gbfs_obj.free_bikes =[];
 		var feeds_array = data.data.en.feeds;
-	  for (var i = 0; i < feeds_array.length; i++) {
+		for (var i = 0; i < feeds_array.length; i++) {
 			gbfs_obj.feeds_object[feeds_array[i].name] = feeds_array[i].url;
 		}
 		
