@@ -258,6 +258,8 @@ function trGBFS(options) {
 		gbfs_obj.flush_cache();
 
 		console.log("feeds object: "+typeof gbfs_obj.feeds_object);
+		console.log(gbfs_obj.feeds_object.station_status);
+		console.log(gbfs_obj.feeds_object.free_bike_status);
 
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
 			jQuery.ajax({
@@ -382,12 +384,12 @@ function trGBFS(options) {
 	
 	function initialize_stations(data) {
 		gbfs_obj.stations = data.data.stations;
-	  for (var i = 0; i < gbfs_obj.stations.length; i++) {
+		for (var i = 0; i < gbfs_obj.stations.length; i++) {
 			gbfs_obj.stations[i].distance = gbfs_obj.distance([gbfs_obj.stations[i].lon,gbfs_obj.stations[i].lat]);
 		}
 		
 		gbfs_obj.stations.sort(function(a, b) {
-    	return a.distance - b.distance;
+    		return a.distance - b.distance;
 		});
 		//console.table(gbfs_obj.stations);
 		
