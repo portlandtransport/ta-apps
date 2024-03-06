@@ -293,7 +293,7 @@ function trGBFS(options) {
 		if (gbfs_obj.include_free_bikes == 1 && typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.free_bike_status ) {
 			jQuery.ajax({
 				//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.free_bike_status,
-				url: feeds_object.free_bike_status,
+				url: gbfs_obj.feeds_object.free_bike_status,
 				/*headers: {
 					'x-cors-api-key': gbfs_obj.gbfs_feed_proxy_key,
 				},*/
