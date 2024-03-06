@@ -257,10 +257,6 @@ function trGBFS(options) {
 	this.update_locations = function() {
 		gbfs_obj.flush_cache();
 
-		console.log("feeds object: "+typeof gbfs_obj.feeds_object);
-		console.log(gbfs_obj.feeds_object.station_status);
-		console.log(gbfs_obj.feeds_object.free_bike_status);
-
 		if (typeof gbfs_obj.feeds_object === "object" && gbfs_obj.feeds_object.station_status) {
 			jQuery.ajax({
 				//url: gbfs_obj.gbfs_feed_proxy_prefix+gbfs_obj.feeds_object.station_status,
