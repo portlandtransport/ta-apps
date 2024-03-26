@@ -127,12 +127,16 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			"12": 5,
 			"14": 5,
 			"15": 5,
+			"17": 5,
+			"20": 5,
 			"33": 5,
+			"48": 5,
 			"54": 5,
-			"56": 5,
 			"57": 5,
 			"72": 5,
-			"75": 5
+			"73": 5,
+			"75": 5,
+			"76": 5
 		}
 		
 		updater.process_results = function(data) {
@@ -179,6 +183,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
+					entry.headsign = entry.headsign.replace("WES Commuter Rail","WES");
 					entry.stop_id = arrival.locid;
 					var stop_data = trStopCache().stopData('TriMet',entry.stop_id);
 					entry.stop_data = copyStopData(stop_data);
