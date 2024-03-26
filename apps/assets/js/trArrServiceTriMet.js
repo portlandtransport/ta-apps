@@ -127,12 +127,16 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			"12": 5,
 			"14": 5,
 			"15": 5,
+			"17": 5,
+			"20": 5,
 			"33": 5,
+			"48": 5,
 			"54": 5,
-			"56": 5,
 			"57": 5,
 			"72": 5,
-			"75": 5
+			"73": 5,
+			"75": 5,
+			"76": 5
 		}
 		
 		updater.process_results = function(data) {
@@ -186,6 +190,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					for (var j = 0; j < stop_data.routes.length; j++){
 						if (stop_data.routes[j].route_id == entry.route_id) {
 							entry.route_data = stop_data.routes[j];
+							entry.route_data.route_long_name = entry.route_data.route_long_name.replace("WES Commuter Rail","WES");
 							if (serviceClasses[entry.route_id]) {
 								entry.route_data.service_class = serviceClasses[entry.route_id];
 							} else {
