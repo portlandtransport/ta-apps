@@ -183,7 +183,6 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
-					entry.headsign = entry.headsign.replace("WES Commuter Rail","WES");
 					entry.stop_id = arrival.locid;
 					var stop_data = trStopCache().stopData('TriMet',entry.stop_id);
 					entry.stop_data = copyStopData(stop_data);
@@ -191,6 +190,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					for (var j = 0; j < stop_data.routes.length; j++){
 						if (stop_data.routes[j].route_id == entry.route_id) {
 							entry.route_data = stop_data.routes[j];
+							entry.route_data.route_long_name = entry.route_data.route_long_name.replace("WES Commuter Rail","WES");
 							if (serviceClasses[entry.route_id]) {
 								entry.route_data.service_class = serviceClasses[entry.route_id];
 							} else {
