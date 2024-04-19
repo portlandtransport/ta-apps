@@ -39,6 +39,7 @@
 						function (data) {
 							newrelic.setCustomAttribute('applianceId', data.ip);
 							newrelic.setCustomAttribute('applianceName', data.ip);
+							console.log(data.ip);
 						})
 				});
 			}
