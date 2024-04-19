@@ -32,6 +32,15 @@
 				console.log(applianceId);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 				newrelic.setCustomAttribute('applianceName', applianceParentName);
+			} else {
+				/* get the IP Address of user */
+        		jQuery(document).ready(()=>{
+					$.getJSON("https://api.ipify.org?format=json",
+						function (data) {
+							newrelic.setCustomAttribute('applianceId', data.ip);
+							newrelic.setCustomAttribute('applianceName', data.ip);
+						})
+				});
 			}
 			if (document.domain == "dev.transitboard.com") {
 				newrelic.setCustomAttribute('applianceTier', 'development');
