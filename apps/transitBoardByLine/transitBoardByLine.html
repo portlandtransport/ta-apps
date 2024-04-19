@@ -9,6 +9,9 @@
 			;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"NRJS-e9247bbb19506362b7d",applicationID:"594321722",sa:1}
 		</script>
 
+		<script src="../assets/js/libraries/head.min.js"></script>
+		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>	
+
 		<script>
 			// extra parameters to pass to New Relic 
 			function getParameterByName( name )
@@ -27,10 +30,20 @@
 			if (applianceParentName.length < 5) {
 				applianceParentName = applianceId;
 			}
-			if (applianceId) {
-				console.log(applianceId);
+			if (applianceId.length > 0) {
+				console.log("Appliance ID: "+applianceId+" "+applianceId.length);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 				newrelic.setCustomAttribute('applianceName', applianceParentName);
+			} else {
+				/* get the IP Address of user */
+        		jQuery(document).ready(()=>{
+					$.getJSON("https://api.ipify.org?format=json",
+						function (data) {
+							newrelic.setCustomAttribute('applianceId', data.ip);
+							newrelic.setCustomAttribute('applianceName', data.ip);
+							console.log("Appliance IP: "+data.ip);
+						})
+				});
 			}
 			if (document.domain == "dev.transitboard.com") {
 				newrelic.setCustomAttribute('applianceTier', 'development');
@@ -42,8 +55,7 @@
 		</script>
 			
 		
-		<script src="../assets/js/libraries/head.min.js"></script>
-		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>		
+	
 		<script>
 		// make sure jQuery is loaded
 		if (typeof jQuery != "function") {
