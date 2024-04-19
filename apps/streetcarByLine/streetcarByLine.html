@@ -29,7 +29,7 @@
 				applianceParentName = applianceId;
 			}
 			if (typeof applianceId !== "undefined") {
-				console.log("Appliance ID: "+applianceId);
+				console.log("Appliance ID: "+applianceId+" "+applianceId.length);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 				newrelic.setCustomAttribute('applianceName', applianceParentName);
 			} else {
