@@ -10,6 +10,16 @@
 			;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"NRJS-e9247bbb19506362b7d",applicationID:"594321722",sa:1}
 		</script>
 
+
+		
+		<!--#config timefmt="%s" -->
+		<script src="../assets/js/tracekit.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
+		<script src="../assets/js/trLoader.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>	
+		<script src="../assets/js/libraries/jquery-1.11.0.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>			
+		<script src="../assets/js/libraries/jquery-migrate-1.2.1.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
+		<script src="../assets/js/libraries/jquery.jsonp.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
+		<script src="../assets/js/libraries/fleegix.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
+
 		<script>
 			<!-- extra parameters to pass to New Relic -->
 			function getParameterByName( name )
@@ -51,14 +61,6 @@
 			newrelic.setCustomAttribute('applianceApplication', 'Streetcar by Line');
 			
 		</script>
-		
-		<!--#config timefmt="%s" -->
-		<script src="../assets/js/tracekit.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
-		<script src="../assets/js/trLoader.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>	
-		<script src="../assets/js/libraries/jquery-1.11.0.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>			
-		<script src="../assets/js/libraries/jquery-migrate-1.2.1.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
-		<script src="../assets/js/libraries/jquery.jsonp.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
-		<script src="../assets/js/libraries/fleegix.js?ord=<!--#echo var="DATE_LOCAL" -->"></script>
 		
 		<script>     
 	    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
