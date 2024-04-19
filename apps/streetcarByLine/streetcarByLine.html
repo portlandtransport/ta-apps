@@ -28,7 +28,7 @@
 			if (applianceParentName.length < 5) {
 				applianceParentName = applianceId;
 			}
-			if (applianceId && applianceId != "") {
+			if (typeof applianceId !== "undefined") {
 				console.log(applianceId);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 				newrelic.setCustomAttribute('applianceName', applianceParentName);
