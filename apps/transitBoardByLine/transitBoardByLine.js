@@ -967,6 +967,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			if (jQuery("table."+id+" td.arrivals").html() != trip_arrivals_html[id]) {
 				jQuery("table."+id+" td.arrivals").html(trip_arrivals_html[id]);
 			}
+			console.log(id);
+			console.log(jQuery("table."+id).css('opacity'));
 		} else {
 			// add it
 			insertion_queue.push(trip_objects[id]);
