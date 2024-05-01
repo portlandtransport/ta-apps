@@ -967,6 +967,12 @@ transitBoardByLine.displayPage = function(data, callback) {
 			if (jQuery("table."+id+" td.arrivals").html() != trip_arrivals_html[id]) {
 				jQuery("table."+id+" td.arrivals").html(trip_arrivals_html[id]);
 			}
+			// check for zero opacity items
+			if (jQuery("table."+id).css('opacity') == 0 && !id.match(/spacer/)) {
+				console.log("Found zero opacity entry, removing: "+id);
+				jQuery("table."+id).removeClass('active');
+				transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
+			}
 		} else {
 			// add it
 			insertion_queue.push(trip_objects[id]);
