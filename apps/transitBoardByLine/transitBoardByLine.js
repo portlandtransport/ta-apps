@@ -969,8 +969,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 			// check for zero opacity items
 			if (jQuery("table."+id).css('opacity') == 0) {
-				console.log("Found zero opacity entry: "+id);
-				removal_queue.push(id);
+				console.log("Found zero opacity entry, removing: "+id);
+				transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
 			}
 		} else {
 			// add it
