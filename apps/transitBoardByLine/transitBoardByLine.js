@@ -968,9 +968,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 				jQuery("table."+id+" td.arrivals").html(trip_arrivals_html[id]);
 			}
 			// check for zero opacity items
-			if (jQuery("table."+id).css('opacity') == 0) {
+			if (jQuery("table."+id).css('opacity') == 0 && !id.match(/spacer/)) {
 				console.log("Found zero opacity entry, removing: "+id);
 				transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
+				jQuery("table."+id).remove();
 			}
 		} else {
 			// add it
