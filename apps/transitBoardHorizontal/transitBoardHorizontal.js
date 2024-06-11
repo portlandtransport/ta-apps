@@ -252,10 +252,17 @@ jQuery.ajax({
 	dataType: transitBoardHorizontal.access_method,
 	url: "//ta-web-services.com/health_update.php",
 	data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-	error: function(xhrObj,errorText,errorThrown) {
-		if (typeof newrelic === "object") {
-			newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-		}
+	error: function() {
+		jQuery.ajax({
+			dataType: transitBoardHorizontal.access_method,
+			url: "//transitappliance.com/health_update.php",
+			data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+			error: function(xhrObj,errorText,errorThrown) {
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+				}
+			}
+		});
 	}
 });
 
@@ -271,10 +278,23 @@ setInterval(function(){
 				reset_app();
 			}
 		},
-		error: function(xhrObj,errorText,errorThrown) {
-			if (typeof newrelic === "object") {
-				newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-			}
+		error: function() {
+			jQuery.ajax({
+				url: "//ta-web-services.com/health_update.php",
+				dataType: transitBoardHorizontal.access_method,
+				cache: false,
+				data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+				success: function(data) {
+					if( typeof data != "undefined" && data.reset == true ) {
+						reset_app();
+					}
+				},
+				error: function(xhrObj,errorText,errorThrown) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+					}
+				}
+			});
 		}
 	});
 }, 30*60*1000);
