@@ -586,10 +586,18 @@ function trArr(input_params) {
 									dataType: access_method,
 									url: "//ta-web-services.com/health_update.php",
 									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-									error: function(xhrObj,errorText,errorThrown) {
-										if (typeof newrelic === "object") {
-											newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-										}
+									error: function() {
+										// retry through proxy
+										jQuery.ajax({
+											dataType: access_method,
+											url: "//transitappliance.com/health_update.php",
+											data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+											error: function(xhrObj,errorText,errorThrown) {
+												if (typeof newrelic === "object") {
+													newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+												}
+											}
+										});
 									}
 							});
 							
@@ -605,10 +613,24 @@ function trArr(input_params) {
 												arrivals_object.reset_app();
 											}
 										},
-										error: function(xhrObj,errorText,errorThrown) {
-											if (typeof newrelic === "object") {
-												newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-											}
+										error: function() {
+											// retry through proxy
+											jQuery.ajax({
+												url: "//transitappliance.com/health_update.php",
+												dataType: access_method,
+												  cache: false,
+												data: { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+												success: function(data) {
+													if( typeof data != "undefined" && data.reset == true ) {
+														arrivals_object.reset_app();
+													}
+												},
+												error: function(xhrObj,errorText,errorThrown) {
+													if (typeof newrelic === "object") {
+														newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+													}
+												}
+											});
 										}
 								});
 							}, 30*60*1000); // 30 min
