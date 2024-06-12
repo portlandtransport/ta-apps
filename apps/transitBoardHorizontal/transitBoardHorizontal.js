@@ -280,7 +280,7 @@ setInterval(function(){
 		},
 		error: function() {
 			jQuery.ajax({
-				url: "//ta-web-services.com/health_update.php",
+				url: "//transitappliance.com/health_update.php",
 				dataType: transitBoardHorizontal.access_method,
 				cache: false,
 				data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
