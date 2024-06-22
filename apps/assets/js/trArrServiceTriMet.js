@@ -239,12 +239,12 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 								cache: false,
 								error: function(data) {
 									updater.update_connection_health(false);
-								  if (typeof newrelic === "object") {
-									  newrelic.addPageAction("TR1: TriMet Arrivals Error");
-								  } else {
-									  throw "TR1: TriMet Arrivals Error";
-								  }
-								}
+									if (typeof newrelic === "object") {
+										newrelic.addPageAction("TR1: TriMet Arrivals Error");
+									} else {
+										throw "TR1: TriMet Arrivals Error";
+									}
+								},
 	
 								success: updater.process_results
 							});
