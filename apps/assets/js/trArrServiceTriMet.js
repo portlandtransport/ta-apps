@@ -73,6 +73,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 	}
 	var stop_string = stop_id_list.join(',');
 	this.url = "//developer.trimet.org/ws/V1/arrivals/?locIDs="+stop_string+"&appID=828B87D6ABC0A9DF142696F76&json=true&streetcar=true";
+	this.proxy_url = "//transitappliance.com/trimet_proxy.php?locIDs="+stop_string+"&appID=828B87D6ABC0A9DF142696F76&json=true&streetcar=true";
 	
 	// functions that will be polled by the arrivals object
 	this.arrivals = function() {
@@ -229,14 +230,25 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 						  url: updater.url,
 						  dataType: updater.access_method,
 						  cache: false,
+
 						  error: function(data) {
-						  	updater.update_connection_health(false);
-							if (typeof newrelic === "object") {
-								newrelic.addPageAction("TR1: TriMet Arrivals Error");
-							} else {
-								throw "TR1: TriMet Arrivals Error";
-							}
-						},
+							// last try via proxy
+							jQuery.ajax({
+								url: updater.proxy_url,
+								dataType: updater.access_method,
+								cache: false,
+								error: function(data) {
+									updater.update_connection_health(false);
+								  if (typeof newrelic === "object") {
+									  newrelic.addPageAction("TR1: TriMet Arrivals Error");
+								  } else {
+									  throw "TR1: TriMet Arrivals Error";
+								  }
+								}
+	
+								success: updater.process_results
+							  });
+						  }
 						  success: updater.process_results
 						});
 				  },
