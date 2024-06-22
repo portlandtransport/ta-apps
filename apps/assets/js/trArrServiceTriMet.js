@@ -247,8 +247,8 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 								}
 	
 								success: updater.process_results
-							  });
-						  }
+							});
+						  },
 						  success: updater.process_results
 						});
 				  },
