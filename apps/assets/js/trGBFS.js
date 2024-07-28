@@ -160,7 +160,7 @@ function trGBFS(options) {
 			var status = status_obj[gbfs_obj.stations[i].station_id];
 			if (typeof status === 'object') {
 				if (status.num_ebikes_available > 0 && status.is_renting == 1) {
-					locations.push({ "station_id": gbfs_obj.stations[i].station_id, "distance": gbfs_obj.stations[i].distance, "formatted_distance": gbfs_obj.format_distance(gbfs_obj.stations[i].distance), "name": gbfs_obj.stations[i].name, "num_bikes_available": status.num_ebikes_available, "last_reported": status.last_reported, "location_type": "station" });
+					locations.push({ "station_id": gbfs_obj.stations[i].station_id, "distance": gbfs_obj.stations[i].distance, "formatted_distance": gbfs_obj.format_distance(gbfs_obj.stations[i].distance), "name": gbfs_obj.stations[i].name, "num_bikes_available": status.num_ebikes_available, "last_reported": status.last_reported, "location_type": "station", "type": 0 });
 				}
 			}
 		}
@@ -179,6 +179,7 @@ function trGBFS(options) {
   		  //console.log(data.data.bikes[i].distance);
   		  data.data.bikes[i].formatted_distance = gbfs_obj.format_distance(data.data.bikes[i].distance);
   		  data.data.bikes[i].num_bikes_available = 1;
+		  data.data.bikes[i].type = data.data.bikes[i].vehicle_type_id;
   		  free_bikes.push(data.data.bikes[i]);;
   		}
 		}
