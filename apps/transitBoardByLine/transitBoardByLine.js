@@ -1024,7 +1024,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 							setTimeout(function(){transitBoardByLine.shrink_destination(gbfs_class)}, 2000);
 						}
 					}
-					jQuery('.gbfs'+i+' .arrivals').html(value.formatted_distance);
+					jQuery('.gbfs'+i+' .arrivals').html(value.formatted_distance+' '+value.type);
 				}
 			}
 		}
