@@ -987,15 +987,25 @@ transitBoardByLine.displayPage = function(data, callback) {
 		for (i=0; i<transitBoardByLine.gbfs; i++) {
 			if ( typeof locations[i] !== 'undefined') {
 
+				/* types:
+				1: bike?
+				2: ebike
+				3: scooter
+				*/
+
 				var value = locations[i];
-			  var bikes = "bikes";
-			  if (value.num_bikes_available == 1) {
-			    bikes = "bike";
-			  }
-			  var station = "BIKETOWN ebike";
-			  if (value.location_type == "station") {
-			    station = '<span class="terminus">'+value.num_bikes_available+" ebikes</span> at BIKETOWN Station";
-			  }
+				var bikes = "bikes";
+				if (value.num_bikes_available == 1) {
+					bikes = "bike";
+				}
+				var station = "BIKETOWN ebike";
+				if (value.type == "3") {
+					station = "BIKETOWN scooter";
+				}
+				
+				if (value.location_type == "station") {
+					station = '<span class="terminus">'+value.num_bikes_available+" ebikes</span> at BIKETOWN Station";
+				}
 
 				if (jQuery(".gbfs"+i).length == 0) {
 
