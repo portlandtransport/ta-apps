@@ -175,17 +175,19 @@ function trGBFS(options) {
 		  data.data.bikes[i].lon = data.data.bikes[i].lon.toPrecision(6);
 		  data.data.bikes[i].lat = data.data.bikes[i].lat.toPrecision(6);
 		  if (data.data.bikes[i].is_reserved == 0 && data.data.bikes[i].is_disabled == 0) {
-  		  data.data.bikes[i].distance = gbfs_obj.distance([data.data.bikes[i].lon,data.data.bikes[i].lat]);
-  		  //console.log(data.data.bikes[i].distance);
-  		  data.data.bikes[i].formatted_distance = gbfs_obj.format_distance(data.data.bikes[i].distance);
-  		  data.data.bikes[i].num_bikes_available = 1;
-		  data.data.bikes[i].type = data.data.bikes[i].vehicle_type_id;
-  		  free_bikes.push(data.data.bikes[i]);;
-  		}
+				data.data.bikes[i].distance = gbfs_obj.distance([data.data.bikes[i].lon,data.data.bikes[i].lat]);
+				//console.log(data.data.bikes[i].distance);
+				data.data.bikes[i].formatted_distance = gbfs_obj.format_distance(data.data.bikes[i].distance);
+				data.data.bikes[i].num_bikes_available = 1;
+				data.data.bikes[i].type = data.data.bikes[i].vehicle_type_id;
+				if (data.data.bikes[i].vehicle_type_id == "2") {
+					free_bikes.push(data.data.bikes[i]);
+				}  		  
+  			}
 		}
 		
-	  free_bikes.sort(function(a, b) {
-    	return a.distance - b.distance;
+	  	free_bikes.sort(function(a, b) {
+    		return a.distance - b.distance;
 		});
 		
 		if (free_bikes.length > gbfs_obj.num_locations) {

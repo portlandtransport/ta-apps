@@ -1015,7 +1015,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 									<tr valign="middle">\
 										<td class="route"><img src="../assets/images/gbfs/gbfs_vehicle.jpg"></td>\
 										<td class="destination"><div>'+station+' - <span class="terminus">'+value.name+'</span></div></td>\
-										<td class="arrivals">'+value.formatted_distance+' '+value.type+'</td>\
+										<td class="arrivals">'+value.formatted_distance+'</td>\
 									</tr>\
 								</tbody>\
 							</table>\
@@ -1034,7 +1034,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 							setTimeout(function(){transitBoardByLine.shrink_destination(gbfs_class)}, 2000);
 						}
 					}
-					jQuery('.gbfs'+i+' .arrivals').html(value.formatted_distance+' '+value.type);
+					jQuery('.gbfs'+i+' .arrivals').html(value.formatted_distance);
 				}
 			}
 		}
