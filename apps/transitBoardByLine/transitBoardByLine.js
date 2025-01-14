@@ -238,7 +238,7 @@ transitBoardByLine.initializePage = function(data) {
 
 	// URL flag condition used for testing: ata.optionsConfig.gbfstest != undefined 
 	
-	if (location.hostname.match(/transitboard/) !== null && data.optionsConfig != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
+	if (data.optionsConfig != undefined && data.optionsConfig.lat != undefined && data.optionsConfig.lat[0] != undefined) {
 		if (data.optionsConfig.lng != undefined && data.optionsConfig.lng[0] != undefined) {
 			if (data.optionsConfig.gbfs != undefined && data.optionsConfig.gbfs[0] != undefined) {
 				transitBoardByLine.gbfs = data.optionsConfig.gbfs[0];
