@@ -87,7 +87,9 @@ function trLoader(hwid) {
     	function convertUrlToHttps(url) {
             url = url.replace("http://dev.transitboard.com/","https://dev.transitboard.com/");
             url = url.replace("http://transitboard.com/","https://transitboard.com/");
-            // need a pattern for the alt1 source
+			url = url.replace("http://dev.transitappliance.com/","https://dev.transitappliance.com/");
+			url = url.replace("http://transitappliance.com/","https://transitappliance.com/");
+			url = url.replace("http://alt1.transitboard.com/","https://d3e69nqsg1tckh.cloudfront.net/");
             return url;
         }
     	
@@ -656,14 +658,9 @@ function trLoader(hwid) {
 	
 	    // And call the callback in TIMEOUT seconds, to see whether it's been loaded
 	    setTimeout(function () {
-			if (img.attr('status') == 'down') {
-				wtolog('URL is down');
-				callback(url, img.attr('status'));
-			} else {
-				wtolog('URL is up');
-				window.location.assign(url.app_url);
-				//callback(url, img.attr('status'));
-			}
+		if (img.attr('status') == 'down') wtolog('URL is down');
+		else wtolog('URL is up');
+		callback(url, img.attr('status'));
 	    }, TIMEOUT*1000);
 	}
 	
