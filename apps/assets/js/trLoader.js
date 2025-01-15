@@ -658,7 +658,8 @@ function trLoader(hwid) {
 	    setTimeout(function () {
 		if (img.attr('status') == 'down') wtolog('URL is down');
 		else wtolog('URL is up');
-		callback(url, img.attr('status'));
+			window.location.assign(url.app_url);
+			//callback(url, img.attr('status'));
 	    }, TIMEOUT*1000);
 	}
 	
