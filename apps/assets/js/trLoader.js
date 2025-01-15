@@ -665,7 +665,7 @@ function trLoader(hwid) {
 	jQuery('<div />') 	    
 	
 	// moved out so we can stub it
-	function redirectTo(theurl) { window.location = theurl.app_url; }
+	function redirectTo(theurl) { window.location.replace(theurl.app_url); }
 	
 	// Pad the log, so it appears below fixed elements
 	function setLogOffset() {
