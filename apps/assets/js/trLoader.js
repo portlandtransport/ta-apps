@@ -656,10 +656,14 @@ function trLoader(hwid) {
 	
 	    // And call the callback in TIMEOUT seconds, to see whether it's been loaded
 	    setTimeout(function () {
-		if (img.attr('status') == 'down') wtolog('URL is down');
-		else wtolog('URL is up');
-			window.location.assign(url.app_url);
-			//callback(url, img.attr('status'));
+			if (img.attr('status') == 'down') {
+				wtolog('URL is down');
+				callback(url, img.attr('status'));
+			} else {
+				wtolog('URL is up');
+				window.location.assign(url.app_url);
+				//callback(url, img.attr('status'));
+			}
 	    }, TIMEOUT*1000);
 	}
 	
