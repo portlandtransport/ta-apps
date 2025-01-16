@@ -1,5 +1,5 @@
 body::before {
-	background-image: url(/apps/assets/images/hhonors.jpg);
+	background-image: url(/apps/assets/images/dt_by_hilton_299.png);
   background-size: 195px 150px;
 	width: 195px;
 	height: 150px;
@@ -20,7 +20,7 @@ h1 {
 }
 
 h1::after {
-	background-image: url(/apps/assets/images/hilton_honors_299.png);
+	background-image: url(/apps/assets/images/hhonors.jpg);
   background-size: 468px 150px;
   /*margin-left: 100px;*/
   display: inline-block;
