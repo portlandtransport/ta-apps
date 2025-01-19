@@ -277,12 +277,15 @@ function trArr(input_params) {
 		jQuery('body').prepend('<div id="arrivals_log_area"></div>');
 	}
 	
-	this.version = "1.17";
+	this.version = "1.18";
 	// v1.13 - first introduction of jquery.jsonp in TriMet service
 	// v1.14 - move health_update to ta-web-services
 	// v1.15 - add clock drift check back in
 	// v1.16 - pass platform and user agent on health_update
 	// v1.17 - hooks for working with https
+	// v1.18 - return host info on health check
+
+
 	this.assets_dir = input_params.assetsDir || "assets";
 
 	if (typeof timezoneJS !== "object") {
@@ -585,13 +588,13 @@ function trArr(input_params) {
 							jQuery.ajax({
 									dataType: access_method,
 									url: "//ta-web-services.com/health_update.php",
-									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+									data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, applicaton_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
 									error: function() {
 										// retry through proxy
 										jQuery.ajax({
 											dataType: access_method,
 											url: "//transitappliance.com/health_update.php",
-											data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+											data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, applicaton_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
 											error: function(xhrObj,errorText,errorThrown) {
 												if (typeof newrelic === "object") {
 													newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
