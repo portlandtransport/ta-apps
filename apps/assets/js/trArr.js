@@ -277,12 +277,15 @@ function trArr(input_params) {
 		jQuery('body').prepend('<div id="arrivals_log_area"></div>');
 	}
 	
-	this.version = "1.17";
+	this.version = "1.18";
 	// v1.13 - first introduction of jquery.jsonp in TriMet service
 	// v1.14 - move health_update to ta-web-services
 	// v1.15 - add clock drift check back in
 	// v1.16 - pass platform and user agent on health_update
 	// v1.17 - hooks for working with https
+	// v1.18 - return host info on health check
+
+	this.trHost = window.location.protocol+'//'+window.location.host+'/';
 	this.assets_dir = input_params.assetsDir || "assets";
 
 	if (typeof timezoneJS !== "object") {
