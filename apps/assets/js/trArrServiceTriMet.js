@@ -168,7 +168,8 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 						entry.type = "estimated";
 						arrival_time_raw = arrival.estimated;
 					}
-					
+
+				/*	
 			    var year = arrival_time_raw.slice(0, 4);
 			    var mo = Number(arrival_time_raw.slice(5,7)) - 1; // Jan is 0 in JS
 			    var day = arrival_time_raw.slice(8, 10)
@@ -179,9 +180,11 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			    // Should get TriMet's TZ from GTFS agency defn, in case Oregon makes its own time
 			    // (e.g. America/Portland)
 			    var entry_date = new tzDate(year, mo, day, hour, min, sec, 'America/Los_Angeles');
+       */
 
 				
-					entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
+					//entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
+					entry.arrivalTime = Math.floor(raw_arrival_time/1000);
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
