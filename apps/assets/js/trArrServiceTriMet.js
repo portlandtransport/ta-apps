@@ -159,7 +159,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				  if (arrival.status == "canceled") {
 				  	continue; // don't show canceled trips
 				  }
-					console.log(arrival);
+					//console.log(arrival);
 
 					if (arrival.status == "scheduled") {
 						entry.type = "scheduled";
@@ -185,10 +185,10 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				
 					//entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
 					entry.arrivalTime = arrival_time_raw; // milliseconds?
-					console.log(entry);
+					//console.log(entry);
 					var testdate = new Date(arrival_time_raw); // create Date object
 
-console.log(testdate.toString());
+//console.log(testdate.toString());
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
