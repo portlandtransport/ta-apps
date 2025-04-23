@@ -188,7 +188,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					console.log(entry);
 					var testdate = new Date(time); // create Date object
 
-console.log(newdate.toString());
+console.log(testdate.toString());
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
