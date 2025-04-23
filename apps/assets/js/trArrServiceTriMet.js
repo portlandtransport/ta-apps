@@ -185,6 +185,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				
 					//entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
 					entry.arrivalTime = Math.floor(arrival_time_raw/1000);
+					console.log(entry);
 
 					entry.headsign = arrival.fullSign;
 					entry.headsign = entry.headsign.replace("  "," ");
