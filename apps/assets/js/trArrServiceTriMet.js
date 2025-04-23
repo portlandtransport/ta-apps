@@ -186,7 +186,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					//entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
 					entry.arrivalTime = arrival_time_raw; // milliseconds?
 					console.log(entry);
-					var testdate = new Date(time); // create Date object
+					var testdate = new Date(arrival_time_raw); // create Date object
 
 console.log(testdate.toString());
 
