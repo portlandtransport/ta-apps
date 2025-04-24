@@ -159,7 +159,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				  if (arrival.status == "canceled") {
 				  	continue; // don't show canceled trips
 				  }
-					//console.log(arrival);
+					console.log(arrival);
 
 					if (arrival.status == "scheduled") {
 						entry.type = "scheduled";
