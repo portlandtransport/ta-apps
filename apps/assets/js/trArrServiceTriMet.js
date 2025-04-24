@@ -170,21 +170,21 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					}
 
 					
-			    //var year = arrival_time_raw.slice(0, 4);
-			    //var mo = Number(arrival_time_raw.slice(5,7)) - 1; // Jan is 0 in JS
-			    //var day = arrival_time_raw.slice(8, 10)
-			    //var hour = arrival_time_raw.slice(11, 13);
-			    //var min = arrival_time_raw.slice(14, 16);
+			    var year = arrival_time_raw.slice(0, 4);
+			    var mo = Number(arrival_time_raw.slice(5,7)) - 1; // Jan is 0 in JS
+			    var day = arrival_time_raw.slice(8, 10)
+			    var hour = arrival_time_raw.slice(11, 13);
+			    var min = arrival_time_raw.slice(14, 16);
 			    // Must be number or will be interpreted as tz
-			    //var sec = Number(arrival_time_raw.slice(17,18));
+			    var sec = Number(arrival_time_raw.slice(17,18));
 			    // Should get TriMet's TZ from GTFS agency defn, in case Oregon makes its own time
 			    // (e.g. America/Portland)
-			    //var entry_date = new tzDate(year, mo, day, hour, min, sec, 'America/Los_Angeles');
+			    var entry_date = new tzDate(year, mo, day, hour, min, sec, 'America/Los_Angeles');
        
 
 				
-					//entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
-					entry.arrivalTime = arrival_time_raw; // milliseconds?
+					entry.arrivalTime = entry_date.getTime(); // seconds since epoch for arrival
+					//entry.arrivalTime = arrival_time_raw; // milliseconds?
 					//console.log(entry);
 					var testdate = new Date(arrival_time_raw); // create Date object
 
