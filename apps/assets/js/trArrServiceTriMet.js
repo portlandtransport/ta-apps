@@ -169,7 +169,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 						arrival_time_raw = arrival.estimated;
 					}
 
-					if (Number.isInteger(arrival_time_raw)) {
+					if (!isNaN(arrival_time_raw)) {
 						entry.arrivalTime = arrival_time_raw
 					} else {
 						var year = arrival_time_raw.slice(0, 4);
