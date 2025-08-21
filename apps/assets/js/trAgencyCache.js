@@ -42,7 +42,8 @@ function trAgencyCache() {
         "avl_agency_id": "portland-sc",
         "doc_type": "Document",
         "avl_service": "TriMet",
-        "agency_lang": "en"
+        "agency_lang": "en",
+		"gtfs_url": "https://developer.trimet.org/schedule/gtfs.zip"
 	};
 	
 	this.cache['PCC'] = {
@@ -54,7 +55,21 @@ function trAgencyCache() {
         "avl_agency_id": "PCC",
         "doc_type": "Document",
         "avl_service": "PCC",
-        "agency_lang": "en"
+        "agency_lang": "en",
+		"gtfs_url": ""
+	};
+
+	this.cache['Clack'] = {
+        "rights_notice": "",
+        "_id": "Clack",
+        "agency_name": "Clackamas County",
+        "agency_url": "https://www.clackamas.us/h3s/connects-shuttle",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "Clack",
+        "doc_type": "Document",
+        "avl_service": "Clack",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/clackamas/passioTransit/gtfs/google_transit.zip"
 	};
 	
 	this.addToCache = function(agency,data) {
