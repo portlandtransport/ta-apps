@@ -17,18 +17,14 @@
 function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
 
     console.log(stops);
-    console.log(service_requests);
-
-    return;
-
-    /*
+    console.log(service_requests);    
 		
-	if (service_requests.PCC == undefined) {
-		service_requests.PCC = [];
+	if (service_requests.Clack == undefined) {
+		service_requests.Clack = [];
 	}
 
 	for (var stop_id in stops) {
-		var stop_data = stop_cache.stopData('PCC',stop_id);
+		var stop_data = stop_cache.stopData('Clack',stop_id);
 		var obj = {stop_id: stop_id, stop_data: stop_data, routes: []};
 		if (stops[stop_id]['*']) {
 			for (var i = 0; i < stop_data.routes.length; i++){
@@ -46,11 +42,9 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 			}
 		}
 
-		service_requests.PCC.push(obj);
+		service_requests.Clack.push(obj);
 		
 	}
-
-    */
 	
 }
 
