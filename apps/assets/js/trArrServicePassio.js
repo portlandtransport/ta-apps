@@ -62,6 +62,20 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	updater.trArrTriMetRequestLoop(); // first time immediately
 	setInterval(updater.trArrTriMetRequestLoop,updater.update_interval);
     */
+	// functions that will be polled by the arrivals object
+	this.arrivals = function() {
+		return this.arrivals_queue;
+	}
+	
+	this.messages = function() {
+		return this.service_messages;
+	}
+	
+	this.connection = function() {
+		return this.connection_health;
+	}	
+	
+
 }
 
 function copyArray(in_array) {
