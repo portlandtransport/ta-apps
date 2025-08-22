@@ -37,10 +37,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	
 	updater.access_method = "jsonp";
 	
-	if (trArrTriMetSupportsCors()) {
-		updater.access_method = "json";
-	}
-	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
 	this.service_messages = [];
