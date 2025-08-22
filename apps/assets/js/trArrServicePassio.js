@@ -56,6 +56,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 		}
 	}
 
+    updater.arrivals_queue = [];
+
 	/*
 	updater.trArrTriMetRequestLoop(); // first time immediately
 	setInterval(updater.trArrTriMetRequestLoop,updater.update_interval);
