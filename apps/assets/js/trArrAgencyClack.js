@@ -42,7 +42,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 			}
 		}
 
-		service_requests.Clack.push(obj);
+		service_requests.Passio.push(obj);
 		
 	}
 	
