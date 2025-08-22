@@ -43,7 +43,8 @@ function trAgencyCache() {
         "doc_type": "Document",
         "avl_service": "TriMet",
         "agency_lang": "en",
-		"gtfs_url": "https://developer.trimet.org/schedule/gtfs.zip"
+		"gtfs_url": "https://developer.trimet.org/schedule/gtfs.zip",
+		"gtfs_rt_url": "https://developer.trimet.org/ws/V1/TripUpdate/?appID=828B87D6ABC0A9DF142696F76",
 	};
 	
 	this.cache['PCC'] = {
@@ -56,7 +57,8 @@ function trAgencyCache() {
         "doc_type": "Document",
         "avl_service": "PCC",
         "agency_lang": "en",
-		"gtfs_url": ""
+		"gtfs_url": "",
+		"gtfs_rt_url": "",
 	};
 
 	this.cache['Clack'] = {
@@ -69,7 +71,8 @@ function trAgencyCache() {
         "doc_type": "Document",
         "avl_service": "Clack",
         "agency_lang": "en",
-		"gtfs_url": "https://passio3.com/clackamas/passioTransit/gtfs/google_transit.zip"
+		"gtfs_url": "https://passio3.com/clackamas/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/clackamas/passioTransit/gtfs/realtime/tripUpdates",
 	};
 	
 	this.addToCache = function(agency,data) {
