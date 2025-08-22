@@ -19,8 +19,8 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
     console.log(stops);
     console.log(service_requests);    
 		
-	if (service_requests.Clack == undefined) {
-		service_requests.Clack = [];
+	if (service_requests.Passio == undefined) {
+		service_requests.Passio = [];
 	}
 
 	for (var stop_id in stops) {
@@ -42,7 +42,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 			}
 		}
 
-		service_requests.Passio.push(obj);
+		service_requests.Passio['Clack'].push(obj);
 		
 	}
 	
