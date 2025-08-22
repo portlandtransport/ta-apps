@@ -20,7 +20,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 		service_requests.Passio = {};
 	}
 	if (typeof service_requests.Passio['Clack'] == "undefined") {
-		service_requests.Passio['Clack']] = [];
+		service_requests.Passio['Clack'] = [];
 	}
 
 	for (var stop_id in stops) {
