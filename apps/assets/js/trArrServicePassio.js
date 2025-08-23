@@ -26,8 +26,8 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
     
     for (var avl_agency_id in service_requests) {
 	    var agency = avl_agency_id;
-        var agency_rt_url = this.agencies[agency][gtfs_rt_url];
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url));
+        var agency_data = this.agencies.agencyData(agency);
+	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_data.gtfs_rt_url));
     }
     
 }
