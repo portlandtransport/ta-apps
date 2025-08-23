@@ -161,6 +161,3 @@ function trAgencyCache() {
 }
 
 
-if (typeof window === 'undefined') {
-	module.exports = { trAgencyCache };
-}
