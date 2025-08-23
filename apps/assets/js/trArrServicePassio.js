@@ -22,24 +22,24 @@
 
 function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
     
-
+    this.agencies = trAgencyCache();
+    console.log(this.agencies.cache);
     
     for (var avl_agency_id in service_requests) {
 	    var agency = avl_agency_id;
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency));
+        var agency_rt_url = this.agencies[agency][gtfs_rt_url];
+	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url));
     }
     
 }
 
-function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency) {
+function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url) {
     
     
 	var updater = this;
+    this.url = agency_rt_url;
 
-    this.agencies = trAgencyCache();
-    console.log(this.agencies.cache);
-	
-	updater.access_method = "jsonp";
+    console.log(this.url)l
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
