@@ -15,7 +15,6 @@
 
   Authors:
   Chris Smith: Original code
-  Matt Conway: XML parsing
 
 */
 
