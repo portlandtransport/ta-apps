@@ -19,6 +19,8 @@
 
 */
 
+const { trAgencyCache } = require("./trAgencyCache");
+
 function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
     
 
@@ -34,6 +36,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     
     
 	var updater = this;
+
+    this.agencies = new trAgencyCache();
+    console.log(this.agencies.cache);
 	
 	updater.access_method = "jsonp";
 	
