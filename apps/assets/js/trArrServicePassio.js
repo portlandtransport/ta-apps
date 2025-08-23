@@ -22,7 +22,6 @@
 function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
     
     this.agencies = trAgencyCache();
-    console.log(this.agencies.cache);
     
     for (var avl_agency_id in service_requests) {
 	    var agency = avl_agency_id;
@@ -37,8 +36,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     
 	var updater = this;
     this.url = agency_rt_url;
-
-    console.log(this.url);
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
