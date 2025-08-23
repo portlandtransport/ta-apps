@@ -37,7 +37,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     
 	var updater = this;
 
-    this.agencies = new trAgencyCache();
+    this.agencies = trAgencyCache();
     console.log(this.agencies.cache);
 	
 	updater.access_method = "jsonp";
