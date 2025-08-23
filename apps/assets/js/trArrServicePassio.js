@@ -15,27 +15,27 @@
 
   Authors:
   Chris Smith: Original code
-  Matt Conway: XML parsing
 
 */
 
+
 function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
     
-
+    this.agencies = trAgencyCache();
     
     for (var avl_agency_id in service_requests) {
 	    var agency = avl_agency_id;
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency));
+        var agency_data = this.agencies.agencyData(agency);
+	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_data.gtfs_rt_url));
     }
     
 }
 
-function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency) {
+function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url) {
     
     
 	var updater = this;
-	
-	updater.access_method = "jsonp";
+    this.url = agency_rt_url;
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
