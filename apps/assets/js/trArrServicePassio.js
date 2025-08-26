@@ -96,8 +96,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var local_queue = [];
 			var update_time = localTime().getTime();
 
-			//process result set here
-			console.log(updater.service_requests);
+			// loop through stops in request and see if we have arrivals for that stop
+			updater.service_requests.foreach((stop) => {
+				console.log(stop);
+			})
 
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
