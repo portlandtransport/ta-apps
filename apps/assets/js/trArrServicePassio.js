@@ -32,6 +32,8 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
 }
 
 function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url) {
+
+	console.log("initializing Passio Updater");
     
     
 	var updater = this;
