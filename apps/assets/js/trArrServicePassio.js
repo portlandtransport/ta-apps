@@ -37,7 +37,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	var updater = this;
     this.url = agency_rt_url;
 
-	console.log("initializing Passio Updater: "+this.url);
+	console.log(service_requests);
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
@@ -80,7 +80,20 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	}	
 
 	this.update_connection_health = function(success_status) {
-
+		var timestamp;
+		try {
+			timestamp = localTime().getTime();
+		}
+		catch (err) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("PS6: Timezone error, reloading page");
+			}
+			location.reload();
+		}
+	    updater.connection_health.unshift( { success: success_status, 'timestamp': timestamp } );
+		if (updater.connection_health.length > this.health_limit) {
+			updater.connection_health.length = this.health_limit; // limit to last hour
+		}
 	}
 	
 

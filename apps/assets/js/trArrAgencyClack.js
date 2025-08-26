@@ -15,8 +15,6 @@
 */
 
 function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
-
-	console.log("initializing Clack agency");
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
