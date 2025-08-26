@@ -87,6 +87,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 
 	this.trArrPassioRequestLoop = function() {
+
+
 		
 		
 		updater.process_results = function(data) {
@@ -102,32 +104,34 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
-			const xhr = new XMLHttpRequest();
 
-			xhr.responseType = 'arraybuffer'
-			xhr.open('GET', updater.url, true);
-
-			// Set up the event handler for when the request state changes
-			xhr.onreadystatechange = function() {
-				// Check if the request is complete (readyState 4) and successful (status 200)
-
-				if (xhr.readyState === 4 && xhr.status === 200) {
-
-					//var trips = parser.parse_response(xhr.response);
-					var trips = window.tripUpdateParser.parseBuffer(xhr.response);
-
-					console.log(trips);				
-
-				} else if (xhr.readyState === 4 && xhr.status !== 200) {
-					// Handle errors
-					console.error('Error fetching data:', xhr.status, xhr.statusText);
-				}
-			};
-
-			// Send the request
-			xhr.send();
-				
 		}
+
+		const xhr = new XMLHttpRequest();
+
+		xhr.responseType = 'arraybuffer'
+		xhr.open('GET', updater.url, true);
+
+		// Set up the event handler for when the request state changes
+		xhr.onreadystatechange = function() {
+			// Check if the request is complete (readyState 4) and successful (status 200)
+
+			if (xhr.readyState === 4 && xhr.status === 200) {
+
+				//var trips = parser.parse_response(xhr.response);
+				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
+
+				console.log(trips);				
+
+			} else if (xhr.readyState === 4 && xhr.status !== 200) {
+				// Handle errors
+				console.error('Error fetching data:', xhr.status, xhr.statusText);
+			}
+		};
+
+		// Send the request
+		xhr.send();
+			
 
 	}
 
