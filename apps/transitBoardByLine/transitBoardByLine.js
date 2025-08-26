@@ -55,7 +55,8 @@ transitBoardByLine.dependencies = [
 		"../assets/js/trGBFS.js",
 		"../assets/js/trWeatherCredentials.js",
 		"../assets/js/trCorsCredentials.js",
-		"../assets/js/trWeatherAPI.js"
+		"../assets/js/trWeatherAPI.js",
+		"../assets/js/tripUpdateParser.js"
 ];
 
 
