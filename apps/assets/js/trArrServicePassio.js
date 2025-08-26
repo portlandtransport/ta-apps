@@ -32,12 +32,12 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
 }
 
 function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url) {
-
-	console.log("initializing Passio Updater");
     
     
 	var updater = this;
     this.url = agency_rt_url;
+
+	console.log("initializing Passio Updater: "+this.url);
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
