@@ -37,7 +37,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	var updater = this;
     this.url = agency_rt_url;
 	console.log("Agency: "+agency);
-	console.log(service_requests);
+	console.log(service_requests[agency]);
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
