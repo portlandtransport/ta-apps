@@ -64,18 +64,74 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     */
 	// functions that will be polled by the arrivals object
 	this.arrivals = function() {
+		return[];
 		return this.arrivals_queue;
 	}
 	
 	this.messages = function() {
+		return[];
 		return this.service_messages;
 	}
 	
 	this.connection = function() {
 		return this.connection_health;
 	}	
+
+	this.update_connection_health = function(success_status) {
+
+	}
 	
 
+
+
+	this.trArrPassioRequestLoop = function() {
+		
+		
+		updater.process_results = function(data) {
+			updater.update_connection_health(true);
+			var local_queue = [];
+			var update_time = localTime().getTime();
+
+			//process result set here
+
+			
+			// now copy to externally visble queue, making sure we're not in the middle of a query
+			updater.arrivals_queue = local_queue;
+			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
+
+			// Create a new XMLHttpRequest object
+			const xhr = new XMLHttpRequest();
+
+			xhr.responseType = 'arraybuffer'
+			xhr.open('GET', updater.url, true);
+
+			// Set up the event handler for when the request state changes
+			xhr.onreadystatechange = function() {
+				// Check if the request is complete (readyState 4) and successful (status 200)
+
+				if (xhr.readyState === 4 && xhr.status === 200) {
+
+					//var trips = parser.parse_response(xhr.response);
+					var trips = window.tripUpdateParser.parseBuffer(xhr.response);
+
+					console.log(trips);				
+
+				} else if (xhr.readyState === 4 && xhr.status !== 200) {
+					// Handle errors
+					console.error('Error fetching data:', xhr.status, xhr.statusText);
+				}
+			};
+
+			// Send the request
+			xhr.send();
+				
+		}
+
+	
+		updater.trArrPassioRequestLoop(); // first time immediately
+		setInterval(updater.trArrPassioRequestLoop,updater.update_interval);
+
+	}
 }
 
 function copyArray(in_array) {
@@ -85,5 +141,3 @@ function copyArray(in_array) {
     } 
     return out_array;
 }
-
-
