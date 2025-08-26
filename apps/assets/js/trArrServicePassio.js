@@ -36,8 +36,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     
 	var updater = this;
     this.url = agency_rt_url;
-	console.log("Agency: "+agency);
-	console.log(service_requests[agency]);
+	updater.service_requests = service_requests[agency];
 	
 	// every updater object needs to maintain a queue
 	this.arrivals_queue = [];
@@ -48,15 +47,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	this.health_limit = Math.floor(60*60*1000/this.update_interval);
 	
 	var request_object = {}; // hash to use for testing arrivals against request
-	
-	var stop_id_list = [];
-	for (var i = 0; i < service_requests.length; i++) {
-		stop_id_list.push(service_requests[i].stop_id);
-		request_object[service_requests[i].stop_id] = {};
-		for (var j = 0; j < service_requests[i].routes.length; j++) {
-			request_object[service_requests[i].stop_id][service_requests[i].routes[j].route_id] = true;
-		}
-	}
 
     updater.arrivals_queue = [];
 
@@ -107,8 +97,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var update_time = localTime().getTime();
 
 			//process result set here
-			console.log(data);
-			console.log(updater);
+			console.log(updater.service_requests);
 
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
