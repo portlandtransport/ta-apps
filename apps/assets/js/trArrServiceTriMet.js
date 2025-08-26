@@ -44,6 +44,9 @@ function trArrTriMetSupportsCors() {
 }
 
 function trArrTriMetUpdater(service_requests,arrivals_object) {
+
+	console.log("TriMet");
+	console.log(service_requests);
 	
 	var updater = this;
 	
