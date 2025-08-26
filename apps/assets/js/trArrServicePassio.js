@@ -127,11 +127,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				
 		}
 
-	
-		updater.trArrPassioRequestLoop(); // first time immediately
-		setInterval(updater.trArrPassioRequestLoop,updater.update_interval);
-
 	}
+
+	updater.trArrPassioRequestLoop(); // first time immediately
+	setInterval(updater.trArrPassioRequestLoop,updater.update_interval);
 }
 
 function copyArray(in_array) {
