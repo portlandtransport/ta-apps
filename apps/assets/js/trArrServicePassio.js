@@ -86,10 +86,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 
 
-	this.trArrPassioRequestLoop = function() {
-
-
-		
+	this.trArrPassioRequestLoop = function() {		
 		
 		updater.process_results = function(data) {
 			updater.update_connection_health(true);
@@ -97,6 +94,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var update_time = localTime().getTime();
 
 			//process result set here
+			console.log(data);
+			console.log(updater);
 
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
@@ -121,11 +120,14 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				//var trips = parser.parse_response(xhr.response);
 				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
 
-				console.log(trips);				
+				updater.process_results(trips);
 
 			} else if (xhr.readyState === 4 && xhr.status !== 200) {
-				// Handle errors
-				console.error('Error fetching data:', xhr.status, xhr.statusText);
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("PS1: Passio Arrivals Error");
+				} else {
+					throw "PS1: Passio Arrivals Error";
+				}
 			}
 		};
 
