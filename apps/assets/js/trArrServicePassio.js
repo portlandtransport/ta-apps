@@ -151,6 +151,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
+			console.log(updater.arrivals_queue);
 
 		}
 
