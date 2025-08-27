@@ -101,7 +101,14 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				if (stop.stop_id in trips) {
 					console.log(stop);
 					console.log(trips[stop.stop_id]);
+					var trips = trips[stop.stop_id];
+					var stop_trips = stop.stop_data.trips;
+					// match trips
+					trips.keys.forEach((trip_id) => {
+						console.log(trip_id);
+					})
 				}
+
 				
 			});
 
