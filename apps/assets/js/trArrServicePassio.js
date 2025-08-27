@@ -120,8 +120,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									console.log(arrival_trips[trip_id]);
 									entry.headsign = "need a headsign";
 									entry.stop_id = stop.stop_id;
-									//var stop_data = trStopCache().stopData('TriMet',entry.stop_id);
-									entry.stop_data = stop.stop_data;
+									var stop_data = trStopCache().stopData(agency,entry.stop_id);
+									entry.stop_data = stop_data;
 									entry.route_id = route_id;
 									for (var j = 0; j < stop_data.routes.length; j++){
 										if (stop_data.routes[j].route_id == entry.route_id) {
