@@ -92,7 +92,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	this.trArrPassioRequestLoop = function() {		
 		
 		updater.process_results = function(trips) {
-			console.log(trips);
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
@@ -102,7 +101,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
 					var arrival_trips = trips[stop.stop_id];
-					console.log(arrival_trips);
 					var stop_trips = stop.stop_data.trips;
 					// match trips
 					console.log(stop_trips);
@@ -118,7 +116,25 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									// match, let's show arrival!
 									console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
+									entry.arrivalTime = arrival_trips[trip_id].arrival.time;
 									console.log(arrival_trips[trip_id]);
+									entry.headsign = "need a headsign";
+									entry.stop_id = stop.stop_id;
+									//var stop_data = trStopCache().stopData('TriMet',entry.stop_id);
+									entry.stop_data = stop.stop_data;
+									entry.route_id = route_id;
+									for (var j = 0; j < stop_data.routes.length; j++){
+										if (stop_data.routes[j].route_id == entry.route_id) {
+											entry.route_data = stop_data.routes[j];
+											entry.route_data.route_long_name = entry.route_data.route_long_name.replace("WES Commuter Rail","WES");
+
+										}
+									}
+									entry.agency = agency;
+									entry.avl_agency_id = avl_agency_id;
+									entry.alerts = ""; // need to figure this out later
+									entry.last_updated = update_time;
+									local_queue.push(entry);
 								}
 							});
 						}
