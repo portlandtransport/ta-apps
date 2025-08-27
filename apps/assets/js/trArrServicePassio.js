@@ -117,6 +117,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
+									entry.type = "scheduled";
 									console.log(arrival_trips[trip_id]);
 									entry.headsign = "need a headsign";
 									entry.stop_id = stop.stop_id;
