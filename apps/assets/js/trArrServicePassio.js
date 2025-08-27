@@ -91,7 +91,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 	this.trArrPassioRequestLoop = function() {		
 		
-		updater.process_results = function(data) {
+		updater.process_results = function(trips) {
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
@@ -99,6 +99,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			// loop through stops in request and see if we have arrivals for that stop
 			updater.service_requests.forEach((stop) => {
 				console.log(stop);
+				if (trips.keys().includes(stop.stop_id)) {
+					console.log(trips[stop.stop_id]);
+				}
 			})
 
 			
