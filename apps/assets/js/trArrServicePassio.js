@@ -108,11 +108,17 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
 						if (trip_id in stop.stop_data.trips) {
-							console.log("arrival for "+stop.stop_data.trips[trip_id]);
 							var route_id = stop.stop_data.trips[trip_id];
 							console.log("arrival for route_id: "+route_id);
 							// now see if route is in service request
 							console.log(service_requests);
+							var route_match = true;
+							stop.routes.forEach((route_data) => {
+								if (route_data.route_id == route_id) {
+									// match, let's show arrival!
+									console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
+								}
+							});
 						}
 					})
 						
