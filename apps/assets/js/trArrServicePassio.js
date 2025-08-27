@@ -101,11 +101,11 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				console.log(stop);
 				//console.log(trips);
 			
-				if (trips[stop.stop_id])) {
+				if (trips[stop.stop_id]) {
 					console.log(trips[stop.stop_id]);
 				}
 				
-			})
+			});
 
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
