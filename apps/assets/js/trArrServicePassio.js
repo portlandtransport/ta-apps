@@ -56,12 +56,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
     */
 	// functions that will be polled by the arrivals object
 	this.arrivals = function() {
-		return[];
 		return this.arrivals_queue;
 	}
 	
 	this.messages = function() {
-		return[];
 		return this.service_messages;
 	}
 	
