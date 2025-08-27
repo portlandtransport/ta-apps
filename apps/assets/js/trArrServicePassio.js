@@ -98,13 +98,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 			// loop through stops in request and see if we have arrivals for that stop
 			updater.service_requests.forEach((stop) => {
-				console.log(stop);
-				console.log(trips[stop.stop_id]);
-				/*
-				if (trips[stop.stop_id]) {
+				if (stop.stop_id in trips) {
+					console.log(stop);
 					console.log(trips[stop.stop_id]);
 				}
-					*/
 				
 			});
 
