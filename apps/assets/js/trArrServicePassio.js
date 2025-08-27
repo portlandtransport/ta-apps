@@ -97,6 +97,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var update_time = localTime().getTime();
 
 			// loop through stops in request and see if we have arrivals for that stop
+			console.log(trips);
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
 					console.log(stop);
