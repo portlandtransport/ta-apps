@@ -125,10 +125,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									for (var j = 0; j < stop_data.routes.length; j++){
 										if (stop_data.routes[j].route_id == entry.route_id) {
 											entry.route_data = stop_data.routes[j];
-											entry.route_data.route_long_name = entry.route_data.route_long_name.replace("WES Commuter Rail","WES");
-
 										}
 									}
+									entry.route_data = route_data;
+									entry.route_data.route_short_name = "??";
 									entry.agency = agency;
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
