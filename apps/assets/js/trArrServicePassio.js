@@ -122,13 +122,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									var stop_data = trStopCache().stopData(agency,entry.stop_id);
 									entry.stop_data = stop_data;
 									entry.route_id = route_id;
-									for (var j = 0; j < stop_data.routes.length; j++){
-										if (stop_data.routes[j].route_id == entry.route_id) {
-											entry.route_data = stop_data.routes[j];
-										}
-									}
+
 									entry.route_data = route_data;
 									entry.route_data.route_short_name = "??";
+									entry.route_data.service_class = 6;
 									entry.agency = agency;
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
