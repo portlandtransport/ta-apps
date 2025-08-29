@@ -51,7 +51,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyClackEntryFilterCallback(entry) {
-	entry.route_data.route_short_name = "&nbsp;";
+	//entry.route_data.route_short_name = "&nbsp;";
 	return entry;
 }
 
