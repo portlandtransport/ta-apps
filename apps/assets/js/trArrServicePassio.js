@@ -26,7 +26,8 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
     for (var avl_agency_id in service_requests) {
 	    var agency = avl_agency_id;
         var agency_data = this.agencies.agencyData(agency);
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_data.gtfs_rt_url));
+		agency_name = agency_data.agency_name;
+	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_data.gtfs_rt_url));
     }
     
 }
@@ -127,6 +128,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data.route_short_name = "??";
 									entry.route_data.service_class = 6;
 									entry.agency = agency;
+									entry.agency_name = agency_name;
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
