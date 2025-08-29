@@ -102,9 +102,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
-					console.log("look for callback");
-					console.log(stop);
-					console.log(stop_trips);
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
@@ -135,8 +132,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
 									entry.route_data.route_short_name = "??"; // should get overriden by callback
-									console.log(typeof stop.callback);
-									if (stop.callback) {
+									if (typeoff stop.callback == 'function') {
 										local_queue.push(stop.callback(entry));
 									}
 									local_queue.push(entry);
