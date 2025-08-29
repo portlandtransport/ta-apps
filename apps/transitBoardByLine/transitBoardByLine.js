@@ -854,10 +854,14 @@ transitBoardByLine.displayPage = function(data, callback) {
 		}
 		
 		var trip_inner = '<tr valign="middle"><td class="route">'+by_trip[trip_key].arrivals[0].app_route_id+"</td>\n";
+		var agency_name = "";
+		if (data.optionsConfig.add_agency != undefined && data.optionsConfig.add_agency[0] != undefined && data.optionsConfig.add_agency[0] != "" && data.optionsConfig.add_agency[0] != 0) {
+			agency_name = by_trip[trip_key].arrivals[0].agency_name+" ";
+		}
 		if (data.optionsConfig.suppress_stop_location != undefined && data.optionsConfig.suppress_stop_location[0] != undefined && data.optionsConfig.suppress_stop_location[0] != "" && data.optionsConfig.suppress_stop_location[0] != 0) {
-			trip_inner += '<td class="destination" valign="middle"><div>'+by_trip[trip_key].arrivals[0].app_headsign_less_route+"</div></td>\n";
+			trip_inner += '<td class="destination" valign="middle"><div>'+agency_name+by_trip[trip_key].arrivals[0].app_headsign_less_route+"</div></td>\n";
 		} else {
-			trip_inner += '<td class="destination" valign="middle"><div>'+by_trip[trip_key].arrivals[0].app_headsign_less_route+" from "+by_trip[trip_key].arrivals[0].stop_data.stop_name.replace(" MAX Station","").replace(" MAX Stn","")+"</div></td>\n";
+			trip_inner += '<td class="destination" valign="middle"><div>'+agency_name+by_trip[trip_key].arrivals[0].app_headsign_less_route+" from "+by_trip[trip_key].arrivals[0].stop_data.stop_name.replace(" MAX Station","").replace(" MAX Stn","")+"</div></td>\n";
 		}
 		trip_inner += "<td class=\"arrivals\">"+trip_arrival+"</td></tr>";
 		
