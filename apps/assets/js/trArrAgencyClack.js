@@ -42,10 +42,17 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 			}
 		}
 
+		obj.callback = trArrAgencyClackEntryFilterCallback;
+
 		service_requests.Passio['Clack'].push(obj);
 		
 	}
 	
+}
+
+function trArrAgencyClackEntryFilterCallback(entry) {
+	entry.route_data.route_short_name = entry.route_data.route_id;
+	return entry;
 }
 
 

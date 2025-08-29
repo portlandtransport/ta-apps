@@ -206,6 +206,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 						}
 					}
 					entry.agency = "TriMet";
+					entry.agency_name = "TriMet";
 					entry.avl_agency_id = "TriMet";
 					entry.alerts = ""; // need to figure this out later
 					entry.last_updated = update_time;
