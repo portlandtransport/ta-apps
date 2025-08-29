@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
+function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests,trArrAgencyClackEntryFilterCallback) {
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
@@ -46,6 +46,11 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 		
 	}
 	
+}
+
+function trArrAgencyClackEntryFilterCallback(entry) {
+	entry.route_data.route_short_name = "&nbsp;";
+	return entry;
 }
 
 

@@ -31,7 +31,7 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
     
 }
 
-function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url) {
+function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_rt_url,agency_callback) {
     
     
 	var updater = this;
@@ -130,7 +130,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
-									local_queue.push(entry);
+									local_queue.push(agency_callback(entry));
 								}
 							});
 						}

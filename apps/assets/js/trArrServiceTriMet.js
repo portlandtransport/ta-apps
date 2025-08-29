@@ -215,7 +215,6 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = local_queue;
-			console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 				
 		}
