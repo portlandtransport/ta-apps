@@ -854,7 +854,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 		}
 		
 		var trip_inner = '<tr valign="middle"><td class="route">'+by_trip[trip_key].arrivals[0].app_route_id+"</td>\n";
-		trip_inner += '<td class="destination" valign="middle"><div>'+by_trip[trip_key].arrivals[0].app_headsign_less_route+" from "+by_trip[trip_key].arrivals[0].stop_data.stop_name.replace(" MAX Station","").replace(" MAX Stn","")+"</div></td>\n";
+		if (data.optionsConfig.suppress_stop_location != undefined && data.optionsConfig.suppress_stop_location[0] != undefined && data.optionsConfig.suppress_stop_location[0] != "" && data.optionsConfig.stop_location[0] != 0) {
+			trip_inner += '<td class="destination" valign="middle"><div>'+by_trip[trip_key].arrivals[0].app_headsign_less_route+"</div></td>\n";
+		} else {
+			trip_inner += '<td class="destination" valign="middle"><div>'+by_trip[trip_key].arrivals[0].app_headsign_less_route+" from "+by_trip[trip_key].arrivals[0].stop_data.stop_name.replace(" MAX Station","").replace(" MAX Stn","")+"</div></td>\n";
+		}
 		trip_inner += "<td class=\"arrivals\">"+trip_arrival+"</td></tr>";
 		
 		var by_trip_html = "<table class=\""+trip_key+" trip_wrapper active bank_placeholder\" data-bank=\"bank_placeholder\" data-sortkey=\""+by_trip[trip_key].sort_key+"\" data-tripid=\""+trip_key+"\"><tbody class=\"trip service_color_"+by_trip[trip_key].arrivals[0].app_color+" route_"+by_trip[trip_key].arrivals[0].route_id+" direction_"+by_trip[trip_key].arrivals[0].route_data.direction_id+" agency_"+by_trip[trip_key].arrivals[0].agency+"\">\n";
