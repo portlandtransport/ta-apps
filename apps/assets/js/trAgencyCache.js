@@ -64,7 +64,7 @@ function trAgencyCache() {
 	this.cache['Clack'] = {
         "rights_notice": "",
         "_id": "Clack",
-        "agency_name": "Clack",
+        "agency_name": "Clackamas Connect",
         "agency_url": "https://www.clackamas.us/h3s/connects-shuttle",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "Clack",
