@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests,trArrAgencyClackEntryFilterCallback) {
+function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
@@ -41,6 +41,8 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 				}
 			}
 		}
+
+		obj.callback = trArrAgencyClackEntryFilterCallback;
 
 		service_requests.Passio['Clack'].push(obj);
 		

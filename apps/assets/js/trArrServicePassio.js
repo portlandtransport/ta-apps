@@ -19,7 +19,7 @@
 */
 
 
-function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters,agency_callback) {
+function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
     
     this.agencies = trAgencyCache();
     
@@ -27,12 +27,12 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
 	    var agency = avl_agency_id;
         var agency_data = this.agencies.agencyData(agency);
 		agency_name = agency_data.agency_name;
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_data.gtfs_rt_url,agency_callback));
+	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_data.gtfs_rt_url));
     }
     
 }
 
-function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_rt_url,agency_callback) {
+function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_rt_url) {
     
     
 	var updater = this;
@@ -102,6 +102,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
+					console.log("look for callback");
+					console.log(stop);
 					console.log(stop_trips);
 					
 					var targeted_trip_routes = {};
