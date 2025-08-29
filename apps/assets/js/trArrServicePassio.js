@@ -132,7 +132,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
 									entry.route_data.route_short_name = "??"; // should get overriden by callback
-									if (typeoff stop.callback == 'function') {
+									if (typeof stop.callback == 'function') {
 										local_queue.push(stop.callback(entry));
 									}
 									local_queue.push(entry);
