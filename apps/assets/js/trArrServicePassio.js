@@ -112,11 +112,11 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 							stop.routes.forEach((route_data) => {
 								if (route_data.route_id == route_id) {
 									// match, let's show arrival!
-									console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
+									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
 									entry.type = "estimated";
-									console.log(arrival_trips[trip_id]);
+									//console.log(arrival_trips[trip_id]);
 									entry.headsign = route_data.route_long_name;
 									entry.stop_id = stop.stop_id;
 									var stop_data = trStopCache().stopData(agency,entry.stop_id);
@@ -152,7 +152,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
-			console.log(updater.arrivals_queue);
+			//console.log(updater.arrivals_queue);
 
 		}
 
