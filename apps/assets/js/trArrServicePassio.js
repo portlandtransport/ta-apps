@@ -132,9 +132,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
-									//local_queue.push(agency_callback(entry));
-									entry.route_data.route_short_name = "&nbsp;";
-									local_queue.push(entry);
+									local_queue.push(agency_callback(entry));
 								}
 							});
 						}
