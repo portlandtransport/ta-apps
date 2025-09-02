@@ -177,6 +177,16 @@ table.trip_wrapper td.arrivals span.second_arrival {
 	font-size: .7em;
 }
 
+/* Clackamas Connect Colors */
+
+table.trip_wrapper tbody.agency_Clack.route_6140 td.route,
+table.trip_wrapper tbody.agency_Clack.route_6140 td.destination,
+table.trip_wrapper tbody.agency_Clack.route_6140 td.destination div {
+	background-color: #FF7F0E;
+	border-color: #FF7F0E;
+	color: white;
+}
+
 /* colors */
 
 table.trip_wrapper tbody.service_color_blue td.route,
