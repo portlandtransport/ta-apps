@@ -51,7 +51,13 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyClackEntryFilterCallback(entry) {
-	entry.route_data.route_short_name = entry.route_data.route_id;
+	const route_initials = {
+		"5396": "CX",
+		"4154": "CI",
+		"6140": "ES",
+		"4155": "OC"
+	}
+	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
 	return entry;
 }
 
