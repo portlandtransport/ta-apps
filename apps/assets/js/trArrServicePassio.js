@@ -116,7 +116,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
 									entry.type = "estimated";
-									//console.log(arrival_trips[trip_id]);
+									console.log(arrival_trips[trip_id]);
 									entry.headsign = route_data.route_long_name;
 									entry.stop_id = stop.stop_id;
 									var stop_data = trStopCache().stopData(agency,entry.stop_id);
