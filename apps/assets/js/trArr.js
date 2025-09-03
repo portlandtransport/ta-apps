@@ -457,6 +457,7 @@ function trArr(input_params) {
 	this.mergeArrivals = function() {
 		var now = new Date();
 		now = now.getTime(); //milliseconds since epoch	
+		console.log(this.updater_array);
 	    var arrivals = new arrivalsQueue();
         for (var i = 0; i < this.updater_array.length; i++) {
         	var updater_arrivals = this.updater_array[i].arrivals();
@@ -487,7 +488,7 @@ function trArr(input_params) {
 		}
 		console.log(arrivals);
 
-  	return arrivals;
+  		return arrivals;
 	}
 	
 	this.mergeMessages = function() {
