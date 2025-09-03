@@ -109,8 +109,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
 							var route_match = true;
+							var match_found = false;
 							stop.routes.forEach((route_data) => {
-								if (route_data.route_id == route_id) {
+								if (route_data.route_id == route_id && !match_found) {
 									// match, let's show arrival!
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
@@ -138,7 +139,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.trip_id = trip_id;
 									//console.log(entry);
 									local_queue.push(entry);
-									break;
+									match_found = true;
 								}
 							});
 						}
