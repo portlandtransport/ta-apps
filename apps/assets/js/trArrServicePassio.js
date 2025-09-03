@@ -104,16 +104,12 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					// match trips
 					
 					var targeted_trip_routes = {};
-					var trip_seen = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
-						if (trip_id in stop.stop_data.trips && !trip_seen[trip_id]) {
-							trip_seen[trip_id] = true;
+						if (trip_id in stop.stop_data.trips) {
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
-							var route_match = true;
-							var match_found = false;
 							stop.routes.forEach((route_data) => {
-								if (route_data.route_id == route_id && !match_found) {
+								if (route_data.route_id == route_id) {
 									// match, let's show arrival!
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
@@ -134,11 +130,14 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.avl_agency_id = avl_agency_id;
 									entry.alerts = ""; // need to figure this out later
 									entry.last_updated = update_time;
-									entry.route_data.route_short_name = "??"; // should get overriden by callback
+									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
+									entry.trip_id = trip_id;
 									if (typeof stop.callback == 'function') {
 										local_queue.push(stop.callback(entry));
+									} else {
+										local_queue.push(entry);
 									}
-									entry.trip_id = trip_id;
+									
 								}
 							});
 						}
