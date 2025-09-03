@@ -141,6 +141,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 								}
 							});
 						}
+						console.log(local_queue);
 					})
 						
 				}
@@ -151,7 +152,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = local_queue;
-			console.log(updater.arrivals_queue);
+			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
