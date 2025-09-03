@@ -100,7 +100,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
 
-					console.log("Stop: "+stop_id)''
+					console.log("Stop: "+stop_id);
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
