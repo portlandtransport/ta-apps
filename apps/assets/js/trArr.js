@@ -485,6 +485,7 @@ function trArr(input_params) {
 		if (this.options.arrivals_limit_minutes != undefined && this.options.arrivals_limit_minutes != "" && this.options.arrivals_limit_minutes != 0) {
 			arrivals = this.filter_queue_minutes(arrivals,this.options.arrivals_limit_minutes);
 		}
+		console.log(arrivals);
 
   	return arrivals;
 	}
