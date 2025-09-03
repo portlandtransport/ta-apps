@@ -138,6 +138,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.trip_id = trip_id;
 									//console.log(entry);
 									local_queue.push(entry);
+									break;
 								}
 							});
 						}
