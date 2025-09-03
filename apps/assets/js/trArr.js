@@ -486,7 +486,7 @@ function trArr(input_params) {
 			arrivals = this.filter_queue_minutes(arrivals,this.options.arrivals_limit_minutes);
 		}
 
-  	return arrivals;
+  		return arrivals;
 	}
 	
 	this.mergeMessages = function() {

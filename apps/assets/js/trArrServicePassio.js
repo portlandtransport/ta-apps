@@ -104,13 +104,16 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					// match trips
 					
 					var targeted_trip_routes = {};
+					var trip_seen = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
-						if (trip_id in stop.stop_data.trips) {
+						if (trip_id in stop.stop_data.trips && !trip_seen[trip_id]) {
+							trip_seen[trip_id] = true;
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
 							var route_match = true;
+							var match_found = false;
 							stop.routes.forEach((route_data) => {
-								if (route_data.route_id == route_id) {
+								if (route_data.route_id == route_id && !match_found) {
 									// match, let's show arrival!
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
@@ -135,10 +138,11 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									if (typeof stop.callback == 'function') {
 										local_queue.push(stop.callback(entry));
 									}
-									local_queue.push(entry);
+									entry.trip_id = trip_id;
 								}
 							});
 						}
+
 					})
 						
 				}
@@ -149,6 +153,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = local_queue;
+			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
