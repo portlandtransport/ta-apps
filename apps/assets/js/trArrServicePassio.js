@@ -106,6 +106,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var targeted_trip_routes = {};
 					var trip_seen = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
+						console.log(trip_id+" "+trip_seen[trip_id]);
 						if (trip_id in stop.stop_data.trips && !trip_seen[trip_id]) {
 							trip_seen[trip_id] = true;
 							var route_id = stop.stop_data.trips[trip_id];
