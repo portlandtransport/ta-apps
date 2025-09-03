@@ -104,8 +104,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					// match trips
 					
 					var targeted_trip_routes = {};
+					var trip_seen = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
-						if (trip_id in stop.stop_data.trips) {
+						if (trip_id in stop.stop_data.trips && !trip_seen[trip_id]) {
+							trip_seen[trip_id] = true;
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
 							var route_match = true;
