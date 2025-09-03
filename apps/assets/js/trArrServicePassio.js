@@ -99,6 +99,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
+
+					console.log("Stop: "+stop_id)''
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
@@ -106,7 +108,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var targeted_trip_routes = {};
 					var trip_seen = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
-						console.log(trip_id+" "+trip_seen[trip_id]);
+						console.log("Trip: "+trip_id+" "+trip_seen[trip_id]);
 						if (trip_id in stop.stop_data.trips && !trip_seen[trip_id]) {
 							trip_seen[trip_id] = true;
 							var route_id = stop.stop_data.trips[trip_id];
@@ -115,6 +117,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 							var match_found = false;
 							stop.routes.forEach((route_data) => {
 								if (route_data.route_id == route_id && !match_found) {
+									console.log("Route: "+route_id);
 									// match, let's show arrival!
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
