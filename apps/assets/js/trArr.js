@@ -75,7 +75,7 @@ function trArrSupportsCors() {
     // IE
     return true;
   }
-  newrelic.addPageAction("TR7: No CORS support");
+
   return false;
 }
 
@@ -576,9 +576,13 @@ function trArr(input_params) {
 						        // Scroll back to the top
 						        jQuery(document).scrollTop(0);
 						        
-						  var access_method = "jsonp";
+						  	var access_method = "jsonp";
 							if (trArrSupportsCors()) {
 								access_method = "json";
+							} else {
+								if (typeof newrelic === "object") {
+									newrelic.addPageAction("TR7: No CORS support");
+								}
 							}
 							
 							var platform = "";
