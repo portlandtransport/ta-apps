@@ -75,6 +75,7 @@ function trArrSupportsCors() {
     // IE
     return true;
   }
+  newrelic.addPageAction("TR7: No CORS support");
   return false;
 }
 
