@@ -195,10 +195,3 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	setInterval(updater.trArrPassioRequestLoop,updater.update_interval);
 }
 
-function copyArray(in_array) {
-    var out_array = [];
-    for (var i = 0; i < in_array.length; i++){ 
-	out_array[i] = in_array[i];
-    } 
-    return out_array;
-}
