@@ -552,6 +552,39 @@ function trArr(input_params) {
 		return arrivals;
 
 	}
+
+	this.health_update = function(data,retry_count) {
+		const xhr = new XMLHttpRequest();
+
+		xhr.responseType = 'text';
+
+		var url = "//ta-web-services.com/health_update.php?"+serialize_query_string(data);
+
+		xhr.open('GET', url, true);
+
+		// Set up the event handler for when the request state changes
+		xhr.onreadystatechange = function() {
+			// Check if the request is complete (readyState 4) and successful (status 200)
+
+			if (xhr.readyState === 4 && xhr.status === 200) {
+
+				console.log(xhr.response);
+				/*
+				if ( typeof data != "undefined" && data.reset == true ) {
+					arrivals_object.reset_app();
+				}
+					*/
+
+			} else if (xhr.readyState === 4 && xhr.status !== 200) {
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("HC1: Startup not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+				}
+			}
+		};
+
+		// Send the request
+		xhr.send();
+	}
 	  
 	// create and populate stop information cache, the build structure of agency service requests
 	trAgencyCache().checkCached(this,this.query_params.stop,	function (arrivals_object) {
@@ -610,33 +643,9 @@ function trArr(input_params) {
 							}
 
 							if (is_development() && trArrSupportsCors()) {
-								// use native XHR and parse json separately
-								const xhr = new XMLHttpRequest();
-
-								xhr.responseType = 'text';
 
 								var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-								var url = "//ta-web-services.com/health_update.php?"+serialize_query_string(data);
-
-								xhr.open('GET', url, true);
-
-								// Set up the event handler for when the request state changes
-								xhr.onreadystatechange = function() {
-									// Check if the request is complete (readyState 4) and successful (status 200)
-
-									if (xhr.readyState === 4 && xhr.status === 200) {
-
-										console.log(xhr.response);
-
-									} else if (xhr.readyState === 4 && xhr.status !== 200) {
-										if (typeof newrelic === "object") {
-											newrelic.addPageAction("HC1: Startup not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
-										}
-									}
-								};
-
-								// Send the request
-								xhr.send();
+								this.health_update(data,0);
 
 							}
 							
