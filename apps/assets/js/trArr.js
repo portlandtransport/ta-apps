@@ -44,6 +44,15 @@ function is_development() {
 	return location.hostname == "dev.transitappliance.com";
 }
 
+function serialize_query_string(obj) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
+
 // Call it like timeInZone('America/Los_Angeles', ...);
 // If you leave off epoch, it will use the current time.
 function timeInZone(zone, epoch) {
@@ -599,6 +608,37 @@ function trArr(input_params) {
 							} else {
 								console.log("production tier");
 							}
+
+							if (is_development() && trArrSupportsCors()) {
+								// use native XHR and parse json separately
+								const xhr = new XMLHttpRequest();
+
+								xhr.responseType = 'text';
+
+								var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+								var url = "//ta-web-services.com/health_update.php?"+serialize_query_string(data);
+
+								xhr.open('GET', url, true);
+
+								// Set up the event handler for when the request state changes
+								xhr.onreadystatechange = function() {
+									// Check if the request is complete (readyState 4) and successful (status 200)
+
+									if (xhr.readyState === 4 && xhr.status === 200) {
+
+										console.log(xhr.response);
+
+									} else if (xhr.readyState === 4 && xhr.status !== 200) {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("HC1: Startup not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+										}
+									}
+								};
+
+								// Send the request
+								xhr.send();
+
+							}
 							
 							jQuery.ajax({
 									dataType: access_method,
@@ -618,6 +658,7 @@ function trArr(input_params) {
 										});
 									}
 							});
+
 							
 							// logging of startup, beat every 30 minutes goes here
 							setInterval(function(){
