@@ -40,6 +40,10 @@ function localTime(epoch) {
     return t;
 }
 
+function is_development() {
+	return location.hostname == "dev.transitappliance.com";
+}
+
 // Call it like timeInZone('America/Los_Angeles', ...);
 // If you leave off epoch, it will use the current time.
 function timeInZone(zone, epoch) {
@@ -588,6 +592,12 @@ function trArr(input_params) {
 							var platform = "";
 							if (typeof arrivals_object.options.platform === 'object') {
 								platform = arrivals_object.options.platform[0];
+							}
+
+							if (is_development()) {
+								console.log("dev tier");
+							} else {
+								console.log("production tier");
 							}
 							
 							jQuery.ajax({
