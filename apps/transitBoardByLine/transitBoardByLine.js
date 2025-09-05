@@ -30,7 +30,7 @@ transitBoardByLine.APP_ID 			= "tbdbyline";
 
 // assess environment
 
-transitBoardByLine.is_development = (document.domain == "dev.transitboard.com");
+transitBoardByLine.is_development = (location.hostname == "dev.transitappliance.com");
 transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 
 
