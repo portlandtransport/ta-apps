@@ -571,8 +571,8 @@ function trArr(input_params) {
 			// Check if the request is complete (readyState 4) and successful (status 200)
 
 			if (xhr.readyState === 4 && xhr.status === 200) {
-				console.log("Retry: "+retry_count);
-				console.log("Text response: "+xhr.responseText);
+				//console.log("Retry: "+retry_count);
+				//console.log("Text response: "+xhr.responseText);
 
 				// now try parsing json
 				try {
@@ -583,8 +583,8 @@ function trArr(input_params) {
 						arrivals_object.reset_app();
 					}
 				} catch (e) {
-					console.log("json parsing error");
-					console.log(e);
+					//console.log("json parsing error");
+					//console.log(e);
 					if (retry_count >= retry_limit) {
 						if (typeof newrelic === "object") {
 							newrelic.addPageAction("HC4: Startup or healthcheck JSON parsing error");
@@ -672,12 +672,12 @@ function trArr(input_params) {
 							}
 
 							if (is_development()) {
-								console.log("dev tier");
+								//console.log("dev tier");
 							} else {
-								console.log("production tier");
+								//console.log("production tier");
 							}
 
-							if (is_development() && trArrSupportsCors()) {
+							if (trArrSupportsCors()) {
 
 								var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 								arrivals_object.health_update(arrivals_object,data,0);
