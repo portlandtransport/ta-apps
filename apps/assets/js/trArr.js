@@ -577,7 +577,7 @@ function trArr(input_params) {
 					const response_data = JSON.parse(xhr.responseText);
 					// Process data
 					console.log(reponse_data);
-					if ( typeof response_data != "undefined" && response_data .reset == true ) {
+					if ( typeof response_data != "undefined" && response_data.reset == true ) {
 						arrivals_object.reset_app();
 					}
 				} catch (e) {
@@ -601,7 +601,7 @@ function trArr(input_params) {
 			}
 		};
 
-		xhr.onerror() {
+		xhr.onerror = function() {
 			if (retry_count > retry_limit) {
 				if (typeof newrelic === "object") {
 					newrelic.addPageAction("HC3: Startup or healthcheck network error");
