@@ -571,7 +571,7 @@ function trArr(input_params) {
 			// Check if the request is complete (readyState 4) and successful (status 200)
 
 			if (xhr.readyState === 4 && xhr.status === 200) {
-
+				console.log("Text response: "+xhr.responseText);
 				// now try parsing json
 				try {
 					const response_data = JSON.parse(xhr.responseText);
