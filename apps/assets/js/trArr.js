@@ -578,7 +578,7 @@ function trArr(input_params) {
 				try {
 					const response_data = JSON.parse(xhr.responseText);
 					// Process data
-					console.log(response_data);
+					//console.log(response_data);
 					if ( typeof response_data != "undefined" && response_data.reset == true ) {
 						arrivals_object.reset_app();
 					}
@@ -595,7 +595,7 @@ function trArr(input_params) {
 				}
 
 			} else if (xhr.readyState === 4 && xhr.status !== 200) {
-				console.log("xhr state error");
+				//console.log("xhr state error");
 				if (retry_count >= retry_limit) {
 					if (typeof newrelic === "object") {
 						newrelic.addPageAction("HC1: Startup or healthcheck not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
@@ -607,7 +607,7 @@ function trArr(input_params) {
 		};
 
 		xhr.onerror = function() {
-			console.log("xhr network error");
+			//console.log("xhr network error");
 			if (retry_count >= retry_limit) {
 				if (typeof newrelic === "object") {
 					newrelic.addPageAction("HC3: Startup or healthcheck network error");
