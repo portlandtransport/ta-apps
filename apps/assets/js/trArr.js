@@ -571,7 +571,9 @@ function trArr(input_params) {
 			// Check if the request is complete (readyState 4) and successful (status 200)
 
 			if (xhr.readyState === 4 && xhr.status === 200) {
+				console.log("Retry: "+retry_count);
 				console.log("Text response: "+xhr.responseText);
+
 				// now try parsing json
 				try {
 					const response_data = JSON.parse(xhr.responseText);
@@ -582,6 +584,7 @@ function trArr(input_params) {
 					}
 				} catch (e) {
 					console.log("json parsing error");
+					console.log(e);
 					if (retry_count > retry_limit) {
 						if (typeof newrelic === "object") {
 							newrelic.addPageAction("HC4: Startup or healthcheck JSON parsing error");
