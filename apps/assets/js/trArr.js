@@ -554,11 +554,15 @@ function trArr(input_params) {
 	}
 
 	this.health_update = function(data,retry_count) {
+		const retry_limit = 1;
 		const xhr = new XMLHttpRequest();
 
 		xhr.responseType = 'text';
 
 		var url = "//ta-web-services.com/health_update.php?"+serialize_query_string(data);
+		if (retry_count > 0) {
+			url = "//transitappliance.com/health_update.php?"+serialize_query_string(data);
+		}
 
 		xhr.open('GET', url, true);
 
@@ -568,19 +572,44 @@ function trArr(input_params) {
 
 			if (xhr.readyState === 4 && xhr.status === 200) {
 
-				console.log(xhr.response);
-				/*
-				if ( typeof data != "undefined" && data.reset == true ) {
-					arrivals_object.reset_app();
+				// now try parsing json
+				try {
+					const response_data = JSON.parse(xhr.responseText);
+					// Process data
+					console.log(reponse_data);
+					if ( typeof response_data != "undefined" && response_data .reset == true ) {
+						arrivals_object.reset_app();
+					}
+				} catch (e) {
+					if (retry_count > retry_limit) {
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("HC4: Startup or healthcheck JSON parsing error");
+						}
+					} else {
+						arrivals_object.health_update(data,retry_count+1);
+					}
 				}
-					*/
 
 			} else if (xhr.readyState === 4 && xhr.status !== 200) {
-				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC1: Startup not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+				if (retry_count > retry_limit) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("HC1: Startup or healthcheck not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+					}
+				} else {
+					arrivals_object.health_update(data,retry_count+1);
 				}
 			}
 		};
+
+		xhr.onerror() {
+			if (retry_count > retry_limit) {
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("HC3: Startup or healthcheck network error");
+				}
+			} else {
+				arrivals_object.health_update(data,retry_count+1);
+			}
+		}
 
 		// Send the request
 		xhr.send();
