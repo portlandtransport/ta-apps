@@ -586,7 +586,7 @@ function trArr(input_params) {
 							newrelic.addPageAction("HC4: Startup or healthcheck JSON parsing error");
 						}
 					} else {
-						arrivals_object.health_update(data,retry_count+1);
+						arrivals_object.health_update(arrivals_object,data,retry_count+1);
 					}
 				}
 
@@ -596,7 +596,7 @@ function trArr(input_params) {
 						newrelic.addPageAction("HC1: Startup or healthcheck not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
 					}
 				} else {
-					arrivals_object.health_update(data,retry_count+1);
+					arrivals_object.health_update(arrivals_object,data,retry_count+1);
 				}
 			}
 		};
@@ -607,7 +607,7 @@ function trArr(input_params) {
 					newrelic.addPageAction("HC3: Startup or healthcheck network error");
 				}
 			} else {
-				arrivals_object.health_update(data,retry_count+1);
+				arrivals_object.health_update(arrivals_object,data,retry_count+1);
 			}
 		}
 
