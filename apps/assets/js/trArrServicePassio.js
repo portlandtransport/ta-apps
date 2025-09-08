@@ -20,15 +20,35 @@
 
 
 function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, updaters) {
+
+	// load Protocol Buffer code
+
+	jQuery.when(jQuery.ajax({
+		url: "/apps/assets/js/tripUpdateParser.js",
+		dataType: 'script',
+		async: true,
+		success: function() {
+			trArrLog("Loading protocol buffer code<br>");
+			this.agencies = trAgencyCache();
     
-    this.agencies = trAgencyCache();
+			for (var avl_agency_id in service_requests) {
+				var agency = avl_agency_id;
+				var agency_data = this.agencies.agencyData(agency);
+				agency_name = agency_data.agency_name;
+				updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_data.gtfs_rt_url));
+			}
+
+		},
+		error: function(jqXHR,textStatus,errorThrown) {
+			
+			trArrLog("Error loading protocol buffer code<br>");
+			setTimeout(function(){
+				window.location.reload();
+			},5000);
+		}
+	}));
     
-    for (var avl_agency_id in service_requests) {
-	    var agency = avl_agency_id;
-        var agency_data = this.agencies.agencyData(agency);
-		agency_name = agency_data.agency_name;
-	    updaters.push(new trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agency,agency_name,agency_data.gtfs_rt_url));
-    }
+
     
 }
 
