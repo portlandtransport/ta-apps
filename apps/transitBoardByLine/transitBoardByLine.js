@@ -812,7 +812,14 @@ transitBoardByLine.displayPage = function(data, callback) {
 			} else {
 				direction_multiplier = 1;
 			}
-			by_trip[trip_identifier].sort_key = 10*filtered_queue[i].route_id + 10000*service_class + direction_multiplier*filtered_queue[i].route_data.direction_id;
+
+			if (filtered_queue[i].route_id > 1000) {
+				// hack for clackamas country routes
+				by_trip[trip_identifier].sort_key = 10000*service_class + direction_multiplier*filtered_queue[i].route_data.direction_id;
+			} else {
+				by_trip[trip_identifier].sort_key = 10*filtered_queue[i].route_id + 10000*service_class + direction_multiplier*filtered_queue[i].route_data.direction_id;
+			}
+			
 		}
 		by_trip[trip_identifier].arrivals.push(filtered_queue[i]);
 	}
