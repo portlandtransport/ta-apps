@@ -24,7 +24,7 @@ function trArrServicePassioCreateUpdaters(arrivals_object, service_requests, upd
 	// load Protocol Buffer code
 
 	jQuery.when(jQuery.ajax({
-		url: "//apps/assets/js/tripUpdateParser.js",
+		url: "/apps/assets/js/tripUpdateParser.js",
 		dataType: 'script',
 		async: true,
 		success: function() {
