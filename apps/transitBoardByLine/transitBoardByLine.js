@@ -813,7 +813,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 				direction_multiplier = 1;
 			}
 			console.log(filtered_queue[i]);
-			if (isNaN(filtered_queue[i].route_id)) {
+			if (filtered_queue[i].route_id > 1000)) {
+				// hack for clackamas country routes
 				by_trip[trip_identifier].sort_key = 10000*service_class + direction_multiplier*filtered_queue[i].route_data.direction_id;
 			} else {
 				by_trip[trip_identifier].sort_key = 10*filtered_queue[i].route_id + 10000*service_class + direction_multiplier*filtered_queue[i].route_data.direction_id;
