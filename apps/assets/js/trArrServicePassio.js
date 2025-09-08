@@ -145,7 +145,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data = route_data;
 									entry.route_data.route_short_name = "??";
 									entry.route_data.service_class = 6;
-									entry.route_data.direction_id = 0; // for purposes of sorting
 									entry.agency = agency;
 									entry.agency_name = agency_name;
 									entry.avl_agency_id = avl_agency_id;
