@@ -45,7 +45,7 @@ function is_development() {
 }
 
 function is_cyan() {
-	return (typeof applianceId == "string" && typeof applianceId.match(/D0:27:88:D3:EA:1B/i) == "array");
+	return (typeof applianceId == "string" && applianceId.match(/D0:27:88:D3:EA:1B/i) != null);
 }
 
 function serialize_query_string(obj) {
