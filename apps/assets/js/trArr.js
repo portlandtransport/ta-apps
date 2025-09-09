@@ -680,12 +680,16 @@ function trArr(input_params) {
 							} else {
 								//console.log("production tier");
 							}
+							/*
 							console.log(applianceId);
 							console.log(is_cyan());
+							*/
 
 							
 
-							if (is_development() && trArrSupportsCors()) {
+							if (is_development() && trArrSupportsCors() && !is_cyan()) {
+
+								console.log('new health check');
 
 								var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 								arrivals_object.health_update(arrivals_object,data,0);
@@ -697,6 +701,8 @@ function trArr(input_params) {
 								}, 30*60*1000); // 30 min
 
 							} else {
+
+								console.log('legacy health check');
 								
 								jQuery.ajax({
 										dataType: access_method,
