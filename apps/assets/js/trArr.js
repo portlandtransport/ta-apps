@@ -44,6 +44,10 @@ function is_development() {
 	return location.hostname == "dev.transitappliance.com";
 }
 
+function is_cyan() {
+	return (typeof applianceId == "string" && typeof applianceId.match(/D0:27:88:D3:EA:1B/i) == "array");
+}
+
 function serialize_query_string(obj) {
   var str = [];
   for (var p in obj)
@@ -677,6 +681,9 @@ function trArr(input_params) {
 								//console.log("production tier");
 							}
 							console.log(applianceId);
+							console.log(is_cyan());
+
+							
 
 							if (is_development() && trArrSupportsCors()) {
 
