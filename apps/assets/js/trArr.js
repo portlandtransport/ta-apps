@@ -676,6 +676,7 @@ function trArr(input_params) {
 							} else {
 								//console.log("production tier");
 							}
+							console.log(applianceId);
 
 							if (is_development() && trArrSupportsCors()) {
 
