@@ -544,8 +544,8 @@ transitBoardByLine.initializePage = function(data) {
 			var trip_height = jQuery('#trip2').outerHeight(true);
 			transitBoardByLine.trip_height = trip_height;
 	
-			console.log(jQuery("#tb_bottom"));
-			console.log(jQuery("#tb_bottom").offset());
+			//console.log(jQuery("#tb_bottom"));
+			//console.log(jQuery("#tb_bottom").offset());
 			if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
 				if (typeof newrelic === "object") {
 					newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
