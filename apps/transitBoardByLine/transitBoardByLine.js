@@ -543,6 +543,14 @@ transitBoardByLine.initializePage = function(data) {
 		
 			var trip_height = jQuery('#trip2').outerHeight(true);
 			transitBoardByLine.trip_height = trip_height;
+			/*
+					if (typeof newrelic === "object") {
+			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
+			location.reload();
+			}
+			*/
+			console.log(jQuery("#tb_bottom"));
+			console.log(jQuery("#tb_bottom").offset());
 			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
 			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
 			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
