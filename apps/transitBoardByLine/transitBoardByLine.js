@@ -551,22 +551,24 @@ transitBoardByLine.initializePage = function(data) {
 					newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
 					location.reload();
 				}
+			} else {
+				transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
+				transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
+				transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
+				transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
+				transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
+
+				
+				// set the height of the div
+				jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
+				
+				// kill the test divs
+				jQuery("#wrapper1,#wrapper2").remove();
 			}
-			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
-			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
-			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
-			transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
-			transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
-
 			
-			// set the height of the div
-			jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
-			
-			// kill the test divs
-			jQuery("#wrapper1,#wrapper2").remove();
 
 
-		},2000);
+		},3000);
 		
 	},3000);
 	
