@@ -202,7 +202,7 @@ if (right_width > 1) {
 }
 html += '</div>';
 
-console.logI(html);
+console.log(html);
 	
 jQuery('body').html(html);
 
