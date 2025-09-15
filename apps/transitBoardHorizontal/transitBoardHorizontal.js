@@ -149,7 +149,6 @@ if (suppl_url == "") {
 
 if (suppl_url.substr(0,9) == "appliance") {
 	suppl_url = "/apps/loader.html?"+suppl_url.substr(12);
-	console.log(suppl_url);
 }
 
 var effective_width = body_width - left_border - right_border;
@@ -201,39 +200,40 @@ if (right_width > 1) {
 	html += '</iframe><iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="background: white; border: none; margin: 0; width: ' + right_width + 'px; height: ' + effective_height+'px"></iframe>';
 }
 html += '</div>';
-console.log(html);
-
- document.getElementsByTagName('body')[0].innerHTML = html;
 
 
-//jQuery('body').html(html);
+jQuery(document).ready(function(){
 
-var current_frame = 0;
-function rotate_frames () {
-	current_frame = current_frame + 1;
-	if (current_frame > num_pages) {
-		current_frame = 1;
-	}
-	//alert(current_frame+" out of "+num_pages);
-	for (var i=1;i<=num_pages;i++) {
-		if (i == current_frame) {
-			var frame = document.getElementById("app_frame"+i);
-			if (frame !== null) {
-				frame.style.zIndex = 1000;
-			}
-		} else {
-			var frame = document.getElementById("app_frame"+i);
-			if (frame !== null) {
-				frame.style.zIndex = -1000;
+	jQuery('body').html(html);
+
+	var current_frame = 0;
+	function rotate_frames () {
+		current_frame = current_frame + 1;
+		if (current_frame > num_pages) {
+			current_frame = 1;
+		}
+		//alert(current_frame+" out of "+num_pages);
+		for (var i=1;i<=num_pages;i++) {
+			if (i == current_frame) {
+				var frame = document.getElementById("app_frame"+i);
+				if (frame !== null) {
+					frame.style.zIndex = 1000;
+				}
+			} else {
+				var frame = document.getElementById("app_frame"+i);
+				if (frame !== null) {
+					frame.style.zIndex = -1000;
+				}
 			}
 		}
+		setTimeout(rotate_frames,page_delay*1000);
 	}
-	setTimeout(rotate_frames,page_delay*1000);
-}
 
-if ( num_pages > 1 && appliance['id'] ) {
-	setTimeout(rotate_frames,100000); // 100 second delay to let everything load
-}
+	if ( num_pages > 1 && appliance['id'] ) {
+		setTimeout(rotate_frames,100000); // 100 second delay to let everything load
+	}
+
+});
 
 /*
 if ( second_page && appliance['id'] ) {
