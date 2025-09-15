@@ -144,6 +144,9 @@ if (typeof suppl_url == "object") {
 }
 
 var supplemental_left = options.supplemental_left;
+if (typeof supplemental_left == "object") {
+	supplemental_left = supplemental_left[0];
+}
 console.log("Supplemental left:");
 console.log(supplemental_left);
 
