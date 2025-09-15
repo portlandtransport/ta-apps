@@ -176,8 +176,8 @@ var app_url = "/apps/loader.html?"+primary_id;
 var supplemental_direction = "right";
 
 var html = '<div id="tb_frames" style="width: ' + effective_width + 'px; height: ' + effective_height + 'px">';
-html += '<div style="position: relative; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px">';
-html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="background: white; position: absolute; border:none; margin: 0; float: '+supplemental_direction+'; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+html += '<div style="position: relative; float: '+supplemental_direction+';; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px">';
+html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="background: white; position: absolute; border:none; margin: 0; float: left; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
 
 if ( num_pages > 1 && appliance['id'] ) {
 	for (var i=2;i<=num_pages;i++) {
