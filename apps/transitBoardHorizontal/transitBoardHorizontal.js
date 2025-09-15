@@ -203,8 +203,10 @@ if (right_width > 1) {
 html += '</div>';
 console.log(html);
 
+document.body.innerHTML = html;
 
-jQuery('body').html(html);
+
+//jQuery('body').html(html);
 
 var current_frame = 0;
 function rotate_frames () {
