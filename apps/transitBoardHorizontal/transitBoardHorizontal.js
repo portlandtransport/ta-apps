@@ -143,6 +143,10 @@ if (typeof suppl_url == "object") {
 	suppl_url = suppl_url[0];
 }
 
+var supplemental_left = options.supplemental_left;
+console.log("Supplemental left:");
+console.log(supplemental_left);
+
 if (suppl_url == "") {
 	suppl_url = "//transitappliance.com/size_info.html";
 }
