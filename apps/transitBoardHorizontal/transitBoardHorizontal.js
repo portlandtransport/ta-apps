@@ -147,8 +147,11 @@ var supplemental_left = options.supplemental_left;
 if (typeof supplemental_left == "object") {
 	supplemental_left = supplemental_left[0];
 }
-console.log("Supplemental left:");
-console.log(supplemental_left);
+var supplemental_direction = "left";
+if (supplemental_left == 1) {
+	// flip it
+	supplemental_direction = "right";
+}
 
 if (suppl_url == "") {
 	suppl_url = "//transitappliance.com/size_info.html";
@@ -179,8 +182,6 @@ var primary_id = appliance['id']+":A";
 var app_url = "/apps/loader.html?"+primary_id;
 	
 // populate html
-
-var supplemental_direction = "right";
 
 var html = '<div id="tb_frames" style="width: ' + effective_width + 'px; height: ' + effective_height + 'px">';
 html += '<div style="position: relative; float: '+supplemental_direction+';; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px">';
