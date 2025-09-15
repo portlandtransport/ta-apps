@@ -139,6 +139,9 @@ var right_border 	= options.right || 0;
 
 var split_pct 		= options.splitpct || 100;
 var suppl_url 		= options.suppl_url;
+if (typeof suppl_url == "object") {
+	suppl_url = suppl_url[0];
+}
 
 if (suppl_url == "") {
 	suppl_url = "//transitappliance.com/size_info.html";
