@@ -203,7 +203,7 @@ if (right_width > 1) {
 html += '</div>';
 console.log(html);
 
-document.body.innerHTML = html;
+ document.getElementsByTagName('body')[0].innerHTML = html;
 
 
 //jQuery('body').html(html);
