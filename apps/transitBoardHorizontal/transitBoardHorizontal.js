@@ -144,6 +144,10 @@ if (suppl_url == "") {
 	suppl_url = "//transitappliance.com/size_info.html";
 }
 
+if (suppl_url.substr(0,9) == "appliance") {
+	suppl_url = "/apps/loader.html?"suppl_url.substr(13,99):
+}
+
 var effective_width = body_width - left_border - right_border;
 var effective_height = body_height - bottom_border - top_border;
 
