@@ -201,9 +201,10 @@ if (right_width > 1) {
 	html += '</iframe><iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="background: white; border: none; margin: 0; width: ' + right_width + 'px; height: ' + effective_height+'px"></iframe>';
 }
 html += '</div>';
+console.log(html);
 
 
-console.log(jQuery('body').html(html));
+jQuery('body').html(html);
 
 var current_frame = 0;
 function rotate_frames () {
