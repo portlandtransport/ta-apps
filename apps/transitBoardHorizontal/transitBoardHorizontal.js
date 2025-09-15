@@ -148,7 +148,7 @@ if (suppl_url == "") {
 }
 
 if (suppl_url.substr(0,9) == "appliance") {
-	suppl_url = "/apps/loader.html?"+suppl_url.substr(13,99);
+	suppl_url = "/apps/loader.html?"+suppl_url.substr(12);
 	console.log(suppl_url);
 }
 
