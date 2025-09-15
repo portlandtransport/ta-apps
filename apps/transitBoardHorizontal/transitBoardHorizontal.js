@@ -201,6 +201,8 @@ if (right_width > 1) {
 	html += '</iframe><iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="background: white; border: none; margin: 0; width: ' + right_width + 'px; height: ' + effective_height+'px"></iframe>';
 }
 html += '</div>';
+
+console.logI(html);
 	
 jQuery('body').html(html);
 
