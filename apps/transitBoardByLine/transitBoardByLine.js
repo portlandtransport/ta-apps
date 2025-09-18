@@ -516,59 +516,67 @@ transitBoardByLine.initializePage = function(data) {
 				table.trip_wrapper tbody tr td.destination { width: 100% }\
 			</style>\
 		'));
-	
-		transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
-		var actual_width = jQuery("tbody.trip").outerWidth(true);
-			
-		var destination_wrapper_width = jQuery("table.trip_wrapper tbody tr td.destination").width() + transitBoardByLine.target_width - actual_width;
-				
-		// mark sure the top margin is an integer
-		var margin = parseInt(jQuery("table.trip_wrapper").css("margin-top"),10);
-		margin = Math.floor(margin+0);
-	
-		jQuery("head").append(jQuery('\
-			<style>\
-				/*table.trip_wrapper tbody tr td.destination { width: '+destination_wrapper_width+'px; }*/\
-				table.trip_wrapper { height: '+jQuery('#trip2').height()+'px; width: '+transitBoardByLine.target_width+'px; margin-top: '+margin+'px; }\
-			</style>\
-		'));
-		
-		// set up scroller
-	
-		var cell_width = jQuery("#tb_ticker").width();
-		jQuery(".scroller").css("height",scroller_height);
-		
-		setTimeout(function(){
-			// allow html to settle before calculating heights
-		
-			var trip_height = jQuery('#trip2').outerHeight(true);
-			transitBoardByLine.trip_height = trip_height;
-	
-			//console.log(jQuery("#tb_bottom"));
-			//console.log(jQuery("#tb_bottom").offset());
-			if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
-				if (typeof newrelic === "object") {
-					newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
-					location.reload();
-				}
-			} else {
-				transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
-				transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
-				transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
-				transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
-				transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
 
-				
-				// set the height of the div
-				jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
-				
-				// kill the test divs
-				jQuery("#wrapper1,#wrapper2").remove();
+		if (document.getElementById("tb_middle") == null) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TBL5: middle page element missing, relaunching application");
+				location.reload();
 			}
+		} else {
+
+			transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
+			var actual_width = jQuery("tbody.trip").outerWidth(true);
+				
+			var destination_wrapper_width = jQuery("table.trip_wrapper tbody tr td.destination").width() + transitBoardByLine.target_width - actual_width;
+					
+			// mark sure the top margin is an integer
+			var margin = parseInt(jQuery("table.trip_wrapper").css("margin-top"),10);
+			margin = Math.floor(margin+0);
+		
+			jQuery("head").append(jQuery('\
+				<style>\
+					/*table.trip_wrapper tbody tr td.destination { width: '+destination_wrapper_width+'px; }*/\
+					table.trip_wrapper { height: '+jQuery('#trip2').height()+'px; width: '+transitBoardByLine.target_width+'px; margin-top: '+margin+'px; }\
+				</style>\
+			'));
 			
+			// set up scroller
+		
+			var cell_width = jQuery("#tb_ticker").width();
+			jQuery(".scroller").css("height",scroller_height);
+			
+			setTimeout(function(){
+				// allow html to settle before calculating heights
+			
+				var trip_height = jQuery('#trip2').outerHeight(true);
+				transitBoardByLine.trip_height = trip_height;
+		
+				//console.log(jQuery("#tb_bottom"));
+				//console.log(jQuery("#tb_bottom").offset());
+				if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
+						location.reload();
+					}
+				} else {
+					transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
+					transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
+					transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
+					transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
+					transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
+
+					
+					// set the height of the div
+					jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
+					
+					// kill the test divs
+					jQuery("#wrapper1,#wrapper2").remove();
+				}
+				
 
 
-		},4000);
+			},4000);
+		}
 		
 	},3000);
 	
