@@ -568,7 +568,7 @@ transitBoardByLine.initializePage = function(data) {
 			
 
 
-		},3000);
+		},4000);
 		
 	},3000);
 	
