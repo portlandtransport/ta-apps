@@ -46,7 +46,11 @@
 		
 		<!-- script src="transitBoardHorizontal.js"></script -->
 		<script>
-			jQuery.getScript("transitBoardHorizontal.js"); // by default does not cache
+			jQuery.getScript("transitBoardHorizontal.js").fail(
+				function(){
+					window.location.reload(true);
+				}
+			); // by default does not cache
 		</script>
 		 
 	</head>
