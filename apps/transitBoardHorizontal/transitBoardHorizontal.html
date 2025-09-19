@@ -47,7 +47,11 @@
 		<!-- script src="transitBoardHorizontal.js"></script -->
 		<script>
 			jQuery.getScript("transitBoardHorizontal.js").fail(
+
 				function(){
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("TBH: Error loading script, reloading");
+					}
 					window.location.reload(true);
 				}
 			); // by default does not cache
