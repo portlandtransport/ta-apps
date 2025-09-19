@@ -27,7 +27,7 @@ transitBoardHorizontal.APP_ID 			= "tbdhorizontal";
 
 // assess environment
 
-transitBoardHorizontal.is_development = (document.domain == "dev.transitboard.com");
+transitBoardHorizontal.is_development = (location.hostname == "dev.transitappliance.com");
 transitBoardHorizontal.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 
 //var orig_query_string = window.location.search;
