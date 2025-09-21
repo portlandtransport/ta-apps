@@ -516,6 +516,15 @@ transitBoardByLine.initializePage = function(data) {
 transitBoardByLine.initializePagePhase2 = function() {	
 	console.log("in initialization phase 2 as separate function");
 
+	// set sizes
+	var scroller_height = (Math.floor(font_scale_factor*window_height/30)+Math.floor(font_scale_factor*window_height/100)) + "px";
+	
+	// bigger fonts for wider displays
+	if (jQuery("body").innerWidth()/window_height > 1.4) {
+		scroller_height = (Math.floor(font_scale_factor*window_height/22)+Math.floor(font_scale_factor*window_height/100)) + "px";
+	}
+	
+
 	// minimize width of route and arrival elements
 	var route_cell_width = jQuery("#trip1 td.route").width();
 	var route_text_width = jQuery("#trip1 td.route span").width();
