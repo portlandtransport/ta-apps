@@ -575,10 +575,10 @@ transitBoardByLine.initializePage = function(data) {
 				
 
 
-			},4000);
+			},2000);
 		}
 		
-	},3000);
+	},5000);
 	
 }
 
