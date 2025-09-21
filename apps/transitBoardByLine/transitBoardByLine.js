@@ -522,10 +522,19 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	}
 
 	// set sizes
+	var window_height = jQuery("body").innerHeight();
+	var basic_text = Math.floor(font_scale_factor*window_height/30) + "px";
+	var double_text = Math.floor(font_scale_factor*window_height/15) + "px";
+	var large_text = Math.floor(font_scale_factor*window_height/20) + "px";
+	var padding    = Math.floor(font_scale_factor*window_height/100) + "px";
 	var scroller_height = (Math.floor(font_scale_factor*window_height/30)+Math.floor(font_scale_factor*window_height/100)) + "px";
 	
 	// bigger fonts for wider displays
 	if (jQuery("body").innerWidth()/window_height > 1.4) {
+		basic_text = Math.floor(font_scale_factor*window_height/22) + "px";
+		double_text = Math.floor(font_scale_factor*window_height/11) + "px";
+		large_text = Math.floor(font_scale_factor*window_height/14) + "px";
+		padding    = Math.floor(font_scale_factor*window_height/100) + "px";
 		scroller_height = (Math.floor(font_scale_factor*window_height/22)+Math.floor(font_scale_factor*window_height/100)) + "px";
 	}
 	
