@@ -506,14 +506,14 @@ transitBoardByLine.initializePage = function(data) {
 			}
 		} else {
 
-			transitBoardByLine.initializePagePhase2();
+			transitBoardByLine.initializePagePhase2(data);
 		}
 		
 	},5000);
 	
 }
 
-transitBoardByLine.initializePagePhase2 = function() {	
+transitBoardByLine.initializePagePhase2 = function(data) {	
 	console.log("in initialization phase 2 as separate function");
 
 	var font_scale_factor = 1;
