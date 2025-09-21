@@ -64,8 +64,8 @@ if (typeof head != "function") {
 	console.log(typeof head);
 	if (typeof newrelic === "object") {
 		newrelic.addPageAction("TBL2: head library not loaded, reloading page");
-		location.reload();
 	}
+	location.reload();
 }
 
 
@@ -504,30 +504,13 @@ transitBoardByLine.initializePage = function(data) {
 		</style>\
 	'));	
 		
-
-	/*
-	setTimeout( function() {
-
-		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
-			if (typeof newrelic === "object") {
-				newrelic.addPageAction("TBL5: middle page element missing, relaunching application");
-				location.reload();
-			}
-		} else {
-
-			transitBoardByLine.initializePagePhase2(data);
-		}
-		
-	},5000);
-	*/
 	transitBoardByLine.testPhase2(data,0);
-
 	
 }
 
 transitBoardByLine.testPhase2 = function(data,count) {
 	if (document.getElementById("tb_bottom") != null || document.getElementById("tb_middle") != null) {
-		console.log("launch phase 2 on count: "+count);
+		//console.log("launch phase 2 on count: "+count);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
 		if (count > 10) {
@@ -544,7 +527,6 @@ transitBoardByLine.testPhase2 = function(data,count) {
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
-	console.log("in initialization phase 2 as separate function");
 
 	// minimize width of route and arrival elements
 	var route_cell_width = jQuery("#trip1 td.route").width();
@@ -596,8 +578,8 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
-				location.reload();
 			}
+			location.reload();
 		} else {
 			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
 			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
@@ -1379,8 +1361,8 @@ head.ready(function() {
 		console.log(typeof trArr);
 		if (typeof newrelic === "object") {
 			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
-			location.reload();
 		}
+		location.reload();
 	}
 	
 	trArr({
