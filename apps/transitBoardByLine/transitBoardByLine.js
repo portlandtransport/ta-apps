@@ -1002,9 +1002,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 	// see if we need to delete any elements
 	jQuery("table.trip_wrapper.active").each(function(index,element){
 		var id = jQuery(element).attr("data-tripid");
-		if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
-			jQuery("table."+id).removeClass('active');
-			removal_queue.push(id);
+		if (id !== undefined) {
+			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
+				jQuery("table."+id).removeClass('active');
+				removal_queue.push(id);
+			}
 		}
 	});
 	
