@@ -516,6 +516,11 @@ transitBoardByLine.initializePage = function(data) {
 transitBoardByLine.initializePagePhase2 = function() {	
 	console.log("in initialization phase 2 as separate function");
 
+	var font_scale_factor = 1;
+	if (data.optionsConfig['font-size-adjust'] != undefined && data.optionsConfig['font-size-adjust'][0] != undefined) {
+		font_scale_factor = data.optionsConfig['font-size-adjust'][0]/100;
+	}
+
 	// set sizes
 	var scroller_height = (Math.floor(font_scale_factor*window_height/30)+Math.floor(font_scale_factor*window_height/100)) + "px";
 	
