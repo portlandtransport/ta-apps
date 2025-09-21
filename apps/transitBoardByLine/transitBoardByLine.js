@@ -64,8 +64,8 @@ if (typeof head != "function") {
 	console.log(typeof head);
 	if (typeof newrelic === "object") {
 		newrelic.addPageAction("TBL2: head library not loaded, reloading page");
-		location.reload();
 	}
+	location.reload();
 }
 
 
@@ -397,6 +397,15 @@ transitBoardByLine.initializePage = function(data) {
 		padding    = Math.floor(font_scale_factor*window_height/100) + "px";
 		scroller_height = (Math.floor(font_scale_factor*window_height/22)+Math.floor(font_scale_factor*window_height/100)) + "px";
 	}
+
+	data.sizes = {};
+	data.sizes.window_height = window_height;
+	data.sizes.basic_text = basic_text;
+	data.sizes.double_text = double_text;
+	data.sizes.large_text = large_text;
+	data.sizes.padding = padding;
+	data.sizes.scroller_height = scroller_height;
+	data.sizes.font_scale_factor = font_scale_factor;
 	
 
 	jQuery("head").append(jQuery('\
@@ -495,91 +504,100 @@ transitBoardByLine.initializePage = function(data) {
 		</style>\
 	'));	
 		
+	transitBoardByLine.testPhase2(data,0);
+	
+}
 
-
-	setTimeout( function() {
-		
-		// minimize width of route and arrival elements
-		var route_cell_width = jQuery("#trip1 td.route").width();
-		var route_text_width = jQuery("#trip1 td.route span").width();
-		var arrivals_text_width = jQuery("#trip1 td.arrivals span").width();
-		var destination_text_width = jQuery("#trip1 td.destination span").width();
-		//alert(route_cell_width+" "+route_text_width);
-		
-		transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
-		
-		jQuery("head").append(jQuery('\
-			<style>\
-			table.trip_wrapper { width: '+transitBoardByLine.target_width+'px; }\
-				table.trip_wrapper tbody tr td.route { min-width: '+route_text_width+'px !important; }\
-				table.trip_wrapper tbody tr td.arrivals { min-width: '+arrivals_text_width+'px !important; }\
-				table.trip_wrapper tbody tr td.destination { width: 100% }\
-			</style>\
-		'));
-
-		if (document.getElementById("tb_middle") == null) {
+transitBoardByLine.testPhase2 = function(data,count) {
+	if (document.getElementById("tb_bottom") != null || document.getElementById("tb_middle") != null) {
+		//console.log("launch phase 2 on count: "+count);
+		transitBoardByLine.initializePagePhase2(data);
+	} else {
+		if (count > 10) {
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("TBL5: middle page element missing, relaunching application");
-				location.reload();
+				newrelic.addPageAction("TBL6: timeout waiting for HTML, relaunching application");
 			}
+			location.reload();
 		} else {
+			setTimeout(function() {
+				transitBoardByLine.testPhase2(data,count+1)
+			},1000);
+		}
+	}
+}
 
-			transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
-			var actual_width = jQuery("tbody.trip").outerWidth(true);
-				
-			var destination_wrapper_width = jQuery("table.trip_wrapper tbody tr td.destination").width() + transitBoardByLine.target_width - actual_width;
-					
-			// mark sure the top margin is an integer
-			var margin = parseInt(jQuery("table.trip_wrapper").css("margin-top"),10);
-			margin = Math.floor(margin+0);
+transitBoardByLine.initializePagePhase2 = function(data) {	
+
+	// minimize width of route and arrival elements
+	var route_cell_width = jQuery("#trip1 td.route").width();
+	var route_text_width = jQuery("#trip1 td.route span").width();
+	var arrivals_text_width = jQuery("#trip1 td.arrivals span").width();
+	var destination_text_width = jQuery("#trip1 td.destination span").width();
+	//alert(route_cell_width+" "+route_text_width);
+	
+	transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
+	
+	jQuery("head").append(jQuery('\
+		<style>\
+		table.trip_wrapper { width: '+transitBoardByLine.target_width+'px; }\
+			table.trip_wrapper tbody tr td.route { min-width: '+route_text_width+'px !important; }\
+			table.trip_wrapper tbody tr td.arrivals { min-width: '+arrivals_text_width+'px !important; }\
+			table.trip_wrapper tbody tr td.destination { width: 100% }\
+		</style>\
+	'));
+
+	transitBoardByLine.target_width = Math.floor(jQuery("#tb_middle").width()/transitBoardByLine.columns);
+	var actual_width = jQuery("tbody.trip").outerWidth(true);
 		
-			jQuery("head").append(jQuery('\
-				<style>\
-					/*table.trip_wrapper tbody tr td.destination { width: '+destination_wrapper_width+'px; }*/\
-					table.trip_wrapper { height: '+jQuery('#trip2').height()+'px; width: '+transitBoardByLine.target_width+'px; margin-top: '+margin+'px; }\
-				</style>\
-			'));
+	var destination_wrapper_width = jQuery("table.trip_wrapper tbody tr td.destination").width() + transitBoardByLine.target_width - actual_width;
 			
-			// set up scroller
-		
-			var cell_width = jQuery("#tb_ticker").width();
-			jQuery(".scroller").css("height",scroller_height);
+	// mark sure the top margin is an integer
+	var margin = parseInt(jQuery("table.trip_wrapper").css("margin-top"),10);
+	margin = Math.floor(margin+0);
+
+	jQuery("head").append(jQuery('\
+		<style>\
+			/*table.trip_wrapper tbody tr td.destination { width: '+destination_wrapper_width+'px; }*/\
+			table.trip_wrapper { height: '+jQuery('#trip2').height()+'px; width: '+transitBoardByLine.target_width+'px; margin-top: '+margin+'px; }\
+		</style>\
+	'));
+	
+	// set up scroller
+
+	var cell_width = jQuery("#tb_ticker").width();
+	jQuery(".scroller").css("height",data.sizes.scroller_height);
+	
+	setTimeout(function(){
+		// allow html to settle before calculating heights
+	
+		var trip_height = jQuery('#trip2').outerHeight(true);
+		transitBoardByLine.trip_height = trip_height;
+
+		//console.log(jQuery("#tb_bottom"));
+		//console.log(jQuery("#tb_bottom").offset());
+		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
+			}
+			location.reload();
+		} else {
+			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
+			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
+			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
+			transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
+			transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
+
 			
-			setTimeout(function(){
-				// allow html to settle before calculating heights
+			// set the height of the div
+			jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
 			
-				var trip_height = jQuery('#trip2').outerHeight(true);
-				transitBoardByLine.trip_height = trip_height;
-		
-				//console.log(jQuery("#tb_bottom"));
-				//console.log(jQuery("#tb_bottom").offset());
-				if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
-					if (typeof newrelic === "object") {
-						newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
-						location.reload();
-					}
-				} else {
-					transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
-					transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
-					transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
-					transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
-					transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
-
-					
-					// set the height of the div
-					jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
-					
-					// kill the test divs
-					jQuery("#wrapper1,#wrapper2").remove();
-				}
-				
-
-
-			},2000);
+			// kill the test divs
+			jQuery("#wrapper1,#wrapper2").remove();
 		}
 		
-	},5000);
-	
+
+
+	},2000);
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -987,9 +1005,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 	// see if we need to delete any elements
 	jQuery("table.trip_wrapper.active").each(function(index,element){
 		var id = jQuery(element).attr("data-tripid");
-		if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
-			jQuery("table."+id).removeClass('active');
-			removal_queue.push(id);
+		if (id !== undefined) {
+			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
+				jQuery("table."+id).removeClass('active');
+				removal_queue.push(id);
+			}
 		}
 	});
 	
@@ -1341,8 +1361,8 @@ head.ready(function() {
 		console.log(typeof trArr);
 		if (typeof newrelic === "object") {
 			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
-			location.reload();
 		}
+		location.reload();
 	}
 	
 	trArr({
