@@ -397,6 +397,15 @@ transitBoardByLine.initializePage = function(data) {
 		padding    = Math.floor(font_scale_factor*window_height/100) + "px";
 		scroller_height = (Math.floor(font_scale_factor*window_height/22)+Math.floor(font_scale_factor*window_height/100)) + "px";
 	}
+
+	data.sizes = {};
+	data.sizes.window_height = window_height;
+	data.sizes.basic_text = basic_text;
+	data.sizes.double_text = double_text;
+	data.sizes.large_text = large_text;
+	data.sizes.padding = padding;
+	data.sizes.scroller_height = scroller_height;
+	data.sizes.font_scale_factor = font_scale_factor;
 	
 
 	jQuery("head").append(jQuery('\
@@ -516,29 +525,6 @@ transitBoardByLine.initializePage = function(data) {
 transitBoardByLine.initializePagePhase2 = function(data) {	
 	console.log("in initialization phase 2 as separate function");
 
-	var font_scale_factor = 1;
-	if (data.optionsConfig['font-size-adjust'] != undefined && data.optionsConfig['font-size-adjust'][0] != undefined) {
-		font_scale_factor = data.optionsConfig['font-size-adjust'][0]/100;
-	}
-
-	// set sizes
-	var window_height = jQuery("body").innerHeight();
-	var basic_text = Math.floor(font_scale_factor*window_height/30) + "px";
-	var double_text = Math.floor(font_scale_factor*window_height/15) + "px";
-	var large_text = Math.floor(font_scale_factor*window_height/20) + "px";
-	var padding    = Math.floor(font_scale_factor*window_height/100) + "px";
-	var scroller_height = (Math.floor(font_scale_factor*window_height/30)+Math.floor(font_scale_factor*window_height/100)) + "px";
-	
-	// bigger fonts for wider displays
-	if (jQuery("body").innerWidth()/window_height > 1.4) {
-		basic_text = Math.floor(font_scale_factor*window_height/22) + "px";
-		double_text = Math.floor(font_scale_factor*window_height/11) + "px";
-		large_text = Math.floor(font_scale_factor*window_height/14) + "px";
-		padding    = Math.floor(font_scale_factor*window_height/100) + "px";
-		scroller_height = (Math.floor(font_scale_factor*window_height/22)+Math.floor(font_scale_factor*window_height/100)) + "px";
-	}
-	
-
 	// minimize width of route and arrival elements
 	var route_cell_width = jQuery("#trip1 td.route").width();
 	var route_text_width = jQuery("#trip1 td.route span").width();
@@ -576,7 +562,7 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	// set up scroller
 
 	var cell_width = jQuery("#tb_ticker").width();
-	jQuery(".scroller").css("height",scroller_height);
+	jQuery(".scroller").css("height",data.sizes.scroller_height);
 	
 	setTimeout(function(){
 		// allow html to settle before calculating heights
