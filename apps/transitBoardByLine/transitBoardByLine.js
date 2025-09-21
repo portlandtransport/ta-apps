@@ -505,7 +505,7 @@ transitBoardByLine.initializePage = function(data) {
 	'));	
 		
 
-
+	/*
 	setTimeout( function() {
 
 		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
@@ -519,7 +519,28 @@ transitBoardByLine.initializePage = function(data) {
 		}
 		
 	},5000);
+	*/
+	transitBoardByLine.testPhase2(data,0);
+
 	
+}
+
+transitBoardByLine.testPhase2 = function(data,count) {
+	if (document.getElementById("tb_bottom") != null || document.getElementById("tb_middle") != null) {
+		console.log("launch phase 2 on count: "+count);
+		transitBoardByLine.initializePagePhase2(data);
+	} else {
+		if (count > 10) {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TBL6: timeout waiting for HTML, relaunching application");
+			}
+			location.reload();
+		} else {
+			setTimeout(function() {
+				transitBoardByLine.testPhase2(data,count+1)
+			},1000);
+		}
+	}
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
