@@ -506,6 +506,8 @@ transitBoardByLine.initializePage = function(data) {
 			}
 		} else {
 
+			console.log("in initialization phase 2");
+
 			// minimize width of route and arrival elements
 			var route_cell_width = jQuery("#trip1 td.route").width();
 			var route_text_width = jQuery("#trip1 td.route span").width();
