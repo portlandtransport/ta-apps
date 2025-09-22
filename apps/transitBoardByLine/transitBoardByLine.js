@@ -509,7 +509,7 @@ transitBoardByLine.initializePage = function(data) {
 }
 
 transitBoardByLine.testPhase2 = function(data,count) {
-	if (document.getElementById("tb_bottom") != null || document.getElementById("tb_middle") != null) {
+	if (document.getElementById("tb_bottom") != null && document.getElementById("tb_middle") != null) {
 		//console.log("launch phase 2 on count: "+count);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
