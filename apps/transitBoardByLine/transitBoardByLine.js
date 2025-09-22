@@ -493,6 +493,8 @@ transitBoardByLine.initializePage = function(data) {
 	}
 	
 	var base_em_size = parseFloat(jQuery("table.trip_wrapper").css("font-size"),10);
+	console.log("Base em: "+base_em_size);
+	console.log("trip scale: "+trip_scale_factor);
 	base_em_size = (base_em_size*trip_scale_factor);
 	// create style section with new size
 	
@@ -570,17 +572,14 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	setTimeout(function(){
 		// allow html to settle before calculating heights
 	
-		var trip_height = jQuery('#trip2').outerHeight(true);
-		transitBoardByLine.trip_height = trip_height;
-
-		//console.log(jQuery("#tb_bottom"));
-		//console.log(jQuery("#tb_bottom").offset());
 		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
 			}
 			location.reload();
 		} else {
+			var trip_height = jQuery('#trip2').outerHeight(true);
+			transitBoardByLine.trip_height = trip_height;
 			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
 			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
 			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
