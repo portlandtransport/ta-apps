@@ -519,8 +519,6 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	}
 	
 	var base_em_size = parseFloat(jQuery("table.trip_wrapper").css("font-size"),10);
-	console.log("Base em: "+base_em_size);
-	console.log("trip scale: "+trip_scale_factor);
 	base_em_size = (base_em_size*trip_scale_factor);
 	// create style section with new size
 	
