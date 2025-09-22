@@ -485,9 +485,7 @@ transitBoardByLine.initializePage = function(data) {
 	</div>\
 </div>\
 <table id="tb_bottom"><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></table>\
-	';
-	
-	jQuery('body').html(html);
+	';	
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
@@ -503,6 +501,8 @@ transitBoardByLine.initializePage = function(data) {
 			table.trip_wrapper { font-size: '+base_em_size+'px; }\
 		</style>\
 	'));	
+
+	jQuery('body').html(html);
 		
 	transitBoardByLine.testPhase2(data,0);
 	
