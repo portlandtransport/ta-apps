@@ -487,23 +487,6 @@ transitBoardByLine.initializePage = function(data) {
 <table id="tb_bottom"><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></table>\
 	';	
 
-	var trip_scale_factor = 1;
-	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
-		trip_scale_factor = data.optionsConfig['trip-size-adjust'][0]/100;
-	}
-	
-	var base_em_size = parseFloat(jQuery("table.trip_wrapper").css("font-size"),10);
-	console.log("Base em: "+base_em_size);
-	console.log("trip scale: "+trip_scale_factor);
-	base_em_size = (base_em_size*trip_scale_factor);
-	// create style section with new size
-	
-	jQuery("head").append(jQuery('\
-		<style>\
-			table.trip_wrapper { font-size: '+base_em_size+'px; }\
-		</style>\
-	'));	
-
 	jQuery('body').html(html);
 		
 	transitBoardByLine.testPhase2(data,0);
@@ -529,6 +512,23 @@ transitBoardByLine.testPhase2 = function(data,count) {
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
+
+	var trip_scale_factor = 1;
+	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
+		trip_scale_factor = data.optionsConfig['trip-size-adjust'][0]/100;
+	}
+	
+	var base_em_size = parseFloat(jQuery("table.trip_wrapper").css("font-size"),10);
+	console.log("Base em: "+base_em_size);
+	console.log("trip scale: "+trip_scale_factor);
+	base_em_size = (base_em_size*trip_scale_factor);
+	// create style section with new size
+	
+	jQuery("head").append(jQuery('\
+		<style>\
+			table.trip_wrapper { font-size: '+base_em_size+'px; }\
+		</style>\
+	'));	
 
 	// minimize width of route and arrival elements
 	var route_cell_width = jQuery("#trip1 td.route").width();
