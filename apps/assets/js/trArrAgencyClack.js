@@ -60,9 +60,9 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 
 	const destinations = {
 		"5396": {
-			"157727": "to Harmony Campus via Clackamas Town Center", // Clairmont Westbound
+			"157727": "to Wacheno Center", // Clairmont Westbound
 			"151733": "to Oregon City", 
-			"155399": "to Wacheno Center", // Clairmont Eastbound
+			"155399": "to Harmony Campus", // Clairmont Eastbound
 			"155321": "to Clackamas Town Center"
 		},
 		"6140": {
