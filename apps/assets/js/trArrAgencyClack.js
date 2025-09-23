@@ -57,7 +57,7 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 		"6140": "ES",
 		"4155": "OC"
 	}
-	console.log(entry);
+	// console.log(entry);
 
 	// Harmony
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];

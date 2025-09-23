@@ -95,7 +95,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 		}
 		catch (err) {
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("TR6: Timezone error, reloading page");
+				newrelic.addPageAction("TM6: Timezone error, reloading page");
 			}
 			location.reload();
 		}
@@ -247,9 +247,9 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 								error: function(data) {
 									updater.update_connection_health(false);
 									if (typeof newrelic === "object") {
-										newrelic.addPageAction("TR1: TriMet Arrivals Error");
+										newrelic.addPageAction("TM1: TriMet Arrivals Error");
 									} else {
-										throw "TR1: TriMet Arrivals Error";
+										throw "TM1: TriMet Arrivals Error";
 									}
 								},
 	
