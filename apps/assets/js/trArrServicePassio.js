@@ -134,28 +134,31 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
-									entry.type = "estimated";
-									//console.log(arrival_trips[trip_id]);
-									entry.headsign = route_data.route_long_name;
-									entry.stop_id = stop.stop_id;
-									var stop_data = trStopCache().stopData(agency,entry.stop_id);
-									entry.stop_data = stop_data;
-									entry.route_id = route_id;
+									var minutes_to_arrival = Math.floor((entry.arrivalTime - now.getTime()) / 60000);
+									if (minutes_to_arrival <= 120) {
+										entry.type = "estimated";
+										//console.log(arrival_trips[trip_id]);
+										entry.headsign = route_data.route_long_name;
+										entry.stop_id = stop.stop_id;
+										var stop_data = trStopCache().stopData(agency,entry.stop_id);
+										entry.stop_data = stop_data;
+										entry.route_id = route_id;
 
-									entry.route_data = route_data;
-									entry.route_data.route_short_name = "??";
-									entry.route_data.service_class = 6;
-									entry.agency = agency;
-									entry.agency_name = agency_name;
-									entry.avl_agency_id = avl_agency_id;
-									entry.alerts = ""; // need to figure this out later
-									entry.last_updated = update_time;
-									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
-									entry.trip_id = trip_id;
-									if (typeof stop.callback == 'function') {
-										local_queue.push(stop.callback(entry));
-									} else {
-										local_queue.push(entry);
+										entry.route_data = route_data;
+										entry.route_data.route_short_name = "??";
+										entry.route_data.service_class = 6;
+										entry.agency = agency;
+										entry.agency_name = agency_name;
+										entry.avl_agency_id = avl_agency_id;
+										entry.alerts = ""; // need to figure this out later
+										entry.last_updated = update_time;
+										entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
+										entry.trip_id = trip_id;
+										if (typeof stop.callback == 'function') {
+											local_queue.push(stop.callback(entry));
+										} else {
+											local_queue.push(entry);
+										}
 									}
 									
 								}
