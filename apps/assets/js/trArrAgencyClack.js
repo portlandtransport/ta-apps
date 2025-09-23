@@ -75,7 +75,7 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 	if ((entry.route_id == "6140") && entry.stop_id == "157727") {
 		entry.headsign = entry.headsign + " to <b>Estacada</b>";
 	}
-	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "151399") {
+	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "155399") {
 		entry.headsign = entry.headsign + " to <b>Wacheno Center</b>";
 	}
 	return entry;
