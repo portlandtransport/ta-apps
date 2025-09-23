@@ -69,8 +69,11 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 	}
 
 	// Clairmont
-	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "157727") {
+	if ((entry.route_id == "5396") && entry.stop_id == "157727") {
 		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
+	}
+	if ((entry.route_id == "6140") && entry.stop_id == "157727") {
+		entry.headsign = entry.headsign + " to <b>Estacada</b>";
 	}
 	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "151399") {
 		entry.headsign = entry.headsign + " to <b>Wacheno Center</b>";
