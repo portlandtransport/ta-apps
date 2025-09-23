@@ -58,6 +58,8 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 		"4155": "OC"
 	}
 	console.log(entry);
+
+	// Harmony
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
 	if (entry.route_id == "5396" && entry.stop_id == "155321") {
 		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
@@ -65,7 +67,16 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 	if (entry.route_id == "5396" && entry.stop_id == "151733") {
 		entry.headsign = entry.headsign + " to <b>Oregon City</b>";
 	}
+
+	// Clairmont
+	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "157727") {
+		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
+	}
+	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "151399") {
+		entry.headsign = entry.headsign + " to <b>Wacheno Center</b>";
+	}
 	return entry;
 }
+
 
 
