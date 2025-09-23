@@ -70,11 +70,14 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 			"155399": "to Estacada" // Clairmont Eastbound
 		}
 	}
+
+	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
+
 	// console.log(entry);
 
 	/*
 	// Harmony
-	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
+	
 	if (entry.route_id == "5396" && entry.stop_id == "155321") {
 		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
 	}
@@ -96,7 +99,7 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 
 	if (destinations.hasOwnProperty(entry.route_id)) {
 		if (destinations[entry.route_id].hasOwnProperty(entry.stop_id)) {
-			entry.headsign = entry.headsign + destinations[entry.route_id][entry.stop_id];
+			entry.headsign = entry.headsign + " " + destinations[entry.route_id][entry.stop_id];
 		}
 	}
 	return entry;
