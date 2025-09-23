@@ -164,8 +164,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 											local_queue.push(entry);
 										}
 									} else {
+										/*
 										console.log("late arrival:");
 										console.log(entry);
+										*/
 									}
 									
 								}
