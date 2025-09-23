@@ -134,6 +134,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
+
+									var now = localTime();
 									var minutes_to_arrival = Math.floor((entry.arrivalTime - now.getTime()) / 60000);
 									
 									entry.type = "estimated";
@@ -154,7 +156,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.last_updated = update_time;
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
-									
+
 									if (minutes_to_arrival <= 120) {
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
