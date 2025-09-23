@@ -59,6 +59,9 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 	}
 	console.log(entry);
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
+	if (entry.route_id == "5396" && entry.stop_id == "155321") {
+		entry.headsign = entry.headsign + " to Oregon City";
+	}
 	return entry;
 }
 
