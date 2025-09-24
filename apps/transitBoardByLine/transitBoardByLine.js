@@ -494,10 +494,10 @@ transitBoardByLine.initializePage = function(data) {
 }
 
 transitBoardByLine.testPhase2 = function(data,count) {
-	if (document.getElementById("tb_bottom") != null && document.getElementById("tb_middle") != null) {
+	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
 		//console.log("launch phase 2 on count: "+count);
-		console.log(document.getElementById("tb_middle"));
-		console.log(document.getElementById("tb_bottom"));
+		console.log(document.getElementById("tb_middle").tagName);
+		console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
 		if (count > 10) {
@@ -514,6 +514,8 @@ transitBoardByLine.testPhase2 = function(data,count) {
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
+
+	console.log("in phase 2");
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
@@ -578,6 +580,7 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 			}
 			location.reload();
 		} else {
+			console.log("in phase 3");
 			var trip_height = jQuery('#trip2').outerHeight(true);
 			transitBoardByLine.trip_height = trip_height;
 			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
