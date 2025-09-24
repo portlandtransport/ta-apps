@@ -494,7 +494,7 @@ transitBoardByLine.initializePage = function(data) {
 }
 
 transitBoardByLine.testPhase2 = function(data,count) {
-	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle") != null) {
+	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
 		//console.log("launch phase 2 on count: "+count);
 		console.log(document.getElementById("tb_middle").tagName);
 		console.log(document.getElementById("tb_bottom").tagName);
