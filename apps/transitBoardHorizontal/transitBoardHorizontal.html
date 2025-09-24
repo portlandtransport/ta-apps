@@ -43,6 +43,17 @@
 		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>		
 		<script src="../assets/js/trArrUtilities.js"></script>	
 		<script src="../assets/js/trLoader.js"></script>	
+
+		<script>
+			// make sure jQuery is loaded
+			if (typeof jQuery != "function") {
+				console.log(typeof jQuery);
+				if (typeof newrelic === "object") {
+					newrelic.addPageAction("TBH2: jQuery not loaded, reloading page");
+				}
+				location.reload();
+			}
+		</script>
 		
 		<!-- script src="transitBoardHorizontal.js"></script -->
 		<script>
