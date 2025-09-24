@@ -57,8 +57,53 @@ function trArrAgencyClackEntryFilterCallback(entry) {
 		"6140": "ES",
 		"4155": "OC"
 	}
+
+	const destinations = {
+		"5396": {
+			"157727": "to Wacheno Center", // Clairmont Westbound
+			"151733": "to Oregon City", 
+			"155399": "to Harmony Campus", // Clairmont Eastbound
+			"155321": "to Clackamas Town Center"
+		},
+		"6140": {
+			"157727": "to Wacheno Center", // Clairmont Westbound
+			"155399": "to Estacada" // Clairmont Eastbound
+		}
+	}
+
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
+
+	// console.log(entry);
+
+	/*
+	// Harmony
+	
+	if (entry.route_id == "5396" && entry.stop_id == "155321") {
+		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
+	}
+	if (entry.route_id == "5396" && entry.stop_id == "151733") {
+		entry.headsign = entry.headsign + " to <b>Oregon City</b>";
+	}
+
+	// Clairmont
+	if ((entry.route_id == "5396") && entry.stop_id == "157727") {
+		entry.headsign = entry.headsign + " to <b>Clackamas Town Center</b>";
+	}
+	if ((entry.route_id == "6140") && entry.stop_id == "157727") {
+		entry.headsign = entry.headsign + " to <b>Estacada</b>";
+	}
+	if ((entry.route_id == "5396" || entry.route_id == "6140") && entry.stop_id == "155399") {
+		entry.headsign = entry.headsign + " to <b>Wacheno Center</b>";
+	}
+	*/
+
+	if (destinations.hasOwnProperty(entry.route_id)) {
+		if (destinations[entry.route_id].hasOwnProperty(entry.stop_id)) {
+			entry.headsign = entry.headsign + " " + destinations[entry.route_id][entry.stop_id];
+		}
+	}
 	return entry;
 }
+
 
 
