@@ -515,6 +515,8 @@ transitBoardByLine.testPhase2 = function(data,count) {
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
+	console.log("in phase 2");
+
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
 		trip_scale_factor = data.optionsConfig['trip-size-adjust'][0]/100;
@@ -578,6 +580,7 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 			}
 			location.reload();
 		} else {
+			console.log("in phase 3");
 			var trip_height = jQuery('#trip2').outerHeight(true);
 			transitBoardByLine.trip_height = trip_height;
 			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
