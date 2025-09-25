@@ -580,26 +580,30 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 			}
 			location.reload();
 		} else {
-			console.log("in phase 3");
-			var trip_height = jQuery('#trip2').outerHeight(true);
-			transitBoardByLine.trip_height = trip_height;
-			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
-			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
-			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
-			transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
-			transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
-
-			
-			// set the height of the div
-			jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
-			
-			// kill the test divs
-			jQuery("#wrapper1,#wrapper2").remove();
+			transitBoardByLine.initializePagePhase3(data);
 		}
 		
 
 
 	},2000);
+}
+
+transitBoardByLine.initializePagePhase3 = function(data) {	
+	console.log("in phase 3");
+	var trip_height = jQuery('#trip2').outerHeight(true);
+	transitBoardByLine.trip_height = trip_height;
+	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
+	transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
+	transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
+	transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
+	transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
+
+	
+	// set the height of the div
+	jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
+	
+	// kill the test divs
+	jQuery("#wrapper1,#wrapper2").remove();
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
