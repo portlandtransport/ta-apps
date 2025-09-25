@@ -573,20 +573,30 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	
 	setTimeout(function(){
 		// allow html to settle before calculating heights
-	
-		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
+		transitBoardByLine.testPhase3(data);
+	},2000);
+}
+
+transitBoardByLine.testPhase3 = function(data,count) {
+	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
+		//console.log("launch phase 2 on count: "+count);
+		console.log(document.getElementById("tb_middle").tagName);
+		console.log(document.getElementById("tb_bottom").tagName);
+		transitBoardByLine.initializePagePhase3(data);
+	} else {
+		if (count > 10) {
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
+				newrelic.addPageAction("TBL7: timeout waiting for HTML, relaunching application");
 			}
 			location.reload();
 		} else {
-			transitBoardByLine.initializePagePhase3(data);
+			setTimeout(function() {
+				transitBoardByLine.testPhase3(data,count+1)
+			},1000);
 		}
-		
-
-
-	},2000);
+	}
 }
+
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
 	console.log("in phase 3 separate function");
