@@ -573,33 +573,47 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	
 	setTimeout(function(){
 		// allow html to settle before calculating heights
-	
-		if (document.getElementById("tb_bottom") == null || document.getElementById("tb_middle") == null) {
+		transitBoardByLine.testPhase3(data);
+	},2000);
+}
+
+transitBoardByLine.testPhase3 = function(data,count) {
+	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
+		//console.log("launch phase 2 on count: "+count);
+		console.log(document.getElementById("tb_middle").tagName);
+		console.log(document.getElementById("tb_bottom").tagName);
+		transitBoardByLine.initializePagePhase3(data);
+	} else {
+		if (count > 10) {
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("TBL4: critical page elements missing, relaunching application");
+				newrelic.addPageAction("TBL7: timeout waiting for HTML, relaunching application");
 			}
 			location.reload();
 		} else {
-			console.log("in phase 3");
-			var trip_height = jQuery('#trip2').outerHeight(true);
-			transitBoardByLine.trip_height = trip_height;
-			transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
-			transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
-			transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
-			transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
-			transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
-
-			
-			// set the height of the div
-			jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
-			
-			// kill the test divs
-			jQuery("#wrapper1,#wrapper2").remove();
+			setTimeout(function() {
+				transitBoardByLine.testPhase3(data,count+1)
+			},1000);
 		}
-		
+	}
+}
 
 
-	},2000);
+transitBoardByLine.initializePagePhase3 = function(data) {	
+	console.log("in phase 3 separate function");
+	var trip_height = jQuery('#trip2').outerHeight(true);
+	transitBoardByLine.trip_height = trip_height;
+	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
+	transitBoardByLine.rows_per_screen = Math.floor(transitBoardByLine.max_available_height/trip_height);
+	transitBoardByLine.max_available_height = transitBoardByLine.rows_per_screen*trip_height;
+	transitBoardByLine.animation_step_rows = Math.ceil(transitBoardByLine.rows_per_screen/3);
+	transitBoardByLine.animation_step = transitBoardByLine.animation_step_rows*trip_height;
+
+	
+	// set the height of the div
+	jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
+	
+	// kill the test divs
+	jQuery("#wrapper1,#wrapper2").remove();
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
