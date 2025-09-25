@@ -589,7 +589,7 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 }
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
-	console.log("in phase 3");
+	console.log("in phase 3 separate function");
 	var trip_height = jQuery('#trip2').outerHeight(true);
 	transitBoardByLine.trip_height = trip_height;
 	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
