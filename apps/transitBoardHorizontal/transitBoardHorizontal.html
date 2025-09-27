@@ -10,7 +10,7 @@
 		</script>
 
 		<script>
-			<!-- extra parameters to pass to New Relic -->
+			// extra parameters to pass to New Relic 
 			function getParameterByName( name )
 				{
 				name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -27,17 +27,29 @@
 			if (applianceParentName.length < 5) {
 				applianceParentName = applianceId;
 			}
-			if (applianceId) {
-				console.log(applianceId);
+			if (applianceId.length > 0) {
+				console.log("Appliance ID: "+applianceId+" "+applianceId.length);
 				newrelic.setCustomAttribute('applianceId', applianceId);
 				newrelic.setCustomAttribute('applianceName', applianceParentName);
+			} else {
+				/* get the IP Address of user */
+        		jQuery(document).ready( function() {
+					jQuery.getJSON("https://api.ipify.org?format=json",
+						function (data) {
+							newrelic.setCustomAttribute('applianceId', data.ip);
+							newrelic.setCustomAttribute('applianceName', data.ip);
+							console.log("Appliance IP: "+data.ip);
+						})
+				});
 			}
-			if (document.domain == "dev.transitboard.com") {
+			if (document.domain == "dev.transitappliance.com") {
 				newrelic.setCustomAttribute('applianceTier', 'development');
 			} else {
 				newrelic.setCustomAttribute('applianceTier', 'production');
 			}
-			newrelic.setCustomAttribute('applianceApplication', 'TransitBoard Horizontal');		
+			newrelic.setCustomAttribute('applianceApplication', 'TransitBoard Horizontal');
+			newrelic.addPageAction("ST1: Application Start");
+			
 		</script>
 	
 		<script src="../assets/js/libraries/jquery-1.11.0.js"></script>		
