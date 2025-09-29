@@ -1,4 +1,4 @@
-﻿(function($) {
+(function($) {
 	/**
 	* Resizes an inner element's font so that the inner element completely fills the outer element.
 	* @author Russ Painter WebDesign@GeekyMonkey.com
