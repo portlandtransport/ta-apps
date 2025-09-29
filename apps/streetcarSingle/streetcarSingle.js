@@ -62,8 +62,10 @@ function makeArrival(arr, num) {
 		    arr[0].stop_data.stop_name + '</span></div>';
 		    
 	}
-	else { html += '<div class="headsign"><span>' + 
-	       'No arrival data available</span></div>'; }
+	else 
+	{ 
+		html += '<div class="headsign"><span>' + 'No arrival data available</span></div>'; 
+	}
 	html += '</div>'
 	return html;
 }
