@@ -2,6 +2,31 @@
         "version": "2.0.0",
         "tasks": [
             {
+            "label": "Rebuild Streetcar Single",
+                "dependsOn": [
+                    "Delete Streetcar Single",
+                    "Build Streetcar Single"
+                ],
+                "problemMatcher": []
+            },
+            {
+                "label": "Delete Streetcar Single",
+                "type": "shell",
+                "command": "rm",
+                "args": [
+                    "apps\\streetcarSingle\\streetcarSingle.html"
+                ],
+                "options": {
+                    "ignoreExitCode": true
+                },
+                "windows": {
+                    "command": "del",
+                    "args": [
+                        "apps\\streetcarSingle\\streetcarSingle.html"
+                    ]
+                }
+            },
+            {
                 "label": "Build TransitBoardHorizontal",
                 "type": "shell",
                 "command": "npx",
