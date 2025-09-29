@@ -2,15 +2,57 @@
         "version": "2.0.0",
         "tasks": [
             {
+            "label": "Rebuild Streetcar Single",
+                "dependsOn": [
+                    "Delete Streetcar Single",
+                    "Build Streetcar Single"
+                ],
+                "problemMatcher": []
+            },
+            {
+                "label": "Delete Streetcar Single",
+                "type": "shell",
+                "command": "rm",
+                "args": [
+                    "apps\\streetcarSingle\\streetcarSingle.html"
+                ],
+                "options": {
+                    "ignoreExitCode": true
+                },
+                "windows": {
+                    "command": "del",
+                    "args": [
+                        "apps\\streetcarSingle\\streetcarSingle.html"
+                    ]
+                }
+            },
+            {
                 "label": "Build TransitBoardHorizontal",
                 "type": "shell",
                 "command": "npx",
                 "args": [
                     "html-inline-external", // Replace with the actual npx package you want to run
                     "--src",              // Optional arguments for the npx command
-                    "transitBoardHorizontal\transitBoardHorizontal.template.html",
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.template.html",
                     ">>",
-                    "transitBoardHorizontal\transitBoardHorizontal.output.html"
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.output.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Build Streetcar Single",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\streetcarSingle\\streetcarSingle.template.html",
+                    ">>",
+                    "apps\\streetcarSingle\\streetcarSingle.html"
                 ],
                 "presentation": {
                     "reveal": "always",

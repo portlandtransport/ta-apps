@@ -62,8 +62,10 @@ function makeArrival(arr, num) {
 		    arr[0].stop_data.stop_name + '</span></div>';
 		    
 	}
-	else { html += '<div class="headsign"><span>' + 
-	       'No arrival data available</span></div>'; }
+	else 
+	{ 
+		html += '<div class="headsign"><span>' + 'No arrival data available</span></div>'; 
+	}
 	html += '</div>'
 	return html;
 }
@@ -205,6 +207,8 @@ $('document').ready( function () {
 	}
 	
 	var application_id = getQueryVariable('appl[id]');
+
+	/* disable tracekit
 	
 	var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
 	
@@ -252,6 +256,8 @@ $('document').ready( function () {
 			});
 		}
 	});	
+
+	*/
 	
 	
 
