@@ -33,4 +33,3 @@
 $(document).ready(function() {
 	$('.jtextfill').textfill({ maxFontPixels: 36, innerTag: 'h1' });
 });
-
