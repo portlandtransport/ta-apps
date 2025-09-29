@@ -51,6 +51,23 @@
                     "panel": "new"
                 },
                 "problemMatcher": []
+            },
+            {
+                "label": "Build CLSB Building",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\ohsu\\ohsu.template.html",
+                    "--dest",
+                    "apps\\ohsu\\ohsu.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
             }
         ]
     }
