@@ -24,7 +24,7 @@
 				}
 			var applianceId = getParameterByName("appl[id]");
 			var applianceParentName = getParameterByName("option[parentname]");
-			if (applianceParentName.length < 5) {
+			if (applianceParentName.length < 5 || applianceParentName == "undefined") {
 				applianceParentName = applianceId;
 			}
 			if (applianceId.length > 0) {
