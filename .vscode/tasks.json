@@ -8,9 +8,26 @@
                 "args": [
                     "html-inline-external", // Replace with the actual npx package you want to run
                     "--src",              // Optional arguments for the npx command
-                    "transitBoardHorizontal\transitBoardHorizontal.template.html",
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.template.html",
                     ">>",
-                    "transitBoardHorizontal\transitBoardHorizontal.output.html"
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.output.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Build Streetcar Single",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\streetcarSingle\\streetcarSingle.template.html",
+                    ">>",
+                    "apps\\streetcarSingle\\streetcarSingle.html"
                 ],
                 "presentation": {
                     "reveal": "always",

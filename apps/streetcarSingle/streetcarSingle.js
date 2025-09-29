@@ -205,6 +205,8 @@ $('document').ready( function () {
 	}
 	
 	var application_id = getQueryVariable('appl[id]');
+
+	/* disable tracekit
 	
 	var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
 	
@@ -252,6 +254,8 @@ $('document').ready( function () {
 			});
 		}
 	});	
+
+	*/
 	
 	
 
