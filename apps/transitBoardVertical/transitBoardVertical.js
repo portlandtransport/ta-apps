@@ -24,7 +24,7 @@ transitBoardVertical.APP_ID 			= "tbdvertical";
 
 // assess environment
 
-transitBoardVertical.is_development = (document.domain == "dev.transitboard.com");
+transitBoardVertical.is_development = (document.domain == "dev.transitappliance.com");
 transitBoardVertical.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 
 var orig_query_string = window.location.search;
@@ -122,164 +122,167 @@ if (second_page && num_pages < 2) {
 num_pages = num_pages * 1;
 
 var page_delay = options['page_delay'] || 15;
+
+jQuery(document).ready(function() {
 		
-	
-// initialize screen margins
+	// initialize screen margins
 
-var body_width 		= options.width || jQuery(window).width();
-var body_height 	= options.height || jQuery(window).height();	
+	var body_width 		= options.width || jQuery(window).width();
+	var body_height 	= options.height || jQuery(window).height();	
 
-var left_border 	= options.left || 0;
-var bottom_border = options.bottom || 0;
-var top_border 		= options.top || 0;
-var right_border 	= options.right || 0;
+	var left_border 	= options.left || 0;
+	var bottom_border = options.bottom || 0;
+	var top_border 		= options.top || 0;
+	var right_border 	= options.right || 0;
 
-var split_pct 		= options.splitpct || 100;
-var suppl_url 		= options.suppl_url;
-var suppl_loc			= options.suppl_loc;
+	var split_pct 		= options.splitpct || 100;
+	var suppl_url 		= options.suppl_url;
+	var suppl_loc			= options.suppl_loc;
 
-if (suppl_url == "") {
-	suppl_url = "//transitappliance.com/size_info.html";
-}
-
-var effective_width = body_width - left_border - right_border;
-var effective_height = body_height - bottom_border - top_border;
-
-jQuery("body").css("width",effective_width).css("height",effective_height);
-jQuery("body").css("margin","0");
-
-jQuery("body").css('border-left-width',left_border);
-jQuery("body").css('border-top-width',top_border);
-jQuery("body").css('border-right-width',right_border);
-jQuery("body").css('border-bottom-width',bottom_border);
-jQuery("body").css('border-color','black');
-jQuery("body").css('border-style','solid');
-jQuery("body").css('position','relative'); // for reasons I haven't figured out, this has to be set late
-
-var left_width = Math.floor(effective_width * split_pct/100);
-var right_width = effective_width - left_width;
-
-var primary_id = appliance['id']+":A";
-var app_url = "/apps/loader.html?"+primary_id;
-	
-// populate html
-
-var html = '<div id="tb_frames" style="position: relative; height: ' + effective_width + 'px; width: ' + effective_height + 'px">';
-
-if (suppl_loc == 'top') {
-	if (right_width > 1) {
-		html += '<iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="clear: left; border: none; margin: 0; height: ' + right_width + 'px; width: ' + effective_height+'px"></iframe>';
+	if (suppl_url == "") {
+		suppl_url = "//transitappliance.com/size_info.html";
 	}
-	html += '<div style="position: relative; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px">';
-	html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
-	if ( num_pages > 1 && appliance['id'] ) {
-		for (var i=2;i<=num_pages;i++) {
-			var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
-			//alert(letter);
-			var id = appliance['id'];
-			var alt_id = id+":"+letter;
-			var app_url2 = "/apps/loader.html?"+alt_id;
-			html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
+
+	var effective_width = body_width - left_border - right_border;
+	var effective_height = body_height - bottom_border - top_border;
+
+	jQuery("body").css("width",effective_width).css("height",effective_height);
+	jQuery("body").css("margin","0");
+
+	jQuery("body").css('border-left-width',left_border);
+	jQuery("body").css('border-top-width',top_border);
+	jQuery("body").css('border-right-width',right_border);
+	jQuery("body").css('border-bottom-width',bottom_border);
+	jQuery("body").css('border-color','black');
+	jQuery("body").css('border-style','solid');
+	jQuery("body").css('position','relative'); // for reasons I haven't figured out, this has to be set late
+
+	var left_width = Math.floor(effective_width * split_pct/100);
+	var right_width = effective_width - left_width;
+
+	var primary_id = appliance['id']+":A";
+	var app_url = "/apps/loader.html?"+primary_id;
+		
+	// populate html
+
+	var html = '<div id="tb_frames" style="position: relative; height: ' + effective_width + 'px; width: ' + effective_height + 'px">';
+
+	if (suppl_loc == 'top') {
+		if (right_width > 1) {
+			html += '<iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="clear: left; border: none; margin: 0; height: ' + right_width + 'px; width: ' + effective_height+'px"></iframe>';
 		}
-	}
-	html += '</div>';
-
-} else {
-	html += '<div style="position: relative; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px">';
-	html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
-	if ( num_pages > 1 && appliance['id'] ) {
-		for (var i=2;i<=num_pages;i++) {
-			var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
-			//alert(letter);
-			var id = appliance['id'];
-			var alt_id = id+":"+letter;
-			var app_url2 = "/apps/loader.html?"+alt_id;
-			html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
-		}
-	}
-	html += '</div>';
-	if (right_width > 1) {
-		html += '<iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="clear: left; border: none; margin: 0; height: ' + right_width + 'px; width: ' + effective_height+'px"></iframe>';
-	}
-}
-
-html += '</div>';
-	
-jQuery('body').html(html);
-
-var translate_x = (body_height-body_width) + "px";
-var translate_y = (body_height) + "px";
-
-jQuery("#tb_frames").css("-webkit-transform-origin", "100% 100%").css("-webkit-transform", "rotate(90deg) translateY("+translate_y+") translateX("+translate_x+")");
-
-var current_frame = 0;
-function rotate_frames () {
-	current_frame = current_frame + 1;
-	if (current_frame > num_pages) {
-		current_frame = 1;
-	}
-	//alert(current_frame+" out of "+num_pages);
-	for (var i=1;i<=num_pages;i++) {
-		if (i == current_frame) {
-			//alert( "show "+i);
-			jQuery("#app_frame"+i).show(1000);
-		} else {
-			//alert("hide "+i);
-			jQuery("#app_frame"+i).hide(1000);
-		}
-	}
-	setTimeout(rotate_frames,page_delay*1000);
-}
-
-if ( num_pages > 1 && appliance['id'] ) {
-	setTimeout(rotate_frames,100000); // 100 second delay to let everything load
-}
-
-
-// set up healthcheck/restart logic
-
-var start_time = ((new Date)).getTime();
-
-transitBoardVertical.access_method = "jsonp";
-if (trArrSupportsCors()) {
-	transitBoardVertical.access_method = "json";
-}
-
-var platform = "";
-if (typeof options.platform === 'object') {
-	platform = options.platform[0];
-}
-
-jQuery.ajax({
-		dataType: transitBoardVertical.access_method,
-		url: "//ta-web-services.com/health_update.php",
-		data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-		error: function(xhrObj,errorText,errorThrown) {
-			if (typeof newrelic === "object") {
-				newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+		html += '<div style="position: relative; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px">';
+		html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
+		if ( num_pages > 1 && appliance['id'] ) {
+			for (var i=2;i<=num_pages;i++) {
+				var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
+				//alert(letter);
+				var id = appliance['id'];
+				var alt_id = id+":"+letter;
+				var app_url2 = "/apps/loader.html?"+alt_id;
+				html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
 			}
 		}
-	});
+		html += '</div>';
 
-// logging of startup, beat every 30 min goes here
-setInterval(function(){
+	} else {
+		html += '<div style="position: relative; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px">';
+		html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
+		if ( num_pages > 1 && appliance['id'] ) {
+			for (var i=2;i<=num_pages;i++) {
+				var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
+				//alert(letter);
+				var id = appliance['id'];
+				var alt_id = id+":"+letter;
+				var app_url2 = "/apps/loader.html?"+alt_id;
+				html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="position: absolute; float: left; border:none; margin: 0; height: ' + left_width + 'px; width: ' + effective_height + 'px"></iframe>';
+			}
+		}
+		html += '</div>';
+		if (right_width > 1) {
+			html += '<iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="clear: left; border: none; margin: 0; height: ' + right_width + 'px; width: ' + effective_height+'px"></iframe>';
+		}
+	}
+
+	html += '</div>';
+		
+	jQuery('body').html(html);
+
+	var translate_x = (body_height-body_width) + "px";
+	var translate_y = (body_height) + "px";
+
+	jQuery("#tb_frames").css("-webkit-transform-origin", "100% 100%").css("-webkit-transform", "rotate(90deg) translateY("+translate_y+") translateX("+translate_x+")");
+
+	var current_frame = 0;
+	function rotate_frames () {
+		current_frame = current_frame + 1;
+		if (current_frame > num_pages) {
+			current_frame = 1;
+		}
+		//alert(current_frame+" out of "+num_pages);
+		for (var i=1;i<=num_pages;i++) {
+			if (i == current_frame) {
+				//alert( "show "+i);
+				jQuery("#app_frame"+i).show(1000);
+			} else {
+				//alert("hide "+i);
+				jQuery("#app_frame"+i).hide(1000);
+			}
+		}
+		setTimeout(rotate_frames,page_delay*1000);
+	}
+
+	if ( num_pages > 1 && appliance['id'] ) {
+		setTimeout(rotate_frames,100000); // 100 second delay to let everything load
+	}
+
+
+	// set up healthcheck/restart logic
+
+	var start_time = ((new Date)).getTime();
+
+	transitBoardVertical.access_method = "jsonp";
+	if (trArrSupportsCors()) {
+		transitBoardVertical.access_method = "json";
+	}
+
+	var platform = "";
+	if (typeof options.platform === 'object') {
+		platform = options.platform[0];
+	}
+
 	jQuery.ajax({
-			url: "//ta-web-services.com/health_update.php",
 			dataType: transitBoardVertical.access_method,
-			cache: false,
-			data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-			success: function(data) {
-				if( typeof data != "undefined" && data.reset == true ) {
-					reset_app();
-				}
-			},
+			url: "//ta-web-services.com/health_update.php",
+			data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
 			error: function(xhrObj,errorText,errorThrown) {
 				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+					newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
 				}
 			}
-	});
-}, 30*60*1000);
+		});
+
+	// logging of startup, beat every 30 min goes here
+	setInterval(function(){
+		jQuery.ajax({
+				url: "//ta-web-services.com/health_update.php",
+				dataType: transitBoardVertical.access_method,
+				cache: false,
+				data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
+				success: function(data) {
+					if( typeof data != "undefined" && data.reset == true ) {
+						reset_app();
+					}
+				},
+				error: function(xhrObj,errorText,errorThrown) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
+					}
+				}
+		});
+	}, 30*60*1000);
+
+}
 
 
 var reset_app = function() {
