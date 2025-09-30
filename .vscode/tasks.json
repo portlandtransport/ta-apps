@@ -68,6 +68,23 @@
                     "panel": "new"
                 },
                 "problemMatcher": []
+            },
+            {
+                "label": "Build Streetcar By Line",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\streetcarByLine\\streetcarByLine.template.html",
+                    "--dest",
+                    "apps\\streetcarByLine\\streetcarByLine..html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
             }
         ]
     }

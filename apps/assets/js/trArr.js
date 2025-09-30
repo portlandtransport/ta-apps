@@ -45,6 +45,7 @@ function is_development() {
 }
 
 function is_cyan() {
+	return false;
 	return (typeof applianceId == "string" && applianceId.match(/D0:27:88:D3:EA:1B/i) != null);
 }
 
