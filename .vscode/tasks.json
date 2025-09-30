@@ -2,6 +2,23 @@
         "version": "2.0.0",
         "tasks": [
             {
+                "label": "Build TransitBoardVertical",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\transitBoardVertical\\transitBoardVertical.template.html",
+                    "--dest",
+                    "apps\\transitBoardVertical\\transitBoardVertical.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
                 "label": "Build TransitBoardHorizontal",
                 "type": "shell",
                 "command": "npx",
