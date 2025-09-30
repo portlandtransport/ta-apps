@@ -282,7 +282,7 @@ jQuery(document).ready(function() {
 		});
 	}, 30*60*1000);
 
-}
+});
 
 
 var reset_app = function() {
