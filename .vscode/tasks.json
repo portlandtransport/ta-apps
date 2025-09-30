@@ -27,7 +27,7 @@
                     "--src",              // Optional arguments for the npx command
                     "apps\\transitBoardHorizontal\\transitBoardHorizontal.template.html",
                     "--dest",
-                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.output.html"
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.html"
                 ],
                 "presentation": {
                     "reveal": "always",

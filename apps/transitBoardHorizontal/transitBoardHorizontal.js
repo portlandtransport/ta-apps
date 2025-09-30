@@ -126,86 +126,86 @@ if (second_page && num_pages < 2) {
 num_pages = num_pages * 1;
 
 var page_delay = options['page_delay'] || 15;
+
+jQuery(document).ready(function() {
 		
-// initialize screen margins
+	// initialize screen margins
 
-var body_width 		= options.width || jQuery(window).width();
-var body_height 	= options.height || jQuery(window).height();	
+	var body_width 		= options.width || jQuery(window).width();
+	var body_height 	= options.height || jQuery(window).height();	
 
-var left_border 	= options.left || 0;
-var bottom_border = options.bottom || 0;
-var top_border 		= options.top || 0;
-var right_border 	= options.right || 0;
+	var left_border 	= options.left || 0;
+	var bottom_border = options.bottom || 0;
+	var top_border 		= options.top || 0;
+	var right_border 	= options.right || 0;
 
-var split_pct 		= options.splitpct || 100;
-var suppl_url 		= options.suppl_url;
-if (typeof suppl_url == "object") {
-	suppl_url = suppl_url[0];
-}
-
-var supplemental_left = options.supplemental_left;
-if (typeof supplemental_left == "object") {
-	supplemental_left = supplemental_left[0];
-}
-var supplemental_direction = "left";
-if (supplemental_left == 1) {
-	// flip it
-	supplemental_direction = "right";
-}
-
-if (suppl_url == "") {
-	suppl_url = "//transitappliance.com/size_info.html";
-}
-
-if (suppl_url.substr(0,9) == "appliance") {
-	suppl_url = "/apps/loader.html?"+suppl_url.substr(12);
-}
-
-var effective_width = body_width - left_border - right_border;
-var effective_height = body_height - bottom_border - top_border;
-
-jQuery("body").css("width",effective_width).css("height",effective_height);
-jQuery("body").css("margin","0");
-
-jQuery("body").css('border-left-width',left_border);
-jQuery("body").css('border-top-width',top_border);
-jQuery("body").css('border-right-width',right_border);
-jQuery("body").css('border-bottom-width',bottom_border);
-jQuery("body").css('border-color','black');
-jQuery("body").css('border-style','solid');
-jQuery("body").css('position','relative'); // for reasons I haven't figured out, this has to be set late
-
-var left_width = Math.floor(effective_width * split_pct/100);
-var right_width = effective_width - left_width;
-
-var primary_id = appliance['id']+":A";
-var app_url = "/apps/loader.html?"+primary_id;
-	
-// populate html
-
-var html = '<div id="tb_frames" style="width: ' + effective_width + 'px; height: ' + effective_height + 'px">';
-html += '<div style="position: relative; float: '+supplemental_direction+';; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px">';
-html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="background: white; position: absolute; border:none; margin: 0; float: left; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
-
-if ( num_pages > 1 && appliance['id'] ) {
-	for (var i=2;i<=num_pages;i++) {
-		var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
-		//alert(letter);
-		var id = appliance['id'];
-		var alt_id = id+":"+letter;
-		var app_url2 = "/apps/loader.html?"+alt_id;
-		html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+	var split_pct 		= options.splitpct || 100;
+	var suppl_url 		= options.suppl_url;
+	if (typeof suppl_url == "object") {
+		suppl_url = suppl_url[0];
 	}
-}
 
-html += '</div>';
-if (right_width > 1) {
-	html += '</iframe><iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="background: white; border: none; margin: 0; width: ' + right_width + 'px; height: ' + effective_height+'px"></iframe>';
-}
-html += '</div>';
+	var supplemental_left = options.supplemental_left;
+	if (typeof supplemental_left == "object") {
+		supplemental_left = supplemental_left[0];
+	}
+	var supplemental_direction = "left";
+	if (supplemental_left == 1) {
+		// flip it
+		supplemental_direction = "right";
+	}
 
+	if (suppl_url == "") {
+		suppl_url = "//transitappliance.com/size_info.html";
+	}
 
-jQuery(document).ready(function(){
+	if (suppl_url.substr(0,9) == "appliance") {
+		suppl_url = "/apps/loader.html?"+suppl_url.substr(12);
+	}
+
+	var effective_width = body_width - left_border - right_border;
+	var effective_height = body_height - bottom_border - top_border;
+
+	jQuery("body").css("width",effective_width).css("height",effective_height);
+	jQuery("body").css("margin","0");
+
+	jQuery("body").css('border-left-width',left_border);
+	jQuery("body").css('border-top-width',top_border);
+	jQuery("body").css('border-right-width',right_border);
+	jQuery("body").css('border-bottom-width',bottom_border);
+	jQuery("body").css('border-color','black');
+	jQuery("body").css('border-style','solid');
+	jQuery("body").css('position','relative'); // for reasons I haven't figured out, this has to be set late
+
+	var left_width = Math.floor(effective_width * split_pct/100);
+	var right_width = effective_width - left_width;
+
+	var primary_id = appliance['id']+":A";
+	var app_url = "/apps/loader.html?"+primary_id;
+		
+	// populate html
+
+	var html = '<div id="tb_frames" style="width: ' + effective_width + 'px; height: ' + effective_height + 'px">';
+	html += '<div style="position: relative; float: '+supplemental_direction+';; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px">';
+	html += '<iframe id="app_frame1" src="'+app_url+'" scrolling="no" style="background: white; position: absolute; border:none; margin: 0; float: left; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+
+	if ( num_pages > 1 && appliance['id'] ) {
+		for (var i=2;i<=num_pages;i++) {
+			var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
+			//alert(letter);
+			var id = appliance['id'];
+			var alt_id = id+":"+letter;
+			var app_url2 = "/apps/loader.html?"+alt_id;
+			html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+		}
+	}
+
+	html += '</div>';
+	if (right_width > 1) {
+		html += '</iframe><iframe id="suppl_frame" src="' + suppl_url + '" scrolling="no" style="background: white; border: none; margin: 0; width: ' + right_width + 'px; height: ' + effective_height+'px"></iframe>';
+	}
+	html += '</div>';
+
 
 	jQuery('body').html(html);
 
@@ -238,18 +238,7 @@ jQuery(document).ready(function(){
 
 });
 
-/*
-if ( second_page && appliance['id'] ) {
-	setTimeout(function(){
-		jQuery("#app_frame2").css('display','none');
-		setInterval(function(){
-			jQuery("#app_frame1, #app_frame2").toggle(1000);
-		},15000);
-	},100000);
-}
-*/
 
-// set up healthcheck/restart logic
 
 var start_time = ((new Date)).getTime();
 
