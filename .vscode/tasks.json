@@ -78,7 +78,7 @@
                     "--src",              // Optional arguments for the npx command
                     "apps\\streetcarByLine\\streetcarByLine.template.html",
                     "--dest",
-                    "apps\\streetcarByLine\\streetcarByLine..html"
+                    "apps\\streetcarByLine\\streetcarByLine.html"
                 ],
                 "presentation": {
                     "reveal": "always",
