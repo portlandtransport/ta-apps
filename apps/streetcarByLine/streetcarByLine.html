@@ -12031,7 +12031,14 @@ jQuery.each( ajaxEvents.split("|"),
 	    
 		</script>
 	
-
+        <script>function trCorsCredentials(credential) {
+    var secrets = {
+        'CorsAPI': 'live_8623e51d773c3e0e98949818516f03f4f41efc5bb3ea32d964af01aeaa0f1f23'
+    }
+    
+    return secrets[credential];
+}
+	</script>
 		<script>/*
  * Copyright 2010 Matthew Eernisse (mde@fleegix.org)
  * and Open Source Applications Foundation
