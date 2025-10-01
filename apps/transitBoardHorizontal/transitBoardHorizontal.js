@@ -252,69 +252,17 @@ if (typeof options.platform === 'object') {
 	platform = options.platform[0];
 }
 
-jQuery.ajax({
-	dataType: transitBoardHorizontal.access_method,
-	url: "//ta-web-services.com/health_update.php",
-	data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-	error: function() {
-		jQuery.ajax({
-			dataType: transitBoardHorizontal.access_method,
-			url: "//transitappliance.com/health_update.php",
-			data: { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-			error: function(xhrObj,errorText,errorThrown) {
-				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-				}
-			}
-		});
-	}
-});
+/* initiate healthcheck */
+
+var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+trHealthUpdate(data,0);
 
 // logging of startup, beat every 30 min goes here
 setInterval(function(){
-	jQuery.ajax({
-		url: "//ta-web-services.com/health_update.php",
-		dataType: transitBoardHorizontal.access_method,
-		cache: false,
-		data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-		success: function(data) {
-			if( typeof data != "undefined" && data.reset == true ) {
-				reset_app();
-			}
-		},
-		error: function() {
-			jQuery.ajax({
-				url: "//transitappliance.com/health_update.php",
-				dataType: transitBoardHorizontal.access_method,
-				cache: false,
-				data: { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-				success: function(data) {
-					if( typeof data != "undefined" && data.reset == true ) {
-						reset_app();
-					}
-				},
-				error: function(xhrObj,errorText,errorThrown) {
-					if (typeof newrelic === "object") {
-						newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-					}
-				}
-			});
-		}
-	});
+	var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+	trHealthUpdate(data,0);
 }, 30*60*1000);
 
 
-var reset_app = function() {
-	if (appliance['id']) {
-		if(typeof trLoader == 'function') {
-			trLoader(appliance['id']);
-		} else {
-			window.location = "//transitappliance.com/cgi-bin/launch_by_id.pl?id="+appliance['id'];
-		}
-	} else {
-		window.location.reload(true);
-	}
-}
-	
 
 
