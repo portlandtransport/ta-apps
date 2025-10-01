@@ -102,6 +102,15 @@
                     "panel": "new"
                 },
                 "problemMatcher": []
+            },
+            {
+                "label": "Build All",
+                "dependsOrder": "sequence",
+                "dependsOn": ["Build TransitBoardHorizontal", "Build TransitBoardVertical","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line"],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
             }
         ]
     }
