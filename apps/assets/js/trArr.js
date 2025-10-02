@@ -44,11 +44,6 @@ function is_development() {
 	return location.hostname == "dev.transitappliance.com";
 }
 
-function is_cyan() {
-	return false;
-	return (typeof applianceId == "string" && applianceId.match(/D0:27:88:D3:EA:1B/i) != null);
-}
-
 function serialize_query_string(obj) {
   var str = [];
   for (var p in obj)
@@ -681,85 +676,18 @@ function trArr(input_params) {
 							} else {
 								//console.log("production tier");
 							}
-							/*
-							console.log(applianceId);
-							console.log(is_cyan());
-							*/
 
-							
 
-							if (trArrSupportsCors() && !is_cyan()) {
+							var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+							arrivals_object.health_update(arrivals_object,data,0);
 
-								//console.log('new health check');
-
-								var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+							setInterval(function(){
+								// health update every 30 minutes
+								var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 								arrivals_object.health_update(arrivals_object,data,0);
+							}, 30*60*1000); // 30 min
 
-								setInterval(function(){
-									// health update every 30 minutes
-									var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-									arrivals_object.health_update(arrivals_object,data,0);
-								}, 30*60*1000); // 30 min
-
-							} else {
-
-								//console.log('legacy health check');
-								
-								jQuery.ajax({
-										dataType: access_method,
-										url: "//ta-web-services.com/health_update.php",
-										data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-										error: function() {
-											// retry through proxy
-											jQuery.ajax({
-												dataType: access_method,
-												url: "//transitappliance.com/health_update.php",
-												data: { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-												error: function(xhrObj,errorText,errorThrown) {
-													if (typeof newrelic === "object") {
-														newrelic.addPageAction("HC1: Startup not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-													}
-												}
-											});
-										}
-								});
-
-								
-								// logging of startup, beat every 30 minutes goes here
-								setInterval(function(){
-									jQuery.ajax({
-											url: "//ta-web-services.com/health_update.php",
-											dataType: access_method,
-											cache: false,
-											data: { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-											success: function(data) {
-												if( typeof data != "undefined" && data.reset == true ) {
-													arrivals_object.reset_app();
-												}
-											},
-											error: function() {
-												// retry through proxy
-												jQuery.ajax({
-													url: "//transitappliance.com/health_update.php",
-													dataType: access_method,
-													cache: false,
-													data: { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform },
-													success: function(data) {
-														if( typeof data != "undefined" && data.reset == true ) {
-															arrivals_object.reset_app();
-														}
-													},
-													error: function(xhrObj,errorText,errorThrown) {
-														if (typeof newrelic === "object") {
-															newrelic.addPageAction("HC2: Health Check not recorded",{'errorText': errorText, 'errorThrown': errorThrown});
-														}
-													}
-												});
-											}
-									});
-								}, 30*60*1000); // 30 min
-							}
-							
+						
 								
 							/* 3 ways to get display interval:
 							

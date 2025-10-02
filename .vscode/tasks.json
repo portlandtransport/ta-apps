@@ -27,7 +27,7 @@
                     "--src",              // Optional arguments for the npx command
                     "apps\\transitBoardHorizontal\\transitBoardHorizontal.template.html",
                     "--dest",
-                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.output.html"
+                    "apps\\transitBoardHorizontal\\transitBoardHorizontal.html"
                 ],
                 "presentation": {
                     "reveal": "always",
@@ -102,6 +102,15 @@
                     "panel": "new"
                 },
                 "problemMatcher": []
+            },
+            {
+                "label": "Build All",
+                "dependsOrder": "sequence",
+                "dependsOn": ["Build TransitBoardHorizontal", "Build TransitBoardVertical","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line"],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
             }
         ]
     }
