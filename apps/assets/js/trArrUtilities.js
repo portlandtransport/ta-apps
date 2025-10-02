@@ -104,7 +104,7 @@ function trSerializeQueryString(obj) {
   return str.join("&");
 }
 
-function trHealthUpdate(data,retry_count) {
+function trHealthUpdate(data,retry_count,initial_launch) {
 	const retry_limit = 1;
 	const xhr = new XMLHttpRequest();
 
@@ -130,7 +130,7 @@ function trHealthUpdate(data,retry_count) {
 				const response_data = JSON.parse(xhr.responseText);
 				// Process data
 				console.log(response_data);
-				if ( typeof response_data != "undefined" && response_data.reset == true ) {
+				if ( typeof response_data != "undefined" && response_data.reset == true && !initial_launch) {
 					trResetApp(data['id']);
 				}
 			} catch (e) {

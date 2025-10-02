@@ -255,12 +255,12 @@ if (typeof options.platform === 'object') {
 /* initiate healthcheck */
 
 var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-trHealthUpdate(data,0);
+trHealthUpdate(data,0,true);
 
 // logging of startup, beat every 30 min goes here
 setInterval(function(){
 	var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardHorizontal.APP_ID, application_name: transitBoardHorizontal.APP_NAME, application_version: transitBoardHorizontal.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-	trHealthUpdate(data,0);
+	trHealthUpdate(data,0,false);
 }, 30*60*1000);
 
 
