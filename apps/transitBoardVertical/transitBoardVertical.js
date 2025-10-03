@@ -236,30 +236,32 @@ jQuery(document).ready(function() {
 		setTimeout(rotate_frames,100000); // 100 second delay to let everything load
 	}
 
+	// set up healthcheck/restart logic
+
+	var start_time = ((new Date)).getTime();
+
+	transitBoardVertical.access_method = "jsonp";
+	if (trArrSupportsCors()) {
+		transitBoardVertical.access_method = "json";
+	}
+
+	var platform = "";
+	if (typeof options.platform === 'object') {
+		platform = options.platform[0];
+	}
+
+	var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+	trHealthUpdate(data,0,true);	 
+
+	// logging of startup, beat every 30 min goes here
+	setInterval(function(){
+		var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+		trHealthUpdate(data,0,false);
+	}, 30*60*1000);
+
 });
 
-// set up healthcheck/restart logic
 
-var start_time = ((new Date)).getTime();
-
-transitBoardVertical.access_method = "jsonp";
-if (trArrSupportsCors()) {
-	transitBoardVertical.access_method = "json";
-}
-
-var platform = "";
-if (typeof options.platform === 'object') {
-	platform = options.platform[0];
-}
-
-var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-trHealthUpdate(data,0,true);	 
-
-// logging of startup, beat every 30 min goes here
-setInterval(function(){
-	var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: transitBoardVertical.APP_ID, application_name: transitBoardVertical.APP_NAME, application_version: transitBoardVertical.APP_VERSION, "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-	trHealthUpdate(data,0,false);
-}, 30*60*1000);
 
 	
 
