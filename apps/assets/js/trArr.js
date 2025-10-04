@@ -552,75 +552,7 @@ function trArr(input_params) {
 		return arrivals;
 
 	}
-
-	this.health_update = function(arrivals_object,data,retry_count) {
-		const retry_limit = 1;
-		const xhr = new XMLHttpRequest();
-
-		xhr.responseType = 'text';
-
-		var url = "//ta-web-services.com/health_update.php?"+serialize_query_string(data);
-		if (retry_count > 0) {
-			url = "//transitappliance.com/health_update.php?"+serialize_query_string(data);
-		}
-
-		xhr.open('GET', url, true);
-
-		// Set up the event handler for when the request state changes
-		xhr.onreadystatechange = function() {
-			// Check if the request is complete (readyState 4) and successful (status 200)
-
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				//console.log("Retry: "+retry_count);
-				//console.log("Text response: "+xhr.responseText);
-
-				// now try parsing json
-				try {
-					const response_data = JSON.parse(xhr.responseText);
-					// Process data
-					//console.log(response_data);
-					if ( typeof response_data != "undefined" && response_data.reset == true ) {
-						arrivals_object.reset_app();
-					}
-				} catch (e) {
-					//console.log("json parsing error");
-					//console.log(e);
-					if (retry_count >= retry_limit) {
-						if (typeof newrelic === "object") {
-							newrelic.addPageAction("HC4: Startup or healthcheck JSON parsing error");
-						}
-					} else {
-						arrivals_object.health_update(arrivals_object,data,retry_count+1);
-					}
-				}
-
-			} else if (xhr.readyState === 4 && xhr.status !== 200) {
-				//console.log("xhr state error");
-				if (retry_count >= retry_limit) {
-					if (typeof newrelic === "object") {
-						newrelic.addPageAction("HC1: Startup or healthcheck not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
-					}
-				} else {
-					arrivals_object.health_update(arrivals_object,data,retry_count+1);
-				}
-			}
-		};
-
-		xhr.onerror = function() {
-			//console.log("xhr network error");
-			if (retry_count >= retry_limit) {
-				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC3: Startup or healthcheck network error");
-				}
-			} else {
-				arrivals_object.health_update(arrivals_object,data,retry_count+1);
-			}
-		}
-
-		// Send the request
-		xhr.send();
-	}
-	  
+  
 	// create and populate stop information cache, the build structure of agency service requests
 	trAgencyCache().checkCached(this,this.query_params.stop,	function (arrivals_object) {
 		trStopCache().checkCached(arrivals_object,arrivals_object.query_params.stop,	function (arrivals_object) {
@@ -679,12 +611,12 @@ function trArr(input_params) {
 
 
 							var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-							arrivals_object.health_update(arrivals_object,data,0);
+							trHealthUpdate(data,0,true);
 
 							setInterval(function(){
 								// health update every 30 minutes
 								var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-								arrivals_object.health_update(arrivals_object,data,0);
+								trHealthUpdate(data,0,false);
 							}, 30*60*1000); // 30 min
 
 						
