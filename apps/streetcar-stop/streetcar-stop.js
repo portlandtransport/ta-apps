@@ -78,7 +78,7 @@ function makeArrival(arr, num) {
 		    }
 			var headsign = arr[0].headsign;
 			// console.log(arr[0]);
-			if (arr[0].stop_id = "10777") {
+			if (arr[0].stop_id == "10777") {
 				headsign = "NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b>";
 			}
 			
