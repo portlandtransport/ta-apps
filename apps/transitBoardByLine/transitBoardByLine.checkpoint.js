@@ -39,7 +39,23 @@ transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/trWeatherCredentials.js"
+		// "../assets/js/tracekit.js",
+		"../assets/js/libraries/fleegix.js",
+		"../assets/js/libraries/tzdate.js",
+		"../assets/js/libraries/jquery-ui-1.8.7.custom.min.js",	
+		"../assets/js/libraries/date.js",
+		//"../assets/js/libraries/animation_frame.js",
+		"../assets/js/trArrUtilities.js",	
+		"../assets/js/trStopCache.js",
+		"../assets/js/trAgencyCache.js",
+		"../assets/js/trLoader.js",
+		"../assets/js/trArr.js",
+		"../assets/js/libraries/jquery.isotope.js",
+		"../assets/js/trCar2Go.js",
+		"../assets/js/trGBFS.js",
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trCorsCredentials.js",
+		"../assets/js/trWeatherAPI.js"
 ];
 
 
