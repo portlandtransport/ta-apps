@@ -77,8 +77,11 @@ function makeArrival(arr, num) {
 		    	mins = "<b>"+mins + "</b><span style=\"font-size: 30%\"> min</span>";
 		    }
 			var headsign = arr[0].headsign;
-			console.log(arr[0]);
-			//headsign = "NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b>";
+			// console.log(arr[0]);
+			if (arr[0].stop_id = "10777") {
+				headsign = "NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b>";
+			}
+			
 			html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
 			html += '<div class="headsign" ><span>'+headsign+'</span></div>';
 		    html += '<div class="mins"><span style="font-size: 90%"><nobr>' + mins + '</nobr></span></div>';
