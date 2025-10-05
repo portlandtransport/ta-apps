@@ -43,17 +43,6 @@ transitBoardByLine.dependencies = [
 ];
 
 
-// make sure head library is loaded
-if (typeof head != "function") {
-	console.log(typeof head);
-	if (typeof newrelic === "object") {
-		newrelic.addPageAction("TBL2: head library not loaded, reloading page");
-	}
-	location.reload();
-}
-
-
-
 (function () {
 
 	// deliberately defeat caching
