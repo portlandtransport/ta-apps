@@ -79,8 +79,8 @@ function makeArrival(arr, num) {
 		    // we put in a span so that textfill has something to resize
 		    //html += '<div class="headsign"><span>' + arr[0].headsign + 
 			  //  '</span></div>';
-				html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
-			  html += '<div class="headsign" ><span>NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b></span></div>';
+			html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
+			html += '<div class="headsign" ><span>NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b></span></div>';
 		    html += '<div class="mins"><span style="font-size: 90%"><nobr>' + mins + '</nobr></span></div>';
 	
 		    if (also.length > 0) {
