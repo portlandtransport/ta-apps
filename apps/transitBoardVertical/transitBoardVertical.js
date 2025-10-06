@@ -137,10 +137,17 @@ jQuery(document).ready(function() {
 
 	var split_pct 		= options.splitpct || 100;
 	var suppl_url 		= options.suppl_url;
+	if (typeof suppl_url == "object") {
+		suppl_url = suppl_url[0];
+	}
 	var suppl_loc			= options.suppl_loc;
 
 	if (suppl_url == "") {
 		suppl_url = "//transitappliance.com/size_info.html";
+	}
+
+	if (suppl_url.substr(0,9) == "appliance") {
+		suppl_url = "/apps/loader.html?"+suppl_url.substr(12);
 	}
 
 	var effective_width = body_width - left_border - right_border;
