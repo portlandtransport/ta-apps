@@ -2,6 +2,23 @@
         "version": "2.0.0",
         "tasks": [
             {
+                "label": "Build TransitBoardByLine",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\transitBoardByLine\\transitBoardByLine.template.html",
+                    "--dest",
+                    "apps\\transitBoardByLine\\transitBoardByLine.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
                 "label": "Build TransitBoardVertical",
                 "type": "shell",
                 "command": "npx",
@@ -104,9 +121,26 @@
                 "problemMatcher": []
             },
             {
+                "label": "Build Streetcar Stop",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\streetcar-stop\\streetcar-stop.template.html",
+                    "--dest",
+                    "apps\\streetcar-stop\\streetcar-stop.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
                 "label": "Build All",
                 "dependsOrder": "sequence",
-                "dependsOn": ["Build TransitBoardHorizontal", "Build TransitBoardVertical","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line"],
+                "dependsOn": ["Build TransitBoardByLine","Build TransitBoardHorizontal", "Build TransitBoardVertical","Build Streetcar Stop","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line"],
                 "group": {
                     "kind": "build",
                     "isDefault": true

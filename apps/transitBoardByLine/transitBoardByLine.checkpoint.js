@@ -39,8 +39,35 @@ transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/trWeatherCredentials.js"
+		// "../assets/js/tracekit.js",
+		"../assets/js/libraries/fleegix.js",
+		"../assets/js/libraries/tzdate.js",
+		"../assets/js/libraries/jquery-ui-1.8.7.custom.min.js",	
+		"../assets/js/libraries/date.js",
+		//"../assets/js/libraries/animation_frame.js",
+		"../assets/js/trArrUtilities.js",	
+		"../assets/js/trStopCache.js",
+		"../assets/js/trAgencyCache.js",
+		"../assets/js/trLoader.js",
+		"../assets/js/trArr.js",
+		"../assets/js/libraries/jquery.isotope.js",
+		"../assets/js/trCar2Go.js",
+		"../assets/js/trGBFS.js",
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trCorsCredentials.js",
+		"../assets/js/trWeatherAPI.js"
 ];
+
+
+// make sure head library is loaded
+if (typeof head != "function") {
+	console.log(typeof head);
+	if (typeof newrelic === "object") {
+		newrelic.addPageAction("TBL2: head library not loaded, reloading page");
+	}
+	location.reload();
+}
+
 
 
 (function () {
@@ -469,8 +496,8 @@ transitBoardByLine.initializePage = function(data) {
 transitBoardByLine.testPhase2 = function(data,count) {
 	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
 		//console.log("launch phase 2 on count: "+count);
-		//console.log(document.getElementById("tb_middle").tagName);
-		//console.log(document.getElementById("tb_bottom").tagName);
+		console.log(document.getElementById("tb_middle").tagName);
+		console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
 		if (count > 10) {
@@ -488,7 +515,7 @@ transitBoardByLine.testPhase2 = function(data,count) {
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
-	//console.log("in phase 2");
+	console.log("in phase 2");
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
@@ -553,8 +580,8 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 transitBoardByLine.testPhase3 = function(data,count) {
 	if (document.getElementById("tb_bottom") !== null && document.getElementById("tb_middle").tagName == "DIV" && document.getElementById("tb_middle") !== null && document.getElementById("tb_bottom").tagName == "TABLE") {
 		//console.log("launch phase 2 on count: "+count);
-		//console.log(document.getElementById("tb_middle").tagName);
-		//console.log(document.getElementById("tb_bottom").tagName);
+		console.log(document.getElementById("tb_middle").tagName);
+		console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase3(data);
 	} else {
 		if (count > 10) {
@@ -572,7 +599,7 @@ transitBoardByLine.testPhase3 = function(data,count) {
 
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
-	//console.log("in phase 3 separate function");
+	console.log("in phase 3 separate function");
 	var trip_height = jQuery('#trip2').outerHeight(true);
 	transitBoardByLine.trip_height = trip_height;
 	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
@@ -1012,7 +1039,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 			// check for zero opacity items
 			if (jQuery("table."+id).css('opacity') == 0 && !id.match(/spacer/)) {
-				//console.log("Found zero opacity entry, removing: "+id);
+				console.log("Found zero opacity entry, removing: "+id);
 				jQuery("table."+id).removeClass('active');
 				transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
 			}
@@ -1347,7 +1374,7 @@ head.ready(function() {
 	*/
 
 	if (typeof trArr != "function") {
-		//console.log(typeof trArr);
+		console.log(typeof trArr);
 		if (typeof newrelic === "object") {
 			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
 		}
