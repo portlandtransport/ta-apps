@@ -277,7 +277,7 @@ $('document').ready( function () {
 	        theData = data;
 	        var arrayLength = theData.arrivalsQueue.length;
 	        for (var i = 0; i < arrayLength; i++) {
-					    theData.arrivalsQueue[i]["headsign"] = "to PSU";
+					    //theData.arrivalsQueue[i]["headsign"] = "to PSU";
 					}
 
 	        // keep track of state
