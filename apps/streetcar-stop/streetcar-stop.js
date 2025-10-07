@@ -187,7 +187,7 @@ function displayPage () {
 
     // Start the loop
     // 1000 to get ms
-    setTimeout(function () { showNextArrival(1, queue) }, 5000*(theData.optionsConfig.timeout?theData.optionsConfig.timeout[0]:3));
+    //setTimeout(function () { showNextArrival(1, queue) }, 5000*(theData.optionsConfig.timeout?theData.optionsConfig.timeout[0]:3));
 }
 
 function showNextArrival (i, dests) {
