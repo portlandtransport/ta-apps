@@ -28,6 +28,11 @@ function makeArrival(arr, num) {
 	currentDest = null; 
 
 	var headsign = arr[0].headsign.replace("Portland","");
+	if (arr[0].stop_id == "10777") {
+		headsign = "NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b>";
+	} else if (arr[0].stop_id == "13602") {
+		headsign = "Streetcar to PSU";
+	}
 
 	var html = '<div class="box ' + "route_"+arr[0].route_id + '" dest="' + 
 	    arr[0].headsign + '">';
