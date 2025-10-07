@@ -162,7 +162,7 @@ function displayPage () {
     var queue = [];
     var arrayLength = theData.arrivalsQueue.length;
     for (var i = 0; i < arrayLength; i++) {
-		    theData.arrivalsQueue[i]["headsign"] = "to PSU";
+		    //theData.arrivalsQueue[i]["headsign"] = "to PSU";
 		}
     var dests = theData.arrivalsQueue.current().minutes(60).byDest()
     for (var dest in dests) {
