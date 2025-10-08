@@ -18,7 +18,7 @@ body { margin: 0 }
 
 .headsign { font-weight: 700 }
 #boxes div.box div.board span { color: #ccc }
-div.headsign {color: #ccc};
+div.headsign, div.also {color: #ccc};
 
 
 body { cursor: none }

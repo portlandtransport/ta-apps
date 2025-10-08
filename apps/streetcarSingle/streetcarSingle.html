@@ -2992,7 +2992,8 @@ function makeArrival(arr, num) {
 	}
 
 	if (arr[0] != undefined) {
-	    var mins = formatted_arrival_time(arr[0],true);
+	    //var mins = formatted_arrival_time(arr[0],true);
+		var mins = arr[0].minutes();
 
 		/*
 		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
@@ -3342,7 +3343,7 @@ body { margin: 0 }
 
 .headsign { font-weight: 700 }
 #boxes div.box div.board span { color: #ccc }
-div.headsign {color: #ccc};
+div.headsign, div.also {color: #ccc};
 
 
 body { cursor: none }

@@ -45,7 +45,8 @@ function makeArrival(arr, num) {
 	}
 
 	if (arr[0] != undefined) {
-	    var mins = formatted_arrival_time(arr[0],true);
+	    //var mins = formatted_arrival_time(arr[0],true);
+		var mins = arr[0].minutes();
 
 		/*
 		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
