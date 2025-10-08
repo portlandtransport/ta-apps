@@ -17,6 +17,7 @@ body { margin: 0 }
 .marquee { font-family: DejaVuSansBold, sans-serif; }
 
 .headsign { font-weight: 700 }
+#boxes div.box div.board span { color: #ccc }
 
 
 body { cursor: none }
