@@ -2975,6 +2975,9 @@ function makeArrival(arr, num) {
 	currentDest = null; 
 
 	var headsign = arr[0].headsign.replace("Portland","");
+	if (arr[0].stop_id == "10777") {
+		headsign = "NS Streetcar to South Waterfront via <b>Pearl District</b> and <b>Downtown</b>";
+	} 
 
 	var html = '<div class="box ' + "route_"+arr[0].route_id + '" dest="' + 
 	    arr[0].headsign + '">';
@@ -2989,24 +2992,41 @@ function makeArrival(arr, num) {
 	}
 
 	if (arr[0] != undefined) {
-	    var mins = formatted_arrival_time(arr[0],true);
-	    if (mins <= 0) mins = 'Due';
+	    //var mins = formatted_arrival_time(arr[0],true);
+		var mins = arr[0].minutes();
+
+		/*
+		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
 	    // we put in a span so that textfill has something to resize
 	    html += '<div class="top_margin"></div><div class="headsign"><span>' + headsign + 
 		    '</span></div>';
 	    html += '<div class="mins"><span>' + mins + '</span></div>';
+		*/
 
-	    if (also.length > 0) {
-		    html += '<div class="also"><span>' + also.join(', ') + 
-		        '</span></div>';
-	    }
-	    else {
-		    // put in a div to force it downward
-		    html += '<div class="also"><span> </span></div>';
-	    }
+		if (mins <= 0) {
+			mins = "<span style=\"color: yellow\"><b>Due</b></span>"
+		} else if (mins < 5) {
+			mins = "<span style=\"color: yellow\"><b>" +mins + "</b><span style=\"font-size: 30%\"> min</span></span>";
+		} else {
+			mins = "<b>"+mins + "</b><span style=\"font-size: 30%\"> min</span>";
+		}
+		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
+		html += '<div class="headsign" ><span>'+headsign+'</span></div>';
+		html += '<div class="mins"><span style="font-size: 90%"><nobr>' + mins + '</nobr></span></div>';
 
+		if (also.length > 0) {
+			html += '<div class="also">&nbsp;<br><span>' + also.join(' min, ') + 
+				'</span></div>';
+		}
+		else {
+			// put in a div to force it downward
+			html += '<div class="also"><span> </span></div>';
+		}
+
+		/*
 	    html += '<div class="board"><span>Board at: ' + 
 		    arr[0].stop_data.stop_name + '</span></div>';
+			*/
 		    
 	}
 	else 
@@ -3303,15 +3323,18 @@ formatted_arrival_time = function(arrival,reduce_unit) {
 	 
     </script>
 
-    <style>body { margin: 0 }
+    <style>
+
+
+body { margin: 0 }
 
 .box {width: 100%; height: 100%; text-align: center; 
       color: #ffffff; margin-right: 50px;
       font-family: DejaVuSansBold, sans-serif; 
     }
-.boxodd { background-color: #226E52 }
-.boxeven { background-color: #22366E }
-.box { background-color: #22366E }
+.boxodd { background-color: #004080 }
+.boxeven { background-color: #004080 }
+.box { background-color: #004080 }
 
 .mins { line-height: 105%; letter-spacing: 0px }
 .clear { clear: both }
@@ -3319,27 +3342,143 @@ formatted_arrival_time = function(arrival,reduce_unit) {
 .marquee { font-family: DejaVuSansBold, sans-serif; }
 
 .headsign { font-weight: 700 }
+#boxes div.box div.board span { color: #ccc }
+div.headsign, div.also {color: #ccc};
 
-/* Hide the cursor */
+
 body { cursor: none }
 
-/* route colors */
 
-.box.route_193  {
-	/* background-color: #8DC63F; */
-	background-color: #22366E;
+
+
+
+
+
+@font-face {
+    font-family: 'DejaVuSansBook';
+    src: url('DejaVuSans-webfont.eot');
+    src: url('DejaVuSans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSans-webfont.woff') format('woff'),
+         url('DejaVuSans-webfont.ttf') format('truetype'),
+         url('DejaVuSans-webfont.svg#DejaVuSansBook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
-.box.route_195  {
-	/* background-color: #0AA8CB; */
-	background-color: #22366E;
+@font-face {
+    font-family: 'DejaVuSansOblique';
+    src: url('DejaVuSans-Oblique-webfont.eot');
+    src: url('DejaVuSans-Oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSans-Oblique-webfont.woff') format('woff'),
+         url('DejaVuSans-Oblique-webfont.ttf') format('truetype'),
+         url('DejaVuSans-Oblique-webfont.svg#DejaVuSansOblique') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
-.box.route_194  {
-	/* background-color: #DF1990; */
-	background-color: #22366E;
+@font-face {
+    font-family: 'DejaVuSansBold';
+    src: url('DejaVuSans-Bold-webfont.eot');
+    src: url('DejaVuSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSans-Bold-webfont.woff') format('woff'),
+         url('DejaVuSans-Bold-webfont.ttf') format('truetype'),
+         url('DejaVuSans-Bold-webfont.svg#DejaVuSansBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
-</style>
+
+@font-face {
+    font-family: 'DejaVuSansBoldOblique';
+    src: url('DejaVuSans-BoldOblique-webfont.eot');
+    src: url('DejaVuSans-BoldOblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSans-BoldOblique-webfont.woff') format('woff'),
+         url('DejaVuSans-BoldOblique-webfont.ttf') format('truetype'),
+         url('DejaVuSans-BoldOblique-webfont.svg#DejaVuSansBoldOblique') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DejaVuSansCondensed';
+    src: url('DejaVuSansCondensed-webfont.eot');
+    src: url('DejaVuSansCondensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSansCondensed-webfont.woff') format('woff'),
+         url('DejaVuSansCondensed-webfont.ttf') format('truetype'),
+         url('DejaVuSansCondensed-webfont.svg#DejaVuSansCondensed') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DejaVuSansCondensedOblique';
+    src: url('DejaVuSansCondensed-Oblique-webfont.eot');
+    src: url('DejaVuSansCondensed-Oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSansCondensed-Oblique-webfont.woff') format('woff'),
+         url('DejaVuSansCondensed-Oblique-webfont.ttf') format('truetype'),
+         url('DejaVuSansCondensed-Oblique-webfont.svg#DejaVuSansCondensedOblique') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DejaVuSansCondensedBold';
+    src: url('DejaVuSansCondensed-Bold-webfont.eot');
+    src: url('DejaVuSansCondensed-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSansCondensed-Bold-webfont.woff') format('woff'),
+         url('DejaVuSansCondensed-Bold-webfont.ttf') format('truetype'),
+         url('DejaVuSansCondensed-Bold-webfont.svg#DejaVuSansCondensedBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'DejaVuSansCnBdOb';
+    src: url('DejaVuSansCondensed-BoldOblique-webfont.eot');
+    src: url('DejaVuSansCondensed-BoldOblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DejaVuSansCondensed-BoldOblique-webfont.woff') format('woff'),
+         url('DejaVuSansCondensed-BoldOblique-webfont.ttf') format('truetype'),
+         url('DejaVuSansCondensed-BoldOblique-webfont.svg#DejaVuSansCnBdOb') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+/*
+
+
+.box {width: 100%; height: 100%; text-align: center; 
+      color: #ffffff; margin-right: 50px;
+      font-family: DejaVuSansBold, sans-serif;
+      margin: 0; border: 0;
+      background-color: #004080;
+     }
+.box .headsign, .box .also  { color: #ccc }
+.box .logo img { margin-left: auto; margin-right: auto }
+#boxes div.box div.board span { color: #ccc }
+.boxodd { background-color: #004080 }
+.boxeven { background-color: #004080 }
+.mins { line-height: 105%; letter-spacing: 0px }
+.clear { clear: both; }
+#boxes { overflow: hidden; }
+.marquee { font-family: DejaVuSansBold, sans-serif; }
+
+
+body { 
+	cursor: none; 
+	margin: 0; border: 0 ;
+	
+}
+
+*/</style>
   </head>
   <body>
     <div id="boxes"></div>

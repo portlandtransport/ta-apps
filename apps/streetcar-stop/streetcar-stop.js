@@ -162,7 +162,7 @@ function displayPage () {
     var queue = [];
     var arrayLength = theData.arrivalsQueue.length;
     for (var i = 0; i < arrayLength; i++) {
-		    theData.arrivalsQueue[i]["headsign"] = "to PSU";
+		    //theData.arrivalsQueue[i]["headsign"] = "to PSU";
 		}
     var dests = theData.arrivalsQueue.current().minutes(60).byDest()
     for (var dest in dests) {
@@ -187,7 +187,7 @@ function displayPage () {
 
     // Start the loop
     // 1000 to get ms
-    setTimeout(function () { showNextArrival(1, queue) }, 5000*(theData.optionsConfig.timeout?theData.optionsConfig.timeout[0]:3));
+    //setTimeout(function () { showNextArrival(1, queue) }, 5000*(theData.optionsConfig.timeout?theData.optionsConfig.timeout[0]:3));
 }
 
 function showNextArrival (i, dests) {
@@ -277,7 +277,7 @@ $('document').ready( function () {
 	        theData = data;
 	        var arrayLength = theData.arrivalsQueue.length;
 	        for (var i = 0; i < arrayLength; i++) {
-					    theData.arrivalsQueue[i]["headsign"] = "to PSU";
+					    //theData.arrivalsQueue[i]["headsign"] = "to PSU";
 					}
 
 	        // keep track of state
