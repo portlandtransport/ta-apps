@@ -2993,12 +2993,25 @@ function makeArrival(arr, num) {
 
 	if (arr[0] != undefined) {
 	    var mins = formatted_arrival_time(arr[0],true);
-	    if (mins <= 0) mins = 'Due';
+
+		/*
 		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
 	    // we put in a span so that textfill has something to resize
 	    html += '<div class="top_margin"></div><div class="headsign"><span>' + headsign + 
 		    '</span></div>';
 	    html += '<div class="mins"><span>' + mins + '</span></div>';
+		*/
+
+		if (mins <= 0) {
+			mins = "<span style=\"color: yellow\"><b>Due</b></span>"
+		} else if (mins < 5) {
+			mins = "<span style=\"color: yellow\"><b>" +mins + "</b><span style=\"font-size: 30%\"> min</span></span>";
+		} else {
+			mins = "<b>"+mins + "</b><span style=\"font-size: 30%\"> min</span>";
+		}
+		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
+		html += '<div class="headsign" ><span>'+headsign+'</span></div>';
+		html += '<div class="mins"><span style="font-size: 90%"><nobr>' + mins + '</nobr></span></div>';
 
 	    if (also.length > 0) {
 		    html += '<div class="also"><span>' + also.join(', ') + 
