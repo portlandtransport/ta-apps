@@ -69,7 +69,7 @@ function makeArrival(arr, num) {
 
 		if (also.length > 0) {
 			html += '<div class="also">&nbsp;<br><span>' + also.join(' min, ') + 
-				' min</span></div>';
+				'</span></div>';
 		}
 		else {
 			// put in a div to force it downward
