@@ -49,6 +49,7 @@ function makeArrival(arr, num) {
 	if (arr[0] != undefined) {
 	    var mins = formatted_arrival_time(arr[0],true);
 	    if (mins <= 0) mins = 'Due';
+		html += '<div class="logo"><img src="/apps/assets/images/psi/Streetcar_Logo_Horz_Trans-07.png" style="width: 500px;"></div>';
 	    // we put in a span so that textfill has something to resize
 	    html += '<div class="top_margin"></div><div class="headsign"><span>' + headsign + 
 		    '</span></div>';
