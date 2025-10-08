@@ -66,17 +66,19 @@ function makeArrival(arr, num) {
 		html += '<div class="headsign" ><span>'+headsign+'</span></div>';
 		html += '<div class="mins"><span style="font-size: 90%"><nobr>' + mins + '</nobr></span></div>';
 
-	    if (also.length > 0) {
-		    html += '<div class="also"><span>' + also.join(', ') + 
-		        '</span></div>';
-	    }
-	    else {
-		    // put in a div to force it downward
-		    html += '<div class="also"><span> </span></div>';
-	    }
+		if (also.length > 0) {
+			html += '<div class="also">&nbsp;<br><span>' + also.join(' min, ') + 
+				' min</span></div>';
+		}
+		else {
+			// put in a div to force it downward
+			html += '<div class="also"><span> </span></div>';
+		}
 
+		/*
 	    html += '<div class="board"><span>Board at: ' + 
 		    arr[0].stop_data.stop_name + '</span></div>';
+			*/
 		    
 	}
 	else 
