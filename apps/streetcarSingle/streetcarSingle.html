@@ -3022,6 +3022,7 @@ function makeArrival(arr, num) {
 			// put in a div to force it downward
 			html += '<div class="also"><span> </span></div>';
 		}
+		html += '<div class="walking"><span></span></div>';
 
 		/*
 	    html += '<div class="board"><span>Board at: ' + 
@@ -3266,6 +3267,21 @@ $('document').ready( function () {
 		        board: 0*hu,
 		        headsign: 27*hu,
 		        also: 13.6*hu,
+		        margin: 5*wu,
+				walking: 18*hu
+	        }
+
+			var stop_sizes = {
+		        box: 100*hu,
+		        logo: 15*hu,
+		        ticker: 5*hu,
+		        // Add room for stuff below baseline &c.
+		        fullticker: 5*hu,
+		        mins: 35*hu,
+		        board: 0*hu,
+		        headsign: 12*hu,
+		        also: 12*hu,
+		        walking: 18*hu,
 		        margin: 5*wu
 	        }
 
