@@ -311,17 +311,17 @@ $('document').ready( function () {
 	        sizes = {
 		        box: 100*hu,
 		        top_margin: 10*hu,
+				bottom_margin: 10*hu,
 		        //ticker: 6.5*hu,
 		        ticker: 0*hu,
 		        // Add room for stuff below baseline &c.
-		        fullticker: 7.5*hu,
-		        mins: 39*hu,
+		        fullticker: 0*hu,
+		        mins: 35*hu,
 		        //board: 12*hu,
 		        board: 0*hu,
-		        headsign: 27*hu,
+		        headsign: 15*hu,
 		        also: 13.6*hu,
-		        margin: 5*wu,
-				walking: 18*hu
+		        margin: 10*wu
 	        }
 
 			var stop_sizes = {
