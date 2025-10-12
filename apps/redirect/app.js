@@ -103,6 +103,9 @@ jQuery(document).ready(function() {
 	}
 	console.log(redirect_config);
 
+	var redirect_url = trLoader(redirect_config,true);
+	console.log(redirect_url);
+
 });
 
 

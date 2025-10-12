@@ -27,7 +27,7 @@
 
 */
 
-function trLoader(hwid) {
+function trLoader(hwid,return_url) {
 
 	// images
 	
@@ -349,7 +349,14 @@ function trLoader(hwid) {
 	jQuery('<div />') 	    
 	
 	// moved out so we can stub it
-	function redirectTo(theurl) { window.location.replace(theurl.app_url); }
+	function redirectTo(theurl) { 
+		if (return_url) {
+			return theurl.app_url;
+		} else {
+			window.location.replace(theurl.app_url); 
+		}
+		
+	}
 	
 	// Pad the log, so it appears below fixed elements
 	function setLogOffset() {
