@@ -12806,7 +12806,7 @@ function trHealthUpdate(data,retry_count,initial_launch) {
 			//console.log("xhr state error");
 			if (retry_count >= retry_limit) {
 				if (typeof newrelic === "object") {
-					newrelic.addPageAction("HC1: Startup or healthcheck not recorded",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+					newrelic.addPageAction("HC"+xhr.status+": Startup or Healthcheck response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
 				}
 			} else {
 				trHealthUpdate(data,retry_count+1);
