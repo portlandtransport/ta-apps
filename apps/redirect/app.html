@@ -10956,8 +10956,12 @@ function trLoader(hwid,url_fix) {
 	// moved out so we can stub it
 	function redirectTo(theurl) { 
 		if (typeof url_fix == "object") {
-			console.log(theurl);
+			console.log(theurl.app_url);
 			console.log(url_fix);
+			const url = new URL(theurl.app_url);
+			console.log(url.search);
+			const params = new URLSearchParams(url.search);
+			console.log(params);
 		} else {
 			window.location.replace(theurl.app_url); 	
 		}
