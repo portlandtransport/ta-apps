@@ -94,10 +94,17 @@ for (var appl in query_params.appl) {
 	appliance[appl] = opt_array;
 }
 
-options.id = appliance.id;
-console.log(options);
+var url_fix = {
+	id: appliance.id[0],
+	nickname: options.nickname[0],
+	parentname: options.parentname[0]
+}
 
-		
+if (url_fix.parentname == 'undefined') {
+	url_fix.parentname = url_fix.nickname;
+}
+
+console.log(url_fix);		
 
 var  redirect_config 		= options.redirect;
 if (typeof redirect_config == "object") {
