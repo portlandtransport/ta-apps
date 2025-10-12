@@ -355,8 +355,10 @@ function trLoader(hwid,url_fix) {
 			console.log(url_fix);
 			var url = jQuery.jurlp(theurl.app_url);
 			url.query({"appl[id]":url_fix.id});
+			url.query({"options[nickname]":url_fix.nickname});
+			url.query({"options[parentname]":url_fix.parentname});
 			console.log(url);
-			console.log(url.toString());
+			console.log(url.href);
 		} else {
 			window.location.replace(theurl.app_url); 	
 		}
