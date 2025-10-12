@@ -220,51 +220,119 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				
 		}
 
+		this.trArrTriMetRequest = function(retry_count) {
+			const retry_limit = 1;
+			const xhr = new XMLHttpRequest();
 
-		jQuery.ajax({
-		  url: updater.url,
-		  dataType: updater.access_method,
-		  cache: false,
-		  error: function(data) {
-		  	// first retry
-				jQuery.ajax({
-				  url: updater.url,
-				  dataType: updater.access_method,
-				  cache: false,
-				  error: function(data) {
-				  	// second retry
-						jQuery.ajax({
-						  url: updater.url,
-						  dataType: updater.access_method,
-						  cache: false,
+			xhr.responseType = 'text';
 
-						  error: function(data) {
-							// last try via proxy
+			xhr.open('GET', updater.url, true);
+
+			// Set up the event handler for when the request state changes
+			xhr.onreadystatechange = function() {
+				// Check if the request is complete (readyState 4) and successful (status 200)
+
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					console.log("Retry: "+retry_count);
+					//console.log("Text response: "+xhr.responseText);
+
+					// now try parsing json
+					try {
+						const response_data = JSON.parse(xhr.responseText);
+						// Process data
+						console.log(response_data);
+						if ( typeof response_data != "undefined") {
+							// process here
+							updater.process_results(response_data);
+						}
+					} catch (e) {
+						//console.log("json parsing error");
+						//console.log(e);
+						if (retry_count >= retry_limit) {
+							if (typeof newrelic === "object") {
+								newrelic.addPageAction("TM9: TriMet JSON parsing error");
+							}
+						} else {
+							trHealthUpdate(data,retry_count+1);
+						}
+					}
+
+				} else if (xhr.readyState === 4 && xhr.status !== 200) {
+					//console.log("xhr state error");
+					if (retry_count >= retry_limit) {
+						if (typeof newrelic === "object") {
+							newrelic.addPageAction("TM"+xhr.status+": TriMet response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+						}
+					} else {
+						updater.trArrTriMetRequest(retry_count+1);
+					}
+				}
+			};
+
+			xhr.onerror = function() {
+				//console.log("xhr network error");
+				if (retry_count >= retry_limit) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("TM10: TriMet network error");
+					}
+				} else {
+					updater.trArrTriMetRequest(retry_count+1);
+				}
+			}
+
+			// Send the request
+			xhr.send();
+		}
+
+		if (location.hostname == "dev.transitappliance.com") {
+			// xhr approach
+			updater.trArrTriMetRequest(0);
+		} else {
+			// jquery approach
+			jQuery.ajax({
+			url: updater.url,
+			dataType: updater.access_method,
+			cache: false,
+			error: function(data) {
+				// first retry
+					jQuery.ajax({
+					url: updater.url,
+					dataType: updater.access_method,
+					cache: false,
+					error: function(data) {
+						// second retry
 							jQuery.ajax({
-								url: updater.proxy_url,
-								dataType: updater.access_method,
-								cache: false,
-								error: function(data) {
-									updater.update_connection_health(false);
-									if (typeof newrelic === "object") {
-										newrelic.addPageAction("TM1: TriMet Arrivals Error");
-									} else {
-										throw "TM1: TriMet Arrivals Error";
-									}
-								},
-	
-								success: updater.process_results
-							});
-						  },
-						  success: updater.process_results
-						});
-				  },
-				  success: updater.process_results
-				});
-		  },
-		  success: updater.process_results
-		});
+							url: updater.url,
+							dataType: updater.access_method,
+							cache: false,
 
+							error: function(data) {
+								// last try via proxy
+								jQuery.ajax({
+									url: updater.proxy_url,
+									dataType: updater.access_method,
+									cache: false,
+									error: function(data) {
+										updater.update_connection_health(false);
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("TM1: TriMet Arrivals Error");
+										} else {
+											throw "TM1: TriMet Arrivals Error";
+										}
+									},
+		
+									success: updater.process_results
+								});
+							},
+							success: updater.process_results
+							});
+					},
+					success: updater.process_results
+					});
+			},
+			success: updater.process_results
+			});
+		}
 	}
 	
 	updater.trArrTriMetRequestLoop(); // first time immediately
