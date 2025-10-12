@@ -250,7 +250,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 						//console.log(e);
 						if (retry_count >= retry_limit) {
 							if (typeof newrelic === "object") {
-								newrelic.addPageAction("TM9: Startup or healthcheck JSON parsing error");
+								newrelic.addPageAction("TM9: TriMet JSON parsing error");
 							}
 						} else {
 							trHealthUpdate(data,retry_count+1);
@@ -284,7 +284,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			xhr.send();
 		}
 
-		if (true) {
+		if (location.hostname == "dev.transitappliance.com") {
 			// xhr approach
 			updater.trArrTriMetRequest(0);
 		} else {
