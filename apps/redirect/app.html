@@ -10955,12 +10955,7 @@ function trLoader(hwid,return_url) {
 	
 	// moved out so we can stub it
 	function redirectTo(theurl) { 
-		if (return_url) {
-			return theurl.app_url;
-		} else {
-			window.location.replace(theurl.app_url); 
-		}
-		
+		window.location.replace(theurl.app_url); 	
 	}
 	
 	// Pad the log, so it appears below fixed elements
