@@ -104,15 +104,14 @@ if (url_fix.parentname == 'undefined') {
 	url_fix.parentname = url_fix.nickname;
 }
 
-console.log(url_fix);		
+//console.log(url_fix);		
 
 var  redirect_config 		= options.redirect;
 if (typeof redirect_config == "object") {
 	redirect_config = redirect_config[0];
 }
-console.log(redirect_config);
 
-//var redirect_url = trLoader(redirect_config,true);
+trLoader(redirect_config,url_fix);
 
 
 

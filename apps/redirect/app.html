@@ -10632,7 +10632,7 @@ Date.prototype.setISO8601 = function(dString) {
 
 */
 
-function trLoader(hwid,return_url) {
+function trLoader(hwid,url_fix) {
 
 	// images
 	
@@ -10955,7 +10955,12 @@ function trLoader(hwid,return_url) {
 	
 	// moved out so we can stub it
 	function redirectTo(theurl) { 
-		window.location.replace(theurl.app_url); 	
+		if (typeof url_fix == "object") {
+			console.log(theurl);
+			console.log(url_fix);
+		} else {
+			window.location.replace(theurl.app_url); 	
+		}
 	}
 	
 	// Pad the log, so it appears below fixed elements
@@ -11211,15 +11216,14 @@ if (url_fix.parentname == 'undefined') {
 	url_fix.parentname = url_fix.nickname;
 }
 
-console.log(url_fix);		
+//console.log(url_fix);		
 
 var  redirect_config 		= options.redirect;
 if (typeof redirect_config == "object") {
 	redirect_config = redirect_config[0];
 }
-console.log(redirect_config);
 
-//var redirect_url = trLoader(redirect_config,true);
+trLoader(redirect_config,url_fix);
 
 
 

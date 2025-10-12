@@ -27,7 +27,7 @@
 
 */
 
-function trLoader(hwid,return_url) {
+function trLoader(hwid,url_fix) {
 
 	// images
 	
@@ -350,7 +350,12 @@ function trLoader(hwid,return_url) {
 	
 	// moved out so we can stub it
 	function redirectTo(theurl) { 
-		window.location.replace(theurl.app_url); 	
+		if (typeof url_fix == "object") {
+			console.log(theurl);
+			console.log(url_fix);
+		} else {
+			window.location.replace(theurl.app_url); 	
+		}
 	}
 	
 	// Pad the log, so it appears below fixed elements
