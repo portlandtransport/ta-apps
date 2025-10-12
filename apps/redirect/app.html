@@ -11223,7 +11223,11 @@ if (typeof redirect_config == "object") {
 	redirect_config = redirect_config[0];
 }
 
-trLoader(redirect_config,url_fix);
+document.addEventListener('DOMContentLoaded', function() {
+	trLoader(redirect_config,url_fix);
+});
+
+
 
 
 
