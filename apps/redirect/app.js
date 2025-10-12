@@ -94,35 +94,20 @@ for (var appl in query_params.appl) {
 	appliance[appl] = opt_array;
 }
 
-jQuery(document).ready(function() {
+console.log(options);
 		
 
-	var  redirect_config 		= options.redirect;
-	if (typeof redirect_config == "object") {
-		redirect_config = redirect_config[0];
-	}
-	console.log(redirect_config);
-
-	var redirect_url = trLoader(redirect_config,true);
-	console.log(redirect_url);
-
-});
-
-
-
-var start_time = ((new Date)).getTime();
-
-var platform = "";
-if (typeof options.platform === 'object') {
-	platform = options.platform[0];
+var  redirect_config 		= options.redirect;
+if (typeof redirect_config == "object") {
+	redirect_config = redirect_config[0];
 }
+console.log(redirect_config);
 
-console.log(platform);
+//var redirect_url = trLoader(redirect_config,true);
 
-/* initiate healthcheck */
 
-var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: redirectApp.APP_ID, application_name: redirectApp.APP_NAME, application_version: redirectApp.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-trHealthUpdate(data,0,true);
+
+
 
 
 
