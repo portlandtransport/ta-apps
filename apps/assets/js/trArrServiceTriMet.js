@@ -261,7 +261,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					//console.log("xhr state error");
 					if (retry_count >= retry_limit) {
 						if (typeof newrelic === "object") {
-							newrelic.addPageAction("TM8: TriMet response error",{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+							newrelic.addPageAction("TM"+xhr.status+": TriMet response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
 						}
 					} else {
 						updater.trArrTriMetRequest(retry_count+1);
