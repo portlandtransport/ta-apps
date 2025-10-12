@@ -94,8 +94,9 @@ for (var appl in query_params.appl) {
 	appliance[appl] = opt_array;
 }
 
+options.id = appliance.id;
 console.log(options);
-console.log(appliance);
+
 		
 
 var  redirect_config 		= options.redirect;
