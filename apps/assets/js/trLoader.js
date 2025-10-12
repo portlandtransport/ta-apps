@@ -353,10 +353,10 @@ function trLoader(hwid,url_fix) {
 		if (typeof url_fix == "object") {
 			console.log(theurl.app_url);
 			console.log(url_fix);
-			const url = new URL(theurl.app_url);
-			console.log(url.search);
-			const params = new URLSearchParams(url.search);
-			console.log(params);
+			var url = jQuery.jurlp(theurl.app_url);
+			url.query({"appl[id]":url_fix.id});
+			console.log(url);
+			console.log(url.toString());
 		} else {
 			window.location.replace(theurl.app_url); 	
 		}
