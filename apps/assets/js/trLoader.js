@@ -27,7 +27,7 @@
 
 */
 
-function trLoader(hwid) {
+function trLoader(hwid,url_fix) {
 
 	// images
 	
@@ -349,7 +349,19 @@ function trLoader(hwid) {
 	jQuery('<div />') 	    
 	
 	// moved out so we can stub it
-	function redirectTo(theurl) { window.location.replace(theurl.app_url); }
+	function redirectTo(theurl) { 
+		if (typeof url_fix == "object") {
+
+			var url = jQuery.jurlp(theurl.app_url);
+			url.query({"appl[id]":url_fix.id});
+			url.query({"option[nickname]":url_fix.nickname});
+			url.query({"option[parentname]":url_fix.parentname});
+
+			window.location.replace(url.href); 	
+		} else {
+			window.location.replace(theurl.app_url); 	
+		}
+	}
 	
 	// Pad the log, so it appears below fixed elements
 	function setLogOffset() {
