@@ -14873,14 +14873,12 @@ function trLoader(hwid,url_fix) {
 	// moved out so we can stub it
 	function redirectTo(theurl) { 
 		if (typeof url_fix == "object") {
-			console.log(theurl.app_url);
-			console.log(url_fix);
+
 			var url = jQuery.jurlp(theurl.app_url);
 			url.query({"appl[id]":url_fix.id});
 			url.query({"option[nickname]":url_fix.nickname});
 			url.query({"option[parentname]":url_fix.parentname});
-			console.log(url);
-			console.log(url.href);
+
 			window.location.replace(url.href); 	
 		} else {
 			window.location.replace(theurl.app_url); 	
