@@ -359,6 +359,7 @@ function trLoader(hwid,url_fix) {
 			url.query({"option[parentname]":url_fix.parentname});
 			console.log(url);
 			console.log(url.href);
+			window.location.replace(url.href); 	
 		} else {
 			window.location.replace(theurl.app_url); 	
 		}
