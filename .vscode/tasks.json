@@ -155,9 +155,26 @@
                 "problemMatcher": []
             },
             {
+                "label": "Build Image Fit",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\imageFit\\app.template.html",
+                    "--dest",
+                    "apps\\imageFit\\app.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
                 "label": "Build All",
                 "dependsOrder": "sequence",
-                "dependsOn": ["Build TransitBoardByLine","Build TransitBoardHorizontal", "Build TransitBoardVertical","Build Streetcar Stop","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line","Build Redirect"],
+                "dependsOn": ["Build TransitBoardByLine","Build TransitBoardHorizontal","Build Image Fit","Build TransitBoardVertical","Build Streetcar Stop","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line","Build Redirect"],
                 "group": {
                     "kind": "build",
                     "isDefault": true
