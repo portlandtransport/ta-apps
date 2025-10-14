@@ -284,11 +284,11 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 			xhr.send();
 		}
 
-		if (location.hostname == "dev.transitappliance.com") {
+		if (true) {
 			// xhr approach
 			updater.trArrTriMetRequest(0);
 		} else {
-			// jquery approach
+			// jquery approach - deprecated
 			jQuery.ajax({
 			url: updater.url,
 			dataType: updater.access_method,
