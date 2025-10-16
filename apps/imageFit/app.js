@@ -163,7 +163,7 @@ window.onload = function() {
 
 	// load image
 	setTimeout(function(){
-		console.log(options);
+
 		var image_src = options['image_url'];
 		if (typeof image_src == "object") {
 			image_src = image_src[0];
@@ -172,6 +172,7 @@ window.onload = function() {
 		if (typeof background_color == "object") {
 			background = background[0];
 		}
+		console.log(background);
 		fit_image.src = image_src;
 		document.body.style.backgroundColor = background;
 	}, 5000);			
