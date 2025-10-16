@@ -88,6 +88,12 @@ for (var option in query_params.option) {
 	options[option] = opt_array;
 }
 
+var direction = options['direction'];
+if (typeof direction == "object") {
+	direction = direction[0];
+}
+console.log(direction);
+
 var appliance = {};
 for (var appl in query_params.appl) {
 	var opt_array = [];
