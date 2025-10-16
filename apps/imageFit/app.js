@@ -162,7 +162,11 @@ window.onload = function() {
 	// load image
 	setTimeout(function(){
 		console.log(query_params);
-		fit_image.src = query_params['image_url'];
+		var image_src = query_params['image_url'];
+		if (typeof image_src == "object") {
+			image_src = image_src[0];
+		}
+		fit_image.src = image_src;
 	}, 5000);			
 	
 }
