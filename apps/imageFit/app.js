@@ -151,7 +151,6 @@ function StretchImages() {
 }
 
 window.onload = function() {
-	console.log("onload");
 	// size div to window
 	$("div#photo_holder").css("width",$(window).width()+"px").css("height",$(window).height()+"px");
 	
@@ -169,8 +168,12 @@ window.onload = function() {
 		if (typeof image_src == "object") {
 			image_src = image_src[0];
 		}
-		console.log("Source: "+image_src);
+		var background = options['background_color'];
+		if (typeof background_color == "object") {
+			background = background[0];
+		}
 		fit_image.src = image_src;
+		document.body.style.backgroundColor = background;
 	}, 5000);			
 	
 }
