@@ -166,6 +166,7 @@ window.onload = function() {
 		if (typeof image_src == "object") {
 			image_src = image_src[0];
 		}
+		console.log("Source: "+image_src):
 		fit_image.src = image_src;
 	}, 5000);			
 	
