@@ -160,7 +160,7 @@ fit_image.onload = function () {
 
 // load image
 setTimeout(function(){
-	fit_image.src = window.location.search.substring(1);         
+	fit_image.src = query_params['image_url'];
 }, 5000);			
 	
 }
