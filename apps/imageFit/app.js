@@ -38,7 +38,7 @@ trArrParseQuery = function(qs) {
 	var q = (typeof qs === 'string'?qs:window.location.search);
 	var params = {};
 	jQuery.each(q.match(/^\??(.*)$/)[1].split('&'),function(i,p){
-		p = unescape(p).replace(/\+/g,' ').replace(/\]/g,'');
+		p = decodeURIComponent(p).replace(/\+/g,' ').replace(/\]/g,'');
 		p = p.split('=');
 		var keys = p[0].split('[');
 		var value = p[1];
@@ -76,7 +76,7 @@ trArrParseQuery = function(qs) {
 }
 
 var query_params = trArrParseQuery();
-console.log(query_params);
+
 
 // turns options from objects into arrays
 var options = {};
@@ -164,8 +164,8 @@ window.onload = function() {
 
 	// load image
 	setTimeout(function(){
-		console.log(query_params);
-		var image_src = query_params['image_url'];
+		console.log(options);
+		var image_src = options['image_url'];
 		if (typeof image_src == "object") {
 			image_src = image_src[0];
 		}
