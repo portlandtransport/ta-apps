@@ -160,6 +160,7 @@ fit_image.onload = function () {
 
 // load image
 setTimeout(function(){
+	console.log(query_params);
 	fit_image.src = query_params['image_url'];
 }, 5000);			
 	
