@@ -148,21 +148,22 @@ function StretchImages() {
 }
 
 window.onload = function() {
+	console.log("onload");
 	// size div to window
 	$("div#photo_holder").css("width",$(window).width()+"px").css("height",$(window).height()+"px");
 	
 	// add load handler to image
-var fit_image = document.getElementById('photo');
+	var fit_image = document.getElementById('photo');
 
-fit_image.onload = function () {
-	FixImages(true);   	
-};
+	fit_image.onload = function () {
+		FixImages(true);   	
+	};
 
-// load image
-setTimeout(function(){
-	console.log(query_params);
-	fit_image.src = query_params['image_url'];
-}, 5000);			
+	// load image
+	setTimeout(function(){
+		console.log(query_params);
+		fit_image.src = query_params['image_url'];
+	}, 5000);			
 	
 }
 
