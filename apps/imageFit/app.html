@@ -15066,11 +15066,13 @@ redirectApp.is_development = (location.hostname == "dev.transitappliance.com");
 /**
  * Loosely modeled on jquery.parsequery.js by Michael Manning (http://actingthemaggot.com)
  **/
+
+
 trArrParseQuery = function(qs) {
 	var q = (typeof qs === 'string'?qs:window.location.search);
 	var params = {};
 	jQuery.each(q.match(/^\??(.*)$/)[1].split('&'),function(i,p){
-		p = p.replace(/\+/g,' ').replace(/\]/g,'');
+		p = decodeURIComponent(p).replace(/\+/g,' ').replace(/\]/g,'');
 		p = p.split('=');
 		var keys = p[0].split('[');
 		var value = p[1];
@@ -15080,7 +15082,7 @@ trArrParseQuery = function(qs) {
 			if (params[keys[0]] == undefined) {
 				params[keys[0]] = {};
 			}
-			params[keys[0]][unescape(value)] = true;
+			params[keys[0]][value] = true;
 		}
 		if (depth == 2) {
 			if (params[keys[0]] == undefined) {
@@ -15089,7 +15091,7 @@ trArrParseQuery = function(qs) {
 			if (params[keys[0]][keys[1]] == undefined) {
 				params[keys[0]][keys[1]] = {};
 			}
-			params[keys[0]][keys[1]][unescape(value)] = true;
+			params[keys[0]][keys[1]][value] = true;
 		}
 		if (depth == 3) {
 			if (params[keys[0]] == undefined) {
@@ -15101,13 +15103,14 @@ trArrParseQuery = function(qs) {
 			if (params[keys[0]][keys[1]][keys[2]] == undefined) {
 				params[keys[0]][keys[1]][keys[2]] = {};
 			}
-			params[keys[0]][keys[1]][keys[2]][unescape(value)] = true;
+			params[keys[0]][keys[1]][keys[2]][value] = true;
 		}
 	});
 	return params;
 }
 
 var query_params = trArrParseQuery();
+
 
 // turns options from objects into arrays
 var options = {};
@@ -15118,6 +15121,12 @@ for (var option in query_params.option) {
 	}
 	options[option] = opt_array;
 }
+
+var direction = options['direction'];
+if (typeof direction == "object") {
+	direction = direction[0];
+}
+console.log(direction);
 
 var appliance = {};
 for (var appl in query_params.appl) {
@@ -15168,6 +15177,7 @@ function StretchImage(div, img) {
 
 
 function FixImages(fLetterBox) {
+	console.log("letter box:"+ fLetterBox);
 	$("div.aspectcorrect").each(function (index, div) {
 		var img = $(div).find("img").get(0);
 		FixImage(fLetterBox, div, img);
@@ -15186,16 +15196,27 @@ window.onload = function() {
 	$("div#photo_holder").css("width",$(window).width()+"px").css("height",$(window).height()+"px");
 	
 	// add load handler to image
-var fit_image = document.getElementById('photo');
+	var fit_image = document.getElementById('photo');
 
-fit_image.onload = function () {
-	FixImages(true);   	
-};
+	fit_image.onload = function () {
+		FixImages(direction == "horizontal");   	
+	};
 
-// load image
-setTimeout(function(){
-	fit_image.src = window.location.search.substring(1);         
-}, 5000);			
+	// load image
+	setTimeout(function(){
+
+		var image_src = options['image_url'];
+		if (typeof image_src == "object") {
+			image_src = image_src[0];
+		}
+		var background = options['background_color'];
+		if (typeof background_color == "object") {
+			background = background[0];
+		}
+		console.log(background);
+		fit_image.src = image_src;
+		document.body.style.backgroundColor = background;
+	}, 5000);			
 	
 }
 
