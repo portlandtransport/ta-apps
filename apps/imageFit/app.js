@@ -143,6 +143,7 @@ function StretchImage(div, img) {
 
 
 function FixImages(fLetterBox) {
+	console.log("letter box:"+ fLetterBox);
 	$("div.aspectcorrect").each(function (index, div) {
 		var img = $(div).find("img").get(0);
 		FixImage(fLetterBox, div, img);
@@ -164,7 +165,7 @@ window.onload = function() {
 	var fit_image = document.getElementById('photo');
 
 	fit_image.onload = function () {
-		FixImages(direction == "Horizontal");   	
+		FixImages(direction == "horizontal");   	
 	};
 
 	// load image
