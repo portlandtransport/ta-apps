@@ -164,7 +164,7 @@ window.onload = function() {
 	var fit_image = document.getElementById('photo');
 
 	fit_image.onload = function () {
-		FixImages(true);   	
+		FixImages(direction == "Horizontal");   	
 	};
 
 	// load image
