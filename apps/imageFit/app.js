@@ -205,6 +205,8 @@ window.onload = function() {
 			location.reload();
 		};
 
+		img.src = image_src; // load image, onload handler then inserts it in document
+
 		
 	}, 5000);			
 
