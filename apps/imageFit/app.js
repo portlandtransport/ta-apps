@@ -92,7 +92,6 @@ var direction = options['direction'];
 if (typeof direction == "object") {
 	direction = direction[0];
 }
-console.log(direction);
 
 var appliance = {};
 for (var appl in query_params.appl) {
@@ -143,7 +142,6 @@ function StretchImage(div, img) {
 
 
 function FixImages(fLetterBox) {
-	console.log("letter box:"+ fLetterBox);
 	$("div.aspectcorrect").each(function (index, div) {
 		var img = $(div).find("img").get(0);
 		FixImage(fLetterBox, div, img);
@@ -193,7 +191,11 @@ window.onload = function() {
 			}
 			// Perform actions for a successful load
 			document.body.appendChild(img);
-			FixImages(direction == "horizontal");   
+			
+			setTimeout(function() {
+				FixImages(direction == "horizontal");   
+			}, 2000);
+			
 		};
 
 		img.onerror = function() {
