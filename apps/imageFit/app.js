@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-var redirectApp = {}; // keep state
+var imageFit = {}; // keep state
 
 // constants
 
