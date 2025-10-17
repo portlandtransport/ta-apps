@@ -212,11 +212,6 @@ window.onload = function() {
 
 	var start_time = ((new Date)).getTime();
 
-	imageFit.access_method = "jsonp";
-	if (trArrSupportsCors()) {
-		imageFit.access_method = "json";
-	}
-
 	var platform = "";
 	if (typeof options.platform === 'object') {
 		platform = options.platform[0];
