@@ -15219,9 +15219,9 @@ window.onload = function() {
 		var img = new Image();
 
 		img.onload = function() {
-			console.log("Image loaded successfully!");
+			//console.log("Image loaded successfully!");
 			if (typeof newrelic === "object") {
-				newrelic.addPageAction("IF1: Image loaded");
+				//newrelic.addPageAction("IF1: Image loaded");
 			}
 			// Perform actions for a successful load
 			document.getElementById('photo_holder').appendChild(img);
@@ -15233,7 +15233,7 @@ window.onload = function() {
 		};
 
 		img.onerror = function() {
-			console.error("Image failed to load!");
+			//console.error("Image failed to load!");
 			// Perform actions for a failed load, e.g., display a fallback image
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("IF0: Image load failed");
