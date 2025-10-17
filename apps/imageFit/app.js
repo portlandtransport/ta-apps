@@ -190,7 +190,7 @@ window.onload = function() {
 				newrelic.addPageAction("IF1: Image loaded");
 			}
 			// Perform actions for a successful load
-			document.body.appendChild(img);
+			document.getElementById('photo_holder').appendChild(img);
 			
 			setTimeout(function() {
 				FixImages(direction == "horizontal");   
@@ -207,6 +207,7 @@ window.onload = function() {
 			location.reload();
 		};
 
+		img.id = "photo";
 		img.src = image_src; // load image, onload handler then inserts it in document
 
 		
