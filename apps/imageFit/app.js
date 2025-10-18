@@ -207,6 +207,8 @@ window.onload = function() {
 
 			setTimeout(function(){
 				// reload after 30 seconds to allow time for New Relic to report
+				//trLoader(redirect_config);
+				console.log(appliance);
 				location.reload();
 			},30000);
 		};
