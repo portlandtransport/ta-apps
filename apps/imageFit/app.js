@@ -203,8 +203,14 @@ window.onload = function() {
 			// Perform actions for a failed load, e.g., display a fallback image
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("IF0: Image load failed");
+				newrelic.finished(); // flush actons
 			}
-			location.reload();
+
+			setTimeout(function(){
+				// reload after 30 seconds to allow time for New Relic to report
+				// use loader in case config has been updated
+				trLoader(appliance.id);
+			},10000);
 		};
 
 		img.id = "photo";
