@@ -269,6 +269,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				}
 			};
 
+			/* appears to be duplicative of error code zero
 			xhr.onerror = function() {
 				//console.log("xhr network error");
 				if (retry_count >= retry_limit) {
@@ -279,6 +280,7 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 					updater.trArrTriMetRequest(retry_count+1);
 				}
 			}
+			*/
 
 			// Send the request
 			xhr.send();

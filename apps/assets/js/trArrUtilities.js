@@ -157,6 +157,7 @@ function trHealthUpdate(data,retry_count,initial_launch) {
 		}
 	};
 
+	/* appears to allways be duplicative to an error code of zero
 	xhr.onerror = function() {
 		//console.log("xhr network error");
 		if (retry_count >= retry_limit) {
@@ -167,6 +168,7 @@ function trHealthUpdate(data,retry_count,initial_launch) {
 			trHealthUpdate(data,retry_count+1);
 		}
 	}
+	*/
 
 	// Send the request
 	xhr.send();
