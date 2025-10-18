@@ -204,7 +204,11 @@ window.onload = function() {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("IF0: Image load failed");
 			}
-			location.reload();
+
+			setTimeout(function(){
+				// reload after 30 seconds to allow time for New Relic to report
+				location.reload();
+			},30000);
 		};
 
 		img.id = "photo";
