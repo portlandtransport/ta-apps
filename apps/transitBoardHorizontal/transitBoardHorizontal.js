@@ -200,7 +200,7 @@ jQuery(document).ready(function() {
 
 	if ( num_pages > 1 && appliance['id'] ) {
 		for (var i=2;i<=num_pages;i++) {
-			if (!abcd_pattern || i != 4) {
+			if (!abcb_pattern || i != 4) {
 				var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
 				//alert(letter);
 				var id = appliance['id'];
@@ -228,13 +228,13 @@ jQuery(document).ready(function() {
 		}
 		//alert(current_frame+" out of "+num_pages);
 		var target_frame = "app_frame"+current_frame;
-		if (abcd_pattern && current_frame == 4) {
+		if (abcb_pattern && current_frame == 4) {
 			target_frame = "app_frame2";
 		}
 		for (var i=1;i<=num_pages;i++) {
 
 			var this_frame = "app_frame"+i;
-			if (abcd_pattern && i == 4) {
+			if (abcb_pattern && i == 4) {
 				this_frame = "app_frame2";
 			}
 			if (this_frame == target_frame) {
