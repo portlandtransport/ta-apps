@@ -152,9 +152,7 @@ jQuery(document).ready(function() {
 	if (abcb_pattern) {
 		num_pages = 4;
 	}
-	console.log("ABCB:");
-	console.log(abcb_pattern);
-	console.log(num_pages);
+
 
 	var supplemental_left = options.supplemental_left;
 	if (typeof supplemental_left == "object") {
@@ -202,12 +200,14 @@ jQuery(document).ready(function() {
 
 	if ( num_pages > 1 && appliance['id'] ) {
 		for (var i=2;i<=num_pages;i++) {
-			var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
-			//alert(letter);
-			var id = appliance['id'];
-			var alt_id = id+":"+letter;
-			var app_url2 = "/apps/loader.html?"+alt_id;
-			html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+			if (!abcd_pattern || i != 4) {
+				var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
+				//alert(letter);
+				var id = appliance['id'];
+				var alt_id = id+":"+letter;
+				var app_url2 = "/apps/loader.html?"+alt_id;
+				html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+			}
 		}
 	}
 
@@ -227,14 +227,23 @@ jQuery(document).ready(function() {
 			current_frame = 1;
 		}
 		//alert(current_frame+" out of "+num_pages);
+		var target_frame = "app_frame"+current_frame;
+		if (abcd_pattern && current_frame == 4) {
+			target_frame = "app_frame2";
+		}
 		for (var i=1;i<=num_pages;i++) {
-			if (i == current_frame) {
-				var frame = document.getElementById("app_frame"+i);
+
+			var this_frame = "app_frame"+i;
+			if (abcd_pattern && i == 4) {
+				this_frame = "app_frame2";
+			}
+			if (this_frame == target_frame) {
+				var frame = document.getElementById(this_frame);
 				if (frame !== null) {
 					frame.style.zIndex = 1000;
 				}
 			} else {
-				var frame = document.getElementById("app_frame"+i);
+				var frame = document.getElementById(this_frame);
 				if (frame !== null) {
 					frame.style.zIndex = -1000;
 				}
