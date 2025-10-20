@@ -28,7 +28,6 @@ transitBoardHorizontal.APP_ID 			= "tbdhorizontal";
 // assess environment
 
 transitBoardHorizontal.is_development = (location.hostname == "dev.transitappliance.com");
-transitBoardHorizontal.isChumby = navigator.userAgent.match(/QtEmb/) != null;
 
 //var orig_query_string = window.location.search;
 //var app_query_string = orig_query_string.replace(/option\[(top|left|right|bottom)\]=[0-9]*(&|$)/g,"");
@@ -145,6 +144,16 @@ jQuery(document).ready(function() {
 		suppl_url = suppl_url[0];
 	}
 
+	var abcb_pattern = options.abcb;
+	if (typeof abcb_pattern == "object") {
+		abcb_pattern = abcb_pattern;
+	}
+	abcb_pattern = abcb_pattern == 1;
+	if (abcb_pattern) {
+		num_pages = 4;
+	}
+
+
 	var supplemental_left = options.supplemental_left;
 	if (typeof supplemental_left == "object") {
 		supplemental_left = supplemental_left[0];
@@ -191,12 +200,14 @@ jQuery(document).ready(function() {
 
 	if ( num_pages > 1 && appliance['id'] ) {
 		for (var i=2;i<=num_pages;i++) {
-			var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
-			//alert(letter);
-			var id = appliance['id'];
-			var alt_id = id+":"+letter;
-			var app_url2 = "/apps/loader.html?"+alt_id;
-			html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+			if (!abcb_pattern || i != 4) {
+				var letter = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").substr(i-1,1);
+				//alert(letter);
+				var id = appliance['id'];
+				var alt_id = id+":"+letter;
+				var app_url2 = "/apps/loader.html?"+alt_id;
+				html += '<iframe id="app_frame'+i+'" src="'+app_url2+'" scrolling="no" style="background: white; position: absolute; float: left; border:none; margin: 0; width: ' + left_width + 'px; height: ' + effective_height + 'px"></iframe>';
+			}
 		}
 	}
 
@@ -216,14 +227,23 @@ jQuery(document).ready(function() {
 			current_frame = 1;
 		}
 		//alert(current_frame+" out of "+num_pages);
+		var target_frame = "app_frame"+current_frame;
+		if (abcb_pattern && current_frame == 4) {
+			target_frame = "app_frame2";
+		}
 		for (var i=1;i<=num_pages;i++) {
-			if (i == current_frame) {
-				var frame = document.getElementById("app_frame"+i);
+
+			var this_frame = "app_frame"+i;
+			if (abcb_pattern && i == 4) {
+				this_frame = "app_frame2";
+			}
+			if (this_frame == target_frame) {
+				var frame = document.getElementById(this_frame);
 				if (frame !== null) {
 					frame.style.zIndex = 1000;
 				}
 			} else {
-				var frame = document.getElementById("app_frame"+i);
+				var frame = document.getElementById(this_frame);
 				if (frame !== null) {
 					frame.style.zIndex = -1000;
 				}
