@@ -203,7 +203,7 @@ window.onload = function() {
 			// Perform actions for a failed load, e.g., display a fallback image
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("IF0: Image load failed");
-				newrelic.finished(); // flush actons
+				//newrelic.finished(); // flush actons
 			}
 
 			setTimeout(function(){
