@@ -2,7 +2,7 @@
 		<title>Transit Board(tm)</title>	
 		
 		<script type="text/javascript">
-			const trApplicationName = 'Image Fit';
+			const trApplicationName = 'Message';
 		</script>
 
 		<script type="text/javascript">;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true},performance:{capture_measures:true},privacy:{cookies_enabled:true},ajax:{deny_list:["bam.nr-data.net"]}};
@@ -15055,18 +15055,18 @@ function trLoader(hwid,url_fix) {
    limitations under the License.
 */
 
-var imageFit = {}; // keep state
+var message = {}; // keep state
 
 // constants
 
-imageFit.APP_NAME 		= "imageFit";
-imageFit.APP_VERSION 	= "1.01";
-imageFit.APP_ID 			= "image_fit";
+message.APP_NAME 		= "message";
+message.APP_VERSION 	= "1.01";
+message.APP_ID 			= "image_fit";
 
 
 // assess environment
 
-imageFit.is_development = (location.hostname == "dev.transitappliance.com");
+message.is_development = (location.hostname == "dev.transitappliance.com");
 
 
 
@@ -15129,9 +15129,9 @@ for (var option in query_params.option) {
 	options[option] = opt_array;
 }
 
-var direction = options['direction'];
-if (typeof direction == "object") {
-	direction = direction[0];
+var content_url = options['content_url'];
+if (typeof content_url == "object") {
+	content_url = content_url[0];
 }
 
 var appliance = {};
@@ -15143,122 +15143,14 @@ for (var appl in query_params.appl) {
 	appliance[appl] = opt_array;
 }
 
-function RememberOriginalSize(img) {
-
-	if (!img.originalsize) {
-		img.originalsize = {width : img.width, height : img.height};
-	}
-
-}
 
 
-function FixImage(fLetterBox, div, img) {
-
-	RememberOriginalSize(img);
-
-	var targetwidth = $(div).width();
-	var targetheight = $(div).height();
-	var srcwidth = img.originalsize.width;
-	var srcheight = img.originalsize.height;
-	var result = ScaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox);
-
-	img.width = result.width;
-	img.height = result.height;
-	$(img).css("left", result.targetleft);
-	$(img).css("top", result.targettop);
-}
-
-function StretchImage(div, img) {
-
-	RememberOriginalSize(img);
-
-	var targetwidth = $(div).width();
-	var targetheight = $(div).height();
-
-	img.width = targetwidth;
-	img.height = targetheight;
-	$(img).css("left", 0);
-	$(img).css("top", 0);
-}
 
 
-function FixImages(fLetterBox) {
-	$("div.aspectcorrect").each(function (index, div) {
-		var img = $(div).find("img").get(0);
-		FixImage(fLetterBox, div, img);
-	});
-}
-
-function StretchImages() {
-	$("div.aspectcorrect").each(function (index, div) {
-		var img = $(div).find("img").get(0);
-		StretchImage(div, img);
-	});
-}
 
 window.onload = function() {
-	// size div to window
-	$("div#photo_holder").css("width",$(window).width()+"px").css("height",$(window).height()+"px");
-	
-	// add load handler to image
-	/*
-	var fit_image = document.getElementById('photo');
 
-	fit_image.onload = function () {
-			
-	};
-	*/
-
-	// load image
-	setTimeout(function(){
-
-		var image_src = options['image_url'];
-		if (typeof image_src == "object") {
-			image_src = image_src[0];
-		}
-		var background = options['background_color'];
-		if (typeof background_color == "object") {
-			background = background[0];
-		}
-
-		document.body.style.backgroundColor = background;
-
-		var img = new Image();
-
-		img.onload = function() {
-			//console.log("Image loaded successfully!");
-			if (typeof newrelic === "object") {
-				//newrelic.addPageAction("IF1: Image loaded");
-			}
-			// Perform actions for a successful load
-			document.getElementById('photo_holder').appendChild(img);
-			
-			setTimeout(function() {
-				FixImages(direction == "horizontal");   
-			}, 2000);
-			
-		};
-
-		img.onerror = function() {
-			//console.error("Image failed to load!");
-			// Perform actions for a failed load, e.g., display a fallback image
-			if (typeof newrelic === "object") {
-				newrelic.addPageAction("IF0: Image load failed");
-				//newrelic.finished(); // flush actons
-			}
-
-			setTimeout(function(){
-				// reload after 30 seconds to allow time for New Relic to report
-				// use loader in case config has been updated
-				trLoader(appliance.id);
-			},10000);
-		};
-
-		img.id = "photo";
-		img.src = image_src; // load image, onload handler then inserts it in document
-
-		
-	}, 5000);			
+	document.getElementById('message_frame').src = content_url;
 
 	/* health logging */
 
@@ -15271,12 +15163,12 @@ window.onload = function() {
 
 	/* initiate healthcheck */
 
-	var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: imageFit.APP_ID, application_name: imageFit.APP_NAME, application_version: imageFit.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+	var data = { timestamp: start_time, start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: message.APP_ID, application_name: message.APP_NAME, application_version: message.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 	trHealthUpdate(data,0,true);
 
 	// logging of startup, beat every 30 min goes here
 	setInterval(function(){
-		var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: imageFit.APP_ID, application_name: imageFit.APP_NAME, application_version: imageFit.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+		var data = { timestamp: ((new Date)).getTime(), start_time: start_time, version: 'N/A', "id": appliance['id'], application_id: message.APP_ID, application_name: message.APP_NAME, application_version: message.APP_VERSION, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 		trHealthUpdate(data,0,false);
 	}, 30*60*1000);
 
@@ -15299,92 +15191,10 @@ window.onload = function() {
 
 </script>
 
-    	<style type="text/css">
-    	
-			body {
-				margin: 0;
-			}
-			
-			div.aspectcorrect
-			{
-				border: 0px solid #333333;
-				overflow: hidden;
-				position: relative;
-			}
-			
-			div.widescreen
-			{
-				width: 320px;
-				height: 180px;
-			}
-			
-			
-			div.aspectcorrect > img
-			{
-				position: absolute;
-			}
-		</style>
 
-		<script>
-		
-		// john selbie 2011
-		
-		
-		// srcwidth/srcheight are the dimensions of the orignal image
-		// targetwidth and targetheight are the dimensions of the rendering area
-		// fLetterBox implies "add black bars" if true.  If false, the image is "zoomed" (cropped on one dimension) such that it fills the entire target space
-		// The result object returned has the following properties:
-		//     width: width to scale the image to
-		//     height: height to scale the image to
-		//     targetleft: position relative to the left edge of the target to center the image (can be negative when fLetterBox is false)
-		//     targettop: position relative to the top edge of the target to center the image (can be negative when fLetterBox is false)
-		function ScaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox) {
-		
-		    var result = { width: 0, height: 0, fScaleToTargetWidth: true };
-		
-		    if ((srcwidth <= 0) || (srcheight <= 0) || (targetwidth <= 0) || (targetheight <= 0)) {
-		        return result;
-		    }
-		
-		    // scale to the target width
-		    var scaleX1 = targetwidth;
-		    var scaleY1 = (srcheight * targetwidth) / srcwidth;
-		
-		    // scale to the target height
-		    var scaleX2 = (srcwidth * targetheight) / srcheight;
-		    var scaleY2 = targetheight;
-		
-		    // now figure out which one we should use
-		    var fScaleOnWidth = (scaleX2 > targetwidth);
-		    if (fScaleOnWidth) {
-		        fScaleOnWidth = fLetterBox;
-		    }
-		    else {
-		        fScaleOnWidth = !fLetterBox;
-		    }
-		
-		    if (fScaleOnWidth) {
-		        result.width = Math.floor(scaleX1);
-		        result.height = Math.floor(scaleY1);
-		        result.fScaleToTargetWidth = true;
-		    }
-		    else {
-		        result.width = Math.floor(scaleX2);
-		        result.height = Math.floor(scaleY2);
-		        result.fScaleToTargetWidth = false;
-		    }
-		    result.targetleft = Math.floor((targetwidth - result.width) / 2);
-		    result.targettop = Math.floor((targetheight - result.height) / 2);
-		
-		    return result;
-		}
-		
-		</script>
-		 
-	</head>
 	
-	<body style="background-color: #FFF; cursor: none">
-		<div id="photo_holder" class="aspectcorrect widescreen"></div>
+	</head><body style="cursor: none">
+		<iframe id="message_frame" width="100%" height="100%"></iframe>
 	
 
 
