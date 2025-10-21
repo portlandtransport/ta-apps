@@ -15081,8 +15081,12 @@ trArrParseQuery = function(qs) {
 	jQuery.each(q.match(/^\??(.*)$/)[1].split('&'),function(i,p){
 		p = decodeURIComponent(p).replace(/\+/g,' ').replace(/\]/g,'');
 		p = p.split('=');
+		/* old approach
 		var keys = p[0].split('[');
-		var value = p[1];
+		var value = p[1]; // doesn't allow for equals symbol in value
+		*/
+		var keys = p.shift.split('[');
+		var value = p.join("=");
 		var depth = keys.length;
 		if (depth == 1) {
 			// actually shouldn't happen, should always have at least two levels
