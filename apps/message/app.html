@@ -15085,7 +15085,8 @@ trArrParseQuery = function(qs) {
 		var keys = p[0].split('[');
 		var value = p[1]; // doesn't allow for equals symbol in value
 		*/
-		var keys = p.shift.split('[');
+		var keys = p[0].split('[');
+		p.shift;
 		var value = p.join("=");
 		var depth = keys.length;
 		if (depth == 1) {
