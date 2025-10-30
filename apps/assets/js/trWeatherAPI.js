@@ -52,7 +52,7 @@
 						dataType: "json",
 						success: function(data){
 							if (typeof newrelic === "object") {
-								newrelic.addPageAction("WE0: Weather request");
+								newrelic.addPageAction("WE200: Weather request");
 							}
 							if (data.current && data.current.condition) {
 							    weather.summary = data.current.condition.text;
