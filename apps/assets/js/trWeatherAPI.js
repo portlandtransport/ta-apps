@@ -65,7 +65,7 @@
 						},
 						error: function(xhrObj,errorText,errorThrown) {
 							if (typeof newrelic === "object") {
-								newrelic.addPageAction("WE1: Failure on weather request",{'errorText': errorText, 'errorThrown': errorThrown});
+								newrelic.addPageAction("WE"+errorText+": Failure on weather request");
 							}
 						}
 
