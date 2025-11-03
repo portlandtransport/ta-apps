@@ -45,7 +45,7 @@
 				this.update_forecast = function() {
 				    
 				    var api_key = trWeatherCredentials('WeatherAPI');
-                    var weather_url = "https://api.weatherapi.com/v1/current.json?key="+api_key+"&q="+options.lat+","+options.lng+"&aqi=no";
+                    var weather_url = "https://api.weatherapi.com/v1/current.json?key="+api_key+"&q="+options.lat+","+options.lng+"&aqi=yes";
 
 		            jQuery.ajax({
 						url: weather_url,
