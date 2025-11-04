@@ -128,6 +128,8 @@
 							}
 						}
 					};
+					// Send the request
+					xhr.send();
 				}
 				
 				weather.update_forecast(0);				
