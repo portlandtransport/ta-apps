@@ -124,13 +124,13 @@
 									newrelic.addPageAction("WE"+xhr.status+": Weather response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
 								}
 							} else {
-								weather.update_forecase(retry_count+1);
+								weather.update_forecast(retry_count+1);
 							}
 						}
 					};
 				}
 				
-				weather.update_forecast();				
+				weather.update_forecast(0);				
 				setInterval(function() {weather.update_forecast()}, 5*60*1000); // update every five minutes
 				
 				
