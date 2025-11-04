@@ -133,7 +133,7 @@
 				}
 				
 				weather.update_forecast(0);				
-				setInterval(function() {weather.update_forecast()}, 5*60*1000); // update every five minutes
+				setInterval(function() {weather.update_forecast(0)}, 5*60*1000); // update every five minutes
 				
 				
 			}		

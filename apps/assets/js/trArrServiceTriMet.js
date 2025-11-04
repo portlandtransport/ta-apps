@@ -233,14 +233,14 @@ function trArrTriMetUpdater(service_requests,arrivals_object) {
 				// Check if the request is complete (readyState 4) and successful (status 200)
 
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					console.log("Retry: "+retry_count);
+					
 					//console.log("Text response: "+xhr.responseText);
 
 					// now try parsing json
 					try {
 						const response_data = JSON.parse(xhr.responseText);
 						// Process data
-						console.log(response_data);
+
 						if ( typeof response_data != "undefined") {
 							// process here
 							updater.process_results(response_data);
