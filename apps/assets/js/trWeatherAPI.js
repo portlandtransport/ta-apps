@@ -89,14 +89,11 @@
 						// Check if the request is complete (readyState 4) and successful (status 200)
 
 						if (xhr.readyState === 4 && xhr.status === 200) {	
-							console.log("weather got 200 response");
-							console.log(xhr.responseText);
 
 							// now try parsing json
 							try {
 								var data = JSON.parse(xhr.responseText);
 								// Process data
-								console.log(data);
 								if ( typeof data != "undefined") {
 									// process here
 									if (data.current && data.current.condition) {
