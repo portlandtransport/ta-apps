@@ -97,12 +97,23 @@
 								if ( typeof data != "undefined") {
 									// process here
 									if (data.current && data.current.condition) {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("WE200: Weather request");
+										}
 										weather.summary = data.current.condition.text;
 										weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
 										var icon_url = data.current.condition.icon;
 										weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
 										weather.timestamp = new Date();
+									} else {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("WEForecast: Weather data issue");
+										}
 									}
+								} else {
+									if (typeof newrelic === "object") {
+										newrelic.addPageAction("WEJSON: Weather JSON parsing error");
+									}									
 								}
 							} catch (e) {
 								//console.log("json parsing error");
