@@ -1,6 +1,7 @@
 # ignore credentials
 apps/assets/js/trWeatherCredentials.js
 apps/assets/js/trCorsCredentials.js
+apps/assets/js/trAQICredentials.js
 
 # ignore log files and databases
 *.log
