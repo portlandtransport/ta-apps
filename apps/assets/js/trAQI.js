@@ -10,6 +10,7 @@ function trAQI(options) {
     
     this.timestamp = undefined;
     this.api_key = undefined;
+    this.tier_data = undefined;
 
     this.spectrum = [
         { a: 0, b: "#cccccc", f: "#ffffff", t: "Good" },
@@ -36,12 +37,17 @@ function trAQI(options) {
         return aqi.aqi;
     }
 
-    this.get_tier_data = function() {
+    this.get_aqi_label = function() {
+        return aqi.tier_data.t;
+    }
+
+    this.get_tier_data = function(value) {
         var i = 0;
+        if (value >= 500) return this.spectrum[6];
         for (i = 0; i < this.spectrum.length - 2; i++) {
-            if (aqi.aqi == "-" || aqi.aqi <= this.spectrum[i].a) break;
+            if (value == "-" || value <= this.spectrum[i].a) break;
         }
-        return this.spectrum[i];
+        return this.spectrum[i-1];
     }
     
     this.aqi_is_current = function() {
@@ -93,6 +99,7 @@ function trAQI(options) {
                         console.log(data);
                         aqi.timestamp = new Date();
                         aqi.aqi = data.data.aqi;
+                        aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
 
                     } else {
