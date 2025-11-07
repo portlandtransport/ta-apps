@@ -22,8 +22,8 @@ function trAQI(options) {
         //return aqi.icon.replace("64x64","128x128");
     }
     
-    this.get_temperature = function() {
-        return aqi.temperature;
+    this.get_aqi = function() {
+        return aqi.aqi;
     }
     
     this.aqi_is_current = function() {

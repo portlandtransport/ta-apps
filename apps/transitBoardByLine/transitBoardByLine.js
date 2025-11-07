@@ -1215,32 +1215,32 @@ transitBoardByLine.displayPage = function(data, callback) {
 				}
 				// create entries
 
-				/*
+				
 				var aqi = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
 							<tbody class="trip service_color_weather">\
 								<tr valign="middle">\
-									<td class="route">'+transitBoardByLine.forecast.get_icon()+'</td>\
-									<td class="destination"><div><span class="terminus">'+transitBoardByLine.forecast.get_summary_forecast()+'</span></div></td>\
-									<td class="arrivals">'+transitBoardByLine.forecast.get_temperature()+'</td>\
+									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
+									<td class="destination"><div><span class="terminus">'+'Air Quality'+'</span></div></td>\
+									<td class="arrivals">'+transitBoardByLine.aqinfo.get_aqi()+'</td>\
 								</tr>\
 							</tbody>\
 						</table>\
 				';
 				jQuery.each(transitBoardByLine.banks,function(index,bank) {
-					var weather_string = weather.replace(/bank_placeholder/g,bank);
+					var aqi_string = aqi.replace(/bank_placeholder/g,bank);
 					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(weather_string) );
 				});
-				*/
+				
 			} else {
 				// update the entries
-				/*
+				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
-					jQuery('.weather td.destination div span').html(transitBoardByLine.forecast.get_summary_forecast());
-					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
+					jQuery('.weather td.destination div span').html('Air Quality');
+					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_aqi());
 				});
-				*/
+				
 			}
 		} else {
 			// remove the entries, they're not current
