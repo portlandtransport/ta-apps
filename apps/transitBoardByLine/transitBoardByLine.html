@@ -18476,7 +18476,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 		}
 	}
 
+	console.log('checking for aqi');
 	if (transitBoardByLine.aqinfo) {
+		console.log('found aqi');
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";
