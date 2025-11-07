@@ -1244,6 +1244,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 			// set colors
 			jQuery('.aqi td').css("background-color", transitBoardByLine.aqinfo.get_aqi_background_color());
+			jQuery('.aqi td').css("border-color", transitBoardByLine.aqinfo.get_aqi_background_color());
+			jQuery('.aqi td').css("color", transitBoardByLine.aqinfo.get_aqi_text_color());
 		} else {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
