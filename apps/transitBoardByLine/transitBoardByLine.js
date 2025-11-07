@@ -1210,13 +1210,14 @@ transitBoardByLine.displayPage = function(data, callback) {
 	if (transitBoardByLine.aqinfo) {
 		console.log('found aqi');
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
+			console.log("aqi is current");
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";
 				if (transitBoardByLine.aqi == "top") {
 					sortkey = "00000";
 				}
 				// create entries
-
+				console.log("create new aqi entry")
 				
 				var aqi = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
@@ -1231,7 +1232,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				';
 				jQuery.each(transitBoardByLine.banks,function(index,bank) {
 					var aqi_string = aqi.replace(/bank_placeholder/g,bank);
-					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(weather_string) );
+					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(aqi_string) );
 				});
 				
 			} else {
@@ -1245,6 +1246,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				
 			}
 		} else {
+			console.log("aqi is not current");
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
