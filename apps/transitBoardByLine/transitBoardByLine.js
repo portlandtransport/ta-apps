@@ -31,15 +31,12 @@ transitBoardByLine.APP_ID 			= "tbdbyline";
 // assess environment
 
 transitBoardByLine.is_development = (location.hostname == "dev.transitappliance.com");
-transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
-
-
-
 
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/trWeatherCredentials.js"
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trAQICredentials.js"
 ];
 
 
@@ -55,10 +52,7 @@ transitBoardByLine.dependencies = [
 	
 	// load stylesheet
 	$('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
-	if (!transitBoardByLine.isChumby) {
-		// load fonts
-		$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
-	}
+
 
 }());
 
@@ -81,6 +75,7 @@ transitBoardByLine.start_time = new Date();
 transitBoardByLine.car2go = 0;
 transitBoardByLine.gbfs = 0;
 transitBoardByLine.weather = false;
+transitBoardByLine.aqi = false;
 transitBoardByLine.suppress_scrolling = false;
 transitBoardByLine.alerts = false;
 transitBoardByLine.suppress_downtown_only = false;
@@ -248,6 +243,14 @@ transitBoardByLine.initializePage = function(data) {
 			if (data.optionsConfig != undefined && data.optionsConfig.show_weather != undefined && data.optionsConfig.show_weather[0] != undefined && data.optionsConfig.show_weather[0] != 0) {
 				transitBoardByLine.weather = data.optionsConfig.show_weather[0];
 				transitBoardByLine.forecast = new trWeather({
+					id:		transitBoardByLine.appliance_id,
+					lat: 	data.optionsConfig.lat[0],
+					lng: 	data.optionsConfig.lng[0]
+				});
+			}
+			if (data.optionsConfig != undefined && data.optionsConfig.show_aqi != undefined && data.optionsConfig.show_aqi[0] != undefined && data.optionsConfig.show_aqi[0] != 0) {
+				transitBoardByLine.aqi = data.optionsConfig.show_aqi[0];
+				transitBoardByLine.aqinfo = new trAQI({
 					id:		transitBoardByLine.appliance_id,
 					lat: 	data.optionsConfig.lat[0],
 					lng: 	data.optionsConfig.lng[0]
@@ -721,10 +724,6 @@ transitBoardByLine.displayPage = function(data, callback) {
 		transitBoardByLine.service_messages = data.serviceMessages;
 	}
 	
-	if (running_minutes > 65 && client_time.getHours() == 3 && transitBoardByLine.isChumby) {
-		location.reload();
-	}
-	
 	if (data.displayCallCount == -1) {
 		if (callback) {
 			callback();
@@ -737,7 +736,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 		{
 		  // options
 		  animationEngine: 'best-available',
-		  transformsEnabled: !transitBoardByLine.isChumby,
+		  transformsEnabled: true,
 		  itemSelector : 'table.trip_wrapper',
 		  layoutMode: 'masonry',  
 			getSortData : {
@@ -1271,80 +1270,7 @@ head.ready(function() {
 		return "";
 	}
 	
-	var bugsnag = getQueryVariable("option[bugsnag]") == false;
-	bugsnag = true;
-	//console.log("bugsnag: "+bugsnag);
-	
-	// set up error handler if not on development site
-	
-	/*
-	if (!bugsnag) {
-		var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
-		if (transitBoardByLine.is_development) {
-			handler_url = "http://transitappliance.com/cgi-bin/js_error_dev.pl";
-		}
-		
-		//console.log("initialize tracekit");
-			
-		TraceKit.report.subscribe(function (stackInfo) {   
-			var serialized_stack = JSON.stringify(stackInfo);
-			if (serialized_stack.match(/tracekit/)) {
-				// don't track self-referential tracekit errors
-			} else if (stackInfo.message.match(/Timezone/i)) {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							"TZ1: Timezone error, restarting application: "+stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-				
-				setTimeout(function(){
-					// restart app
-					location.reload(true);
-				},2000);
-				
-			} else {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-			}
-		});
-		
-		// throw new Error("Startup Event");
-	}
 
-	
-	if (bugsnag) {
-		var s = document.createElement("script");
-		s.type = "text/javascript";
-		s.src = "//d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js";
-		s.setAttribute("data-apikey", "e2c233a964c42f28c66aedde079503e8");
-		$("head").append(s);
-		console.log("appended bugsnag");
-	}
-
-	*/
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);

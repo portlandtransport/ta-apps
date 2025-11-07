@@ -16572,12 +16572,23 @@ function trArr(input_params) {
 								if ( typeof data != "undefined") {
 									// process here
 									if (data.current && data.current.condition) {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("WE200: Weather request");
+										}
 										weather.summary = data.current.condition.text;
 										weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
 										var icon_url = data.current.condition.icon;
 										weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
 										weather.timestamp = new Date();
+									} else {
+										if (typeof newrelic === "object") {
+											newrelic.addPageAction("WEForecast: Weather data issue");
+										}
 									}
+								} else {
+									if (typeof newrelic === "object") {
+										newrelic.addPageAction("WEJSON: Weather JSON parsing error");
+									}									
 								}
 							} catch (e) {
 								//console.log("json parsing error");
@@ -16609,6 +16620,163 @@ function trArr(input_params) {
 				
 				
 			}		</script>		
+		<script>function trAQI(options) { 
+    
+    // ensure this is called as constructor
+    
+    if (!(this instanceof trAQI)) {
+        return new trAQI(options);
+    }
+    
+    var aqi = this;
+    
+    this.timestamp = undefined;
+    this.api_key = undefined;
+            
+
+    // accessors
+    this.get_summary_forecast = function() {
+        return aqi.summary;
+    }
+    
+    this.get_icon = function() {
+        return aqi.icon;
+        //return aqi.icon.replace("64x64","128x128");
+    }
+    
+    this.get_temperature = function() {
+        return aqi.temperature;
+    }
+    
+    this.aqi_is_current = function() {
+        if (typeof aqi.timestamp == "undefined") {
+            // haven't gotten a forecast yet
+            return false;
+        }
+        
+        var age_of_forecast = new Date() - aqi.timestamp;
+        if (age_of_forecast > 15*60*1000) {
+            // forecast is more than 15 minutes old
+            return false;
+        }
+        
+        return true; // recent enough!
+    }			
+
+
+    this.update_aqi = function(retry_count) {
+        const retry_limit = 1;
+
+        var api_key = trAQICredentials('waqi');
+        var aqi_url = "https://api.aqiapi.com/v1/current.json?key="+api_key+"&q="+options.lat+","+options.lng+"&aqi=no";
+
+        var aqi_url = "https://api.waqi.info/feed/geo:"+options.lat+";"+options.lng+"/?token="+api_key;
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.responseType = 'text';
+
+        xhr.open('GET', aqi_url, true);
+
+        // Set up the event handler for when the request state changes
+        xhr.onreadystatechange = function() {
+            // Check if the request is complete (readyState 4) and successful (status 200)
+
+            if (xhr.readyState === 4 && xhr.status === 200) {	
+
+                // now try parsing json
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    // Process data
+                    if ( typeof data != "undefined") {
+                        // process here
+
+                        if (typeof newrelic === "object") {
+                            newrelic.addPageAction("AQ200: aqi request");
+                        }
+
+                        console.log(data);
+
+
+                    } else {
+                        if (typeof newrelic === "object") {
+                            newrelic.addPageAction("AQJSON: aqi JSON parsing error");
+                        }									
+                    }
+                } catch (e) {
+                    //console.log("json parsing error");
+                    //console.log(e);
+                    if (retry_count >= retry_limit) {
+                        if (typeof newrelic === "object") {
+                            newrelic.addPageAction("AQJSON: aqi JSON parsing error");
+                        }
+                    }
+                }
+
+            } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                //console.log("xhr state error");
+                if (retry_count >= retry_limit) {
+                    if (typeof newrelic === "object") {
+                        newrelic.addPageAction("AQ"+xhr.status+": aqi response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
+                    }
+                } else {
+                    aqi.update_aqi(retry_count+1);
+                }
+            }
+        };
+        // Send the request
+        xhr.send();
+    }
+    
+    aqi.update_aqi(0);				
+    setInterval(function() {aqi.update_aqi(0)}, 5*60*1000); // update every five minutes
+    
+    
+}		
+
+
+/* background info:
+
+https://api.waqi.info/feed/geo:40.7128;-74.0060/?token=d015cb944b2f8bb876fb513c98e6e059f466f1e3
+
+    var spectrum = [
+        { a: 0, b: "#cccccc", f: "#ffffff" },
+        { a: 50, b: "#009966", f: "#ffffff" },
+        { a: 100, b: "#ffde33", f: "#000000" },
+        { a: 150, b: "#ff9933", f: "#000000" },
+        { a: 200, b: "#cc0033", f: "#ffffff" },
+        { a: 300, b: "#660099", f: "#ffffff" },
+        { a: 500, b: "#7e0023", f: "#ffffff" },
+    ];
+ 
+    var i = 0;
+    for (i = 0; i < spectrum.length - 2; i++) {
+        if (aqi == "-" || aqi <= spectrum[i].a) break;
+    }
+    return $("<div/>")
+        .html(aqi)
+        .css("font-size", "120%")
+        .css("min-width", "30px")
+        .css("text-align", "center")
+        .css("background-color", spectrum[i].b)
+        .css("color", spectrum[i].f);
+
+
+https://thenounproject.com/browse/icons/term/air-quality/
+
+
+
+
+
+AQI Range 	Level	Health Concern
+0–50	Good	Little to no risk
+51–100	Moderate	May pose some risk to unusually sensitive individuals
+101–150	Unhealthy for Sensitive Groups	Sensitive groups may experience health effects
+151–200	Unhealthy	May cause health effects for everyone
+201–300	Very Unhealthy	Increased risk of health effects for everyone
+301–500	Hazardous	Health alert for everyone; emergency condition
+
+*/</script>		
 		<script>/*
    Copyright 2010-2016 Portland Transport
 
@@ -16642,15 +16810,12 @@ transitBoardByLine.APP_ID 			= "tbdbyline";
 // assess environment
 
 transitBoardByLine.is_development = (location.hostname == "dev.transitappliance.com");
-transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
-
-
-
 
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/trWeatherCredentials.js"
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trAQICredentials.js"
 ];
 
 
@@ -16666,10 +16831,7 @@ transitBoardByLine.dependencies = [
 	
 	// load stylesheet
 	$('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
-	if (!transitBoardByLine.isChumby) {
-		// load fonts
-		$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
-	}
+
 
 }());
 
@@ -16692,6 +16854,7 @@ transitBoardByLine.start_time = new Date();
 transitBoardByLine.car2go = 0;
 transitBoardByLine.gbfs = 0;
 transitBoardByLine.weather = false;
+transitBoardByLine.aqi = false;
 transitBoardByLine.suppress_scrolling = false;
 transitBoardByLine.alerts = false;
 transitBoardByLine.suppress_downtown_only = false;
@@ -16859,6 +17022,14 @@ transitBoardByLine.initializePage = function(data) {
 			if (data.optionsConfig != undefined && data.optionsConfig.show_weather != undefined && data.optionsConfig.show_weather[0] != undefined && data.optionsConfig.show_weather[0] != 0) {
 				transitBoardByLine.weather = data.optionsConfig.show_weather[0];
 				transitBoardByLine.forecast = new trWeather({
+					id:		transitBoardByLine.appliance_id,
+					lat: 	data.optionsConfig.lat[0],
+					lng: 	data.optionsConfig.lng[0]
+				});
+			}
+			if (data.optionsConfig != undefined && data.optionsConfig.show_aqi != undefined && data.optionsConfig.show_aqi[0] != undefined && data.optionsConfig.show_aqi[0] != 0) {
+				transitBoardByLine.aqi = data.optionsConfig.show_aqi[0];
+				transitBoardByLine.aqinfo = new trAQI({
 					id:		transitBoardByLine.appliance_id,
 					lat: 	data.optionsConfig.lat[0],
 					lng: 	data.optionsConfig.lng[0]
@@ -17332,10 +17503,6 @@ transitBoardByLine.displayPage = function(data, callback) {
 		transitBoardByLine.service_messages = data.serviceMessages;
 	}
 	
-	if (running_minutes > 65 && client_time.getHours() == 3 && transitBoardByLine.isChumby) {
-		location.reload();
-	}
-	
 	if (data.displayCallCount == -1) {
 		if (callback) {
 			callback();
@@ -17348,7 +17515,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 		{
 		  // options
 		  animationEngine: 'best-available',
-		  transformsEnabled: !transitBoardByLine.isChumby,
+		  transformsEnabled: true,
 		  itemSelector : 'table.trip_wrapper',
 		  layoutMode: 'masonry',  
 			getSortData : {
@@ -17882,80 +18049,7 @@ head.ready(function() {
 		return "";
 	}
 	
-	var bugsnag = getQueryVariable("option[bugsnag]") == false;
-	bugsnag = true;
-	//console.log("bugsnag: "+bugsnag);
-	
-	// set up error handler if not on development site
-	
-	/*
-	if (!bugsnag) {
-		var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
-		if (transitBoardByLine.is_development) {
-			handler_url = "http://transitappliance.com/cgi-bin/js_error_dev.pl";
-		}
-		
-		//console.log("initialize tracekit");
-			
-		TraceKit.report.subscribe(function (stackInfo) {   
-			var serialized_stack = JSON.stringify(stackInfo);
-			if (serialized_stack.match(/tracekit/)) {
-				// don't track self-referential tracekit errors
-			} else if (stackInfo.message.match(/Timezone/i)) {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							"TZ1: Timezone error, restarting application: "+stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-				
-				setTimeout(function(){
-					// restart app
-					location.reload(true);
-				},2000);
-				
-			} else {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-			}
-		});
-		
-		// throw new Error("Startup Event");
-	}
 
-	
-	if (bugsnag) {
-		var s = document.createElement("script");
-		s.type = "text/javascript";
-		s.src = "//d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js";
-		s.setAttribute("data-apikey", "e2c233a964c42f28c66aedde079503e8");
-		$("head").append(s);
-		console.log("appended bugsnag");
-	}
-
-	*/
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
