@@ -51,10 +51,10 @@ transitBoardByLine.dependencies = [
 	}
 	
 	// load stylesheet - moved to html
-	/*
-	$('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
+
+	// $('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
 	$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
-	*/
+	
 
 
 }());
