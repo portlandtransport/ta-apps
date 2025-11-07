@@ -73,6 +73,7 @@ function trAQI(options) {
                         }
 
                         console.log(data);
+                        aqi.timestamp = new Date();
 
 
                     } else {
