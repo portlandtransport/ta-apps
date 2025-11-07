@@ -74,7 +74,7 @@ function trAQI(options) {
 
                         console.log(data);
                         aqi.timestamp = new Date();
-                        aqi.aqi = data.aqi;
+                        aqi.aqi = data.data.aqi;
 
 
                     } else {
