@@ -17127,12 +17127,12 @@ function trArr(input_params) {
     this.tier_data = undefined;
 
     this.spectrum = [
-        { a: 0, b: "#cccccc", f: "#ffffff", t: "Good" },
-        { a: 50, b: "#009966", f: "#ffffff", t: "Moderate" },
-        { a: 100, b: "#ffde33", f: "#000000", t: "Unhealthy for Sensitive Groups" },
-        { a: 150, b: "#ff9933", f: "#000000", t: "Unhealthy" },
-        { a: 200, b: "#cc0033", f: "#ffffff", t: "Very Unhealthy" },
-        { a: 300, b: "#660099", f: "#ffffff", t: "Hazardous" },
+        { a: 0, b: "#cccccc", f: "#ffffff", t: "Header row only" },
+        { a: 50, b: "#009966", f: "#ffffff", t: "Good" },
+        { a: 100, b: "#ffde33", f: "#000000", t: "Moderate" },
+        { a: 150, b: "#ff9933", f: "#000000", t: "Unhealthy for Sensitive Groups" },
+        { a: 200, b: "#cc0033", f: "#ffffff", t: "Unhealthy" },
+        { a: 300, b: "#660099", f: "#ffffff", t: "Very Unhealthy" },
         { a: 500, b: "#7e0023", f: "#ffffff", t: "Hazardous" },
     ];
             
@@ -17169,7 +17169,7 @@ function trArr(input_params) {
         for (i = 0; i < this.spectrum.length - 2; i++) {
             if (value == "-" || value < this.spectrum[i].a) break;
         }
-        return this.spectrum[i-1];
+        return this.spectrum[i];
     }
     
     this.aqi_is_current = function() {
