@@ -1220,7 +1220,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				console.log("create new aqi entry")
 				
 				var aqi = '\
-						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
+						<table class="aqi trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
 							<tbody class="trip service_color_weather">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
@@ -1236,6 +1236,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				});
 				
 			} else {
+				console.log('update aqi');
 				// update the entries
 				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
@@ -1246,7 +1247,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				
 			}
 		} else {
-			console.log("aqi is not current");
+			console.log("aqi is not current, remove");
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
