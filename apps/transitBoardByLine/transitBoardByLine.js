@@ -1209,14 +1209,12 @@ transitBoardByLine.displayPage = function(data, callback) {
 	if (transitBoardByLine.aqinfo) {
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
 			console.log(transitBoardByLine.aqinfo.get_aqi_label);
-			console.log("aqi is current");
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";
 				if (transitBoardByLine.aqi == "top") {
 					sortkey = "00000";
 				}
 				// create entries
-				console.log("create new aqi entry")
 				
 				var aqi = '\
 						<table class="aqi trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
@@ -1224,7 +1222,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
 									<td class="destination"><div><span class="terminus">'+'Air Quality: '+'</span></div></td>\
-									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi(transitBoardByLine.aqinfo.get_aqi_label)+'</td>\
+									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi(transitBoardByLine.aqinfo.get_aqi_label())+'</td>\
 								</tr>\
 							</tbody>\
 						</table>\
@@ -1235,18 +1233,16 @@ transitBoardByLine.displayPage = function(data, callback) {
 				});
 				
 			} else {
-				console.log('update aqi');
 				// update the entries
 				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.aqi .route').html(transitBoardByLine.aqinfo.get_icon());
-					jQuery('.aqi td.destination div span').html('Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label);
+					jQuery('.aqi td.destination div span').html('Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label());
 					jQuery('.aqi .arrivals').html("AQI: "+transitBoardByLine.aqinfo.get_aqi());
 				});
 				
 			}
 		} else {
-			console.log("aqi is not current, remove");
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");

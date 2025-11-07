@@ -45,7 +45,7 @@ function trAQI(options) {
         var i = 0;
         if (value >= 500) return this.spectrum[6];
         for (i = 0; i < this.spectrum.length - 2; i++) {
-            if (value == "-" || value <= this.spectrum[i].a) break;
+            if (value == "-" || value < this.spectrum[i].a) break;
         }
         return this.spectrum[i-1];
     }
