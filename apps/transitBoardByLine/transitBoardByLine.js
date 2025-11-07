@@ -1208,6 +1208,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 
 	if (transitBoardByLine.aqinfo) {
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
+			console.log(transitBoardByLine.aqinfo.get_tier_data());
 			console.log("aqi is current");
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";

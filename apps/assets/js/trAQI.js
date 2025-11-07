@@ -10,6 +10,16 @@ function trAQI(options) {
     
     this.timestamp = undefined;
     this.api_key = undefined;
+
+    this.spectrum = [
+        { a: 0, b: "#cccccc", f: "#ffffff", t: "Good" },
+        { a: 50, b: "#009966", f: "#ffffff", t: "Moderate" },
+        { a: 100, b: "#ffde33", f: "#000000", t: "Unhealthy for Sensitive Groups" },
+        { a: 150, b: "#ff9933", f: "#000000", t: "Unhealthy" },
+        { a: 200, b: "#cc0033", f: "#ffffff", t: "Very Unhealthy" },
+        { a: 300, b: "#660099", f: "#ffffff", t: "Hazardous" },
+        { a: 500, b: "#7e0023", f: "#ffffff", t: "Hazardous" },
+    ];
             
 
     // accessors
@@ -24,6 +34,14 @@ function trAQI(options) {
     
     this.get_aqi = function() {
         return aqi.aqi;
+    }
+
+    this.get_tier_data = function() {
+        var i = 0;
+        for (i = 0; i < this.spectrum.length - 2; i++) {
+            if (aqi.aqi == "-" || aqi.aqi <= this.spectrum[i].a) break;
+        }
+        return this.spectrum[i];
     }
     
     this.aqi_is_current = function() {
