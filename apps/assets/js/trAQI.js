@@ -46,7 +46,6 @@ function trAQI(options) {
         const retry_limit = 1;
 
         var api_key = trAQICredentials('waqi');
-        var aqi_url = "https://api.aqiapi.com/v1/current.json?key="+api_key+"&q="+options.lat+","+options.lng+"&aqi=no";
 
         var aqi_url = "https://api.waqi.info/feed/geo:"+options.lat+";"+options.lng+"/?token="+api_key;
 

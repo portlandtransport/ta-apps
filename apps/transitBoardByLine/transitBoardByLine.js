@@ -50,8 +50,11 @@ transitBoardByLine.dependencies = [
 		transitBoardByLine.dependencies[i] += "?timestamp=" + timestamp;
 	}
 	
-	// load stylesheet
+	// load stylesheet - moved to html
+	/*
 	$('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
+	$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
+	*/
 
 
 }());
@@ -910,6 +913,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 	if (transitBoardByLine.weather) {
 		display_elements = display_elements + 1;
 	}
+	if (transitBoardByLine.aqi) {
+		display_elements = display_elements + 1;
+	}
 	
 	var remainder = display_elements % transitBoardByLine.columns;
 
@@ -994,7 +1000,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	jQuery("table.trip_wrapper.active").each(function(index,element){
 		var id = jQuery(element).attr("data-tripid");
 		if (id !== undefined) {
-			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
+			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/)  && !id.match(/aqi/) ) {
 				jQuery("table."+id).removeClass('active');
 				removal_queue.push(id);
 			}
@@ -1193,6 +1199,54 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/weather/) ) {
+					jQuery("table."+id).removeClass('active');
+					removal_queue.push(id);
+				}
+			});
+		}
+	}
+
+	if (transitBoardByLine.aqinfo) {
+		if (transitBoardByLine.aqinfo.aqi_is_current()) {
+			if (jQuery(".aqi").length == 0) {
+				var sortkey = "90000";
+				if (transitBoardByLine.aqi == "top") {
+					sortkey = "00000";
+				}
+				// create entries
+
+				/*
+				var aqi = '\
+						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
+							<tbody class="trip service_color_weather">\
+								<tr valign="middle">\
+									<td class="route">'+transitBoardByLine.forecast.get_icon()+'</td>\
+									<td class="destination"><div><span class="terminus">'+transitBoardByLine.forecast.get_summary_forecast()+'</span></div></td>\
+									<td class="arrivals">'+transitBoardByLine.forecast.get_temperature()+'</td>\
+								</tr>\
+							</tbody>\
+						</table>\
+				';
+				jQuery.each(transitBoardByLine.banks,function(index,bank) {
+					var weather_string = weather.replace(/bank_placeholder/g,bank);
+					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(weather_string) );
+				});
+				*/
+			} else {
+				// update the entries
+				/*
+				jQuery("table.trip_wrapper.active").each(function(index,element){
+					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
+					jQuery('.weather td.destination div span').html(transitBoardByLine.forecast.get_summary_forecast());
+					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
+				});
+				*/
+			}
+		} else {
+			// remove the entries, they're not current
+			jQuery("table.trip_wrapper.active").each(function(index,element){
+				var id = jQuery(element).attr("data-tripid");
+				if ( id.match(/aqi/) ) {
 					jQuery("table."+id).removeClass('active');
 					removal_queue.push(id);
 				}
