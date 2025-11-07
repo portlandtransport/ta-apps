@@ -18,7 +18,7 @@ function trAQI(options) {
     }
     
     this.get_icon = function() {
-        return aqi.icon;
+        return "/apps/assets/img/aqi/aqi.svg";
         //return aqi.icon.replace("64x64","128x128");
     }
     
