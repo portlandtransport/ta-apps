@@ -18511,9 +18511,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 				// update the entries
 				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
-					jQuery('.aqi.route').html(transitBoardByLine.forecast.get_icon());
+					jQuery('.aqi .route').html(transitBoardByLine.aqinfo.get_icon());
 					jQuery('.aqi td.destination div span').html('Air Quality');
-					jQuery('.aqi .arrivals').html(transitBoardByLine.forecast.get_aqi());
+					jQuery('.aqi .arrivals').html(transitBoardByLine.aqinfo.get_aqi());
 				});
 				
 			}
