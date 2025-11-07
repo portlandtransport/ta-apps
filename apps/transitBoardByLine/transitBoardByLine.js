@@ -1239,9 +1239,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 				// update the entries
 				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
-					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
-					jQuery('.weather td.destination div span').html('Air Quality');
-					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_aqi());
+					jQuery('.aqi.route').html(transitBoardByLine.forecast.get_icon());
+					jQuery('.aqi td.destination div span').html('Air Quality');
+					jQuery('.aqi .arrivals').html(transitBoardByLine.forecast.get_aqi());
 				});
 				
 			}
