@@ -41,6 +41,14 @@ function trAQI(options) {
         return aqi.tier_data.t;
     }
 
+    this.get_aqi_background_color = function() {
+        return aqi.tier_data.b;
+    }
+
+    this.get_aqi_text_color = function() {
+        return aqi.tier_data.f;
+    }
+
     this.get_tier_data = function(value) {
         var i = 0;
         if (value >= 500) return this.spectrum[6];

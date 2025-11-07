@@ -1221,8 +1221,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 							<tbody class="trip service_color_weather">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
-									<td class="destination"><div><span class="terminus">'+'Air Quality: '+'</span></div></td>\
-									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi(transitBoardByLine.aqinfo.get_aqi_label())+'</td>\
+									<td class="destination"><div><span class="terminus">'+'Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label()+'</span></div></td>\
+									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi()+'</td>\
 								</tr>\
 							</tbody>\
 						</table>\
@@ -1242,6 +1242,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 				});
 				
 			}
+			// set colors
+			jQuery('.aqi td').css("background-color", transitBoardByLine.aqinfo.get_background_color());
 		} else {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
