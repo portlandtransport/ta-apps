@@ -17124,6 +17124,7 @@ function trArr(input_params) {
     
     this.timestamp = undefined;
     this.api_key = undefined;
+    this.tier_data = undefined;
 
     this.spectrum = [
         { a: 0, b: "#cccccc", f: "#ffffff", t: "Good" },
@@ -17150,12 +17151,17 @@ function trArr(input_params) {
         return aqi.aqi;
     }
 
-    this.get_tier_data = function() {
+    this.get_aqi_label = function() {
+        return aqi.tier_data.t;
+    }
+
+    this.get_tier_data = function(value) {
         var i = 0;
+        if (value >= 500) return this.spectrum[6];
         for (i = 0; i < this.spectrum.length - 2; i++) {
-            if (aqi.aqi == "-" || aqi.aqi <= this.spectrum[i].a) break;
+            if (value == "-" || value <= this.spectrum[i].a) break;
         }
-        return this.spectrum[i];
+        return this.spectrum[i-1];
     }
     
     this.aqi_is_current = function() {
@@ -17207,6 +17213,7 @@ function trArr(input_params) {
                         console.log(data);
                         aqi.timestamp = new Date();
                         aqi.aqi = data.data.aqi;
+                        aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
 
                     } else {
@@ -18498,7 +18505,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 
 	if (transitBoardByLine.aqinfo) {
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
-			console.log(transitBoardByLine.aqinfo.get_tier_data());
+			console.log(transitBoardByLine.aqinfo.get_aqi_label);
 			console.log("aqi is current");
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";
@@ -18513,8 +18520,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 							<tbody class="trip service_color_weather">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
-									<td class="destination"><div><span class="terminus">'+'Air Quality'+'</span></div></td>\
-									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi()+'</td>\
+									<td class="destination"><div><span class="terminus">'+'Air Quality: '+'</span></div></td>\
+									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi(transitBoardByLine.aqinfo.get_aqi_label)+'</td>\
 								</tr>\
 							</tbody>\
 						</table>\
@@ -18530,7 +18537,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.aqi .route').html(transitBoardByLine.aqinfo.get_icon());
-					jQuery('.aqi td.destination div span').html('Air Quality');
+					jQuery('.aqi td.destination div span').html('Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label);
 					jQuery('.aqi .arrivals').html("AQI: "+transitBoardByLine.aqinfo.get_aqi());
 				});
 				
