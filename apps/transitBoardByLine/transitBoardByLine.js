@@ -1208,7 +1208,6 @@ transitBoardByLine.displayPage = function(data, callback) {
 
 	if (transitBoardByLine.aqinfo) {
 		if (transitBoardByLine.aqinfo.aqi_is_current()) {
-			console.log(transitBoardByLine.aqinfo.get_aqi_label);
 			if (jQuery(".aqi").length == 0) {
 				var sortkey = "90000";
 				if (transitBoardByLine.aqi == "top") {
@@ -1246,6 +1245,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery('.aqi td').css("background-color", transitBoardByLine.aqinfo.get_aqi_background_color());
 			jQuery('.aqi td').css("border-color", transitBoardByLine.aqinfo.get_aqi_background_color());
 			jQuery('.aqi td').css("color", transitBoardByLine.aqinfo.get_aqi_text_color());
+			jQuery('.aqi td img').css("fill", transitBoardByLine.aqinfo.get_aqi_text_color());
+			jQuery('.aqi td stroke').css("fill", transitBoardByLine.aqinfo.get_aqi_text_color());
 		} else {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){

@@ -101,10 +101,9 @@ function trAQI(options) {
                         // process here
 
                         if (typeof newrelic === "object") {
-                            newrelic.addPageAction("AQ200: aqi request");
+                            //newrelic.addPageAction("AQ200: aqi request");
                         }
 
-                        console.log(data);
                         aqi.timestamp = new Date();
                         aqi.aqi = data.data.aqi;
                         aqi.tier_data = aqi.get_tier_data(aqi.aqi);
