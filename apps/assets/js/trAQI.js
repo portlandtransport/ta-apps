@@ -29,7 +29,7 @@ function trAQI(options) {
     }
     
     this.get_icon = function() {
-        return '<img src="/apps/assets/img/aqi/aqi.svg">';
+        return '<img src="/apps/assets/img/aqi/aqi_white.svg">';
     }
     
     this.get_aqi = function() {
