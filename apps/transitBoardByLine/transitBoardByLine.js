@@ -31,15 +31,12 @@ transitBoardByLine.APP_ID 			= "tbdbyline";
 // assess environment
 
 transitBoardByLine.is_development = (location.hostname == "dev.transitappliance.com");
-transitBoardByLine.isChumby = navigator.userAgent.match(/QtEmb/) != null;
-
-
-
 
 // load dependencies
 
 transitBoardByLine.dependencies = [
-		"../assets/js/trWeatherCredentials.js"
+		"../assets/js/trWeatherCredentials.js",
+		"../assets/js/trAQICredentials.js"
 ];
 
 
@@ -53,12 +50,12 @@ transitBoardByLine.dependencies = [
 		transitBoardByLine.dependencies[i] += "?timestamp=" + timestamp;
 	}
 	
-	// load stylesheet
-	$('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
-	if (!transitBoardByLine.isChumby) {
-		// load fonts
-		$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
-	}
+	// load stylesheet - moved to html
+
+	// $('head').append('<link rel="stylesheet" type="text/css" href="transitBoardByLine.css?timestamp'+timestamp+'">');
+	$('head').append('<link rel="stylesheet" type="text/css" href="../assets/fonts/DejuVu/stylesheet.css?timestamp='+timestamp+'">');
+	
+
 
 }());
 
@@ -81,6 +78,7 @@ transitBoardByLine.start_time = new Date();
 transitBoardByLine.car2go = 0;
 transitBoardByLine.gbfs = 0;
 transitBoardByLine.weather = false;
+transitBoardByLine.aqi = false;
 transitBoardByLine.suppress_scrolling = false;
 transitBoardByLine.alerts = false;
 transitBoardByLine.suppress_downtown_only = false;
@@ -248,6 +246,14 @@ transitBoardByLine.initializePage = function(data) {
 			if (data.optionsConfig != undefined && data.optionsConfig.show_weather != undefined && data.optionsConfig.show_weather[0] != undefined && data.optionsConfig.show_weather[0] != 0) {
 				transitBoardByLine.weather = data.optionsConfig.show_weather[0];
 				transitBoardByLine.forecast = new trWeather({
+					id:		transitBoardByLine.appliance_id,
+					lat: 	data.optionsConfig.lat[0],
+					lng: 	data.optionsConfig.lng[0]
+				});
+			}
+			if (data.optionsConfig != undefined && data.optionsConfig.show_aqi != undefined && data.optionsConfig.show_aqi[0] != undefined && data.optionsConfig.show_aqi[0] != 0) {
+				transitBoardByLine.aqi = data.optionsConfig.show_aqi[0];
+				transitBoardByLine.aqinfo = new trAQI({
 					id:		transitBoardByLine.appliance_id,
 					lat: 	data.optionsConfig.lat[0],
 					lng: 	data.optionsConfig.lng[0]
@@ -721,10 +727,6 @@ transitBoardByLine.displayPage = function(data, callback) {
 		transitBoardByLine.service_messages = data.serviceMessages;
 	}
 	
-	if (running_minutes > 65 && client_time.getHours() == 3 && transitBoardByLine.isChumby) {
-		location.reload();
-	}
-	
 	if (data.displayCallCount == -1) {
 		if (callback) {
 			callback();
@@ -737,7 +739,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 		{
 		  // options
 		  animationEngine: 'best-available',
-		  transformsEnabled: !transitBoardByLine.isChumby,
+		  transformsEnabled: true,
 		  itemSelector : 'table.trip_wrapper',
 		  layoutMode: 'masonry',  
 			getSortData : {
@@ -911,6 +913,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 	if (transitBoardByLine.weather) {
 		display_elements = display_elements + 1;
 	}
+	if (transitBoardByLine.aqi) {
+		display_elements = display_elements + 1;
+	}
 	
 	var remainder = display_elements % transitBoardByLine.columns;
 
@@ -995,7 +1000,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	jQuery("table.trip_wrapper.active").each(function(index,element){
 		var id = jQuery(element).attr("data-tripid");
 		if (id !== undefined) {
-			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/) ) {
+			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/)  && !id.match(/aqi/) ) {
 				jQuery("table."+id).removeClass('active');
 				removal_queue.push(id);
 			}
@@ -1200,6 +1205,57 @@ transitBoardByLine.displayPage = function(data, callback) {
 			});
 		}
 	}
+
+	if (transitBoardByLine.aqinfo) {
+		if (transitBoardByLine.aqinfo.aqi_is_current()) {
+			if (jQuery(".aqi").length == 0) {
+				var sortkey = "90000";
+				if (transitBoardByLine.aqi == "top") {
+					sortkey = "00000";
+				}
+				// create entries
+				
+				var aqi = '\
+						<table class="aqi trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="aqi">\
+							<tbody class="trip service_color_weather">\
+								<tr valign="middle">\
+									<td class="route">'+transitBoardByLine.aqinfo.get_icon()+'</td>\
+									<td class="destination"><div><span class="terminus">'+'Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label()+'</span></div></td>\
+									<td class="arrivals">AQI: '+transitBoardByLine.aqinfo.get_aqi()+'</td>\
+								</tr>\
+							</tbody>\
+						</table>\
+				';
+				jQuery.each(transitBoardByLine.banks,function(index,bank) {
+					var aqi_string = aqi.replace(/bank_placeholder/g,bank);
+					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(aqi_string) );
+				});
+				
+			} else {
+				// update the entries
+				
+				jQuery("table.trip_wrapper.active").each(function(index,element){
+					jQuery('.aqi .route').html(transitBoardByLine.aqinfo.get_icon());
+					jQuery('.aqi td.destination div span').html('Air Quality: '+transitBoardByLine.aqinfo.get_aqi_label());
+					jQuery('.aqi .arrivals').html("AQI: "+transitBoardByLine.aqinfo.get_aqi());
+				});
+				
+			}
+			// set colors
+			jQuery('.aqi td').css("background-color", transitBoardByLine.aqinfo.get_aqi_background_color());
+			jQuery('.aqi td').css("border-color", transitBoardByLine.aqinfo.get_aqi_background_color());
+			jQuery('.aqi td').css("color", transitBoardByLine.aqinfo.get_aqi_text_color());
+		} else {
+			// remove the entries, they're not current
+			jQuery("table.trip_wrapper.active").each(function(index,element){
+				var id = jQuery(element).attr("data-tripid");
+				if ( id.match(/aqi/) ) {
+					jQuery("table."+id).removeClass('active');
+					removal_queue.push(id);
+				}
+			});
+		}
+	}
 		
 	
 	process_removals();
@@ -1271,80 +1327,7 @@ head.ready(function() {
 		return "";
 	}
 	
-	var bugsnag = getQueryVariable("option[bugsnag]") == false;
-	bugsnag = true;
-	//console.log("bugsnag: "+bugsnag);
-	
-	// set up error handler if not on development site
-	
-	/*
-	if (!bugsnag) {
-		var handler_url = "http://transitappliance.com/cgi-bin/js_error.pl";
-		if (transitBoardByLine.is_development) {
-			handler_url = "http://transitappliance.com/cgi-bin/js_error_dev.pl";
-		}
-		
-		//console.log("initialize tracekit");
-			
-		TraceKit.report.subscribe(function (stackInfo) {   
-			var serialized_stack = JSON.stringify(stackInfo);
-			if (serialized_stack.match(/tracekit/)) {
-				// don't track self-referential tracekit errors
-			} else if (stackInfo.message.match(/Timezone/i)) {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							"TZ1: Timezone error, restarting application: "+stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-				
-				setTimeout(function(){
-					// restart app
-					location.reload(true);
-				},2000);
-				
-			} else {
-				jQuery.ajax({
-				    url: handler_url,
-				    type: 'POST',
-				    data: {
-						  	applicationName: 			transitBoardByLine.APP_NAME,
-						  	applicationVersion: 	transitBoardByLine.APP_VERSION,
-						  	applicationId: 				transitBoardByLine.APP_ID,
-						  	applianceId:					transitBoardByLine.appliance_id || "Unassigned",
-				        browserUrl: 					window.location.href,
-				        codeFile:							stackInfo.url,
-				        message:							stackInfo.message,
-				        userAgent: 						navigator.userAgent,
-				        stackInfo: 						serialized_stack
-				    }
-				});
-			}
-		});
-		
-		// throw new Error("Startup Event");
-	}
 
-	
-	if (bugsnag) {
-		var s = document.createElement("script");
-		s.type = "text/javascript";
-		s.src = "//d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js";
-		s.setAttribute("data-apikey", "e2c233a964c42f28c66aedde079503e8");
-		$("head").append(s);
-		console.log("appended bugsnag");
-	}
-
-	*/
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
