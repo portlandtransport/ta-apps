@@ -110,7 +110,6 @@ function trAQI(options) {
 
                         aqi.timestamp = new Date();
                         aqi.aqi = data.data.aqi;
-                        aqi.aqi = 75;
                         aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
 
