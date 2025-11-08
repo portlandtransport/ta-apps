@@ -29,7 +29,12 @@ function trAQI(options) {
     }
     
     this.get_icon = function() {
-        return '<img src="/apps/assets/img/aqi/aqi_white.svg">';
+        if (aqi.get_aqi_text_color() == "#ffffff") {
+            return '<img src="/apps/assets/img/aqi/aqi_white.svg">';
+        } else {
+            return '<img src="/apps/assets/img/aqi/aqi_black.svg">';
+        }
+        
     }
     
     this.get_aqi = function() {
@@ -105,6 +110,7 @@ function trAQI(options) {
 
                         aqi.timestamp = new Date();
                         aqi.aqi = data.data.aqi;
+                        aqi.aqi = 75;
                         aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
 
