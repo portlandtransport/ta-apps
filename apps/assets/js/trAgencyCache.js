@@ -157,6 +157,7 @@ function trAgencyCache() {
 	this.nextUncachedAgency = function(stop_config) {
 		for (var agency in stop_config) {
 			if (this.cache[agency] == undefined) {
+				console.log("uncached agency: "+agency);
 				return agency
 			}
 		}
