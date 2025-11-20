@@ -211,6 +211,16 @@ table.trip_wrapper tbody.agency_Clack.route_4155 td.destination div {
 	color: white;
 }
 
+/* SCTD colors */
+
+table.trip_wrapper tbody.agency_SClack.route_5833 td.route,
+table.trip_wrapper tbody.agency_SClack.route_5833 td.destination,
+table.trip_wrapper tbody.agency_SClack.route_5833 td.destination div {
+	background-color: #1F77B4;
+	border-color: #1F77B4;
+	color: white;
+}
+
 /* colors */
 
 table.trip_wrapper tbody.service_color_blue td.route,

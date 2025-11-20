@@ -126,9 +126,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
 						if (trip_id in stop.stop_data.trips) {
-							if (agency == "SClack") {
-								console.log(trip_id);
-							}
+
 						
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
@@ -210,7 +208,6 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 				//var trips = parser.parse_response(xhr.response);
 				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
-				console.log(trips);
 
 				updater.process_results(trips);
 
