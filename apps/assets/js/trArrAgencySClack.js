@@ -15,7 +15,7 @@
 */
 
 function trArrAgencySClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
-	
+
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
@@ -52,6 +52,7 @@ function trArrAgencySClackMakeServiceRequests(stops,options,stop_cache,service_r
 }
 
 function trArrAgencySClackEntryFilterCallback(entry) {
+	console.log(entry);
 	const route_initials = {
 		"5396": "CX",
 		"4154": "CI",
