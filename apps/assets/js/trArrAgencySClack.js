@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
+function trArrAgencySClackMakeServiceRequests(stops,options,stop_cache,service_requests) {
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
@@ -42,7 +42,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 			}
 		}
 
-		obj.callback = trArrAgencyClackEntryFilterCallback;
+		obj.callback = trArrAgencySClackEntryFilterCallback;
 
 		service_requests.Passio['SClack'].push(obj);
 		
@@ -50,7 +50,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 	
 }
 
-function trArrAgencyClackEntryFilterCallback(entry) {
+function trArrAgencySClackEntryFilterCallback(entry) {
 	const route_initials = {
 		"5396": "CX",
 		"4154": "CI",
