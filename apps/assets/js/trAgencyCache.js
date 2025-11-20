@@ -74,6 +74,20 @@ function trAgencyCache() {
 		"gtfs_url": "https://passio3.com/clackamas/passioTransit/gtfs/google_transit.zip",
 		"gtfs_rt_url": "https://passio3.com/clackamas/passioTransit/gtfs/realtime/tripUpdates",
 	};
+
+	this.cache['SClack'] = {
+        "rights_notice": "",
+        "_id": "SClack",
+        "agency_name": "SCTD",
+        "agency_url": "https://www.sctd.org/",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "SClack",
+        "doc_type": "Document",
+        "avl_service": "SClack",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/realtime/tripUpdates",
+	};
 	
 	this.addToCache = function(agency,data) {
 		this.cache[agency] = data;
@@ -91,8 +105,8 @@ function trAgencyCache() {
 		
 		//this.cache[agency] = false;
 		// get the stop info
-		var service_url = "http://agencies.transitappliance.com/agencies_production/"+agency;
-		var alternate_url = "http://agencies1.transitappliance.com/agency/"+agency;
+		var service_url = "https://agencies.transitappliance.com/agencies_production/"+agency;
+		var alternate_url = "https://agencies1.transitappliance.com/agency/"+agency;
 		if (Math.random() > 0.5) {
 			service_url = alternate_url;
 		}

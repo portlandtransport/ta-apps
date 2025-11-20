@@ -126,6 +126,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
 						if (trip_id in stop.stop_data.trips) {
+
+						
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
 							stop.routes.forEach((route_data) => {
@@ -172,6 +174,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									
 								}
 							});
+							
 						}
 
 					})
