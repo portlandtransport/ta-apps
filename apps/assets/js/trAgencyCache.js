@@ -105,8 +105,8 @@ function trAgencyCache() {
 		
 		//this.cache[agency] = false;
 		// get the stop info
-		var service_url = "http://agencies.transitappliance.com/agencies_production/"+agency;
-		var alternate_url = "http://agencies1.transitappliance.com/agency/"+agency;
+		var service_url = "https://agencies.transitappliance.com/agencies_production/"+agency;
+		var alternate_url = "https://agencies1.transitappliance.com/agency/"+agency;
 		if (Math.random() > 0.5) {
 			service_url = alternate_url;
 		}
