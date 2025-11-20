@@ -122,10 +122,18 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
+
+					var trips_seen = {};
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
 						if (trip_id in stop.stop_data.trips) {
+							// we're de-duping trips here because SCTD seems to send three of each!
+							if (trips_seen[trip_id]) {
+								continue;
+							} else {
+								trips_seen[trip_id] = true;
+							}
 							var route_id = stop.stop_data.trips[trip_id];
 							// now see if route is in service request
 							stop.routes.forEach((route_data) => {
