@@ -54,20 +54,15 @@ function trArrAgencySClackMakeServiceRequests(stops,options,stop_cache,service_r
 function trArrAgencySClackEntryFilterCallback(entry) {
 	console.log(entry);
 	const route_initials = {
-		"5396": "CX",
-		"4154": "CI",
-		"6140": "ES",
-		"4155": "OC"
+		"5833": "MO"
 	}
 
 	const destinations = {
-        /*
-		"5396": {
-			"157727": "to Wacheno Center", // Clairmont Westbound
-			"151733": "to Oregon City", 
-			"155399": "to Harmony Campus", // Clairmont Eastbound
-			"155321": "to Clackamas Town Center"
+        
+		"5833": {
+			"156236": "to Mollaloa"
 		},
+		/*
 		"6140": {
 			"157727": "to Wacheno Center", // Clairmont Westbound
 			"155399": "to Estacada" // Clairmont Eastbound
