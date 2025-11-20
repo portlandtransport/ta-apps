@@ -210,6 +210,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 				//var trips = parser.parse_response(xhr.response);
 				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
+				console.log(trips);
 
 				updater.process_results(trips);
 
