@@ -53,6 +53,7 @@ function trArrAgencySClackMakeServiceRequests(stops,options,stop_cache,service_r
 
 function trArrAgencySClackEntryFilterCallback(entry) {
 	console.log(entry);
+	console.log(entry.trip_id);
 	const route_initials = {
 		"5833": "MO"
 	}
