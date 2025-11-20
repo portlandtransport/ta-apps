@@ -60,7 +60,7 @@ function trArrAgencySClackEntryFilterCallback(entry) {
 	const destinations = {
         
 		"5833": {
-			"156236": "to Mollaloa"
+			"156236": "to Molalla"
 		},
 		/*
 		"6140": {
