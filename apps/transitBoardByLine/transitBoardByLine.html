@@ -12135,16 +12135,16 @@ timezoneJS.timezone = new function() {
       opts[p] = o[p];
     }
     if (typeof def == 'string') {
-      parsed = this.hardcodedTZInfo();
-      //parsed = this.loadZoneFile(def, opts);
+      //parsed = this.hardcodedTZInfo();
+      parsed = this.loadZoneFile(def, opts);
     }
     else {
       if (opts.callback) {
         throw new Error('Async load with callback is not supported for multiple default zonefiles.');
       }
       for (var i = 0; i < def.length; i++) {
-        parsed = this.hardcodedTZInfo();
-        //parsed = this.loadZoneFile(def[i], opts);
+        //parsed = this.hardcodedTZInfo();
+        parsed = this.loadZoneFile(def[i], opts);
       }
     }
   };
@@ -12250,8 +12250,8 @@ timezoneJS.timezone = new function() {
       else {
         if (!this.loadedZones[zoneFile]) {
           // Get the file and parse it -- use synchronous XHR
-          var parsed = this.hardcodedTZInfo();
-         //var parsed = this.loadZoneFile(zoneFile, true);
+          //var parsed = this.hardcodedTZInfo();
+          var parsed = this.loadZoneFile(zoneFile, true);
         }
       }
     }
