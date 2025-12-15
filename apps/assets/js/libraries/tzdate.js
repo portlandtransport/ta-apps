@@ -732,11 +732,12 @@ timezoneJS.timezone = new function() {
     // and comment out the default below
     // ========================
     this.loadedZones[fileName] = true;
-    var result = builtInLoadZoneFile(fileName, opts);
-    console.log("build result:");
-    console.log(result);
-    return result;
-    return builtInLoadZoneFile(fileName, opts);
+    if (fileName == "northamerica"){ 
+      _this.hardcodedTZInfo();
+      return 0;
+    } else {
+      return builtInLoadZoneFile(fileName, opts);
+    }
   };
   this.loadZoneJSONData = function (url, sync) {
     var processData = function (data) {
