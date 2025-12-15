@@ -363,7 +363,6 @@ timezoneJS.timezone = new function() {
         url: url,
         method: 'get',
         handleSuccess: function (str) {
-          console.log(str);
           if (_this.parseZones(str)) {
             if (typeof opts.callback == 'function') {
               opts.callback();
@@ -708,6 +707,7 @@ timezoneJS.timezone = new function() {
     if (typeof def == 'string') {
       //parsed = this.hardcodedTZInfo();
       parsed = this.loadZoneFile(def, opts);
+      console.log(parsed);
     }
     else {
       if (opts.callback) {
@@ -716,6 +716,7 @@ timezoneJS.timezone = new function() {
       for (var i = 0; i < def.length; i++) {
         //parsed = this.hardcodedTZInfo();
         parsed = this.loadZoneFile(def[i], opts);
+        console.log('else?');
       }
     }
   };
