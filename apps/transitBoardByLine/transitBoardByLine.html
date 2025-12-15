@@ -12265,10 +12265,9 @@ timezoneJS.timezone = new function() {
     var abbr = getAbbreviation(zone, rule);
     return { tzOffset: off, tzAbbr: abbr };
   }
-}
 
-this.hardcodedTZInfo = function() {
-  return _this.parseZones("\
+  this.hardcodedTZInfo = function() {
+    return _this.parseZones("\
 Rule	US	1918	1919	-	Mar	lastSun	2:00	1:00	D\
 Rule	US	1918	1919	-	Oct	lastSun	2:00	0	S\
 Rule	US	1942	only	-	Feb	9	2:00	1:00	W # War\
@@ -12300,7 +12299,10 @@ Zone America/Los_Angeles -7:52:58 -	LMT	1883 Nov 18 12:07:02\
 			-8:00	US	P%sT\
     ");
     
+  } 
 }
+
+
 
 </script>		
 		<script>/*!
