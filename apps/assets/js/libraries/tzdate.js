@@ -812,6 +812,10 @@ timezoneJS.timezone = new function() {
     return true;
   };
   this.getTzInfo = function(dt, tz, isUTC) {
+    console.log("getTZInfo");
+    console.log(dt);
+    console.log(tz);
+    console.log(isUTC);
     // Lazy-load any zones not yet loaded
     if (this.loadingScheme == this.loadingSchemes.LAZY_LOAD) {
       // Get the correct region for the zone
@@ -868,10 +872,7 @@ Rule	CA	1962	1966	-	Oct	lastSun	2:00	0	S\
 Zone America/Los_Angeles -7:52:58 -	LMT	1883 Nov 18 12:07:02\
 			-8:00	US	P%sT	1946\
 			-8:00	CA	P%sT	1967\
-			-8:00	US	P%sT\
-    ");
-    console.log(parsed);
-    return parsed;
+			-8:00	US	P%sT");
   } 
 }
 
