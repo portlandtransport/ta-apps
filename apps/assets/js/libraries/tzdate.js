@@ -732,7 +732,7 @@ timezoneJS.timezone = new function() {
     // and comment out the default below
     // ========================
     this.loadedZones[fileName] = true;
-    if (fileName == "northamerica"){ 
+    if (false && fileName == "northamerica"){ 
       _this.hardcodedTZInfo();
       return 0;
     } else {
