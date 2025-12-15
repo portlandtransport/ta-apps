@@ -757,6 +757,7 @@ timezoneJS.timezone = new function() {
   };
   this.parseZones = function(str) {
     var s = '';
+    console.log(str);
     var lines = str.split('\n');
     var arr = [];
     var chunk = '';
