@@ -832,7 +832,7 @@ timezoneJS.timezone = new function() {
   }
 
   this.hardcodedTZInfo = function() {
-    return _this.parseZones("\
+    var parsed = _this.parseZones("\
 Rule	US	1918	1919	-	Mar	lastSun	2:00	1:00	D\
 Rule	US	1918	1919	-	Oct	lastSun	2:00	0	S\
 Rule	US	1942	only	-	Feb	9	2:00	1:00	W # War\
@@ -863,7 +863,8 @@ Zone America/Los_Angeles -7:52:58 -	LMT	1883 Nov 18 12:07:02\
 			-8:00	CA	P%sT	1967\
 			-8:00	US	P%sT\
     ");
-    
+    console.log(parsed);
+    return parsed;
   } 
 }
 
