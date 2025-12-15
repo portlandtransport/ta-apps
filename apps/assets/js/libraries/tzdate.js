@@ -342,6 +342,10 @@ timezoneJS.timezone = new function() {
     
     console.log(fileName);
     console.log(opts);
+
+    _this.hardcodedTZInfo();
+    return true;
+    
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
