@@ -707,7 +707,7 @@ timezoneJS.timezone = new function() {
     if (typeof def == 'string') {
       //parsed = this.hardcodedTZInfo();
       parsed = this.loadZoneFile(def, opts);
-      console.log(parsed);
+      console.log("DEF: "+def);
     }
     else {
       if (opts.callback) {
@@ -812,10 +812,7 @@ timezoneJS.timezone = new function() {
     return true;
   };
   this.getTzInfo = function(dt, tz, isUTC) {
-    console.log("getTZInfo");
-    console.log(dt);
-    console.log(tz);
-    console.log(isUTC);
+
     // Lazy-load any zones not yet loaded
     if (this.loadingScheme == this.loadingSchemes.LAZY_LOAD) {
       // Get the correct region for the zone
