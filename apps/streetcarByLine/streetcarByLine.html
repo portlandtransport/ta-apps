@@ -11757,7 +11757,7 @@ jQuery.each( ajaxEvents.split("|"),
  * Ricky Romero
  * Preston Hunt (prestonhunt@gmail.com),
  * Dov. B Katz (dov.katz@morganstanley.com),
- * Peter Bergström (pbergstr@mac.com)
+ * Peter BergstrÃ¶m (pbergstr@mac.com)
 */
 
 /* Matt Conway 16. Apr 2011
@@ -12073,15 +12073,6 @@ timezoneJS.timezone = new function() {
     throw new Error('Timezone "' + t + '" is either incorrect, or not loaded in the timezone registry.');
   }
   function builtInLoadZoneFile(fileName, opts) {
-
-    
-    console.log(fileName);
-    console.log(opts);
-    /*
-    _this.hardcodedTZInfo();
-    return true;
-    */
-
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
@@ -12440,18 +12431,14 @@ timezoneJS.timezone = new function() {
       opts[p] = o[p];
     }
     if (typeof def == 'string') {
-      //parsed = this.hardcodedTZInfo();
       parsed = this.loadZoneFile(def, opts);
-      console.log(parsed);
     }
     else {
       if (opts.callback) {
         throw new Error('Async load with callback is not supported for multiple default zonefiles.');
       }
       for (var i = 0; i < def.length; i++) {
-        //parsed = this.hardcodedTZInfo();
         parsed = this.loadZoneFile(def[i], opts);
-        console.log('else?');
       }
     }
   };
@@ -12557,7 +12544,6 @@ timezoneJS.timezone = new function() {
       else {
         if (!this.loadedZones[zoneFile]) {
           // Get the file and parse it -- use synchronous XHR
-          //var parsed = this.hardcodedTZInfo();
           var parsed = this.loadZoneFile(zoneFile, true);
         }
       }
@@ -12572,45 +12558,7 @@ timezoneJS.timezone = new function() {
     var abbr = getAbbreviation(zone, rule);
     return { tzOffset: off, tzAbbr: abbr };
   }
-
-  this.hardcodedTZInfo = function() {
-    var parsed = _this.parseZones("\
-Rule	US	1918	1919	-	Mar	lastSun	2:00	1:00	D\
-Rule	US	1918	1919	-	Oct	lastSun	2:00	0	S\
-Rule	US	1942	only	-	Feb	9	2:00	1:00	W # War\
-Rule	US	1945	only	-	Aug	14	23:00u	1:00	P # Peace\
-Rule	US	1945	only	-	Sep	30	2:00	0	S\
-Rule	US	1967	2006	-	Oct	lastSun	2:00	0	S\
-Rule	US	1967	1973	-	Apr	lastSun	2:00	1:00	D\
-Rule	US	1974	only	-	Jan	6	2:00	1:00	D\
-Rule	US	1975	only	-	Feb	23	2:00	1:00	D\
-Rule	US	1976	1986	-	Apr	lastSun	2:00	1:00	D\
-Rule	US	1987	2006	-	Apr	Sun>=1	2:00	1:00	D\
-Rule	US	2007	max	-	Mar	Sun>=8	2:00	1:00	D\
-Rule	US	2007	max	-	Nov	Sun>=1	2:00	0	S\
-Zone	EST		 -5:00	-	EST\
-Zone	MST		 -7:00	-	MST\
-Zone	HST		-10:00	-	HST\
-Zone	EST5EDT		 -5:00	US	E%sT\
-Zone	CST6CDT		 -6:00	US	C%sT\
-Zone	MST7MDT		 -7:00	US	M%sT\
-Zone	PST8PDT		 -8:00	US	P%sT\
-Rule	CA	1948	only	-	Mar	14	2:00	1:00	D\
-Rule	CA	1949	only	-	Jan	 1	2:00	0	S\
-Rule	CA	1950	1966	-	Apr	lastSun	2:00	1:00	D\
-Rule	CA	1950	1961	-	Sep	lastSun	2:00	0	S\
-Rule	CA	1962	1966	-	Oct	lastSun	2:00	0	S\
-Zone America/Los_Angeles -7:52:58 -	LMT	1883 Nov 18 12:07:02\
-			-8:00	US	P%sT	1946\
-			-8:00	CA	P%sT	1967\
-			-8:00	US	P%sT\
-    ");
-    console.log(parsed);
-    return parsed;
-  } 
 }
-
-
 
 </script>
 		<script>/**
