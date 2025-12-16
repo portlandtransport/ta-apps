@@ -342,7 +342,6 @@ timezoneJS.timezone = new function() {
     var tz_object_id = "tz_"+fileName;
     var tz_object_element = document.getElementById(tz_object_id);
     if (tz_object_element !== null) {
-      console.log("got text content!");
       return _this.parseZones(tz_object_element.textContent);
     }
     if (typeof fleegix.xhr == 'undefined') {
