@@ -339,7 +339,7 @@ timezoneJS.timezone = new function() {
   }
   function builtInLoadZoneFile(fileName, opts) {
     // see if we have an object
-    var tz_object_id = "tz_"_fileName;
+    var tz_object_id = "tz_"+fileName;
     var tz_object_element = document.getElementById(tz_object_id);
     if (tz_object_element !== null) {
       console.log("got text content!");
