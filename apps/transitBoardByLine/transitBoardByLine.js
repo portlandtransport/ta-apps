@@ -466,7 +466,7 @@ transitBoardByLine.initializePage = function(data) {
 <table id="tb_bottom"><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></table>\
 	';	
 
-	jQuery('body').html(html);
+	jQuery('body').append(html);
 		
 	transitBoardByLine.testPhase2(data,0);
 	
