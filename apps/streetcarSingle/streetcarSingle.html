@@ -96,7 +96,7 @@ newrelic.addPageAction("ST1: Application Start");
  * Ricky Romero
  * Preston Hunt (prestonhunt@gmail.com),
  * Dov. B Katz (dov.katz@morganstanley.com),
- * Peter Bergström (pbergstr@mac.com)
+ * Peter BergstrÃ¶m (pbergstr@mac.com)
 */
 
 /* Matt Conway 16. Apr 2011
@@ -412,6 +412,12 @@ timezoneJS.timezone = new function() {
     throw new Error('Timezone "' + t + '" is either incorrect, or not loaded in the timezone registry.');
   }
   function builtInLoadZoneFile(fileName, opts) {
+    // see if we have an object
+    var tz_object_id = "tz_"+fileName;
+    var tz_object_element = document.getElementById(tz_object_id);
+    if (tz_object_element !== null) {
+      return _this.parseZones(tz_object_element.textContent);
+    }
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
@@ -898,7 +904,6 @@ timezoneJS.timezone = new function() {
     return { tzOffset: off, tzAbbr: abbr };
   }
 }
-
 
 </script>
     <script type="text/javascript">/*!
