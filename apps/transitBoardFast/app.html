@@ -17744,67 +17744,6 @@ transitBoardByLine.initializePage = function(data) {
 	}
 	transitBoardByLine.standing_messages.push("<span>HH:MM = scheduled arrival, real-time estimate unavailable.</span>");
 		
-	// populate html
-	
-	var html = '\
-<div id="tb_top">\
-	';
-	if ((logo != "") || (transitBoardByLine.banner != "")) {
-		html += '\
-<table cellpadding="10"><tr valign="middle">\
-		';
-		if (logo != "") {
-			html += '<td id="logo" align="center">'+logo+'</td>';
-		}
-		if (transitBoardByLine.banner.substr(0,1) == "*") {
-			html+= '<td id="banner" width="100%" align="center"><h1>'+transitBoardByLine.banner.substr(1)+'</h1></td>';
-		} else if (transitBoardByLine.banner != "") {
-			html+= '<td id="banner" width="100%" align="center"><h1>Transit Board&trade; for '+transitBoardByLine.banner+'</h1></td>';
-		}
-		html += '\
-</tr></table>\
-		';
-	}
-
-	var timefill = '<span>10:08AMa<br><span class="second_arrival">2 min</span><span>';
-	if (transitBoardByLine.max_arrivals_size) {
-		timefill = '<span class="big_arrivals"><nobr>10:08AMa <span class="second_arrival">10:08AMa</span></nobr></span>';
-	}
-	html += '\
-</div>\
-<div id="tb_middle">\
-	<div id="arrivals_outer_wrapper">\
-		<div id="wrapper1">\
-		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">\
-			<tbody class="trip service_color_yellow">\
-				<tr valign="middle">\
-					<td class="route"><span>MAXi</span></td>\
-					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">'+timefill+'\
-					</td>\
-				</tr>\
-			</tbody>\
-		</table>\
-		</div>\
-		<div id="wrapper2">\
-		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">\
-			<tbody class="trip service_color_yellow">\
-				<tr valign="middle">\
-					<td class="route"><span>MAXi</span></td>\
-					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">'+timefill+'\
-					</td>\
-				</tr>\
-			</tbody>\
-		</table>\
-		</div>\
-	</div>\
-</div>\
-<table id="tb_bottom"><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></table>\
-	';	
-
-	jQuery('body').append(html);
-		
 	transitBoardByLine.testPhase2(data,0);
 	
 }
@@ -17824,14 +17763,14 @@ transitBoardByLine.testPhase2 = function(data,count) {
 		} else {
 			setTimeout(function() {
 				transitBoardByLine.testPhase2(data,count+1)
-			},1000);
+			},100);
 		}
 	}
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
-	//console.log("in phase 2");
+	console.log("in phase 2");
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
@@ -19658,7 +19597,37 @@ Zone America/St_Thomas	-4:19:44 -	LMT	1911 Jul    # Charlotte Amalie
 	
 	
 	
-
+		<div id="tb_top">
+		</div>
+		<div id="tb_middle">
+			<div id="arrivals_outer_wrapper">
+				<div id="wrapper1">
+				<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">
+					<tbody class="trip service_color_yellow">
+						<tr valign="middle">
+							<td class="route"><span>MAXi</span></td>
+							<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>
+							<td class="arrivals"><span class="big_arrivals"><nobr>10:08AMa <span class="second_arrival">10:08AMa</span></nobr></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div id="wrapper2">
+				<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">
+					<tbody class="trip service_color_yellow">
+						<tr valign="middle">
+							<td class="route"><span>MAXi</span></td>
+							<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>
+							<td class="arrivals"><span class="big_arrivals"><nobr>10:08AMa <span class="second_arrival">10:08AMa</span></nobr></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+		<table id="tb_bottom"><tbody><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></tbody></table>
 	
 
 
