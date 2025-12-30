@@ -418,7 +418,7 @@ transitBoardByLine.testPhase2 = function(data,count) {
 		//console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
-		if (count > 10) {
+		if (count > 100) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL6: timeout waiting for HTML, relaunching application");
 			}
@@ -490,10 +490,14 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	var cell_width = jQuery("#tb_ticker").width();
 	jQuery(".scroller").css("height",data.sizes.scroller_height);
 	
+	/*
 	setTimeout(function(){
 		// allow html to settle before calculating heights
 		transitBoardByLine.testPhase3(data);
 	},2000);
+	*/
+
+	transitBoardByLine.testPhase3(data);
 }
 
 transitBoardByLine.testPhase3 = function(data,count) {
@@ -503,7 +507,7 @@ transitBoardByLine.testPhase3 = function(data,count) {
 		//console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase3(data);
 	} else {
-		if (count > 10) {
+		if (count > 100) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL7: timeout waiting for HTML, relaunching application");
 			}
@@ -511,14 +515,16 @@ transitBoardByLine.testPhase3 = function(data,count) {
 		} else {
 			setTimeout(function() {
 				transitBoardByLine.testPhase3(data,count+1)
-			},1000);
+			},100);
 		}
 	}
 }
 
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
-	//console.log("in phase 3 separate function");
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("in phase 3: "+elapsed);
+	
 	var trip_height = jQuery('#trip2').outerHeight(true);
 	transitBoardByLine.trip_height = trip_height;
 	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
