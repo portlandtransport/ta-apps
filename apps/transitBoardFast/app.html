@@ -3,6 +3,7 @@
 
         <script type="text/javascript">
 			const trApplicationName = 'TransitBoardFast';
+			const startTime = performance.now();
 		</script>
 
 		<style>body { 
@@ -17770,7 +17771,8 @@ transitBoardByLine.testPhase2 = function(data,count) {
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
-	console.log("in phase 2");
+	var elapsed = performance.now() - this.start_time;
+	console.log("in phase 2: "+elapsed);
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
