@@ -17771,7 +17771,7 @@ transitBoardByLine.testPhase2 = function(data,count) {
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
-	var elapsed = performance.now() - this.start_time;
+	var elapsed = (performance.now() - startTime)/1000;
 	console.log("in phase 2: "+elapsed);
 
 	var trip_scale_factor = 1;
