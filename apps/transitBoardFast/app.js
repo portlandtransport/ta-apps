@@ -524,7 +524,7 @@ transitBoardByLine.testPhase3 = function(data,count) {
 transitBoardByLine.initializePagePhase3 = function(data) {	
 	var elapsed = (performance.now() - startTime)/1000;
 	console.log("in phase 3: "+elapsed);
-	
+
 	var trip_height = jQuery('#trip2').outerHeight(true);
 	transitBoardByLine.trip_height = trip_height;
 	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
@@ -1282,6 +1282,9 @@ head.ready(function() {
 		}
 		location.reload();
 	}
+
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("launching trArr: "+elapsed);
 	
 	trArr({
 		applicationName: 			transitBoardByLine.APP_NAME,
