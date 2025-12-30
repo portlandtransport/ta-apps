@@ -664,6 +664,9 @@ transitBoardByLine.animate_display = function() {
 }
 
 transitBoardByLine.displayPage = function(data, callback) {
+
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("displayPage: "+elapsed);
 	
 	var running_time = new Date() - transitBoardByLine.start_time;
 	var running_minutes = Math.floor(running_time/(60*1000));
