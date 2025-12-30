@@ -189,6 +189,23 @@
                 "problemMatcher": []
             },
             {
+                "label": "Build Fast",
+                "type": "shell",
+                "command": "npx",
+                "args": [
+                    "html-inline-external", // Replace with the actual npx package you want to run
+                    "--src",              // Optional arguments for the npx command
+                    "apps\\TransitBoardFast\\app.template.html",
+                    "--dest",
+                    "apps\\TransitBoardFast\\app.html"
+                ],
+                "presentation": {
+                    "reveal": "always",
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            },
+            {
                 "label": "Build All",
                 "dependsOrder": "sequence",
                 "dependsOn": ["Build TransitBoardByLine","Build TransitBoardHorizontal","Build Image Fit","Build Message","Build TransitBoardVertical","Build Streetcar Stop","Build Streetcar Single","Build CLSB Park","Build CLSB Building","Build Streetcar By Line","Build Redirect"],
