@@ -12073,6 +12073,12 @@ timezoneJS.timezone = new function() {
     throw new Error('Timezone "' + t + '" is either incorrect, or not loaded in the timezone registry.');
   }
   function builtInLoadZoneFile(fileName, opts) {
+    // see if we have an object
+    var tz_object_id = "tz_"+fileName;
+    var tz_object_element = document.getElementById(tz_object_id);
+    if (tz_object_element !== null) {
+      return _this.parseZones(tz_object_element.textContent);
+    }
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
@@ -13849,6 +13855,13 @@ function trArr(input_params) {
 									refresh_interval == 10*1000;
 								}
 							}
+
+							var launch_delay = undefined;
+							if (arrivals_object.options.launch_delay != undefined) {
+								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+							} else {
+								launch_delay = 10*1000;
+							}
 							
 							if (arrivals_object.input_params.initializeCallback != undefined) {
 								arrivals_object.input_params.initializeCallback({
@@ -13899,7 +13912,7 @@ function trArr(input_params) {
 									});
 								}, refresh_interval);
 								
-							},10*1000);
+							},launch_delay);
 							
 						},0.5*1000);
 					});
