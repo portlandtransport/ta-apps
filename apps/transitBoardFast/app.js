@@ -1289,7 +1289,7 @@ head.ready(function() {
 	var elapsed = (performance.now() - startTime)/1000;
 	console.log("launching trArr: "+elapsed);
 	
-	trArr({
+	window.trArr = trArr({
 		applicationName: 			transitBoardByLine.APP_NAME,
 		applicationVersion: 	transitBoardByLine.APP_VERSION,
 		applicationId: 				transitBoardByLine.APP_ID,
