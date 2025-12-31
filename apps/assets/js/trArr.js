@@ -639,8 +639,8 @@ function trArr(input_params) {
 							}
 
 							var launch_delay = undefined;
-							if (arrivals_object.input_params.launchDely != undefined) {
-								launch_delay = arrivals_object.input_params.launchDelay;
+							if (this.input_params.launchDelay != undefined) {
+								launch_delay = this.input_params.launchDelay;
 							} else {
 								launch_delay = 10*1000;
 							}
