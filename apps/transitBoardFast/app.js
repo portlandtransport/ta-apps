@@ -1296,7 +1296,7 @@ head.ready(function() {
 		assetsDir:						"../assets",
 		configString: 				window.location.search, // use the query string
 		displayInterval: 			40*1000, //milliseconds
-		launch_delay:			3, // seconds
+		launchDelay:			3*1000, // milliseconds
 		initializeCallback: 	transitBoardByLine.initializePage,
 		displayCallback: 			transitBoardByLine.displayPage
 	});
