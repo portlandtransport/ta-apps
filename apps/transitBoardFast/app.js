@@ -539,45 +539,6 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
-
-	// early parsing of query string
-	
-	function getQueryVariable(variable) {
-		var query = window.location.search.substring(1);
-		var vars = query.split('&');
-		for (var i = 0; i < vars.length; i++) {
-			var pair = vars[i].split('=');
-			if (decodeURIComponent(pair[0]) == variable) {
-				return decodeURIComponent(pair[1]);
-			}
-		}
-		return "";
-	}
-	
-
-
-	if (typeof trArr != "function") {
-		//console.log(typeof trArr);
-		if (typeof newrelic === "object") {
-			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
-		}
-		location.reload();
-	}
-
-	var elapsed = (performance.now() - startTime)/1000;
-	console.log("launching trArr: "+elapsed);
-	
-	window.trArr = trArr({
-		applicationName: 			transitBoardByLine.APP_NAME,
-		applicationVersion: 	transitBoardByLine.APP_VERSION,
-		applicationId: 				transitBoardByLine.APP_ID,
-		assetsDir:						"../assets",
-		configString: 				window.location.search, // use the query string
-		displayInterval: 			40*1000, //milliseconds
-		launchDelay:			0*1000, // milliseconds
-		initializeCallback: 	transitBoardByLine.initializePage,
-		displayCallback: 			transitBoardByLine.displayPage
-	});
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -1301,6 +1262,43 @@ function filter_queue(arrivalsQueue) {
 
 head.ready(function() {
 	
+	// early parsing of query string
+	
+	function getQueryVariable(variable) {
+		var query = window.location.search.substring(1);
+		var vars = query.split('&');
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split('=');
+			if (decodeURIComponent(pair[0]) == variable) {
+				return decodeURIComponent(pair[1]);
+			}
+		}
+		return "";
+	}
+	
 
+
+	if (typeof trArr != "function") {
+		//console.log(typeof trArr);
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
+		}
+		location.reload();
+	}
+
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("launching trArr: "+elapsed);
+	
+	window.trArr = trArr({
+		applicationName: 			transitBoardByLine.APP_NAME,
+		applicationVersion: 	transitBoardByLine.APP_VERSION,
+		applicationId: 				transitBoardByLine.APP_ID,
+		assetsDir:						"../assets",
+		configString: 				window.location.search, // use the query string
+		displayInterval: 			40*1000, //milliseconds
+		launchDelay:			3*1000, // milliseconds
+		initializeCallback: 	transitBoardByLine.initializePage,
+		displayCallback: 			transitBoardByLine.displayPage
+	});
 });
 				
