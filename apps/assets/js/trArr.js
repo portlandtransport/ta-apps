@@ -638,14 +638,10 @@ function trArr(input_params) {
 								}
 							}
 
-							var launch_delay = undefined;
+							// allow 10 seconds for initialization unless another interval specified in URL
+							var launch_delay = 10*1000;
 							if (arrivals_object.options.launch_delay != undefined) {
 								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
-							} else {
-								launch_delay= arrivals_object.input_params.launchDelay;
-								if (launch_delay == undefined) {
-									launch_delay == 10*1000;
-								}
 							}
 							
 							if (arrivals_object.input_params.initializeCallback != undefined) {
@@ -662,7 +658,7 @@ function trArr(input_params) {
 								});
 							}
 							
-							// allow 10 seconds for initialization
+							
 							
 							setTimeout(function() {
 	
