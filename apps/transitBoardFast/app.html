@@ -2,7 +2,8 @@
 		<title>Transit Board(tm)</title>
 
         <script type="text/javascript">
-			const trApplicationName = 'TransitBoard By Line';
+			const trApplicationName = 'TransitBoardFast';
+			const startTime = performance.now();
 		</script>
 
 		<style>body { 
@@ -17365,9 +17366,9 @@ var transitBoardByLine = {}; // keep state
 
 // constants
 
-transitBoardByLine.APP_NAME 		= "Transit Board by Line";
-transitBoardByLine.APP_VERSION 	= "2.22";
-transitBoardByLine.APP_ID 			= "tbdbyline";
+transitBoardByLine.APP_NAME 		= "Transit Board Fast";
+transitBoardByLine.APP_VERSION 	= "1.0.0";
+transitBoardByLine.APP_ID 			= "tbdfast";
 
 // v2.17 - upgrade jQuery to 1.11.0
 // v2.18 - add classes to enable PCC styling
@@ -17754,67 +17755,6 @@ transitBoardByLine.initializePage = function(data) {
 	}
 	transitBoardByLine.standing_messages.push("<span>HH:MM = scheduled arrival, real-time estimate unavailable.</span>");
 		
-	// populate html
-	
-	var html = '\
-<div id="tb_top">\
-	';
-	if ((logo != "") || (transitBoardByLine.banner != "")) {
-		html += '\
-<table cellpadding="10"><tr valign="middle">\
-		';
-		if (logo != "") {
-			html += '<td id="logo" align="center">'+logo+'</td>';
-		}
-		if (transitBoardByLine.banner.substr(0,1) == "*") {
-			html+= '<td id="banner" width="100%" align="center"><h1>'+transitBoardByLine.banner.substr(1)+'</h1></td>';
-		} else if (transitBoardByLine.banner != "") {
-			html+= '<td id="banner" width="100%" align="center"><h1>Transit Board&trade; for '+transitBoardByLine.banner+'</h1></td>';
-		}
-		html += '\
-</tr></table>\
-		';
-	}
-
-	var timefill = '<span>10:08AMa<br><span class="second_arrival">2 min</span><span>';
-	if (transitBoardByLine.max_arrivals_size) {
-		timefill = '<span class="big_arrivals"><nobr>10:08AMa <span class="second_arrival">10:08AMa</span></nobr></span>';
-	}
-	html += '\
-</div>\
-<div id="tb_middle">\
-	<div id="arrivals_outer_wrapper">\
-		<div id="wrapper1">\
-		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">\
-			<tbody class="trip service_color_yellow">\
-				<tr valign="middle">\
-					<td class="route"><span>MAXi</span></td>\
-					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">'+timefill+'\
-					</td>\
-				</tr>\
-			</tbody>\
-		</table>\
-		</div>\
-		<div id="wrapper2">\
-		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">\
-			<tbody class="trip service_color_yellow">\
-				<tr valign="middle">\
-					<td class="route"><span>MAXi</span></td>\
-					<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>\
-					<td class="arrivals">'+timefill+'\
-					</td>\
-				</tr>\
-			</tbody>\
-		</table>\
-		</div>\
-	</div>\
-</div>\
-<table id="tb_bottom"><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></table>\
-	';	
-
-	jQuery('body').append(html);
-		
 	transitBoardByLine.testPhase2(data,0);
 	
 }
@@ -17826,7 +17766,7 @@ transitBoardByLine.testPhase2 = function(data,count) {
 		//console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase2(data);
 	} else {
-		if (count > 10) {
+		if (count > 100) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL6: timeout waiting for HTML, relaunching application");
 			}
@@ -17834,14 +17774,15 @@ transitBoardByLine.testPhase2 = function(data,count) {
 		} else {
 			setTimeout(function() {
 				transitBoardByLine.testPhase2(data,count+1)
-			},1000);
+			},100);
 		}
 	}
 }
 
 transitBoardByLine.initializePagePhase2 = function(data) {	
 
-	//console.log("in phase 2");
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("in phase 2: "+elapsed);
 
 	var trip_scale_factor = 1;
 	if (data.optionsConfig['trip-size-adjust'] != undefined && data.optionsConfig['trip-size-adjust'][0] != undefined) {
@@ -17897,10 +17838,14 @@ transitBoardByLine.initializePagePhase2 = function(data) {
 	var cell_width = jQuery("#tb_ticker").width();
 	jQuery(".scroller").css("height",data.sizes.scroller_height);
 	
+	/*
 	setTimeout(function(){
 		// allow html to settle before calculating heights
 		transitBoardByLine.testPhase3(data);
 	},2000);
+	*/
+
+	transitBoardByLine.testPhase3(data);
 }
 
 transitBoardByLine.testPhase3 = function(data,count) {
@@ -17910,7 +17855,7 @@ transitBoardByLine.testPhase3 = function(data,count) {
 		//console.log(document.getElementById("tb_bottom").tagName);
 		transitBoardByLine.initializePagePhase3(data);
 	} else {
-		if (count > 10) {
+		if (count > 100) {
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("TBL7: timeout waiting for HTML, relaunching application");
 			}
@@ -17918,14 +17863,16 @@ transitBoardByLine.testPhase3 = function(data,count) {
 		} else {
 			setTimeout(function() {
 				transitBoardByLine.testPhase3(data,count+1)
-			},1000);
+			},100);
 		}
 	}
 }
 
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
-	//console.log("in phase 3 separate function");
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("in phase 3: "+elapsed);
+
 	var trip_height = jQuery('#trip2').outerHeight(true);
 	transitBoardByLine.trip_height = trip_height;
 	transitBoardByLine.max_available_height = jQuery("#tb_bottom").offset().top - jQuery("#tb_middle").offset().top - 20;
@@ -18065,6 +18012,9 @@ transitBoardByLine.animate_display = function() {
 }
 
 transitBoardByLine.displayPage = function(data, callback) {
+
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("displayPage: "+elapsed);
 	
 	var running_time = new Date() - transitBoardByLine.start_time;
 	var running_minutes = Math.floor(running_time/(60*1000));
@@ -18683,14 +18633,18 @@ head.ready(function() {
 		}
 		location.reload();
 	}
+
+	var elapsed = (performance.now() - startTime)/1000;
+	console.log("launching trArr: "+elapsed);
 	
-	trArr({
+	window.trArr = trArr({
 		applicationName: 			transitBoardByLine.APP_NAME,
 		applicationVersion: 	transitBoardByLine.APP_VERSION,
 		applicationId: 				transitBoardByLine.APP_ID,
 		assetsDir:						"../assets",
 		configString: 				window.location.search, // use the query string
 		displayInterval: 			40*1000, //milliseconds
+		launchDelay:			3*1000, // milliseconds
 		initializeCallback: 	transitBoardByLine.initializePage,
 		displayCallback: 			transitBoardByLine.displayPage
 	});
@@ -19668,7 +19622,35 @@ Zone America/St_Thomas	-4:19:44 -	LMT	1911 Jul    # Charlotte Amalie
 	
 	
 	
-
+		<div id="tb_top">
+		</div>
+		<div id="tb_middle">
+			<div id="arrivals_outer_wrapper">
+				<div id="wrapper1">
+				<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">
+					<tbody class="trip service_color_yellow">
+						<tr valign="middle">
+							<td class="route"><span>MAXi</span></td>
+							<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>
+							<td class="arrivals"><span>10:08AMa<br><span class="second_arrival">2 min</span><span></span></span></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div id="wrapper2">
+				<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">
+					<tbody class="trip service_color_yellow">
+						<tr valign="middle">
+							<td class="route"><span>MAXi</span></td>
+							<td class="destination"><div>Division to <span class="terminus">Gresham TC</span> from SW Madison &amp; 4th and tack on some very long text that is bound to overflow if we keep adding more and more and more and more of it</div></td>
+							<td class="arrivals"><span>10:08AMa<br><span class="second_arrival">2 min</span><span></span></span></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+		<table id="tb_bottom"><tbody><tr><td id="tb_clock">0:00AM</td><td id="tb_ticker"><div class="scroller"><div class="scrollingtext"></div></div></td></tr></tbody></table>
 	
 
 

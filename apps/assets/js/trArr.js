@@ -637,6 +637,16 @@ function trArr(input_params) {
 									refresh_interval == 10*1000;
 								}
 							}
+
+							var launch_delay = undefined;
+							if (arrivals_object.options.launch_delay != undefined) {
+								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+							} else {
+								launch_delay= arrivals_object.input_params.launchDelay;
+								if (launch_delay == undefined) {
+									launch_delay == 10*1000;
+								}
+							}
 							
 							if (arrivals_object.input_params.initializeCallback != undefined) {
 								arrivals_object.input_params.initializeCallback({
@@ -687,7 +697,7 @@ function trArr(input_params) {
 									});
 								}, refresh_interval);
 								
-							},10*1000);
+							},launch_delay);
 							
 						},0.5*1000);
 					});
