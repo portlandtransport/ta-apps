@@ -644,8 +644,10 @@ function trArr(input_params) {
 								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
 							}
 
+							/*
 							console.log("Refresh Interval: "+refresh_interval);
 							console.log("Launch Delay: "+launch_delay);
+							*/
 							
 							if (arrivals_object.input_params.initializeCallback != undefined) {
 								arrivals_object.input_params.initializeCallback({
