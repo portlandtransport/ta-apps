@@ -14851,8 +14851,8 @@ function trArr(input_params) {
 
 							// allow 10 seconds for initialization unless another interval specified in URL
 							var launch_delay = 10*1000;
-							if (arrivals_object.options.launch_delay != undefined) {
-								//launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+							if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
+								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
 							}
 							
 							if (arrivals_object.input_params.initializeCallback != undefined) {
