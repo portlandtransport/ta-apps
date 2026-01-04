@@ -18313,6 +18313,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 				} else if (trip_id.match(/gbfs/)) {
 					// make sure all GBFS elements are same font size
 					jQuery(".gbfs td.destination div").css('font-size',size+"px");
+				} else if (trip_id.match(/weather/)) {
+					// make sure all weather elements are same font size
+					jQuery(".weather td.destination div").css('font-size',size+"px");
 				} else {
 					trip.css('font-size',size+"px");
 				}
