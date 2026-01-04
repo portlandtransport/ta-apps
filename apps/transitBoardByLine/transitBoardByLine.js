@@ -1165,16 +1165,17 @@ transitBoardByLine.displayPage = function(data, callback) {
 	
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
+			console.log(transitBoardByLine.forecast);
+			var summary = transitBoardByLine.forecast.get_summary_forecast();
+			if (transitBoardByLine.forecast.windchill != null) {
+				summary += "[Wind Chill "+transitBoardByLine.forecast.windchill+"]";
+			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";
 				if (transitBoardByLine.weather == "top") {
 					sortkey = "00000";
 				}
-				console.log(transitBoardByLine.forecast);
-				var summary = transitBoardByLine.forecast.get_summary_forecast();
-				if (transitBoardByLine.forecast.windchill != null) {
-					summary += "[Wind Chill "+transitBoardByLine.forecast.windchill+"]";
-				}
+
 				// create entries
 				var weather = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="weather">\
@@ -1195,7 +1196,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				// update the entries
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
-					jQuery('.weather td.destination div span').html(transitBoardByLine.forecast.get_summary_forecast());
+					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
 				});
 			}
