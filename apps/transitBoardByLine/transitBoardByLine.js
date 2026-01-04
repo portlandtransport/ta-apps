@@ -1171,13 +1171,17 @@ transitBoardByLine.displayPage = function(data, callback) {
 					sortkey = "00000";
 				}
 				console.log(transitBoardByLine.forecast);
+				var summary = transitBoardByLine.forecast.get_summary_forecast();
+				if (transitBoardByLine.forecast.windchill != null) {
+					summary += "[Wind Chill "+transitBoardByLine.forecast.windchill+"]";
+				}
 				// create entries
 				var weather = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="weather">\
 							<tbody class="trip service_color_weather">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.forecast.get_icon()+'</td>\
-									<td class="destination"><div><span class="terminus">'+transitBoardByLine.forecast.get_summary_forecast()+'</span></div></td>\
+									<td class="destination"><div><span class="terminus">'+summary+'</span></div></td>\
 									<td class="arrivals">'+transitBoardByLine.forecast.get_temperature()+'</td>\
 								</tr>\
 							</tbody>\
