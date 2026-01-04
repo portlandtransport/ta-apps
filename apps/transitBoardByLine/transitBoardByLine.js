@@ -1170,6 +1170,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				if (transitBoardByLine.weather == "top") {
 					sortkey = "00000";
 				}
+				console.log(transitBoardByLine.forecast);
 				// create entries
 				var weather = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="weather">\
