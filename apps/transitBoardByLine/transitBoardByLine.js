@@ -1201,7 +1201,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
-					jQuery('.weather tbody').removeClass(['service_color_weather','service_weather_color_chill','service_weather_color_heat']).addClass(weather_class);
+					jQuery('.weather tbody').removeClass(['service_color_weather','service_color_weather_chill','service_color_weather_heat']).addClass(weather_class);
 				});
 			}
 		} else {

@@ -448,6 +448,14 @@ div.trip.service_color_weather_chill div.destination_wrapper {
 	border-color: #739BD0;
 }
 
+table.trip_wrapper tbody.service_color_weather_heat td.route,
+table.trip_wrapper tbody.service_color_weather_heat td.destination,
+table.trip_wrapper tbody.service_color_weather_heat td.destination div,
+div.trip.service_color_weather_heat div.route_wrapper, 
+div.trip.service_color_weather_heat div.destination_wrapper {
+	border-color: red;
+}
+
 table.trip_wrapper tbody.service_color_weather td.arrivals {
 	color: black;
 	background-color: white;
@@ -456,6 +464,11 @@ table.trip_wrapper tbody.service_color_weather td.arrivals {
 
 .windchill {
 	color: #739BD0;
+	text-decoration: underline;
+}
+
+.heatindex {
+	color: red;
 	text-decoration: underline;
 }
 
@@ -18570,7 +18583,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
-					jQuery('.weather tbody').removeClass(['service_color_weather','service_weather_color_chill','service_weather_color_heat']).addClass(weather_class);
+					jQuery('.weather tbody').removeClass(['service_color_weather','service_color_weather_chill','service_color_weather_heat']).addClass(weather_class);
 				});
 			}
 		} else {

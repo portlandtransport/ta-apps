@@ -441,6 +441,14 @@ div.trip.service_color_weather_chill div.destination_wrapper {
 	border-color: #739BD0;
 }
 
+table.trip_wrapper tbody.service_color_weather_heat td.route,
+table.trip_wrapper tbody.service_color_weather_heat td.destination,
+table.trip_wrapper tbody.service_color_weather_heat td.destination div,
+div.trip.service_color_weather_heat div.route_wrapper, 
+div.trip.service_color_weather_heat div.destination_wrapper {
+	border-color: red;
+}
+
 table.trip_wrapper tbody.service_color_weather td.arrivals {
 	color: black;
 	background-color: white;
@@ -449,6 +457,11 @@ table.trip_wrapper tbody.service_color_weather td.arrivals {
 
 .windchill {
 	color: #739BD0;
+	text-decoration: underline;
+}
+
+.heatindex {
+	color: red;
 	text-decoration: underline;
 }
 
