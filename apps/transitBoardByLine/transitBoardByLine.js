@@ -1168,8 +1168,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
 			console.log(transitBoardByLine.forecast);
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
+			var weather_class = "service_color_weather";
 			if (transitBoardByLine.forecast.windchill != null) {
 				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
+				weather_class = "service_color_weather_chill";
 			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";
@@ -1180,7 +1182,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				// create entries
 				var weather = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="weather">\
-							<tbody class="trip service_color_weather">\
+							<tbody class="'+weather_class+'">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.forecast.get_icon()+'</td>\
 									<td class="destination"><div><span class="terminus">'+summary+'</span></div></td>\
@@ -1199,6 +1201,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
+					jQuery('.weather tbody').removeClass(['service_color_weather','service_weather_color_chill','service_weather_color_heat']).addClass(weather_class);
 				});
 			}
 		} else {
