@@ -446,6 +446,10 @@ table.trip_wrapper tbody.service_color_weather td.arrivals {
   border-color: gold;
 }
 
+.windchill {
+	color: #739BD0;
+}
+
 table.trip_wrapper tbody.service_color_spacer td.route,
 table.trip_wrapper tbody.service_color_spacer td.destination,
 table.trip_wrapper tbody.service_color_spacer td.destination div,
@@ -18525,7 +18529,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			console.log(transitBoardByLine.forecast);
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
 			if (transitBoardByLine.forecast.windchill != null) {
-				summary += "[Wind Chill "+transitBoardByLine.forecast.windchill+"]";
+				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
 			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";

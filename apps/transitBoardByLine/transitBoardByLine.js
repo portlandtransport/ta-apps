@@ -1169,7 +1169,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			console.log(transitBoardByLine.forecast);
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
 			if (transitBoardByLine.forecast.windchill != null) {
-				summary += "[Wind Chill "+transitBoardByLine.forecast.windchill+"]";
+				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
 			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";

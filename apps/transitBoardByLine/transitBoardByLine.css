@@ -439,6 +439,10 @@ table.trip_wrapper tbody.service_color_weather td.arrivals {
   border-color: gold;
 }
 
+.windchill {
+	color: #739BD0;
+}
+
 table.trip_wrapper tbody.service_color_spacer td.route,
 table.trip_wrapper tbody.service_color_spacer td.destination,
 table.trip_wrapper tbody.service_color_spacer td.destination div,
