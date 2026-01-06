@@ -455,6 +455,18 @@ table.trip_wrapper tbody.service_color_weather td.arrivals {
   border-color: gold;
 }
 
+table.trip_wrapper tbody.service_color_weather_chill td.arrivals {
+	color: black;
+	background-color: white;
+  border-color: #739BD0;
+}
+
+table.trip_wrapper tbody.service_color_weather_heat td.arrivals {
+	color: black;
+	background-color: white;
+  border-color: red;
+}
+
 .windchill {
 	color: #739BD0;
 	text-decoration: underline;

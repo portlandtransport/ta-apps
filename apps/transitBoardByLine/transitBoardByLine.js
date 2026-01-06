@@ -1166,7 +1166,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 	
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
-			console.log(transitBoardByLine.forecast);
+			if (transitBoardByLine.is_development) {
+				console.log(transitBoardByLine.forecast);
+			}
+			
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
 			var weather_class = "service_color_weather";
 			if (transitBoardByLine.forecast.windchill != null) {
@@ -1210,7 +1213,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/weather/) ) {
 					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+					removal_queue.push('weather');
+					process_removals();
 				}
 			});
 		}
