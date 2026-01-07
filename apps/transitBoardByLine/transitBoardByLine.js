@@ -988,6 +988,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	function process_removals() {
 		if (removal_queue.length > 0) {
 			var id = removal_queue.shift();
+			console.log("try to remove "+id);
 			transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
 			process_removals();
 		} else {
@@ -1167,7 +1168,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
 			if (transitBoardByLine.is_development) {
-				console.log(transitBoardByLine.forecast);
+				//console.log(transitBoardByLine.forecast);
 			}
 			
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
