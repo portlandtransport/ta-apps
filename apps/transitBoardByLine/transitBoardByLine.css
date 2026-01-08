@@ -433,10 +433,48 @@ div.trip.service_color_weather div.destination_wrapper {
 	border-color: gold;
 }
 
+table.trip_wrapper tbody.service_color_weather_chill td.route,
+table.trip_wrapper tbody.service_color_weather_chill td.destination,
+table.trip_wrapper tbody.service_color_weather_chill td.destination div,
+div.trip.service_color_weather_chill div.route_wrapper, 
+div.trip.service_color_weather_chill div.destination_wrapper {
+	border-color: #739BD0;
+}
+
+table.trip_wrapper tbody.service_color_weather_heat td.route,
+table.trip_wrapper tbody.service_color_weather_heat td.destination,
+table.trip_wrapper tbody.service_color_weather_heat td.destination div,
+div.trip.service_color_weather_heat div.route_wrapper, 
+div.trip.service_color_weather_heat div.destination_wrapper {
+	border-color: red;
+}
+
 table.trip_wrapper tbody.service_color_weather td.arrivals {
 	color: black;
 	background-color: white;
   border-color: gold;
+}
+
+table.trip_wrapper tbody.service_color_weather_chill td.arrivals {
+	color: black;
+	background-color: white;
+  border-color: #739BD0;
+}
+
+table.trip_wrapper tbody.service_color_weather_heat td.arrivals {
+	color: black;
+	background-color: white;
+  border-color: red;
+}
+
+.windchill {
+	color: #739BD0;
+	text-decoration: underline;
+}
+
+.heatindex {
+	color: red;
+	text-decoration: underline;
 }
 
 table.trip_wrapper tbody.service_color_spacer td.route,

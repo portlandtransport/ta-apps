@@ -988,6 +988,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	function process_removals() {
 		if (removal_queue.length > 0) {
 			var id = removal_queue.shift();
+			//console.log("try to remove "+id);
 			transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
 			process_removals();
 		} else {
@@ -1003,6 +1004,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			if ( trip_objects[id] == null && !id.match(/car2go/) && !id.match(/gbfs/)  && !id.match(/weather/)  && !id.match(/aqi/) ) {
 				jQuery("table."+id).removeClass('active');
 				removal_queue.push(id);
+				process_removals();
 			}
 		}
 	});
@@ -1165,18 +1167,29 @@ transitBoardByLine.displayPage = function(data, callback) {
 	
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
+			if (transitBoardByLine.is_development) {
+				//console.log(transitBoardByLine.forecast);
+			}
+			
+			var summary = transitBoardByLine.forecast.get_summary_forecast();
+			var weather_class = "service_color_weather";
+			if (transitBoardByLine.forecast.windchill != null) {
+				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
+				weather_class = "service_color_weather_chill";
+			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";
 				if (transitBoardByLine.weather == "top") {
 					sortkey = "00000";
 				}
+
 				// create entries
 				var weather = '\
 						<table class="weather trip_wrapper active isotope-item bank_placeholder" data-sortkey="'+sortkey+'" data-bank="bank_placeholder" data-tripid="weather">\
-							<tbody class="trip service_color_weather">\
+							<tbody class="'+weather_class+'">\
 								<tr valign="middle">\
 									<td class="route">'+transitBoardByLine.forecast.get_icon()+'</td>\
-									<td class="destination"><div><span class="terminus">'+transitBoardByLine.forecast.get_summary_forecast()+'</span></div></td>\
+									<td class="destination"><div><span class="terminus">'+summary+'</span></div></td>\
 									<td class="arrivals">'+transitBoardByLine.forecast.get_temperature()+'</td>\
 								</tr>\
 							</tbody>\
@@ -1187,11 +1200,17 @@ transitBoardByLine.displayPage = function(data, callback) {
 					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(weather_string) );
 				});
 			} else {
+
 				// update the entries
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
-					jQuery('.weather td.destination div span').html(transitBoardByLine.forecast.get_summary_forecast());
+					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
+					jQuery('.weather tbody').removeClass('service_color_weather');
+					jQuery('.weather tbody').removeClass('service_color_weather_chill');
+					jQuery('.weather tbody').removeClass('service_color_weather_heat');
+					jQuery('.weather tbody').addClass(weather_class);
+					
 				});
 			}
 		} else {
@@ -1199,8 +1218,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/weather/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+					jQuery("table."+id).removeClass('active').remove();
+					//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
 				}
 			});
 		}
@@ -1250,8 +1269,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/aqi/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+					jQuery("table."+id).removeClass('active').remove();
 				}
 			});
 		}

@@ -102,6 +102,14 @@
 										}
 										weather.summary = data.current.condition.text;
 										weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
+										weather.windchill = null;
+										weather.heatindex = null;
+										if (data.current.windchill_f < data.current.temp_f - 5) {
+											weather.windchill = "Wind Chill "+Math.floor(data.current.windchill_f + 0.5)+"&deg;";
+										}
+										if (data.current.heatindex_f > data.current.temp_f + 5) {
+											weather.heatindex = "Heat Index "+Math.floor(data.current.heatindex_f + 0.5)+"&deg;";
+										}
 										var icon_url = data.current.condition.icon;
 										weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
 										weather.timestamp = new Date();
