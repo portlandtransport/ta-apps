@@ -1206,8 +1206,6 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
-					jQuery('table.weather').removeClass('isotope-hidden');
-					jQuery('table.weather').addClass('active');
 					jQuery('.weather tbody').removeClass('service_color_weather');
 					jQuery('.weather tbody').removeClass('service_color_weather_chill');
 					jQuery('.weather tbody').removeClass('service_color_weather_heat');
@@ -1271,8 +1269,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/aqi/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+					jQuery("table."+id).removeClass('active').remove();
 				}
 			});
 		}
