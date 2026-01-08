@@ -1206,12 +1206,13 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
-					jQuery('.weather tbody').removeClass('isotope-hidden');
+					jQuery('table.weather').removeClass('isotope-hidden');
+					jQuery('table.weather').addClass('active');
 					jQuery('.weather tbody').removeClass('service_color_weather');
 					jQuery('.weather tbody').removeClass('service_color_weather_chill');
 					jQuery('.weather tbody').removeClass('service_color_weather_heat');
 					jQuery('.weather tbody').addClass(weather_class);
-					jQuery('.weather tbody').addClass('active');
+					
 				});
 			}
 		} else {
