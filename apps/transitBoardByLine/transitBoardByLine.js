@@ -1200,15 +1200,18 @@ transitBoardByLine.displayPage = function(data, callback) {
 					transitBoardByLine.isotope_container.isotope( 'insert', jQuery(weather_string) );
 				});
 			} else {
+
 				// update the entries
 				jQuery("table.trip_wrapper.active").each(function(index,element){
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
+					jQuery('.weather tbody').removeClass('isotope-hidden');
 					jQuery('.weather tbody').removeClass('service_color_weather');
 					jQuery('.weather tbody').removeClass('service_color_weather_chill');
 					jQuery('.weather tbody').removeClass('service_color_weather_heat');
 					jQuery('.weather tbody').addClass(weather_class);
+					jQuery('.weather tbody').addClass('active');
 				});
 			}
 		} else {
