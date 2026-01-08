@@ -18614,8 +18614,8 @@ transitBoardByLine.displayPage = function(data, callback) {
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/weather/) ) {
-					jQuery("table."+id).removeClass('active');
-					transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+					jQuery("table."+id).removeClass('active').remove();
+					//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
 				}
 			});
 		}
