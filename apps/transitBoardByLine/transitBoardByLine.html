@@ -18382,7 +18382,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	function process_removals() {
 		if (removal_queue.length > 0) {
 			var id = removal_queue.shift();
-			console.log("try to remove "+id);
+			//console.log("try to remove "+id);
 			transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
 			process_removals();
 		} else {
@@ -18599,7 +18599,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 					jQuery('.weather .route').html(transitBoardByLine.forecast.get_icon());
 					jQuery('.weather td.destination div span').html(summary);
 					jQuery('.weather .arrivals').html(transitBoardByLine.forecast.get_temperature());
-					jQuery('.weather tbody').removeClass(['service_color_weather','service_color_weather_chill','service_color_weather_heat']).addClass(weather_class);
+					jQuery('.weather tbody').removeClass('service_color_weather');
+					jQuery('.weather tbody').removeClass('service_color_weather_chill');
+					jQuery('.weather tbody').removeClass('service_color_weather_heat');
+					jQuery('.weather tbody').addClass(weather_class);
 				});
 			}
 		} else {
@@ -18608,8 +18611,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				var id = jQuery(element).attr("data-tripid");
 				if ( id.match(/weather/) ) {
 					jQuery("table."+id).removeClass('active');
-					removal_queue.push('weather');
-					process_removals();
+					transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
 				}
 			});
 		}
