@@ -18567,9 +18567,14 @@ transitBoardByLine.displayPage = function(data, callback) {
 			
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
 			var weather_class = "service_color_weather";
+			//console.log(transitBoardByLine.forecast);
 			if (transitBoardByLine.forecast.windchill != null) {
 				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
 				weather_class = "service_color_weather_chill";
+			}
+			if (transitBoardByLine.forecast.heatindex != null) {
+				summary += ' <span class="heatindex">'+transitBoardByLine.forecast.heatindex+"</span>";
+				weather_class = "service_color_weather_heat";
 			}
 			if (jQuery(".weather").length == 0) {
 				var sortkey = "90000";
