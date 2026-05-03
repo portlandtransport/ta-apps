@@ -1173,7 +1173,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			
 			var summary = transitBoardByLine.forecast.get_summary_forecast();
 			var weather_class = "service_color_weather";
-			console.log(transitBoardByLine.forecast);
+			//console.log(transitBoardByLine.forecast);
 			if (transitBoardByLine.forecast.windchill != null) {
 				summary += ' <span class="windchill">'+transitBoardByLine.forecast.windchill+"</span>";
 				weather_class = "service_color_weather_chill";
