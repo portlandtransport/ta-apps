@@ -107,7 +107,7 @@
 										if (data.current.windchill_f < data.current.temp_f - 5) {
 											weather.windchill = "Wind Chill "+Math.floor(data.current.windchill_f + 0.5)+"&deg;";
 										}
-										if (data.current.heatindex_f > data.current.temp_f + 5) {
+										if (data.current.heatindex_f > data.current.temp_f + 5 && data.current.heatindex_f > 70) {
 											weather.heatindex = "Heat Index "+Math.floor(data.current.heatindex_f + 0.5)+"&deg;";
 										}
 										var icon_url = data.current.condition.icon;
