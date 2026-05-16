@@ -104,7 +104,7 @@
 										weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
 										weather.windchill = null;
 										weather.heatindex = null;
-										if (data.current.windchill_f < data.current.temp_f - 5) {
+										if (data.current.windchill_f < data.current.temp_f - 5 && data.current.windchill_f < 35) {
 											weather.windchill = "Wind Chill "+Math.floor(data.current.windchill_f + 0.5)+"&deg;";
 										}
 										if (data.current.heatindex_f > data.current.temp_f + 5 && data.current.heatindex_f > 70) {
