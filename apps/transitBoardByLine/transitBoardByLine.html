@@ -18142,7 +18142,9 @@ transitBoardByLine.displayPage = function(data, callback) {
 			  	if ($elem.attr('data-bank')) {
 			  		bank = $elem.attr('data-bank').replace('bank','');
 			  	}
-			    return parseInt(bank)*10000000 +parseInt($elem.attr('data-sortkey'));
+			    var result = parseInt(bank)*10000000 +parseInt($elem.attr('data-sortkey'));
+				// Check if the result is a valid finite number
+  				return Number.isFinite(result) ? result : 0;
 			  }
 			},
 			sortBy : 'sortkey'
