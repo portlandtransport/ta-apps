@@ -599,7 +599,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 
 	// remove cover image after a few seconds
 	setTimeout(function() {
-		transitBoardByLine.setCoverOpacity(0.5);
+		transitBoardByLine.fadeTo( "slow" , 0.0);
 
 	},10000);
 }
