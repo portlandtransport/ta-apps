@@ -17985,8 +17985,13 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// set the height of the div
 	jQuery("#tb_middle").css("height",transitBoardByLine.max_available_height+"px").css("width","100%");
 	
-	// kill the test divs and cover image
-	jQuery("#wrapper1,#wrapper2,#cover_image").remove();
+	// kill the test divs
+	jQuery("#wrapper1,#wrapper2").remove();
+
+	// remove cover image after a few seconds
+	setTimeout(function() {
+		jQuery("#cover_image").remove();
+	},5000);
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
