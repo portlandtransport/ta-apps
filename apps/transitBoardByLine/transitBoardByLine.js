@@ -576,6 +576,9 @@ transitBoardByLine.testPhase3 = function(data,count) {
 	}
 }
 
+transitBoardByLine.setCoverOpacity = function(opacity) {	
+	jQuery("#cover_image").css('opacity', opacity);
+}
 
 transitBoardByLine.initializePagePhase3 = function(data) {	
 	//console.log("in phase 3 separate function");
@@ -596,7 +599,8 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 
 	// remove cover image after a few seconds
 	setTimeout(function() {
-		jQuery("#cover_image").css('opacity', '0.0');
+		transitBoardByLine.setCoverOpacity(0.5);
+
 	},10000);
 }
 
