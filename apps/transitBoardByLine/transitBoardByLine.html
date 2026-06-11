@@ -17970,10 +17970,6 @@ transitBoardByLine.testPhase3 = function(data,count) {
 	}
 }
 
-transitBoardByLine.setCoverOpacity = function(opacity) {	
-	jQuery("#cover_image").css('opacity', opacity);
-}
-
 transitBoardByLine.initializePagePhase3 = function(data) {	
 	//console.log("in phase 3 separate function");
 	var trip_height = jQuery('#trip2').outerHeight(true);
@@ -17993,7 +17989,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 
 	// remove cover image after a few seconds
 	setTimeout(function() {
-		transitBoardByLine.fadeTo( "slow" , 0.0);
+		jQuery("#cover_image").fadeTo( "slow" , 0.0);
 
 	},10000);
 }
