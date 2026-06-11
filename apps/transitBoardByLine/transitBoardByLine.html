@@ -17990,8 +17990,8 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 
 	// remove cover image after a few seconds
 	setTimeout(function() {
-		jQuery("#cover_image").remove();
-	},5000);
+		jQuery("#cover_image").css('opacity', '0.0');
+	},10000);
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
