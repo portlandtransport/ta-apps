@@ -576,7 +576,6 @@ transitBoardByLine.testPhase3 = function(data,count) {
 	}
 }
 
-
 transitBoardByLine.initializePagePhase3 = function(data) {	
 	//console.log("in phase 3 separate function");
 	var trip_height = jQuery('#trip2').outerHeight(true);
@@ -593,6 +592,12 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
+
+	// remove cover image after a few seconds
+	setTimeout(function() {
+		jQuery("#cover_image").fadeTo( "slow" , 0.0);
+
+	},10000);
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -1350,6 +1355,10 @@ head.ready(function() {
 			}
 		}
 		return "";
+	}
+
+	if (getQueryVariable('option[cover]') != 0) {
+		document.getElementById("cover_image").style.opacity = "1.0";
 	}
 	
 
