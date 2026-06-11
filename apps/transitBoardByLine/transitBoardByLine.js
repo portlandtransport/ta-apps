@@ -1356,6 +1356,10 @@ head.ready(function() {
 		}
 		return "";
 	}
+
+	if (getQueryVariable('option[cover]') != 0) {
+		document.getElementById("cover_image").style.opacity = "1.0";
+	}
 	
 
 
