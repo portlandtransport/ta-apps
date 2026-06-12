@@ -29,7 +29,7 @@
  * modified toString function so that it will take a format string argument. Don't try to get UTC out of it.
  */
 
-if (typeof fleegix == 'undefined') { var fleegix = {}; }
+// if (typeof fleegix == 'undefined') { var fleegix = {}; }
 if (typeof timezoneJS == 'undefined') { timezoneJS = {}; }
 
 timezoneJS.Date = function () {
@@ -343,7 +343,10 @@ timezoneJS.timezone = new function() {
     var tz_object_element = document.getElementById(tz_object_id);
     if (tz_object_element !== null) {
       return _this.parseZones(tz_object_element.textContent);
+    } else {
+      throw new Error('No timezone object is available for '+fileName);
     }
+    /*
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
@@ -372,6 +375,7 @@ timezoneJS.timezone = new function() {
         }
       });
     }
+    */
   }
   function getRegionForTimezone(tz) {
     var exc = regionExceptions[tz];
