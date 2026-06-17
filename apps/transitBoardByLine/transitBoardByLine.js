@@ -596,7 +596,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	if (getQueryVariable('option[cover]') != 0) {
 		// remove cover image after a few seconds
 		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0);
+			jQuery("#cover_image").fadeTo( "slow" , 0.0); 
 
 		},10000);
 	}
