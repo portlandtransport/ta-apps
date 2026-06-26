@@ -7,6 +7,14 @@ function trAQI(options) {
     }
     
     var aqi = this;
+
+	// make sure credentials are available
+	if (typeof trAQICredentials == 'undefined') {
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("AQCred: Air Quality Credentials Not Loaded");
+		}
+		location.reload();
+	}
     
     this.timestamp = undefined;
     this.api_key = undefined;
