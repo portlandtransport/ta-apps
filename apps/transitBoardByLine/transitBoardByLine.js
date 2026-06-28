@@ -593,12 +593,13 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	if (data.optionsConfig.cover != 0) {
+	if (data.optionsConfig.initial_content != 0) {
+		var cover_delay = data.optionsConfig.initial_interval || 10;
 		// remove cover image after a few seconds
 		setTimeout(function() {
 			jQuery("#cover_image").fadeTo( "slow" , 0.0); 
 
-		},10000);
+		},cover_delay*1000);
 	}
 }
 
@@ -1359,10 +1360,13 @@ head.ready(function() {
 		return "";
 	}
 
-	if (getQueryVariable('option[cover]') != 0) {
-		document.getElementById("cover_image").style.opacity = "1.0";
+	var initial_content = getQueryVariable('option[initial_content]');
+	var cover_element = document.getElementById("cover_image");
+	if (initial_content != 0) {
+		cover_element.src = initial_content;
+		cover_element.style.opacity = "1.0";
 	} else {
-		document.getElementById("cover_image").remove();
+		cover_element.remove();
 	}
 	
 
