@@ -594,11 +594,12 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	jQuery("#wrapper1,#wrapper2").remove();
 
 	if (data.optionsConfig.initial_content != 0) {
+		var cover_delay = data.optionsConfig.initial_interval || 10;
 		// remove cover image after a few seconds
 		setTimeout(function() {
 			jQuery("#cover_image").fadeTo( "slow" , 0.0); 
 
-		},10000);
+		},cover_delay*1000);
 	}
 }
 
