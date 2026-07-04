@@ -42,13 +42,10 @@
                     // now try parsing json
                     try {
                         var data = JSON.parse(xhr.responseText);
+                        console.log("raw data: "+data);
                         // Process data
                         if ( typeof data != "undefined") {
                             // process here
-
-                            if (typeof newrelic === "object") {
-                                //newrelic.addPageAction("AQ200: aqi request");
-                            }
 
 
                             var aqi = data.data.aqi;
@@ -58,26 +55,19 @@
 
 
                         } else {
-                            if (typeof newrelic === "object") {
-                                newrelic.addPageAction("AQJSON: aqi JSON parsing error");
-                            }									
+                            console.log("AQI data undefined");
+                            location.reload();
                         }
                     } catch (e) {
-                        //console.log("json parsing error");
-                        //console.log(e);
-                        if (retry_count >= retry_limit) {
-                            if (typeof newrelic === "object") {
-                                newrelic.addPageAction("AQJSON: aqi JSON parsing error");
-                            }
-                        }
+                        console.log("json parsing error in AQI");
+                        console.log(e);
+                        location.reload();
                     }
 
                 } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                    //console.log("xhr state error");
+                    console.log("xhr state error");
                     if (retry_count >= retry_limit) {
-                        if (typeof newrelic === "object") {
-                            newrelic.addPageAction("AQ"+xhr.status+": aqi response error "+xhr.statusText,{'errorText': xhr.statusText, 'errorThrown': xhr.status});
-                        }
+                        location.reload();
                     } else {
                         aqi.update_aqi(retry_count+1);
                     }
