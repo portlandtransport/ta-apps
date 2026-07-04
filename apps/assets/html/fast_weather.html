@@ -51,6 +51,8 @@
 
                             var aqi = data.data.aqi;
                             console.log(aqi);
+                            const dataDiv = document.getElementById("data");
+                            dataDiv.append("AQI: "+aqi);
 
                             //aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
