@@ -22,7 +22,6 @@
             var lon = getQueryVariable('lon');
 
             // AQI
-            const retry_limit = 1;
 
             var api_key = trAQICredentials('waqi');
 
@@ -68,15 +67,75 @@
                     }
 
                 } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                    console.log("xhr state error");
-                    if (retry_count >= retry_limit) {
-                        location.reload();
-                    } else {
-                        aqi.update_aqi(retry_count+1);
-                    }
+                    console.log("xhr state error in AQI");
+                    location.reload();
                 }
             };
             xhr.send();
+
+            // Weather
+            var weather = {};
+            var api_key = trWeatherCredentials('WeatherAPI');
+            var weather_url = "https://api.weatherapi.com/v1/current.json?key="+api_key+"&q="+lat+","+lon+"&aqi=no";
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.responseType = 'text';
+
+            xhr.open('GET', weather_url, true);
+
+            // Set up the event handler for when the request state changes
+            xhr.onreadystatechange = function() {
+                // Check if the request is complete (readyState 4) and successful (status 200)
+
+                if (xhr.readyState === 4 && xhr.status === 200) {	
+
+                    // now try parsing json
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        // Process data
+                        if ( typeof data != "undefined") {
+                            // process here
+                            if (data.current && data.current.condition) {
+                                weather.summary = data.current.condition.text;
+                                const dataDiv = document.getElementById("data");
+                                dataDiv.append("Weather: "+weather.summary);
+                                weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
+                                weather.windchill = null;
+                                weather.heatindex = null;
+                                if (data.current.windchill_f < data.current.temp_f - 5 && data.current.windchill_f < 35) {
+                                    weather.windchill = "Wind Chill "+Math.floor(data.current.windchill_f + 0.5)+"&deg;";
+                                }
+                                if (data.current.heatindex_f > data.current.temp_f + 5 && data.current.heatindex_f > 70) {
+                                    weather.heatindex = "Heat Index "+Math.floor(data.current.heatindex_f + 0.5)+"&deg;";
+                                }
+                                var icon_url = data.current.condition.icon;
+                                weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
+                                weather.timestamp = new Date();
+                            } else {
+                                console.log("Weather data undefined");
+                                location.reload();
+                            }
+                        } else {
+                            console.log('Weather parsing error');
+                            location.reload();								
+                        }
+                    } catch (e) {
+                        //console.log("json parsing error");
+                        //console.log(e);
+                        console.log("json parsing error in Weather");
+                        console.log(e);
+                        location.reload();
+                    }
+
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    console.log("xhr state error in Weather");
+                    location.reload();
+                }
+            };
+            // Send the request
+		    xhr.send();
+
         </script>
     </head>
     <body>
