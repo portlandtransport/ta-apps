@@ -50,8 +50,8 @@
                             // process here
 
 
-                            results.aqi = data.data.aqi;
-                            console.log(results.aqi);
+                            results.air = data.data;
+                            console.table(results.air);
 
 
                         } else {
@@ -110,7 +110,7 @@
                                 weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
                                 weather.timestamp = new Date();
                                 results.weather = weather;
-                                console.log(weather.summary);
+                                console.table(results.weather);
                             } else {
                                 console.log("Weather data undefined");
                                 location.reload();
