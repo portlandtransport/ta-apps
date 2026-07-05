@@ -4,6 +4,8 @@
         <script src="../js/trWeatherCredentials.js"></script>
         <script src="../js/trAQICredentials.js"></script>
         <script>
+
+            var results = {};
             // early parsing of query string
 	
             function getQueryVariable(variable) {
@@ -48,12 +50,8 @@
                             // process here
 
 
-                            var aqi = data.data.aqi;
+                            results.aqi = data.data.aqi;
                             console.log(aqi);
-                            const dataDiv = document.getElementById("data");
-                            dataDiv.append("AQI: "+aqi);
-
-                            //aqi.tier_data = aqi.get_tier_data(aqi.aqi);
 
 
                         } else {
@@ -98,8 +96,7 @@
                             // process here
                             if (data.current && data.current.condition) {
                                 weather.summary = data.current.condition.text;
-                                const dataDiv = document.getElementById("data");
-                                dataDiv.append("Weather: "+weather.summary);
+
                                 weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
                                 weather.windchill = null;
                                 weather.heatindex = null;
@@ -112,6 +109,8 @@
                                 var icon_url = data.current.condition.icon;
                                 weather.icon = '<img src="'+icon_url+'" style="height: 1.4em; margin: -0.2em">';
                                 weather.timestamp = new Date();
+                                results.weather = weather;
+                                console.log(weather.summary);
                             } else {
                                 console.log("Weather data undefined");
                                 location.reload();
@@ -135,6 +134,19 @@
             };
             // Send the request
 		    xhr_w.send();
+
+            function check_results() {
+                if (results.hasOwnProperty("aqi") || results.hasOwnProperty("weather")) {
+                    paint_page();
+                } else {
+                    setTimeout(check_results,100);
+                }
+            }
+
+            function paint_page() {
+                const myDiv = document.getElementById("data");
+                myDiv.append("AQI: "+results.aqi+"<br>"+"Summary: "+results.weather.summary);
+            }
 
         </script>
     </head>
