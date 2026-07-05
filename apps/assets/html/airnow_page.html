@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
->
+        <style>
+            html, body {
+                margin: 0;
+                height: 100vh; /* Fill the entire viewport height */
+            }
+
+            .iframe-container {
+                display: flex;
+                justify-content: center; /* Centers horizontally */
+                align-items: center;    /* Centers vertically */
+                height: 100%;           /* Fills the body/viewport height */
+                width: 100%;            /* Fills the body/viewport width */
+            }
+        </style>
         <script>
 
             var results = {};
@@ -34,6 +47,8 @@
         </script>
     </head>
     <body>
-        <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+        <div class="iframe-container">
+            <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+        </div>
     </body>
 </html>
