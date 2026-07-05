@@ -15,6 +15,11 @@
                 height: 100%;           /* Fills the body/viewport height */
                 width: 100%;            /* Fills the body/viewport width */
             }
+
+            .iframe-container iframe {
+                transform: scale(3);
+            }
+
         </style>
         <script>
 
@@ -49,7 +54,7 @@
     </head>
     <body>
         <div class="iframe-container">
-            <iframe style="transform: scale(3);" id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+            <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
         </div>
     </body>
 </html>
