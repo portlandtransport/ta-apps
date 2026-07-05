@@ -44,7 +44,7 @@
                     // now try parsing json
                     try {
                         var data = JSON.parse(xhr.responseText);
-                        console.log("raw data: "+data);
+
                         // Process data
                         if ( typeof data != "undefined") {
                             // process here
@@ -145,7 +145,8 @@
 
             function paint_page() {
                 const myDiv = document.getElementById("data");
-                myDiv.append("AQI: "+results.aqi+"<br>"+"Summary: "+results.weather.summary);
+                console.log("painting results");
+                myDiv.append("AQI: "+results.aqi+"<br>Summary: "+results.weather.summary);
             }
 
         </script>
