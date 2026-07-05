@@ -149,6 +149,11 @@
                 myDiv.append("AQI: "+results.aqi+"<br>Summary: "+results.weather.summary);
             }
 
+            document.addEventListener("DOMContentLoaded", () => {
+                // Your DOM manipulation code goes here
+                check_results();
+            });
+
         </script>
     </head>
     <body>
