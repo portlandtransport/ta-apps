@@ -26,7 +26,7 @@
 
             document.addEventListener("DOMContentLoaded", () => {
                 // Your DOM manipulation code goes here
-                var airnow_url = "https://widget.airnow.gov/aq-dial-widget/?latitude=".lat."&longitude=".lon;
+                var airnow_url = "https://widget.airnow.gov/aq-dial-widget/?latitude="+lat+"&longitude="+lon;
                 const myFrame = document.getElementById("airnow");
                 myFrame.src = airnow_url;
             });
