@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style></style>
-            .full-screen-div {
-                width: 100vw;
-                height: 100dvh;
+        <style>
+            html, body {
+                margin: 0;
+                height: 100vh; /* Fill the entire viewport height */
+                background-color: #2E75B6; 
             }
+
+            .iframe-container {
+                display: flex;
+                justify-content: center; /* Centers horizontally */
+                align-items: center;    /* Centers vertically */
+                height: 100%;           /* Fills the body/viewport height */
+                width: 100%;            /* Fills the body/viewport width */
+            }
+
+            .iframe-container iframe {
+                transform: scale(3);
+            }
+
         </style>
         <script src="../js/trWeatherCredentials.js"></script>
         <script src="../js/trAQICredentials.js"></script>
@@ -158,11 +172,16 @@
             document.addEventListener("DOMContentLoaded", () => {
                 // Your DOM manipulation code goes here
                 check_results();
+                var airnow_url = "https://widget.airnow.gov/aq-dial-widget/?latitude="+lat+"&longitude="+lon;
+                const myFrame = document.getElementById("airnow");
+                myFrame.src = airnow_url;
             });
 
         </script>
     </head>
     <body>
-        <div id="data" class="full-screen-div empty"></div>
+        <div class="iframe-container">
+            <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+        </div>
     </body>
 </html>
