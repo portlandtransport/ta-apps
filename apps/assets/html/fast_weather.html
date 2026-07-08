@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100vh; /* Fill the entire viewport height */
+                background-color: #2E75B6; 
+                color: white;
+                font-family: Verdana;
+            }
+
+            .iframe-container {
+                display: flex;
+                justify-content: center; /* Centers horizontally */
+                align-items: center;    /* Centers vertically */
+                height: 100%;           /* Fills the body/viewport height */
+                width: 100%;            /* Fills the body/viewport width */
+            }
+
+            .iframe-container iframe {
+                transform: scale(3);
+            }
+
+            .temp {
+                color: white;
+            }
+
+
+
+        </style>
+        <script src="../js/trWeatherCredentials.js"></script>
+        <script src="../js/trAQICredentials.js"></script>
+        <script>
+
+            var results = {};
+            // early parsing of query string
+	
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) == variable) {
+                        return decodeURIComponent(pair[1]);
+                    }
+                }
+                return "";
+            }
+
+            var lat = getQueryVariable('lat');
+            var lon = getQueryVariable('lon');
+
+            // AQI
+
+            var api_key = trAQICredentials('waqi');
+
+            var aqi_url = "https://api.waqi.info/feed/geo:"+lat+";"+lon+"/?token="+api_key;
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.responseType = 'text';
+
+            xhr.open('GET', aqi_url, true);
+
+            // Set up the event handler for when the request state changes
+            xhr.onreadystatechange = function() {
+                // Check if the request is complete (readyState 4) and successful (status 200)
+
+                if (xhr.readyState === 4 && xhr.status === 200) {	
+
+                    // now try parsing json
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+
+                        // Process data
+                        if ( typeof data != "undefined") {
+                            // process here
+
+
+                            results.air = data.data;
+                            console.table(results.air);
+
+
+                        } else {
+                            console.log("AQI data undefined");
+                            location.reload();
+                        }
+                    } catch (e) {
+                        console.log("json parsing error in AQI");
+                        console.log(e);
+                        location.reload();
+                    }
+
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    console.log("xhr state error in AQI");
+                    location.reload();
+                }
+            };
+            xhr.send();
+
+            // Weather
+            var weather = {};
+            var api_key = trWeatherCredentials('WeatherAPI');
+            var weather_url = "https://api.weatherapi.com/v1/current.json?key="+api_key+"&q="+lat+","+lon+"&aqi=no";
+
+            const xhr_w = new XMLHttpRequest();
+
+            xhr_w.responseType = 'text';
+
+            xhr_w.open('GET', weather_url, true);
+
+            // Set up the event handler for when the request state changes
+            xhr_w.onreadystatechange = function() {
+                // Check if the request is complete (readyState 4) and successful (status 200)
+
+                if (xhr_w.readyState === 4 && xhr_w.status === 200) {	
+
+                    // now try parsing json
+                    try {
+                        var data = JSON.parse(xhr_w.responseText);
+                        // Process data
+                        if ( typeof data != "undefined") {
+                            // process here
+                            if (data.current && data.current.condition) {
+                                weather.summary = data.current.condition.text;
+
+                                weather.temperature = Math.floor(data.current.temp_f + 0.5)+"&deg;";
+                                weather.windchill = null;
+                                weather.heatindex = null;
+                                if (data.current.windchill_f < data.current.temp_f - 5 && data.current.windchill_f < 35) {
+                                    weather.windchill = "Wind Chill "+Math.floor(data.current.windchill_f + 0.5)+"&deg;";
+                                }
+                                if (data.current.heatindex_f > data.current.temp_f + 5 && data.current.heatindex_f > 70) {
+                                    weather.heatindex = "Heat Index "+Math.floor(data.current.heatindex_f + 0.5)+"&deg;";
+                                }
+                                var icon_url = data.current.condition.icon;
+                                weather.icon = '<img src="'+icon_url.replace('64x64','128x128')+'" style="transform: scale(4)">';
+                                weather.timestamp = new Date();
+                                results.weather = weather;
+                                console.table(results.weather);
+                            } else {
+                                console.log("Weather data undefined");
+                                location.reload();
+                            }
+                        } else {
+                            console.log('Weather parsing error');
+                            location.reload();								
+                        }
+                    } catch (e) {
+                        //console.log("json parsing error");
+                        //console.log(e);
+                        console.log("json parsing error in Weather");
+                        console.log(e);
+                        location.reload();
+                    }
+
+                } else if (xhr_w.readyState === 4 && xhr_w.status !== 200) {
+                    console.log("xhr state error in Weather");
+                    location.reload();
+                }
+            };
+            // Send the request
+		    xhr_w.send();
+
+            function check_results() {
+                if (results.hasOwnProperty("aqi") || results.hasOwnProperty("weather")) {
+                    paint_page();
+                } else {
+                    setTimeout(check_results,100);
+                }
+            }
+
+            function paint_page() {
+                const myDiv = document.getElementById("data");
+                console.log("painting results");
+                document.getElementById("temp").innerHTML = results.weather.temperature;
+                document.getElementById("msg").innerHTML = results.weather.summary;
+                document.getElementById("icon").innerHTML = results.weather.icon;
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                // Your DOM manipulation code goes here
+                check_results();
+                var airnow_url = "https://widget.airnow.gov/aq-dial-widget/?latitude="+lat+"&longitude="+lon;
+                const myFrame = document.getElementById("airnow");
+                myFrame.src = airnow_url;
+            });
+
+        </script>
+    </head>
+    <body>
+        <table style="width: 100vw;">
+            <tr style="height: 60vh;">
+                <td id="temp" style="width: 33vw; vertical-align: middle; text-align: center; color: white; font-size: 200px"></td>
+                <td style="width: 34vw" class="iframe-container" >
+                    <iframe id="airnow" height="230" width="230" style="margin-top: 300px; border: none; border-radius: 25px;"></iframe>
+                </td>
+                <td id="icon" style="width: 33vw; vertical-align: middle; text-align: center;">icon</td>
+            </tr>
+            <tr><td colspan="3" id="msg" style="vertical-align: middle; text-align: center; font-size: 200px; padding-top: 100px"></td></tr>
+        </table>
+
+
+    </body>
+</html>

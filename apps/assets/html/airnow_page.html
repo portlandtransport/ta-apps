@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100vh; /* Fill the entire viewport height */
+                background-color: #2E75B6; 
+            }
+
+            .iframe-container {
+                display: flex;
+                justify-content: center; /* Centers horizontally */
+                align-items: center;    /* Centers vertically */
+                height: 100%;           /* Fills the body/viewport height */
+                width: 100%;            /* Fills the body/viewport width */
+            }
+
+            .iframe-container iframe {
+                transform: scale(3);
+            }
+
+        </style>
+        <script>
+
+            var results = {};
+            // early parsing of query string
+	
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) == variable) {
+                        return decodeURIComponent(pair[1]);
+                    }
+                }
+                return "";
+            }
+
+            var lat = getQueryVariable('lat');
+            var lon = getQueryVariable('lon');
+
+
+
+            document.addEventListener("DOMContentLoaded", () => {
+                // Your DOM manipulation code goes here
+                var airnow_url = "https://widget.airnow.gov/aq-dial-widget/?latitude="+lat+"&longitude="+lon;
+                const myFrame = document.getElementById("airnow");
+                myFrame.src = airnow_url;
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="iframe-container">
+            <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+        </div>
+    </body>
+</html>
