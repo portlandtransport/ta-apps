@@ -173,6 +173,7 @@
                 const myDiv = document.getElementById("data");
                 console.log("painting results");
                 document.getElementById("temp").innerHTML = results.weather.temperature;
+                document.getElementById("icon").innerHTML = results.weather.icon;
             }
 
             document.addEventListener("DOMContentLoaded", () => {
@@ -188,11 +189,11 @@
     <body>
         <table style="width: 100vw;">
             <tr style="height: 1080px;">
-                <td width="33%" id="temp">Temperature</td>
+                <td width="33%" id="temp" style="  display: grid;  align-content: center; font-size: 72px">Temperature</td>
                 <td width="34%" class="iframe-container" >
-                    <iframe id="airnow" height="340" width="230" style="border: none; border-radius: 25px;"></iframe>
+                    <iframe id="airnow" height="230" width="230" style="margin-top: 300px; border: none; border-radius: 25px;"></iframe>
                 </td>
-                <td width="33%" id="icon">icon</td>
+                <td width="33%" id="icon"  style="  display: grid;  align-content: center;">icon</td>
             </tr>
             <tr><td colspan="3">message area</td></tr>
         </table>
