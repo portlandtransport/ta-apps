@@ -24,30 +24,7 @@
                 color: white;
             }
 
-            .table-container {
-                width: 100vw;
-                height: 60vh;
-                /* margin: 0 auto; /* Centers the table on the page */
-            }
 
-            .table-row {
-                display: grid;
-                grid-template-columns: repeat(3, minmax(0, 1fr)); /* Ensures equal and balanced widths */
-                gap: 20px; /* Space between columns */
-            }
-
-            .table-cell {
-                background-color: #f4f4f4;
-                padding: 20px;
-                border: 1px solid #ddd;
-            }
-
-            /* Responsive adjustment: stack on smaller screens */
-            @media (max-width: 768px) {
-                .table-row {
-                    grid-template-columns: 1fr;
-                }
-            }
 
         </style>
         <script src="../js/trWeatherCredentials.js"></script>
@@ -209,18 +186,16 @@
         </script>
     </head>
     <body>
-        <div class="table-container">
-            <div class="table-row">
-                <div class="table-cell">Column 1 Content</div>
-                <div class="table-cell">
-                    <div class="iframe-container">
-                        <div id="temp" width="300"></div>
-                        <iframe id="airnow" height="250" width="230" style="border: none; border-radius: 25px;"></iframe>
-                    </div>
-                </div>
-                <div class="table-cell">Column 3 Content</div>
-            </div>
-        </div>
+        <table style="width: 100vw; height: 300px">
+            <tr>
+                <td width="33%">Temperature</td>
+                <td width="34%">
+                    <iframe id="airnow" height="250" width="230" style="border: none; border-radius: 25px;"></iframe>
+                </td>
+                <td width="33%">icon</td>
+            </tr>
+        </table>
+
 
     </body>
 </html>
