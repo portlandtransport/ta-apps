@@ -175,7 +175,7 @@
                 const myDiv = document.getElementById("data");
                 console.log("painting results");
                 document.getElementById("temp").innerHTML = results.weather.temperature;
-                document.getElementById("temp").innerHTML = results.weather.summary;
+                document.getElementById("smg").innerHTML = results.weather.summary;
                 document.getElementById("icon").innerHTML = results.weather.icon;
             }
 
@@ -192,13 +192,13 @@
     <body>
         <table style="width: 100vw;">
             <tr style="height: 60vh;">
-                <td id="temp" style="width: 33vw; vertical-align: middle; text-align: center; color: white; font-size: 200px">Temperature</td>
+                <td id="temp" style="width: 33vw; vertical-align: middle; text-align: center; color: white; font-size: 200px"></td>
                 <td style="width: 34vw" class="iframe-container" >
                     <iframe id="airnow" height="230" width="230" style="margin-top: 300px; border: none; border-radius: 25px;"></iframe>
                 </td>
                 <td id="icon" style="width: 33vw; vertical-align: middle; text-align: center;">icon</td>
             </tr>
-            <tr><td colspan="3" id="msg" style="vertical-align: middle; text-align: center; font-size: 200px; margin-top: 50px">message area</td></tr>
+            <tr><td colspan="3" id="msg" style="vertical-align: middle; text-align: center; font-size: 200px; margin-top: 100px"></td></tr>
         </table>
 
 
