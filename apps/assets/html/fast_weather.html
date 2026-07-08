@@ -133,7 +133,7 @@
                                     weather.heatindex = "Heat Index "+Math.floor(data.current.heatindex_f + 0.5)+"&deg;";
                                 }
                                 var icon_url = data.current.condition.icon;
-                                weather.icon = '<img src="'+icon_url+'" style="transform: scale(10)">';
+                                weather.icon = '<img src="'+icon_url+'" style="transform: scale(8)">';
                                 weather.timestamp = new Date();
                                 results.weather = weather;
                                 console.table(results.weather);
@@ -189,11 +189,11 @@
     <body>
         <table style="width: 100vw;">
             <tr style="height: 60vh;">
-                <td width="33vw" id="temp" style="vertical-align: middle; text-align: center; font-color: white; font-size: 200px">Temperature</td>
-                <td width="34vw" class="iframe-container" >
+                <td id="temp" style="width: 33vw; vertical-align: middle; text-align: center; color: white; font-size: 200px">Temperature</td>
+                <td style="width: 34vw" class="iframe-container" >
                     <iframe id="airnow" height="230" width="230" style="margin-top: 300px; border: none; border-radius: 25px;"></iframe>
                 </td>
-                <td width="33vw" id="icon"  style="vertical-align: middle; text-align: center;">icon</td>
+                <td style="width: 33vw" id="icon"  style="vertical-align: middle; text-align: center;">icon</td>
             </tr>
             <tr><td colspan="3">message area</td></tr>
         </table>
