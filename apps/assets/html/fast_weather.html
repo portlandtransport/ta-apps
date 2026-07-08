@@ -175,6 +175,7 @@
                 const myDiv = document.getElementById("data");
                 console.log("painting results");
                 document.getElementById("temp").innerHTML = results.weather.temperature;
+                document.getElementById("temp").innerHTML = results.weather.summary;
                 document.getElementById("icon").innerHTML = results.weather.icon;
             }
 
@@ -197,7 +198,7 @@
                 </td>
                 <td id="icon" style="width: 33vw; vertical-align: middle; text-align: center;">icon</td>
             </tr>
-            <tr><td colspan="3">message area</td></tr>
+            <tr><td colspan="3" id="msg" style="vertical-align: middle; text-align: center; font-size: 200px; margin-top: 50px">message area</td></tr>
         </table>
 
 
