@@ -969,7 +969,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				} else {
 					trip.css('font-size',size+"px");
 				}
-				setTimeout(function(){transitBoardByLine.shrink_destination(trip_id)}, 2000);
+				setTimeout(function(){transitBoardByLine.shrink_destination(trip_id)}, 500);
 			}
 		}
 	}
@@ -985,7 +985,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			//get trip_id from obj and set up call to test overflow
 			var matches = obj.match(/tripid="([^"]*)"/);
 			if (matches.length > 1) {
-				setTimeout(function(){transitBoardByLine.shrink_destination(matches[1])}, 2000);
+				setTimeout(function(){transitBoardByLine.shrink_destination(matches[1])}, 500);
 			}
 			process_insertions();
 		} else {
@@ -1090,7 +1090,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 					if (trip.length > 0) {
 						if (trip[0].scrollHeight > trip[0].clientHeight) {
 							var gbfs_class = 'gbfs'+i;
-							setTimeout(function(){transitBoardByLine.shrink_destination(gbfs_class)}, 2000);
+							setTimeout(function(){transitBoardByLine.shrink_destination(gbfs_class)}, 500);
 						}
 					}
 					jQuery('.gbfs'+i+' .arrivals').html(value.formatted_distance);
@@ -1163,7 +1163,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 					if (trip.length > 0) {
 						if (trip[0].scrollHeight > trip[0].clientHeight) {
 							var car2go_class = 'car2go'+i;
-							setTimeout(function(){transitBoardByLine.shrink_destination(car2go_class)}, 2000);
+							setTimeout(function(){transitBoardByLine.shrink_destination(car2go_class)}, 500);
 						}
 					}
 					jQuery('.car2go'+i+' .arrivals').html(dist.toFixed(1)+' mi');
