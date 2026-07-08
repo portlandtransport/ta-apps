@@ -597,8 +597,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 		var cover_delay = data.optionsConfig.initial_interval || 10;
 		// remove cover image after a few seconds
 		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0); 
-
+			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
 		},cover_delay*1000);
 	}
 }
