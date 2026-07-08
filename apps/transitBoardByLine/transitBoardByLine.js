@@ -969,7 +969,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 				} else {
 					trip.css('font-size',size+"px");
 				}
-				setTimeout(function(){transitBoardByLine.shrink_destination(trip_id)}, 2000);
+				setTimeout(function(){transitBoardByLine.shrink_destination(trip_id)}, 500);
 			}
 		}
 	}
