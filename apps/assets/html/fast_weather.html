@@ -53,6 +53,8 @@
 
             // AQI
 
+            /*
+
             var api_key = trAQICredentials('waqi');
 
             var aqi_url = "https://api.waqi.info/feed/geo:"+lat+";"+lon+"/?token="+api_key;
@@ -97,7 +99,8 @@
                     location.reload();
                 }
             };
-            xhr.send();
+            //xhr.send();
+            */
 
             // Weather
             var weather = {};
@@ -164,7 +167,7 @@
 		    xhr_w.send();
 
             function check_results() {
-                if (results.hasOwnProperty("aqi") || results.hasOwnProperty("weather")) {
+                if (results.hasOwnProperty("weather")) {
                     paint_page();
                 } else {
                     setTimeout(check_results,100);
@@ -196,7 +199,7 @@
                 <td style="width: 34vw" class="iframe-container" >
                     <iframe id="airnow" height="230" width="230" style="margin-top: 300px; border: none; border-radius: 25px;"></iframe>
                 </td>
-                <td id="icon" style="width: 33vw; vertical-align: middle; text-align: center;">icon</td>
+                <td id="icon" style="width: 33vw; vertical-align: middle; text-align: center;"></td>
             </tr>
             <tr><td colspan="3" id="msg" style="vertical-align: middle; text-align: center; font-size: 200px; padding-top: 100px"></td></tr>
         </table>

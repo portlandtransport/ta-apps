@@ -17044,7 +17044,8 @@ function trArr(input_params) {
     
     return secrets[credential];
 }
-	</script>		
+				
+</script>		
 		<script>function trWeather(options) { 
 	
 	// ensure this is called as constructor
@@ -18009,8 +18010,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 		var cover_delay = data.optionsConfig.initial_interval || 10;
 		// remove cover image after a few seconds
 		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0); 
-
+			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
 		},cover_delay*1000);
 	}
 }
