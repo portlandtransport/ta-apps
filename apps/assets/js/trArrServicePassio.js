@@ -111,6 +111,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	this.trArrPassioRequestLoop = function() {		
 		
 		updater.process_results = function(trips) {
+
+			//console.log("Trips:");
+			//console.log(trips);
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
@@ -122,6 +125,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var arrival_trips = trips[stop.stop_id];
 					var stop_trips = stop.stop_data.trips;
 					// match trips
+
+					//console.log("Stop trips:");
+					//console.log(stop_trips);
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
