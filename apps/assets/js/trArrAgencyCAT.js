@@ -52,7 +52,6 @@ function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requ
 
 function trArrAgencyCATEntryFilterCallback(entry) {
 	entry.route_data.route_short_name = "CAT"
-	console.log(entry);
 	return entry;
 }
 
