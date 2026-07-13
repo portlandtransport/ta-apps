@@ -111,6 +111,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 	this.trArrPassioRequestLoop = function() {		
 		
 		updater.process_results = function(trips) {
+
+			console.log("Trips:");
+			console.log(trips);
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
