@@ -112,8 +112,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 		
 		updater.process_results = function(trips) {
 
-			console.log("Trips:");
-			console.log(trips);
+			//console.log("Trips:");
+			//console.log(trips);
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
@@ -126,8 +126,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var stop_trips = stop.stop_data.trips;
 					// match trips
 
-					console.log("Stop trips:");
-					console.log(stop_trips);
+					//console.log("Stop trips:");
+					//console.log(stop_trips);
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
@@ -139,7 +139,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 							stop.routes.forEach((route_data) => {
 								if (route_data.route_id == route_id) {
 									// match, let's show arrival!
-									console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
+									//console.log("Show arrival for route_id "+route_id+" at stop_id "+stop.stop_id);
 									var entry = new transitArrival();
 									entry.arrivalTime = arrival_trips[trip_id].arrival.time*1000;
 
@@ -193,7 +193,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = local_queue;
-			console.log(updater.arrivals_queue);
+			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
 			// Create a new XMLHttpRequest object
