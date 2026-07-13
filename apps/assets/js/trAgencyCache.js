@@ -88,6 +88,20 @@ function trAgencyCache() {
 		"gtfs_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/google_transit.zip",
 		"gtfs_rt_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/realtime/tripUpdates",
 	};
+
+	this.cache['CAT'] = {
+        "rights_notice": "",
+        "_id": "CAT",
+        "agency_name": "Canby Area Transit",
+        "agency_url": "https://www.canbyoregon.gov/area-transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "CAT",
+        "doc_type": "Document",
+        "avl_service": "CAT",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/realtime/tripUpdates",
+	};
 	
 	this.addToCache = function(agency,data) {
 		this.cache[agency] = data;
