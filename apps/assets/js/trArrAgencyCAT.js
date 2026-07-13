@@ -51,7 +51,7 @@ function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requ
 }
 
 function trArrAgencyCATEntryFilterCallback(entry) {
-
+	console.log(entry);
 	return entry;
 }
 
