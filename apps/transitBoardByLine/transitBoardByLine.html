@@ -13663,6 +13663,20 @@ function trAgencyCache() {
 		"gtfs_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/google_transit.zip",
 		"gtfs_rt_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/realtime/tripUpdates",
 	};
+
+	this.cache['CTRAN'] = {
+        "rights_notice": "",
+        "_id": "CTRAN",
+        "agency_name": "C-TRAN",
+        "agency_url": "https://www.c-tran.com/",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "CTRAN",
+        "doc_type": "Document",
+        "avl_service": "CTRAN",
+        "agency_lang": "en",
+		"gtfs_url": "https://c-tran.com/images/Google/GoogleTransitUpload.zip",
+		"gtfs_rt_url": "https://gtfs-rt.c-tran.org/gtfsrealtime/TripUpdates",
+	};
 	
 	this.addToCache = function(agency,data) {
 		this.cache[agency] = data;
