@@ -10979,7 +10979,7 @@ function trLoader(hwid,url_fix) {
 			window.location.replace(url.href); 	
 		} else {
 			if (test_config) {
-				theurl = theurl.replace("appl[id]=MAC:","appl[id]=TEST:");
+				theurl.app_url = theurl.app_url.replace("appl[id]=MAC:","appl[id]=TEST:");
 			}
 			window.location.replace(theurl.app_url); 	
 		}
