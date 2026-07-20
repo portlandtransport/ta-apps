@@ -29,9 +29,6 @@
 
 function trLoader(hwid,url_fix) {
 
-	console.log(location.href);
-	console.log(hwid);
-
 	var test_config = false;
 
 	const regex = /^TEST/;
@@ -39,7 +36,6 @@ function trLoader(hwid,url_fix) {
 		test_config = true;
 		hwid = hwid.replace("TEST:","MAC:");
 	}
-	console.log(test_config);
 
 	// images
 	
