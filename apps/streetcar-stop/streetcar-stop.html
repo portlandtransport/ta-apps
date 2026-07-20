@@ -101,7 +101,7 @@ newrelic.addPageAction("ST1: Application Start");
  * modified toString function so that it will take a format string argument. Don't try to get UTC out of it.
  */
 
-if (typeof fleegix == 'undefined') { var fleegix = {}; }
+// if (typeof fleegix == 'undefined') { var fleegix = {}; }
 if (typeof timezoneJS == 'undefined') { timezoneJS = {}; }
 
 timezoneJS.Date = function () {
@@ -415,7 +415,10 @@ timezoneJS.timezone = new function() {
     var tz_object_element = document.getElementById(tz_object_id);
     if (tz_object_element !== null) {
       return _this.parseZones(tz_object_element.textContent);
+    } else {
+      throw new Error('No timezone object is available for '+fileName);
     }
+    /*
     if (typeof fleegix.xhr == 'undefined') {
       throw new Error('Please use the Fleegix.js XHR module, or define your own transport mechanism for downloading zone files.');
     }
@@ -444,6 +447,7 @@ timezoneJS.timezone = new function() {
         }
       });
     }
+    */
   }
   function getRegionForTimezone(tz) {
     var exc = regionExceptions[tz];
@@ -1480,6 +1484,34 @@ function trAgencyCache() {
         "agency_lang": "en",
 		"gtfs_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/google_transit.zip",
 		"gtfs_rt_url": "https://passio3.com/SCLACKAMAS/passioTransit/gtfs/realtime/tripUpdates",
+	};
+
+	this.cache['CAT'] = {
+        "rights_notice": "",
+        "_id": "CAT",
+        "agency_name": "Canby Area Transit",
+        "agency_url": "https://www.canbyoregon.gov/area-transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "CAT",
+        "doc_type": "Document",
+        "avl_service": "CAT",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/realtime/tripUpdates",
+	};
+
+	this.cache['CTRAN'] = {
+        "rights_notice": "",
+        "_id": "CTRAN",
+        "agency_name": "C-TRAN",
+        "agency_url": "https://www.c-tran.com/",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "CTRAN",
+        "doc_type": "Document",
+        "avl_service": "CTRAN",
+        "agency_lang": "en",
+		"gtfs_url": "https://c-tran.com/images/Google/GoogleTransitUpload.zip",
+		"gtfs_rt_url": "https://gtfs-rt.c-tran.org/gtfsrealtime/TripUpdates",
 	};
 	
 	this.addToCache = function(agency,data) {
