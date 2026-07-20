@@ -34,7 +34,7 @@ function trLoader(hwid,url_fix) {
 
 	var test_config = false;
 
-	const regex = /^TEST:;
+	const regex = /^TEST/;
 	if (regex.test(hwid)) {
 		test_config = true;
 	}
