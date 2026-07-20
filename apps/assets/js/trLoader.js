@@ -37,7 +37,7 @@ function trLoader(hwid,url_fix) {
 	const regex = /^TEST/;
 	if (regex.test(hwid)) {
 		test_config = true;
-		hwid.replace("TEST:","MAC:");
+		hwid = hwid.replace("TEST:","MAC:");
 	}
 	console.log(test_config);
 
