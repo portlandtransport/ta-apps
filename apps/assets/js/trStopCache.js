@@ -47,6 +47,9 @@ function trStopCache() {
 			// initialize recursive retrieval of cache items
 			var next_stop = this.nextUncachedStop(stop_config);
 			this.getCacheItem(arrivals_object,stop_config,next_stop,callback);
+		} else {
+			trArrLog("No stops - moving on.<br><br>");
+			callback(arrivals_object);
 		}
     
 	}
