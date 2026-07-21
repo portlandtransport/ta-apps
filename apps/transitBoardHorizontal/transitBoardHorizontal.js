@@ -253,7 +253,7 @@ jQuery(document).ready(function() {
 	}
 
 	if ( num_pages > 1 && appliance['id'] ) {
-		setTimeout(rotate_frames,100000); // 100 second delay to let everything load
+		setTimeout(rotate_frames,5000); // 100 second delay to let everything load
 	}
 
 });
