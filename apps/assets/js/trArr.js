@@ -375,7 +375,7 @@ function trArr(input_params) {
 		}
 	}
 
-	this.initiate_drawing = function() {
+	this.initiate_drawing = function(arrivals_object) {
 							
 		// first time through
 		var displayCallCount = 0;
@@ -394,8 +394,8 @@ function trArr(input_params) {
 		}
 		
 		var platform = "";
-		if (typeof this.options.platform === 'object') {
-			platform = this.options.platform[0];
+		if (typeof arrivals_object.options.platform === 'object') {
+			platform = arrivals_object.options.platform[0];
 		}
 
 		if (is_development()) {
@@ -405,12 +405,12 @@ function trArr(input_params) {
 		}
 
 
-		var data = { timestamp: this.start_time, start_time: this.start_time, version: this.version, id: this.id, application_id: this.input_params.applicationId, application_name: this.input_params.applicationName, application_version: this.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+		var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 		trHealthUpdate(data,0,true);
 
 		setInterval(function(){
 			// health update every 30 minutes
-			var data = { timestamp: ((new Date)).getTime(), start_time: this.start_time, version: this.version, id: this.id, application_id: this.input_params.applicationId, application_name: this.input_params.applicationName, application_version: this.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+			var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
 			trHealthUpdate(data,0,false);
 		}, 30*60*1000); // 30 min
 
@@ -424,10 +424,10 @@ function trArr(input_params) {
 		*/
 		
 		var refresh_interval = undefined;
-		if (this.options.refresh_interval != undefined) {
-			refresh_interval = this.options.refresh_interval*1000; // specified in seconds
+		if (arrivals_object.options.refresh_interval != undefined) {
+			refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
 		} else {
-			refresh_interval = this.input_params.displayInterval;
+			refresh_interval = arrivals_object.input_params.displayInterval;
 			if (refresh_interval == undefined) {
 				refresh_interval == 10*1000;
 			}
@@ -435,8 +435,8 @@ function trArr(input_params) {
 
 		// allow 10 seconds for initialization unless another interval specified in URL
 		var launch_delay = 10*1000;
-		if (this.options.launch_delay != undefined && this.options.launch_delay != 0) {
-			launch_delay = this.options.launch_delay*1000; // specified in seconds
+		if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
+			launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
 		}
 
 		/*
@@ -444,16 +444,16 @@ function trArr(input_params) {
 		console.log("Launch Delay: "+launch_delay);
 		*/
 		
-		if (this.input_params.initializeCallback != undefined) {
-			this.input_params.initializeCallback({
-				arrivalsQueue: this.mergeArrivals(),
+		if (arrivals_object.input_params.initializeCallback != undefined) {
+			arrivals_object.input_params.initializeCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
 				displayCallCount: displayCallCount,
-				optionsConfig: this.options,
-				applianceConfig: this.appl,
-				stopsConfig: this.query_params.stop,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
 				agencyCache: trAgencyCache(),
-				serviceMessages: this.mergeMessages(),
-				connectionHealth: this.mergeConnectionHealth(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
 				displayInterval: refresh_interval
 			});
 		}
@@ -462,15 +462,15 @@ function trArr(input_params) {
 		
 		setTimeout(function() {
 
-			updateQueueNextTime = this.input_params.displayCallback({
-				arrivalsQueue: this.mergeArrivals(),
+			updateQueueNextTime = arrivals_object.input_params.displayCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
 				displayCallCount: displayCallCount,
-				optionsConfig: this.options,
-				applianceConfig: this.appl,
-				stopsConfig: this.query_params.stop,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
 				agencyCache: trAgencyCache(),
-				serviceMessages: this.mergeMessages(),
-				connectionHealth: this.mergeConnectionHealth(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
 				displayInterval: refresh_interval
 			});
 			
@@ -480,12 +480,12 @@ function trArr(input_params) {
 			setInterval(function(){
 				displayCallCount++;
 
-				updateQueueNextTime =  this.input_params.displayCallback({
-					arrivalsQueue: this.mergeArrivals(),
+				updateQueueNextTime =  arrivals_object.input_params.displayCallback({
+					arrivalsQueue: arrivals_object.mergeArrivals(),
 					displayCallCount: displayCallCount,
-					optionsConfig: this.options,
-					applianceConfig: this.appl,
-					stopsConfig: this.query_params.stop,
+					optionsConfig: arrivals_object.options,
+					applianceConfig: arrivals_object.appl,
+					stopsConfig: arrivals_object.query_params.stop,
 					agencyCache: trAgencyCache(),
 					serviceMessages: arrivals_object.mergeMessages(),
 					connectionHealth: arrivals_object.mergeConnectionHealth(),
@@ -702,11 +702,13 @@ function trArr(input_params) {
 					arrivals_object.createUpdaterObjects(arrivals_object, service, function(arrivals_object) {
 						// wait 10 seconds for first arrivals to load and then tell 'em we're done
 						//trArrLog("<br>Wait 10 seconds for first set of arrivals<br><br>");
-						setTimeout(arrivals_object.initiate_drawing,0.5*1000);
+						setTimeout(function() {
+							arrivals_object.initiate_drawing(arrivals_object);
+						},0.5*1000);
 					});
 				});
 			} else {
-				arrivals_object.initiate_drawing();
+				arrivals_object.initiate_drawing(arrivals_object);
 			}
 				
 		});
