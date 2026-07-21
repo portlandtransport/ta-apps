@@ -750,14 +750,14 @@ transitBoardByLine.displayPage = function(data, callback) {
 			itemSelector : 'table.trip_wrapper',
 			layoutMode: 'masonry',  
 			getSortData : {
-				sortkey : function ( $elem ) {
-				var bank = 0;
-				if ($elem.attr('data-bank')) {
-					bank = $elem.attr('data-bank').replace('bank','');
-				}
-				var result = parseInt(bank)*10000000 +parseInt($elem.attr('data-sortkey'));
-				// Check if the result is a valid finite number
-				return Number.isFinite(result) ? result : 0;
+				transitsort : function ( $elem ) {
+					var bank = 0;
+					if ($elem.attr('data-bank')) {
+						bank = $elem.attr('data-bank').replace('bank','');
+					}
+					var result = parseInt(bank)*10000000 +parseInt($elem.attr('data-sortkey'));
+					// Check if the result is a valid finite number
+					return Number.isFinite(result) ? result : 0;
 				}
 			}
 		}
@@ -765,7 +765,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 
 	transitBoardByLine.isotope_container.isotope(
 		{
-			sortBy : 'sortkey'
+			sortBy : 'transitsort'
 		}
 	);
 			
