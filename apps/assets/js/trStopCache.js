@@ -43,9 +43,11 @@ function trStopCache() {
 	this.checkCached = function(arrivals_object,stop_config,callback) {
 		console.log("Stop config:");
 		console.log(stop_config);
-		// initialize recursive retrieval of cache items
-		var next_stop = this.nextUncachedStop(stop_config);
-		this.getCacheItem(arrivals_object,stop_config,next_stop,callback);
+		if (typeof stop_config !== 'undefined') {
+			// initialize recursive retrieval of cache items
+			var next_stop = this.nextUncachedStop(stop_config);
+			this.getCacheItem(arrivals_object,stop_config,next_stop,callback);
+		}
     
 	}
 	
