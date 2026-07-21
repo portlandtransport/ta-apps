@@ -374,6 +374,128 @@ function trArr(input_params) {
 			window.location.reload(true);
 		}
 	}
+
+	this.initiate_drawing = function(){
+							
+							// first time through
+							var displayCallCount = 0;
+							jQuery('#arrivals_log_area').css("display","none");
+
+						        // Scroll back to the top
+						        jQuery(document).scrollTop(0);
+						        
+						  	var access_method = "jsonp";
+							if (trArrSupportsCors()) {
+								access_method = "json";
+							} else {
+								if (typeof newrelic === "object") {
+									newrelic.addPageAction("TR7: No CORS support");
+								}
+							}
+							
+							var platform = "";
+							if (typeof arrivals_object.options.platform === 'object') {
+								platform = arrivals_object.options.platform[0];
+							}
+
+							if (is_development()) {
+								//console.log("dev tier");
+							} else {
+								//console.log("production tier");
+							}
+
+
+							var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+							trHealthUpdate(data,0,true);
+
+							setInterval(function(){
+								// health update every 30 minutes
+								var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+								trHealthUpdate(data,0,false);
+							}, 30*60*1000); // 30 min
+
+						
+								
+							/* 3 ways to get display interval:
+							
+							1: from input options
+							2: from object creation parameters
+							3: default 10 seconds
+							*/
+							
+							var refresh_interval = undefined;
+							if (arrivals_object.options.refresh_interval != undefined) {
+								refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
+							} else {
+								refresh_interval = arrivals_object.input_params.displayInterval;
+								if (refresh_interval == undefined) {
+									refresh_interval == 10*1000;
+								}
+							}
+
+							// allow 10 seconds for initialization unless another interval specified in URL
+							var launch_delay = 10*1000;
+							if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
+								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+							}
+
+							/*
+							console.log("Refresh Interval: "+refresh_interval);
+							console.log("Launch Delay: "+launch_delay);
+							*/
+							
+							if (arrivals_object.input_params.initializeCallback != undefined) {
+								arrivals_object.input_params.initializeCallback({
+									arrivalsQueue: arrivals_object.mergeArrivals(),
+									displayCallCount: displayCallCount,
+									optionsConfig: arrivals_object.options,
+									applianceConfig: arrivals_object.appl,
+									stopsConfig: arrivals_object.query_params.stop,
+									agencyCache: trAgencyCache(),
+									serviceMessages: arrivals_object.mergeMessages(),
+									connectionHealth: arrivals_object.mergeConnectionHealth(),
+									displayInterval: refresh_interval
+								});
+							}
+							
+							
+							
+							setTimeout(function() {
+	
+								updateQueueNextTime = arrivals_object.input_params.displayCallback({
+									arrivalsQueue: arrivals_object.mergeArrivals(),
+									displayCallCount: displayCallCount,
+									optionsConfig: arrivals_object.options,
+									applianceConfig: arrivals_object.appl,
+									stopsConfig: arrivals_object.query_params.stop,
+									agencyCache: trAgencyCache(),
+									serviceMessages: arrivals_object.mergeMessages(),
+									connectionHealth: arrivals_object.mergeConnectionHealth(),
+									displayInterval: refresh_interval
+								});
+								
+
+								
+								// now iterate forever
+								setInterval(function(){
+									displayCallCount++;
+		
+									updateQueueNextTime =  arrivals_object.input_params.displayCallback({
+										arrivalsQueue: arrivals_object.mergeArrivals(),
+										displayCallCount: displayCallCount,
+										optionsConfig: arrivals_object.options,
+										applianceConfig: arrivals_object.appl,
+										stopsConfig: arrivals_object.query_params.stop,
+										agencyCache: trAgencyCache(),
+										serviceMessages: arrivals_object.mergeMessages(),
+										connectionHealth: arrivals_object.mergeConnectionHealth(),
+										displayInterval: refresh_interval
+									});
+								}, refresh_interval);
+								
+							},launch_delay);
+							
+						}
 	
 	this.processAgencyRequests = function(arrivals_object,agency,callback) {
 		var agency_js_name = agency.replace('-',"");
@@ -580,129 +702,11 @@ function trArr(input_params) {
 					arrivals_object.createUpdaterObjects(arrivals_object, service, function(arrivals_object) {
 						// wait 10 seconds for first arrivals to load and then tell 'em we're done
 						//trArrLog("<br>Wait 10 seconds for first set of arrivals<br><br>");
-						setTimeout(function(){
-							
-							// first time through
-							var displayCallCount = 0;
-							jQuery('#arrivals_log_area').css("display","none");
-
-						        // Scroll back to the top
-						        jQuery(document).scrollTop(0);
-						        
-						  	var access_method = "jsonp";
-							if (trArrSupportsCors()) {
-								access_method = "json";
-							} else {
-								if (typeof newrelic === "object") {
-									newrelic.addPageAction("TR7: No CORS support");
-								}
-							}
-							
-							var platform = "";
-							if (typeof arrivals_object.options.platform === 'object') {
-								platform = arrivals_object.options.platform[0];
-							}
-
-							if (is_development()) {
-								//console.log("dev tier");
-							} else {
-								//console.log("production tier");
-							}
-
-
-							var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-							trHealthUpdate(data,0,true);
-
-							setInterval(function(){
-								// health update every 30 minutes
-								var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-								trHealthUpdate(data,0,false);
-							}, 30*60*1000); // 30 min
-
-						
-								
-							/* 3 ways to get display interval:
-							
-							1: from input options
-							2: from object creation parameters
-							3: default 10 seconds
-							*/
-							
-							var refresh_interval = undefined;
-							if (arrivals_object.options.refresh_interval != undefined) {
-								refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
-							} else {
-								refresh_interval = arrivals_object.input_params.displayInterval;
-								if (refresh_interval == undefined) {
-									refresh_interval == 10*1000;
-								}
-							}
-
-							// allow 10 seconds for initialization unless another interval specified in URL
-							var launch_delay = 10*1000;
-							if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
-								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
-							}
-
-							/*
-							console.log("Refresh Interval: "+refresh_interval);
-							console.log("Launch Delay: "+launch_delay);
-							*/
-							
-							if (arrivals_object.input_params.initializeCallback != undefined) {
-								arrivals_object.input_params.initializeCallback({
-									arrivalsQueue: arrivals_object.mergeArrivals(),
-									displayCallCount: displayCallCount,
-									optionsConfig: arrivals_object.options,
-									applianceConfig: arrivals_object.appl,
-									stopsConfig: arrivals_object.query_params.stop,
-									agencyCache: trAgencyCache(),
-									serviceMessages: arrivals_object.mergeMessages(),
-									connectionHealth: arrivals_object.mergeConnectionHealth(),
-									displayInterval: refresh_interval
-								});
-							}
-							
-							
-							
-							setTimeout(function() {
-	
-								updateQueueNextTime = arrivals_object.input_params.displayCallback({
-									arrivalsQueue: arrivals_object.mergeArrivals(),
-									displayCallCount: displayCallCount,
-									optionsConfig: arrivals_object.options,
-									applianceConfig: arrivals_object.appl,
-									stopsConfig: arrivals_object.query_params.stop,
-									agencyCache: trAgencyCache(),
-									serviceMessages: arrivals_object.mergeMessages(),
-									connectionHealth: arrivals_object.mergeConnectionHealth(),
-									displayInterval: refresh_interval
-								});
-								
-
-								
-								// now iterate forever
-								setInterval(function(){
-									displayCallCount++;
-		
-									updateQueueNextTime =  arrivals_object.input_params.displayCallback({
-										arrivalsQueue: arrivals_object.mergeArrivals(),
-										displayCallCount: displayCallCount,
-										optionsConfig: arrivals_object.options,
-										applianceConfig: arrivals_object.appl,
-										stopsConfig: arrivals_object.query_params.stop,
-										agencyCache: trAgencyCache(),
-										serviceMessages: arrivals_object.mergeMessages(),
-										connectionHealth: arrivals_object.mergeConnectionHealth(),
-										displayInterval: refresh_interval
-									});
-								}, refresh_interval);
-								
-							},launch_delay);
-							
-						},0.5*1000);
+						setTimeout(this.initiate_drawing,0.5*1000);
 					});
 				});
+			} else {
+				this.initiate_drawing;
 			}
 				
 		});
