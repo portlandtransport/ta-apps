@@ -13453,9 +13453,14 @@ function trStopCache() {
 	
   	
 	this.checkCached = function(arrivals_object,stop_config,callback) {
-		// initialize recursive retrieval of cache items
-		var next_stop = this.nextUncachedStop(stop_config);
-		this.getCacheItem(arrivals_object,stop_config,next_stop,callback);
+		if (typeof stop_config == 'undefined') {
+			trArrLog("No stops - moving on.<br><br>");
+			callback(arrivals_object);
+		} else {
+			// initialize recursive retrieval of cache items
+			var next_stop = this.nextUncachedStop(stop_config);
+			this.getCacheItem(arrivals_object,stop_config,next_stop,callback);			
+		}
     
 	}
 	
@@ -14631,17 +14636,17 @@ function trArr(input_params) {
 		this.appl[option] = opt_array;
 	}
 
-  // Set it globally
-  if (this.appl.timezone != undefined) {
-      timezone = this.appl.timezone[0];
-  } else {
-		timezone = 'America/Los_Angeles';
-  }
+	// Set it globally
+	if (this.appl.timezone != undefined) {
+		timezone = this.appl.timezone[0];
+	} else {
+			timezone = 'America/Los_Angeles';
+	}
 	
 	this.id = undefined;
 	if (this.appl != undefined && this.appl.id != undefined && this.appl.id[0] != undefined) {
-    this.id = this.appl.id[0];
-  }
+		this.id = this.appl.id[0];
+	}
 	
 	this.ready = new jQuery.Deferred();
 	
@@ -14663,6 +14668,128 @@ function trArr(input_params) {
 		} else {
 			window.location.reload(true);
 		}
+	}
+
+	this.initiate_drawing = function(arrivals_object) {
+							
+		// first time through
+		var displayCallCount = 0;
+		jQuery('#arrivals_log_area').css("display","none");
+
+			// Scroll back to the top
+			jQuery(document).scrollTop(0);
+			
+		var access_method = "jsonp";
+		if (trArrSupportsCors()) {
+			access_method = "json";
+		} else {
+			if (typeof newrelic === "object") {
+				newrelic.addPageAction("TR7: No CORS support");
+			}
+		}
+		
+		var platform = "";
+		if (typeof arrivals_object.options.platform === 'object') {
+			platform = arrivals_object.options.platform[0];
+		}
+
+		if (is_development()) {
+			//console.log("dev tier");
+		} else {
+			//console.log("production tier");
+		}
+
+
+		var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+		trHealthUpdate(data,0,true);
+
+		setInterval(function(){
+			// health update every 30 minutes
+			var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
+			trHealthUpdate(data,0,false);
+		}, 30*60*1000); // 30 min
+
+	
+			
+		/* 3 ways to get display interval:
+		
+		1: from input options
+		2: from object creation parameters
+		3: default 10 seconds
+		*/
+		
+		var refresh_interval = undefined;
+		if (arrivals_object.options.refresh_interval != undefined) {
+			refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
+		} else {
+			refresh_interval = arrivals_object.input_params.displayInterval;
+			if (refresh_interval == undefined) {
+				refresh_interval == 10*1000;
+			}
+		}
+
+		// allow 10 seconds for initialization unless another interval specified in URL
+		var launch_delay = 10*1000;
+		if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
+			launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+		}
+
+		/*
+		console.log("Refresh Interval: "+refresh_interval);
+		console.log("Launch Delay: "+launch_delay);
+		*/
+		
+		if (arrivals_object.input_params.initializeCallback != undefined) {
+			arrivals_object.input_params.initializeCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
+				displayCallCount: displayCallCount,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
+				agencyCache: trAgencyCache(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
+				displayInterval: refresh_interval
+			});
+		}
+		
+		
+		
+		setTimeout(function() {
+
+			updateQueueNextTime = arrivals_object.input_params.displayCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
+				displayCallCount: displayCallCount,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
+				agencyCache: trAgencyCache(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
+				displayInterval: refresh_interval
+			});
+			
+
+			
+			// now iterate forever
+			setInterval(function(){
+				displayCallCount++;
+
+				updateQueueNextTime =  arrivals_object.input_params.displayCallback({
+					arrivalsQueue: arrivals_object.mergeArrivals(),
+					displayCallCount: displayCallCount,
+					optionsConfig: arrivals_object.options,
+					applianceConfig: arrivals_object.appl,
+					stopsConfig: arrivals_object.query_params.stop,
+					agencyCache: trAgencyCache(),
+					serviceMessages: arrivals_object.mergeMessages(),
+					connectionHealth: arrivals_object.mergeConnectionHealth(),
+					displayInterval: refresh_interval
+				});
+			}, refresh_interval);
+			
+		},launch_delay);
+		
 	}
 	
 	this.processAgencyRequests = function(arrivals_object,agency,callback) {
@@ -14870,129 +14997,13 @@ function trArr(input_params) {
 					arrivals_object.createUpdaterObjects(arrivals_object, service, function(arrivals_object) {
 						// wait 10 seconds for first arrivals to load and then tell 'em we're done
 						//trArrLog("<br>Wait 10 seconds for first set of arrivals<br><br>");
-						setTimeout(function(){
-							
-							// first time through
-							var displayCallCount = 0;
-							jQuery('#arrivals_log_area').css("display","none");
-
-						        // Scroll back to the top
-						        jQuery(document).scrollTop(0);
-						        
-						  	var access_method = "jsonp";
-							if (trArrSupportsCors()) {
-								access_method = "json";
-							} else {
-								if (typeof newrelic === "object") {
-									newrelic.addPageAction("TR7: No CORS support");
-								}
-							}
-							
-							var platform = "";
-							if (typeof arrivals_object.options.platform === 'object') {
-								platform = arrivals_object.options.platform[0];
-							}
-
-							if (is_development()) {
-								//console.log("dev tier");
-							} else {
-								//console.log("production tier");
-							}
-
-
-							var data = { timestamp: arrivals_object.start_time, start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-							trHealthUpdate(data,0,true);
-
-							setInterval(function(){
-								// health update every 30 minutes
-								var data = { timestamp: ((new Date)).getTime(), start_time: arrivals_object.start_time, version: arrivals_object.version, id: arrivals_object.id, application_id: arrivals_object.input_params.applicationId, application_name: arrivals_object.input_params.applicationName, application_version: arrivals_object.input_params.applicationVersion, application_host: window.location.protocol+'//'+window.location.host+'/', "height": jQuery(window).height(), "width": jQuery(window).width(), "platform": platform };
-								trHealthUpdate(data,0,false);
-							}, 30*60*1000); // 30 min
-
-						
-								
-							/* 3 ways to get display interval:
-							
-							1: from input options
-							2: from object creation parameters
-							3: default 10 seconds
-							*/
-							
-							var refresh_interval = undefined;
-							if (arrivals_object.options.refresh_interval != undefined) {
-								refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
-							} else {
-								refresh_interval = arrivals_object.input_params.displayInterval;
-								if (refresh_interval == undefined) {
-									refresh_interval == 10*1000;
-								}
-							}
-
-							// allow 10 seconds for initialization unless another interval specified in URL
-							var launch_delay = 10*1000;
-							if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
-								launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
-							}
-
-							/*
-							console.log("Refresh Interval: "+refresh_interval);
-							console.log("Launch Delay: "+launch_delay);
-							*/
-							
-							if (arrivals_object.input_params.initializeCallback != undefined) {
-								arrivals_object.input_params.initializeCallback({
-									arrivalsQueue: arrivals_object.mergeArrivals(),
-									displayCallCount: displayCallCount,
-									optionsConfig: arrivals_object.options,
-									applianceConfig: arrivals_object.appl,
-									stopsConfig: arrivals_object.query_params.stop,
-									agencyCache: trAgencyCache(),
-									serviceMessages: arrivals_object.mergeMessages(),
-									connectionHealth: arrivals_object.mergeConnectionHealth(),
-									displayInterval: refresh_interval
-								});
-							}
-							
-							
-							
-							setTimeout(function() {
-	
-								updateQueueNextTime = arrivals_object.input_params.displayCallback({
-									arrivalsQueue: arrivals_object.mergeArrivals(),
-									displayCallCount: displayCallCount,
-									optionsConfig: arrivals_object.options,
-									applianceConfig: arrivals_object.appl,
-									stopsConfig: arrivals_object.query_params.stop,
-									agencyCache: trAgencyCache(),
-									serviceMessages: arrivals_object.mergeMessages(),
-									connectionHealth: arrivals_object.mergeConnectionHealth(),
-									displayInterval: refresh_interval
-								});
-								
-
-								
-								// now iterate forever
-								setInterval(function(){
-									displayCallCount++;
-		
-									updateQueueNextTime =  arrivals_object.input_params.displayCallback({
-										arrivalsQueue: arrivals_object.mergeArrivals(),
-										displayCallCount: displayCallCount,
-										optionsConfig: arrivals_object.options,
-										applianceConfig: arrivals_object.appl,
-										stopsConfig: arrivals_object.query_params.stop,
-										agencyCache: trAgencyCache(),
-										serviceMessages: arrivals_object.mergeMessages(),
-										connectionHealth: arrivals_object.mergeConnectionHealth(),
-										displayInterval: refresh_interval
-									});
-								}, refresh_interval);
-								
-							},launch_delay);
-							
+						setTimeout(function() {
+							arrivals_object.initiate_drawing(arrivals_object);
 						},0.5*1000);
 					});
 				});
+			} else {
+				arrivals_object.initiate_drawing(arrivals_object);
 			}
 				
 		});
@@ -18555,82 +18566,24 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 		}
 		
+		
 		if (locations.length == 0) {
 			// no bikes, kill off the display elements
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( trip_objects[id] == null && id.match(/gbfs/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+				if (typeof(id) !== "undefined") {
+					if ( trip_objects[id] == null && id.match(/gbfs/) ) {
+						jQuery("table."+id).removeClass('active');
+						removal_queue.push(id);
+					}
 				}
+
 			});
 		}
 		
 	}	
 	
-	
-	// create/update car2go tables
-	if (transitBoardByLine.car2go > 0) {
-	  
-		var vehicles = transitBoardByLine.cars.get_vehicles();
 		
-		if (vehicles.length == 0) {
-			// no bikes, kill off the display elements
-			jQuery("table.trip_wrapper.active").each(function(index,element){
-				var id = jQuery(element).attr("data-tripid");
-				if ( trip_objects[id] == null && id.match(/car2go/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
-				}
-			});
-		}		
-		
-		for (i=0; i<vehicles.length; i++) {
-			if ( typeof vehicles[i] !== 'undefined') {
-				var value = vehicles[i];
-				var dist = value[1];
-				if (dist < 0.1) {
-					dist = 0.1;
-				}
-				var address = value[0];
-				address = '<span class="terminus">'+address.replace("(","</span><br>(");
-				if (address.indexOf("/span") == -1) {
-					address = address + "</span>";
-				}
-				if (jQuery(".active.car2go"+i).length == 0) {
-					var car = '\
-							<table class="car2go car2go'+i+' trip_wrapper active isotope-item bank_placeholder" data-sortkey="80000" data-bank="bank_placeholder" data-tripid="car2go'+i+'">\
-								<tbody class="trip service_color_car2go">\
-									<tr valign="middle">\
-										<td class="route"><img src="../assets/images/car2go/car2go_vehicle.jpg"></td>\
-										<td class="destination"><div>Car2Go - '+address+'</div></td>\
-										<td class="arrivals">'+dist.toFixed(1)+' mi</td>\
-									</tr>\
-								</tbody>\
-							</table>\
-					';
-					jQuery.each(transitBoardByLine.banks,function(index,bank) {
-						var car_string = car.replace(/bank_placeholder/g,bank);
-						transitBoardByLine.isotope_container.isotope( 'insert', jQuery(car_string) );
-					});
-					
-				} else {
-					jQuery('.car2go'+i+' .destination div').html("Car2Go - "+address);
-					var trip = jQuery('.car2go'+i+' .destination div');
-					if (trip.length > 0) {
-						if (trip[0].scrollHeight > trip[0].clientHeight) {
-							var car2go_class = 'car2go'+i;
-							setTimeout(function(){transitBoardByLine.shrink_destination(car2go_class)}, 500);
-						}
-					}
-					jQuery('.car2go'+i+' .arrivals').html(dist.toFixed(1)+' mi');
-				}
-			}
-		}
-	}
-	
-
-	
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
 			if (transitBoardByLine.is_development) {
@@ -18688,9 +18641,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/weather/) ) {
-					jQuery("table."+id).removeClass('active').remove();
-					//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/weather/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+						//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+					}
 				}
 			});
 		}
@@ -18739,8 +18694,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/aqi/) ) {
-					jQuery("table."+id).removeClass('active').remove();
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/aqi/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+					}
 				}
 			});
 		}

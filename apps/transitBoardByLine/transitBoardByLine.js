@@ -1103,82 +1103,24 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 		}
 		
+		
 		if (locations.length == 0) {
 			// no bikes, kill off the display elements
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( trip_objects[id] == null && id.match(/gbfs/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+				if (typeof(id) !== "undefined") {
+					if ( trip_objects[id] == null && id.match(/gbfs/) ) {
+						jQuery("table."+id).removeClass('active');
+						removal_queue.push(id);
+					}
 				}
+
 			});
 		}
 		
 	}	
 	
-	
-	// create/update car2go tables
-	if (transitBoardByLine.car2go > 0) {
-	  
-		var vehicles = transitBoardByLine.cars.get_vehicles();
 		
-		if (vehicles.length == 0) {
-			// no bikes, kill off the display elements
-			jQuery("table.trip_wrapper.active").each(function(index,element){
-				var id = jQuery(element).attr("data-tripid");
-				if ( trip_objects[id] == null && id.match(/car2go/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
-				}
-			});
-		}		
-		
-		for (i=0; i<vehicles.length; i++) {
-			if ( typeof vehicles[i] !== 'undefined') {
-				var value = vehicles[i];
-				var dist = value[1];
-				if (dist < 0.1) {
-					dist = 0.1;
-				}
-				var address = value[0];
-				address = '<span class="terminus">'+address.replace("(","</span><br>(");
-				if (address.indexOf("/span") == -1) {
-					address = address + "</span>";
-				}
-				if (jQuery(".active.car2go"+i).length == 0) {
-					var car = '\
-							<table class="car2go car2go'+i+' trip_wrapper active isotope-item bank_placeholder" data-sortkey="80000" data-bank="bank_placeholder" data-tripid="car2go'+i+'">\
-								<tbody class="trip service_color_car2go">\
-									<tr valign="middle">\
-										<td class="route"><img src="../assets/images/car2go/car2go_vehicle.jpg"></td>\
-										<td class="destination"><div>Car2Go - '+address+'</div></td>\
-										<td class="arrivals">'+dist.toFixed(1)+' mi</td>\
-									</tr>\
-								</tbody>\
-							</table>\
-					';
-					jQuery.each(transitBoardByLine.banks,function(index,bank) {
-						var car_string = car.replace(/bank_placeholder/g,bank);
-						transitBoardByLine.isotope_container.isotope( 'insert', jQuery(car_string) );
-					});
-					
-				} else {
-					jQuery('.car2go'+i+' .destination div').html("Car2Go - "+address);
-					var trip = jQuery('.car2go'+i+' .destination div');
-					if (trip.length > 0) {
-						if (trip[0].scrollHeight > trip[0].clientHeight) {
-							var car2go_class = 'car2go'+i;
-							setTimeout(function(){transitBoardByLine.shrink_destination(car2go_class)}, 500);
-						}
-					}
-					jQuery('.car2go'+i+' .arrivals').html(dist.toFixed(1)+' mi');
-				}
-			}
-		}
-	}
-	
-
-	
 	if (transitBoardByLine.weather) {
 		if (transitBoardByLine.forecast.weather_is_current()) {
 			if (transitBoardByLine.is_development) {
@@ -1236,9 +1178,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/weather/) ) {
-					jQuery("table."+id).removeClass('active').remove();
-					//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/weather/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+						//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+					}
 				}
 			});
 		}
@@ -1287,8 +1231,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/aqi/) ) {
-					jQuery("table."+id).removeClass('active').remove();
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/aqi/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+					}
 				}
 			});
 		}
