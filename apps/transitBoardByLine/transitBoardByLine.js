@@ -1103,18 +1103,21 @@ transitBoardByLine.displayPage = function(data, callback) {
 			}
 		}
 		
-		/* not sure we need this?
+		
 		if (locations.length == 0) {
 			// no bikes, kill off the display elements
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( trip_objects[id] == null && id.match(/gbfs/) ) {
-					jQuery("table."+id).removeClass('active');
-					removal_queue.push(id);
+				if (typeof(id) !== "undefined") {
+					if ( trip_objects[id] == null && id.match(/gbfs/) ) {
+						jQuery("table."+id).removeClass('active');
+						removal_queue.push(id);
+					}
 				}
+
 			});
 		}
-		*/		
+		
 	}	
 	
 		
@@ -1175,9 +1178,11 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/weather/) ) {
-					jQuery("table."+id).removeClass('active').remove();
-					//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/weather/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+						//transitBoardByLine.isotope_container.isotope( 'remove', jQuery(element) );
+					}
 				}
 			});
 		}
@@ -1226,8 +1231,10 @@ transitBoardByLine.displayPage = function(data, callback) {
 			// remove the entries, they're not current
 			jQuery("table.trip_wrapper.active").each(function(index,element){
 				var id = jQuery(element).attr("data-tripid");
-				if ( id.match(/aqi/) ) {
-					jQuery("table."+id).removeClass('active').remove();
+				if (typeof(id) !== "undefined") {
+					if ( id.match(/aqi/) ) {
+						jQuery("table."+id).removeClass('active').remove();
+					}
 				}
 			});
 		}
