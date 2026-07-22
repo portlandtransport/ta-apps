@@ -41,8 +41,6 @@ function trStopCache() {
 	
   	
 	this.checkCached = function(arrivals_object,stop_config,callback) {
-		console.log("Stop config:");
-		console.log(stop_config);
 		if (typeof stop_config == 'undefined') {
 			trArrLog("No stops - moving on.<br><br>");
 			callback(arrivals_object);
