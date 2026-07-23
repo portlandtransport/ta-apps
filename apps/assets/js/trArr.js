@@ -376,6 +376,24 @@ function trArr(input_params) {
 	}
 
 	this.draw = function(arrivals_object,displayCallCount) {
+
+		/* 3 ways to get display interval:
+		
+		1: from input options
+		2: from object creation parameters
+		3: default 10 seconds
+		*/
+		
+		var refresh_interval = undefined;
+		if (arrivals_object.options.refresh_interval != undefined) {
+			refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
+		} else {
+			refresh_interval = arrivals_object.input_params.displayInterval;
+			if (refresh_interval == undefined) {
+				refresh_interval == 10*1000;
+			}
+		}
+		
 		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
 				arrivalsQueue: arrivals_object.mergeArrivals(),
 				displayCallCount: displayCallCount,
