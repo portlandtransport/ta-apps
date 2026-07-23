@@ -14670,10 +14670,10 @@ function trArr(input_params) {
 		}
 	}
 
-	this.draw = function(arrivals_object) {
+	this.draw = function(arrivals_object,displayCallCount) {
 		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
 				arrivalsQueue: arrivals_object.mergeArrivals(),
-				displayCallCount: displayCallCount++,
+				displayCallCount: displayCallCount,
 				optionsConfig: arrivals_object.options,
 				applianceConfig: arrivals_object.appl,
 				stopsConfig: arrivals_object.query_params.stop,
@@ -14768,12 +14768,12 @@ function trArr(input_params) {
 		}
 		
 		// initial draw, no delay
-		arrivals_object.draw(arrivals_object);
+		arrivals_object.draw(arrivals_object,displayCallCount);
 
 		// update quickly over next 10 seconds
 
 		var initiation_interval_id = setInterval(function(){
-			arrivals_object.draw(arrivals_object);
+			arrivals_object.draw(arrivals_object,displayCallCount++);
 		},1000);
 
 		setTimeout(function(){
@@ -14782,7 +14782,7 @@ function trArr(input_params) {
 
 			// set up recurring redraw
 			setInterval(function(){
-				arrivals_object.draw(arrivals_object);
+				arrivals_object.draw(arrivals_object,displayCallCount++);
 			},refresh_interval);
 		},10*1000);
 
