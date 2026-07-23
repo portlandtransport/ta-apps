@@ -14672,8 +14672,6 @@ function trArr(input_params) {
 
 	this.draw = function(arrivals_object,displayCallCount,refresh_interval) {
 
-		console.log('draw');
-
 		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
 				arrivalsQueue: arrivals_object.mergeArrivals(),
 				displayCallCount: displayCallCount,
