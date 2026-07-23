@@ -14670,25 +14670,8 @@ function trArr(input_params) {
 		}
 	}
 
-	this.draw = function(arrivals_object,displayCallCount) {
+	this.draw = function(arrivals_object,displayCallCount,refresh_interval) {
 
-		/* 3 ways to get display interval:
-		
-		1: from input options
-		2: from object creation parameters
-		3: default 10 seconds
-		*/
-		
-		var refresh_interval = undefined;
-		if (arrivals_object.options.refresh_interval != undefined) {
-			refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
-		} else {
-			refresh_interval = arrivals_object.input_params.displayInterval;
-			if (refresh_interval == undefined) {
-				refresh_interval == 10*1000;
-			}
-		}
-		
 		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
 				arrivalsQueue: arrivals_object.mergeArrivals(),
 				displayCallCount: displayCallCount,
@@ -14751,6 +14734,23 @@ function trArr(input_params) {
 			launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
 		}
 
+		/* 3 ways to get display interval:
+	
+		1: from input options
+		2: from object creation parameters
+		3: default 10 seconds
+		*/
+		
+		var refresh_interval = undefined;
+		if (arrivals_object.options.refresh_interval != undefined) {
+			refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
+		} else {
+			refresh_interval = arrivals_object.input_params.displayInterval;
+			if (refresh_interval == undefined) {
+				refresh_interval == 10*1000;
+			}
+		}
+
 		/*
 		console.log("Refresh Interval: "+refresh_interval);
 		console.log("Launch Delay: "+launch_delay);
@@ -14771,38 +14771,21 @@ function trArr(input_params) {
 		}
 		
 		// initial draw, no delay
-		arrivals_object.draw(arrivals_object,displayCallCount);
+		arrivals_object.draw(arrivals_object,displayCallCount,refresh_interval);
 
 		// update quickly over next 10 seconds
 
 		var initiation_interval_id = setInterval(function(){
-			arrivals_object.draw(arrivals_object,displayCallCount++);
+			arrivals_object.draw(arrivals_object,displayCallCount++,refresh_interval);
 		},1000);
 
 		setTimeout(function(){
 			// kill fast loop
 			clearInterval(initiation_interval_id);
 
-			/* 3 ways to get display interval:
-		
-			1: from input options
-			2: from object creation parameters
-			3: default 10 seconds
-			*/
-			
-			var refresh_interval = undefined;
-			if (arrivals_object.options.refresh_interval != undefined) {
-				refresh_interval = arrivals_object.options.refresh_interval*1000; // specified in seconds
-			} else {
-				refresh_interval = arrivals_object.input_params.displayInterval;
-				if (refresh_interval == undefined) {
-					refresh_interval == 10*1000;
-				}
-			}
-
 			// set up recurring redraw
 			setInterval(function(){
-				arrivals_object.draw(arrivals_object,displayCallCount++);
+				arrivals_object.draw(arrivals_object,displayCallCount++,refresh_interval);
 			},refresh_interval);
 		},10*1000);
 
