@@ -14670,6 +14670,20 @@ function trArr(input_params) {
 		}
 	}
 
+	this.draw = function(arrivals_object) {
+		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
+				displayCallCount: displayCallCount++,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
+				agencyCache: trAgencyCache(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
+				displayInterval: refresh_interval
+			});
+	}
+
 	this.initiate_drawing = function(arrivals_object) {
 							
 		// first time through
@@ -14753,7 +14767,26 @@ function trArr(input_params) {
 			});
 		}
 		
-		
+		// initial draw, no delay
+		arrivals_object.draw(arrivals_object);
+
+		// update quickly over next 10 seconds
+
+		var initiation_interval_id = setInterval(function(){
+			arrivals_object.draw(arrivals_object);
+		},1000);
+
+		setTimeout(function(){
+			// kill fast loop
+			clearInterval(initiation_interval_id);
+
+			// set up recurring redraw
+			setInterval(function(){
+				arrivals_object.draw(arrivals_object);
+			},refresh_interval);
+		},10*1000);
+
+		/* old invocation
 		
 		setTimeout(function() {
 
@@ -14789,6 +14822,7 @@ function trArr(input_params) {
 			}, refresh_interval);
 			
 		},launch_delay);
+		*/
 		
 	}
 	
