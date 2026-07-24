@@ -51,8 +51,11 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyCTRANEntryFilterCallback(entry) {
-	console.log(entry);
+	//console.log(entry);
 	entry.route_data.route_short_name = entry.route_data.route_id;
+	if (entry.route_data.route_id == "106") {
+		entry.route_data.route_short_name = "105X";
+	}
 	return entry;
 }
 
