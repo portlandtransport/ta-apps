@@ -51,7 +51,8 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyCTRANEntryFilterCallback(entry) {
-	entry.route_data.route_short_name = "C-TRAN"
+	console.log(entry);
+	entry.route_data.route_short_name = "C-TRAN";
 	return entry;
 }
 
