@@ -14,17 +14,17 @@
    limitations under the License.
 */
 
-function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requests) {
+function trArrAgencySAMMakeServiceRequests(stops,options,stop_cache,service_requests) {
 		
 	if (typeof service_requests.Passio == "undefined") {
 		service_requests.Passio = {};
 	}
-	if (typeof service_requests.Passio['CAT'] == "undefined") {
-		service_requests.Passio['CAT'] = [];
+	if (typeof service_requests.Passio['SAM'] == "undefined") {
+		service_requests.Passio['SAM'] = [];
 	}
 
 	for (var stop_id in stops) {
-		var stop_data = stop_cache.stopData('CAT',stop_id);
+		var stop_data = stop_cache.stopData('SAM',stop_id);
 		var obj = {stop_id: stop_id, stop_data: stop_data, routes: []};
 		if (stops[stop_id]['*']) {
 			for (var i = 0; i < stop_data.routes.length; i++){
@@ -44,20 +44,14 @@ function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requ
 
 		obj.callback = trArrAgencyCATEntryFilterCallback;
 
-		service_requests.Passio['CAT'].push(obj);
+		service_requests.Passio['SAM'].push(obj);
 		
 	}
 	
 }
 
-function trArrAgencyCATEntryFilterCallback(entry) {
-
-	const route_initials = {
-		"6265": "LP",
-		"6266": "99X"
-	}
-	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
-
+function trArrAgencySAMEntryFilterCallback(entry) {
+	entry.route_data.route_short_name = 'SAM';
 	return entry;
 }
 

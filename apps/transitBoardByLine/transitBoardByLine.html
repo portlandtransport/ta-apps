@@ -184,6 +184,24 @@ table.trip_wrapper td.arrivals span.second_arrival {
 	font-size: .7em;
 }
 
+/* Canby Area Transit Colors */
+
+table.trip_wrapper tbody.agency_CAT.route_6266 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination div {
+	background-color: #2CA02C;
+	border-color: #2CA02C;
+	color: white;
+}
+
+table.trip_wrapper tbody.agency_CAT.route_6265 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination div {
+	background-color: #1F77B4;
+	border-color: #1F77B4;
+	color: white;
+}
+
 /* Clackamas Connect Colors */
 
 table.trip_wrapper tbody.agency_Clack.route_6140 td.route,
@@ -13603,6 +13621,7 @@ function trAgencyCache() {
         "rights_notice": "Route and arrival data provided by permission of TriMet.",
         "_id": "TriMet",
         "agency_name": "TriMet",
+		"agency_full_name": "TriMet",
         "agency_url": "http://trimet.org",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "portland-sc",
@@ -13617,6 +13636,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "PCC",
         "agency_name": "PCC",
+		"agency_full_name": "Portland Community College",
         "agency_url": "http://www.pcc.edu/resources/parking/shuttle/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "PCC",
@@ -13631,6 +13651,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "Clack",
         "agency_name": "Clackamas Connect",
+		"agency_full_name": "Clackamas Connect",
         "agency_url": "https://www.clackamas.us/h3s/connects-shuttle",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "Clack",
@@ -13645,6 +13666,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "SClack",
         "agency_name": "SCTD",
+		"agency_full_name": "South Clackamas Transportation District",
         "agency_url": "https://www.sctd.org/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "SClack",
@@ -13658,7 +13680,8 @@ function trAgencyCache() {
 	this.cache['CAT'] = {
         "rights_notice": "",
         "_id": "CAT",
-        "agency_name": "Canby Area Transit",
+        "agency_name": "CAT",
+		"agency_full_name": "Canby Area Transit",
         "agency_url": "https://www.canbyoregon.gov/area-transit",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CAT",
@@ -13669,10 +13692,41 @@ function trAgencyCache() {
 		"gtfs_rt_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/realtime/tripUpdates",
 	};
 
+	this.cache['SAM'] = {
+        "rights_notice": "",
+        "_id": "SAM",
+        "agency_name": "SAM",
+		"agency_full_name": "Sandy Area Metro",
+        "agency_url": "https://www.ci.sandy.or.us/transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "SAM",
+        "doc_type": "Document",
+        "avl_service": "SAM",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/sandyor/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/sandyor/passioTransit/gtfs/realtime/tripUpdates",
+	};
+
+	this.cache['SMART'] = {
+        "rights_notice": "",
+        "_id": "SAM",
+        "agency_name": "SMART",
+		"agency_full_name": "South Metro Area Regional Transit",
+        "agency_url": "https://www.ridesmart.com/transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "SMART",
+        "doc_type": "Document",
+        "avl_service": "SMART",
+        "agency_lang": "en",
+		"gtfs_url": "https://mysmartbus.com/gtfs",
+		"gtfs_rt_url": "https://mysmartbus.com/gtfs-rt/tripupdates",
+	};
+
 	this.cache['CTRAN'] = {
         "rights_notice": "",
         "_id": "CTRAN",
         "agency_name": "C-TRAN",
+		"agency_full_name": "C-TRAN",
         "agency_url": "https://www.c-tran.com/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CTRAN",
@@ -14670,6 +14724,21 @@ function trArr(input_params) {
 		}
 	}
 
+	this.draw = function(arrivals_object,displayCallCount,refresh_interval) {
+
+		var updateQueueNextTime = arrivals_object.input_params.displayCallback({
+				arrivalsQueue: arrivals_object.mergeArrivals(),
+				displayCallCount: displayCallCount,
+				optionsConfig: arrivals_object.options,
+				applianceConfig: arrivals_object.appl,
+				stopsConfig: arrivals_object.query_params.stop,
+				agencyCache: trAgencyCache(),
+				serviceMessages: arrivals_object.mergeMessages(),
+				connectionHealth: arrivals_object.mergeConnectionHealth(),
+				displayInterval: refresh_interval
+			});
+	}
+
 	this.initiate_drawing = function(arrivals_object) {
 							
 		// first time through
@@ -14711,8 +14780,16 @@ function trArr(input_params) {
 
 	
 			
+
+
+		// allow 10 seconds for initialization unless another interval specified in URL
+		var launch_delay = 10*1000;
+		if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
+			launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
+		}
+
 		/* 3 ways to get display interval:
-		
+	
 		1: from input options
 		2: from object creation parameters
 		3: default 10 seconds
@@ -14726,12 +14803,6 @@ function trArr(input_params) {
 			if (refresh_interval == undefined) {
 				refresh_interval == 10*1000;
 			}
-		}
-
-		// allow 10 seconds for initialization unless another interval specified in URL
-		var launch_delay = 10*1000;
-		if (arrivals_object.options.launch_delay != undefined && arrivals_object.options.launch_delay != 0) {
-			launch_delay = arrivals_object.options.launch_delay*1000; // specified in seconds
 		}
 
 		/*
@@ -14753,7 +14824,26 @@ function trArr(input_params) {
 			});
 		}
 		
-		
+		// initial draw, no delay
+		arrivals_object.draw(arrivals_object,displayCallCount,refresh_interval);
+
+		// update quickly over next 10 seconds
+
+		var initiation_interval_id = setInterval(function(){
+			arrivals_object.draw(arrivals_object,displayCallCount++,refresh_interval);
+		},1000);
+
+		setTimeout(function(){
+			// kill fast loop
+			clearInterval(initiation_interval_id);
+
+			// set up recurring redraw
+			setInterval(function(){
+				arrivals_object.draw(arrivals_object,displayCallCount++,refresh_interval);
+			},refresh_interval);
+		},10*1000);
+
+		/* old invocation
 		
 		setTimeout(function() {
 
@@ -14789,6 +14879,7 @@ function trArr(input_params) {
 			}, refresh_interval);
 			
 		},launch_delay);
+		*/
 		
 	}
 	

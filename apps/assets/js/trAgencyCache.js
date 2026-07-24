@@ -37,6 +37,7 @@ function trAgencyCache() {
         "rights_notice": "Route and arrival data provided by permission of TriMet.",
         "_id": "TriMet",
         "agency_name": "TriMet",
+		"agency_full_name": "TriMet",
         "agency_url": "http://trimet.org",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "portland-sc",
@@ -51,6 +52,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "PCC",
         "agency_name": "PCC",
+		"agency_full_name": "Portland Community College",
         "agency_url": "http://www.pcc.edu/resources/parking/shuttle/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "PCC",
@@ -65,6 +67,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "Clack",
         "agency_name": "Clackamas Connect",
+		"agency_full_name": "Clackamas Connect",
         "agency_url": "https://www.clackamas.us/h3s/connects-shuttle",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "Clack",
@@ -79,6 +82,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "SClack",
         "agency_name": "SCTD",
+		"agency_full_name": "South Clackamas Transportation District",
         "agency_url": "https://www.sctd.org/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "SClack",
@@ -92,7 +96,8 @@ function trAgencyCache() {
 	this.cache['CAT'] = {
         "rights_notice": "",
         "_id": "CAT",
-        "agency_name": "Canby Area Transit",
+        "agency_name": "CAT",
+		"agency_full_name": "Canby Area Transit",
         "agency_url": "https://www.canbyoregon.gov/area-transit",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CAT",
@@ -103,10 +108,41 @@ function trAgencyCache() {
 		"gtfs_rt_url": "https://passio3.com/canbyTransit/passioTransit/gtfs/realtime/tripUpdates",
 	};
 
+	this.cache['SAM'] = {
+        "rights_notice": "",
+        "_id": "SAM",
+        "agency_name": "SAM",
+		"agency_full_name": "Sandy Area Metro",
+        "agency_url": "https://www.ci.sandy.or.us/transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "SAM",
+        "doc_type": "Document",
+        "avl_service": "SAM",
+        "agency_lang": "en",
+		"gtfs_url": "https://passio3.com/sandyor/passioTransit/gtfs/google_transit.zip",
+		"gtfs_rt_url": "https://passio3.com/sandyor/passioTransit/gtfs/realtime/tripUpdates",
+	};
+
+	this.cache['SMART'] = {
+        "rights_notice": "",
+        "_id": "SAM",
+        "agency_name": "SMART",
+		"agency_full_name": "South Metro Area Regional Transit",
+        "agency_url": "https://www.ridesmart.com/transit",
+        "agency_timezone": "America/Los_Angeles",
+        "avl_agency_id": "SMART",
+        "doc_type": "Document",
+        "avl_service": "SMART",
+        "agency_lang": "en",
+		"gtfs_url": "https://mysmartbus.com/gtfs",
+		"gtfs_rt_url": "https://mysmartbus.com/gtfs-rt/tripupdates",
+	};
+
 	this.cache['CTRAN'] = {
         "rights_notice": "",
         "_id": "CTRAN",
         "agency_name": "C-TRAN",
+		"agency_full_name": "C-TRAN",
         "agency_url": "https://www.c-tran.com/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CTRAN",
