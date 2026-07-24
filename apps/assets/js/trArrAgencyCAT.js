@@ -51,7 +51,12 @@ function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requ
 }
 
 function trArrAgencyCATEntryFilterCallback(entry) {
-	entry.route_data.route_short_name = "CAT"
+
+	const route_initials = {
+		"6265": "LP",
+		"6266": "99X"
+	}
+	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
 	return entry;
 }
 

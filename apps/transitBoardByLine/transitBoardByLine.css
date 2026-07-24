@@ -177,6 +177,24 @@ table.trip_wrapper td.arrivals span.second_arrival {
 	font-size: .7em;
 }
 
+/* Canby Area Transit Colors */
+
+table.trip_wrapper tbody.agency_CAT.route_6266 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination div {
+	background-color: #2CA02C;
+	border-color: #2CA02C;
+	color: white;
+}
+
+table.trip_wrapper tbody.agency_CAT.route_6265 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination div {
+	background-color: #1F77B4;
+	border-color: #1F77B4;
+	color: white;
+}
+
 /* Clackamas Connect Colors */
 
 table.trip_wrapper tbody.agency_Clack.route_6140 td.route,

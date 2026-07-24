@@ -184,6 +184,24 @@ table.trip_wrapper td.arrivals span.second_arrival {
 	font-size: .7em;
 }
 
+/* Canby Area Transit Colors */
+
+table.trip_wrapper tbody.agency_CAT.route_6266 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6266 td.destination div {
+	background-color: #2CA02C;
+	border-color: #2CA02C;
+	color: white;
+}
+
+table.trip_wrapper tbody.agency_CAT.route_6265 td.route,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination,
+table.trip_wrapper tbody.agency_CAT.route_6265 td.destination div {
+	background-color: #1F77B4;
+	border-color: #1F77B4;
+	color: white;
+}
+
 /* Clackamas Connect Colors */
 
 table.trip_wrapper tbody.agency_Clack.route_6140 td.route,
@@ -13603,6 +13621,7 @@ function trAgencyCache() {
         "rights_notice": "Route and arrival data provided by permission of TriMet.",
         "_id": "TriMet",
         "agency_name": "TriMet",
+		"agency_full_name": "TriMet",
         "agency_url": "http://trimet.org",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "portland-sc",
@@ -13617,6 +13636,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "PCC",
         "agency_name": "PCC",
+		"agency_full_name": "Portland Community College",
         "agency_url": "http://www.pcc.edu/resources/parking/shuttle/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "PCC",
@@ -13631,6 +13651,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "Clack",
         "agency_name": "Clackamas Connect",
+		"agency_full_name": "Clackamas Connect",
         "agency_url": "https://www.clackamas.us/h3s/connects-shuttle",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "Clack",
@@ -13645,6 +13666,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "SClack",
         "agency_name": "SCTD",
+		"agency_full_name": "South Clackamas Transportation District",
         "agency_url": "https://www.sctd.org/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "SClack",
@@ -13658,7 +13680,8 @@ function trAgencyCache() {
 	this.cache['CAT'] = {
         "rights_notice": "",
         "_id": "CAT",
-        "agency_name": "Canby Area Transit",
+        "agency_name": "CAT",
+		"agency_full_name": "Canby Area Transit",
         "agency_url": "https://www.canbyoregon.gov/area-transit",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CAT",
@@ -13672,7 +13695,8 @@ function trAgencyCache() {
 	this.cache['SAM'] = {
         "rights_notice": "",
         "_id": "SAM",
-        "agency_name": "Sandy Area Metro",
+        "agency_name": "SAM",
+		"agency_full_name": "Sandy Area Metro",
         "agency_url": "https://www.ci.sandy.or.us/transit",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "SAM",
@@ -13686,7 +13710,8 @@ function trAgencyCache() {
 	this.cache['SMART'] = {
         "rights_notice": "",
         "_id": "SAM",
-        "agency_name": "South Metro Area Regional Transit",
+        "agency_name": "SMART",
+		"agency_full_name": "South Metro Area Regional Transit",
         "agency_url": "https://www.ridesmart.com/transit",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "SMART",
@@ -13701,6 +13726,7 @@ function trAgencyCache() {
         "rights_notice": "",
         "_id": "CTRAN",
         "agency_name": "C-TRAN",
+		"agency_full_name": "C-TRAN",
         "agency_url": "https://www.c-tran.com/",
         "agency_timezone": "America/Los_Angeles",
         "avl_agency_id": "CTRAN",
