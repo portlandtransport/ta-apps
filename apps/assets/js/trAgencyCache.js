@@ -150,7 +150,8 @@ function trAgencyCache() {
         "avl_service": "CTRAN",
         "agency_lang": "en",
 		"gtfs_url": "https://c-tran.com/images/Google/GoogleTransitUpload.zip",
-		"gtfs_rt_url": "http://gtfs-rt.c-tran.org/gtfsrealtime/TripUpdates",
+		//"gtfs_rt_url": "http://gtfs-rt.c-tran.org/gtfsrealtime/TripUpdates",
+		"gtfs_rt_url": "http://transitappliance.com/ctran-rt-proxy.php",
 	};
 	
 	this.addToCache = function(agency,data) {
