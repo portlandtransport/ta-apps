@@ -58,6 +58,7 @@ function trArrAgencyCATEntryFilterCallback(entry) {
 	}
 	console.log("entry:");
 	console.log(entry);
+	console.log(route_initials[entry.route_data.route_id]);
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
 	entry.headsign = entry.headsign.replace("CAT ","");
 	console.log(entry);
