@@ -57,7 +57,7 @@ function trArrAgencyCATEntryFilterCallback(entry) {
 		"6266": "99X"
 	}
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
-
+	console.log(entry);
 	return entry;
 }
 
