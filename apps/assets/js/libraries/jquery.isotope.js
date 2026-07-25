@@ -581,6 +581,7 @@
       console.log('_getSorter');
       console.log(elem);
       console.log(sortBy);
+      console.log($.data( elem, 'isotope-sort-data' ));
       return $.data( elem, 'isotope-sort-data' )[ sortBy ];
     },
 
