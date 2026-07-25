@@ -580,6 +580,9 @@
     _getSorter : function( elem, sortBy ) {
       console.log('_getSorter');
       if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
+        if (typeof newrelic === "object") {
+          newrelic.addPageAction("ISO99 Sorter error");
+        }
         return 0;
       }
       return $.data( elem, 'isotope-sort-data' )[ sortBy ];
