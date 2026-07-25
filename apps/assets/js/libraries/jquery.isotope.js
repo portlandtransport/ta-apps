@@ -578,6 +578,9 @@
     },
 
     _getSorter : function( elem, sortBy ) {
+      console.log('_getSorter');
+      console.log(elem);
+      console.log(sortBy);
       return $.data( elem, 'isotope-sort-data' )[ sortBy ];
     },
 
