@@ -579,9 +579,9 @@
 
     _getSorter : function( elem, sortBy ) {
       console.log('_getSorter');
-      console.log(elem);
-      console.log(sortBy);
-      console.log($.data( elem, 'isotope-sort-data' ));
+      if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
+        return 0;
+      }
       return $.data( elem, 'isotope-sort-data' )[ sortBy ];
     },
 
