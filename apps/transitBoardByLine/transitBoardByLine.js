@@ -933,7 +933,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 	
 	var remainder = display_elements % transitBoardByLine.columns;
 
-	if (remainder > 0) {
+	if (true || remainder > 0) {
 		var spacer_inner = '\
 					<tr valign="middle">\
 						<td class="route"></td>\
