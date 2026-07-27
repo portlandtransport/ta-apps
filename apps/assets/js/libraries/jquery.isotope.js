@@ -446,7 +446,9 @@
     _init : function( callback ) {
 
       this.$filteredAtoms = this._filter( this.$allAtoms );
-      console.log(typeof(this.$filteredAtoms));
+      console.log(Object.keys(this.$filteredAtoms).length);
+      console.log(this.$filteredAtoms);
+
       this._sort();
       this.reLayout( callback );
 
