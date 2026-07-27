@@ -581,6 +581,7 @@
 
     _getSorter : function( elem, sortBy ) {
       //console.log('_getSorter');
+      console.log(elem.outerHTML);
       if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
         if (typeof newrelic === "object") {
           newrelic.addPageAction("ISO99 Sorter error "+$.data( elem, 'tripid' ));
