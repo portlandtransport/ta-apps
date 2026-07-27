@@ -446,11 +446,10 @@
     _init : function( callback ) {
 
       this.$filteredAtoms = this._filter( this.$allAtoms );
-      console.log(this.$filteredAtoms.length);
-      console.log(Object.keys(this.$filteredAtoms).length);
-      console.log(this.$filteredAtoms);
-
-      this._sort();
+      /* Chris Smith added this condition in response to JS error seen trying to get sort keys when list is empty */
+      if (this.$filteredAtoms.length > 0) {
+        this._sort();
+      }
       this.reLayout( callback );
 
     },
