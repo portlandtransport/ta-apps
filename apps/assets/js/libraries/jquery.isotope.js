@@ -537,6 +537,7 @@
     // ====================== Sorting ======================
 
     updateSortData : function( $atoms, isIncrementingElemCount ) {
+      console.log("in updateSortData")
       var instance = this,
           getSortData = this.options.getSortData,
           $this, sortData;
@@ -559,6 +560,7 @@
 
     // used on all the filtered atoms
     _sort : function() {
+      console.log("in _sort");
 
       var sortBy = this.options.sortBy,
           getSorter = this._getSorter,
