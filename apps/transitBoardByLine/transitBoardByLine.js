@@ -61,6 +61,8 @@ transitBoardByLine.dependencies = [
 
 head.js.apply(undefined,transitBoardByLine.dependencies);
 
+transitBoardByLine.ready_to_draw = false;
+
 transitBoardByLine.paging_state = {}; // paging state
 transitBoardByLine.paging_state.next_row = undefined;
 transitBoardByLine.paging_state.page_number = 0;
@@ -593,35 +595,9 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	// launch arrivals object
+	console.log("ready to draw");
+	transitBoardByLine.ready_to_draw = true;
 
-
-	if (typeof trArr != "function") {
-		//console.log(typeof trArr);
-		if (typeof newrelic === "object") {
-			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
-		}
-		location.reload();
-	}
-	
-	trArr({
-		applicationName: 			transitBoardByLine.APP_NAME,
-		applicationVersion: 	transitBoardByLine.APP_VERSION,
-		applicationId: 				transitBoardByLine.APP_ID,
-		assetsDir:						"../assets",
-		configString: 				window.location.search, // use the query string
-		displayInterval: 			40*1000, //milliseconds
-		initializeCallback: 	transitBoardByLine.initializePage,
-		displayCallback: 			transitBoardByLine.displayPage
-	});
-
-	if (data.optionsConfig.initial_content != 0) {
-		var cover_delay = data.optionsConfig.initial_interval || 10;
-		// remove cover image after a few seconds
-		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
-		},cover_delay*1000);
-	}
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -1340,8 +1316,6 @@ head.ready(function() {
 	} else {
 		cover_element.remove();
 	}
-	
-	/* testing moving this to after all css testing done
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
@@ -1362,6 +1336,5 @@ head.ready(function() {
 		displayCallback: 			transitBoardByLine.displayPage
 	});
 
-	*/
 });
 				
