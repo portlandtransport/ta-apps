@@ -593,6 +593,28 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
+	// launch arrivals object
+
+
+	if (typeof trArr != "function") {
+		//console.log(typeof trArr);
+		if (typeof newrelic === "object") {
+			newrelic.addPageAction("TBL3: trArr function not available, reloading page");
+		}
+		location.reload();
+	}
+	
+	trArr({
+		applicationName: 			transitBoardByLine.APP_NAME,
+		applicationVersion: 	transitBoardByLine.APP_VERSION,
+		applicationId: 				transitBoardByLine.APP_ID,
+		assetsDir:						"../assets",
+		configString: 				window.location.search, // use the query string
+		displayInterval: 			40*1000, //milliseconds
+		initializeCallback: 	transitBoardByLine.initializePage,
+		displayCallback: 			transitBoardByLine.displayPage
+	});
+
 	if (data.optionsConfig.initial_content != 0) {
 		var cover_delay = data.optionsConfig.initial_interval || 10;
 		// remove cover image after a few seconds
@@ -1319,7 +1341,7 @@ head.ready(function() {
 		cover_element.remove();
 	}
 	
-
+	/* testing moving this to after all css testing done
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
@@ -1339,5 +1361,7 @@ head.ready(function() {
 		initializeCallback: 	transitBoardByLine.initializePage,
 		displayCallback: 			transitBoardByLine.displayPage
 	});
+
+	*/
 });
 				
