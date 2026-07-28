@@ -392,6 +392,9 @@ function trArr(input_params) {
 
 	this.initiate_drawing = function(arrivals_object) {
 
+		console.log("readiness");
+		if (true || typeof(arrivals_object.input_params.applicationObject) == "undefined" || arrivals_object.input_params.applicationObject.ready_to_draw) {
+			console.log("starting draw");
 								
 			// first time through
 			var displayCallCount = 0;
@@ -495,14 +498,12 @@ function trArr(input_params) {
 				},refresh_interval);
 			},10*1000);
 
-		/*
 		} else {
 			console.log("wait 100ms to check to draw again");
 			setTimeout(function() {
 				arrivals_object.initiate_drawing(arrivals_object);
 			},100)
 		}
-			*/
 
 		/* old invocation
 		
