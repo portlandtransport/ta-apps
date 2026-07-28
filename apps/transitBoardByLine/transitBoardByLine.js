@@ -438,7 +438,7 @@ transitBoardByLine.initializePage = function(data) {
 <div id="tb_middle">\
 	<div id="arrivals_outer_wrapper">\
 		<div id="wrapper1">\
-		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">\
+		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test1" data-sortkey="50040">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
@@ -450,7 +450,7 @@ transitBoardByLine.initializePage = function(data) {
 		</table>\
 		</div>\
 		<div id="wrapper2">\
-		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">\
+		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test2" data-sortkey="50050">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
