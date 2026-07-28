@@ -582,7 +582,7 @@
       //console.log('_getSorter');
       if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
         var tripid = $.data( elem, 'tripid' );
-        unless (tripid == "test1" || tripid == "test2") {
+        if (tripid != "test1" && tripid != "test2") {
           if (typeof newrelic === "object") {
             newrelic.addPageAction("ISO99 Sorter error "+elem.outerHTML);
           }
