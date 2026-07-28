@@ -1326,6 +1326,7 @@ head.ready(function() {
 	}
 	
 	trArr({
+		applicationObject:		transitBoardByLine,
 		applicationName: 			transitBoardByLine.APP_NAME,
 		applicationVersion: 	transitBoardByLine.APP_VERSION,
 		applicationId: 				transitBoardByLine.APP_ID,

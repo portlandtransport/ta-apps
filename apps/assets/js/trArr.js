@@ -391,6 +391,9 @@ function trArr(input_params) {
 	}
 
 	this.initiate_drawing = function(arrivals_object) {
+
+		console.log("readiness")
+		console.log(arrivals_object.input_params.applicationObject);
 							
 		// first time through
 		var displayCallCount = 0;
