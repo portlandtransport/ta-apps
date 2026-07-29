@@ -172,11 +172,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
 											console.log("callback pushing ");
-											console.log(entry);
+											if (entry.route_id == "050") console.log(entry);
 										} else {
 											local_queue.push(entry);
-											console.log("pushing ");
-											console.log(entry);
 										}
 									} else {
 										/*
