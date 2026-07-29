@@ -126,8 +126,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var stop_trips = stop.stop_data.trips;
 					// match trips
 
-					console.log("Stop trips:");
-					console.log(stop_trips);
+					//console.log("Stop trips:");
+					//console.log(stop_trips);
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
@@ -168,8 +168,12 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									if (minutes_to_arrival <= 120) {
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
+											console.log("callback pushing ");
+											console.log(entry);
 										} else {
 											local_queue.push(entry);
+											console.log("pushing ");
+											console.log(entry);
 										}
 									} else {
 										/*
