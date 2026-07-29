@@ -63,7 +63,7 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		entry.headsign = "C-TRAN "+entry.headsign;
 	}
 	if (entry.route_id == "050" || entry.route_id == "051") {
-		entry.route_data.route_short_name = "Vine";
+		entry.route_data.route_short_name = "VINE";
 		entry.route_data.service_class = 2;
 	}
 	console.log("massaged");
