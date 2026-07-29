@@ -51,11 +51,23 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyCTRANEntryFilterCallback(entry) {
-	//console.log(entry);
+	// PDX lat 45.5852698
+	console.log("raw");
+	console.log(entry);
 	entry.route_data.route_short_name = entry.route_data.route_id;
 	if (entry.route_data.route_id == "106") {
 		entry.route_data.route_short_name = "105X";
 	}
+	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
+	if (entry.stop_data.stop_lat < 45.5852698) {
+		entry.headsign = "C-TRAN "+entry.headsign;
+	}
+	if (entry.route_id == "050" || entry.route_id == "051") {
+		entry.route_data.route_short_name = "VINE";
+		entry.route_data.service_class = 2;
+	}
+	console.log("massaged");
+	console.log(entry);
 	return entry;
 }
 
