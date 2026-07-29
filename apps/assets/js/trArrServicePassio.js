@@ -119,6 +119,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var update_time = localTime().getTime();
 
 			// loop through stops in request and see if we have arrivals for that stop
+
+			var trips_seen = {}; // look for dups
 			
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
@@ -165,7 +167,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
 
-									if (minutes_to_arrival <= 120) {
+									if (minutes_to_arrival <= 120 && !trips_seen[entry.trip_id]) {
+										trips_seen[entry.trip_id] == true;
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
 											console.log("callback pushing ");
