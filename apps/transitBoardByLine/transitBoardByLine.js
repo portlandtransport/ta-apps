@@ -595,7 +595,7 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	console.log("ready to draw");
+	//console.log("ready to draw");
 	transitBoardByLine.ready_to_draw = true;
 
 }
