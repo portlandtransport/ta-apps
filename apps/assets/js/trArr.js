@@ -391,7 +391,7 @@ function trArr(input_params) {
 	}
 
 	this.initiate_drawing = function(arrivals_object) {
-							
+								
 		// first time through
 		var displayCallCount = 0;
 		jQuery('#arrivals_log_area').css("display","none");
@@ -455,11 +455,6 @@ function trArr(input_params) {
 				refresh_interval == 10*1000;
 			}
 		}
-
-		/*
-		console.log("Refresh Interval: "+refresh_interval);
-		console.log("Launch Delay: "+launch_delay);
-		*/
 		
 		if (arrivals_object.input_params.initializeCallback != undefined) {
 			arrivals_object.input_params.initializeCallback({
@@ -494,43 +489,7 @@ function trArr(input_params) {
 			},refresh_interval);
 		},10*1000);
 
-		/* old invocation
-		
-		setTimeout(function() {
 
-			updateQueueNextTime = arrivals_object.input_params.displayCallback({
-				arrivalsQueue: arrivals_object.mergeArrivals(),
-				displayCallCount: displayCallCount,
-				optionsConfig: arrivals_object.options,
-				applianceConfig: arrivals_object.appl,
-				stopsConfig: arrivals_object.query_params.stop,
-				agencyCache: trAgencyCache(),
-				serviceMessages: arrivals_object.mergeMessages(),
-				connectionHealth: arrivals_object.mergeConnectionHealth(),
-				displayInterval: refresh_interval
-			});
-			
-
-			
-			// now iterate forever
-			setInterval(function(){
-				displayCallCount++;
-
-				updateQueueNextTime =  arrivals_object.input_params.displayCallback({
-					arrivalsQueue: arrivals_object.mergeArrivals(),
-					displayCallCount: displayCallCount,
-					optionsConfig: arrivals_object.options,
-					applianceConfig: arrivals_object.appl,
-					stopsConfig: arrivals_object.query_params.stop,
-					agencyCache: trAgencyCache(),
-					serviceMessages: arrivals_object.mergeMessages(),
-					connectionHealth: arrivals_object.mergeConnectionHealth(),
-					displayInterval: refresh_interval
-				});
-			}, refresh_interval);
-			
-		},launch_delay);
-		*/
 		
 	}
 	

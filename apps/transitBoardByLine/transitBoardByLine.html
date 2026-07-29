@@ -14741,7 +14741,7 @@ function trArr(input_params) {
 	}
 
 	this.initiate_drawing = function(arrivals_object) {
-							
+								
 		// first time through
 		var displayCallCount = 0;
 		jQuery('#arrivals_log_area').css("display","none");
@@ -14805,11 +14805,6 @@ function trArr(input_params) {
 				refresh_interval == 10*1000;
 			}
 		}
-
-		/*
-		console.log("Refresh Interval: "+refresh_interval);
-		console.log("Launch Delay: "+launch_delay);
-		*/
 		
 		if (arrivals_object.input_params.initializeCallback != undefined) {
 			arrivals_object.input_params.initializeCallback({
@@ -14844,43 +14839,7 @@ function trArr(input_params) {
 			},refresh_interval);
 		},10*1000);
 
-		/* old invocation
-		
-		setTimeout(function() {
 
-			updateQueueNextTime = arrivals_object.input_params.displayCallback({
-				arrivalsQueue: arrivals_object.mergeArrivals(),
-				displayCallCount: displayCallCount,
-				optionsConfig: arrivals_object.options,
-				applianceConfig: arrivals_object.appl,
-				stopsConfig: arrivals_object.query_params.stop,
-				agencyCache: trAgencyCache(),
-				serviceMessages: arrivals_object.mergeMessages(),
-				connectionHealth: arrivals_object.mergeConnectionHealth(),
-				displayInterval: refresh_interval
-			});
-			
-
-			
-			// now iterate forever
-			setInterval(function(){
-				displayCallCount++;
-
-				updateQueueNextTime =  arrivals_object.input_params.displayCallback({
-					arrivalsQueue: arrivals_object.mergeArrivals(),
-					displayCallCount: displayCallCount,
-					optionsConfig: arrivals_object.options,
-					applianceConfig: arrivals_object.appl,
-					stopsConfig: arrivals_object.query_params.stop,
-					agencyCache: trAgencyCache(),
-					serviceMessages: arrivals_object.mergeMessages(),
-					connectionHealth: arrivals_object.mergeConnectionHealth(),
-					displayInterval: refresh_interval
-				});
-			}, refresh_interval);
-			
-		},launch_delay);
-		*/
 		
 	}
 	
@@ -15689,9 +15648,13 @@ function trArr(input_params) {
 
     _getSorter : function( elem, sortBy ) {
       //console.log('_getSorter');
+      var tripid = elem.getAttribute('data-tripid');
+      //console.log(tripid);
       if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
-        if (typeof newrelic === "object") {
-          newrelic.addPageAction("ISO99 Sorter error "+$.data( elem, 'tripid' ));
+        if (tripid != "test1" && tripid != "test2") {
+          if (typeof newrelic === "object") {
+            newrelic.addPageAction("ISO99 Sorter error "+tripid);
+          }
         }
         return 0;
       }
@@ -17625,6 +17588,8 @@ transitBoardByLine.dependencies = [
 
 head.js.apply(undefined,transitBoardByLine.dependencies);
 
+transitBoardByLine.ready_to_draw = false;
+
 transitBoardByLine.paging_state = {}; // paging state
 transitBoardByLine.paging_state.next_row = undefined;
 transitBoardByLine.paging_state.page_number = 0;
@@ -18002,7 +17967,7 @@ transitBoardByLine.initializePage = function(data) {
 <div id="tb_middle">\
 	<div id="arrivals_outer_wrapper">\
 		<div id="wrapper1">\
-		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">\
+		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test1" data-sortkey="50040">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
@@ -18014,7 +17979,7 @@ transitBoardByLine.initializePage = function(data) {
 		</table>\
 		</div>\
 		<div id="wrapper2">\
-		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">\
+		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test2" data-sortkey="50050">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
@@ -18157,13 +18122,9 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	if (data.optionsConfig.initial_content != 0) {
-		var cover_delay = data.optionsConfig.initial_interval || 10;
-		// remove cover image after a few seconds
-		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
-		},cover_delay*1000);
-	}
+	//console.log("ready to draw");
+	transitBoardByLine.ready_to_draw = true;
+
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -18882,8 +18843,6 @@ head.ready(function() {
 	} else {
 		cover_element.remove();
 	}
-	
-
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
@@ -18894,6 +18853,7 @@ head.ready(function() {
 	}
 	
 	trArr({
+		applicationObject:		transitBoardByLine,
 		applicationName: 			transitBoardByLine.APP_NAME,
 		applicationVersion: 	transitBoardByLine.APP_VERSION,
 		applicationId: 				transitBoardByLine.APP_ID,
@@ -18903,6 +18863,7 @@ head.ready(function() {
 		initializeCallback: 	transitBoardByLine.initializePage,
 		displayCallback: 			transitBoardByLine.displayPage
 	});
+
 });
 				</script>
 		</head><body class="transitBoardByLine"><object id="tz_northamerica" style="display: none">

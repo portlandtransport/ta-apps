@@ -61,6 +61,8 @@ transitBoardByLine.dependencies = [
 
 head.js.apply(undefined,transitBoardByLine.dependencies);
 
+transitBoardByLine.ready_to_draw = false;
+
 transitBoardByLine.paging_state = {}; // paging state
 transitBoardByLine.paging_state.next_row = undefined;
 transitBoardByLine.paging_state.page_number = 0;
@@ -438,7 +440,7 @@ transitBoardByLine.initializePage = function(data) {
 <div id="tb_middle">\
 	<div id="arrivals_outer_wrapper">\
 		<div id="wrapper1">\
-		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-sortkey="50040">\
+		<table id="trip1" class="3639_4DivisiontoGreshamTCA trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test1" data-sortkey="50040">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
@@ -450,7 +452,7 @@ transitBoardByLine.initializePage = function(data) {
 		</table>\
 		</div>\
 		<div id="wrapper2">\
-		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-sortkey="50050">\
+		<table id="trip2" class="3639_4DivisiontoGreshamTCB trip_wrapper active isotope-item" data-bank="bank_placeholder" data-tripid="test2" data-sortkey="50050">\
 			<tbody class="trip service_color_yellow">\
 				<tr valign="middle">\
 					<td class="route"><span>MAXi</span></td>\
@@ -593,13 +595,9 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	if (data.optionsConfig.initial_content != 0) {
-		var cover_delay = data.optionsConfig.initial_interval || 10;
-		// remove cover image after a few seconds
-		setTimeout(function() {
-			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
-		},cover_delay*1000);
-	}
+	//console.log("ready to draw");
+	transitBoardByLine.ready_to_draw = true;
+
 }
 
 transitBoardByLine.do_animation_step = function(total_rows,total_steps,remaining_rows,remaining_steps) {
@@ -1318,8 +1316,6 @@ head.ready(function() {
 	} else {
 		cover_element.remove();
 	}
-	
-
 
 	if (typeof trArr != "function") {
 		//console.log(typeof trArr);
@@ -1330,6 +1326,7 @@ head.ready(function() {
 	}
 	
 	trArr({
+		applicationObject:		transitBoardByLine,
 		applicationName: 			transitBoardByLine.APP_NAME,
 		applicationVersion: 	transitBoardByLine.APP_VERSION,
 		applicationId: 				transitBoardByLine.APP_ID,
@@ -1339,5 +1336,6 @@ head.ready(function() {
 		initializeCallback: 	transitBoardByLine.initializePage,
 		displayCallback: 			transitBoardByLine.displayPage
 	});
+
 });
 				

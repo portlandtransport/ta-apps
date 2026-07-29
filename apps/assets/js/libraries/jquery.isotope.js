@@ -581,9 +581,13 @@
 
     _getSorter : function( elem, sortBy ) {
       //console.log('_getSorter');
+      var tripid = elem.getAttribute('data-tripid');
+      //console.log(tripid);
       if (typeof($.data( elem, 'isotope-sort-data' )) == "undefined") {
-        if (typeof newrelic === "object") {
-          newrelic.addPageAction("ISO99 Sorter error "+$.data( elem, 'tripid' ));
+        if (tripid != "test1" && tripid != "test2") {
+          if (typeof newrelic === "object") {
+            newrelic.addPageAction("ISO99 Sorter error "+tripid);
+          }
         }
         return 0;
       }
