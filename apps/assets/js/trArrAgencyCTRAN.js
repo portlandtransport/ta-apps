@@ -62,7 +62,7 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	if (entry.stop_data.stop_lat < 45.5852698) {
 		entry.headsign = "C-TRAN "+entry.headsign;
 	}
-	if (entry.app_route_id == "50" || entry.app_route_id == "51") {
+	if (entry.route_id == "050" || entry.route_id == "051") {
 		entry.route_data.route_short_name = "Vine";
 		entry.route_data.service_class = 2;
 	}
