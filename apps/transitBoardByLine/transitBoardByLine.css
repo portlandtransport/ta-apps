@@ -189,6 +189,24 @@ table.trip_wrapper tbody.agency_CTRAN td.destination div {
 	color: white;
 }
 
+/* Vine routes */
+
+table.trip_wrapper tbody.agency_CTRAN.route_050 td.route,
+table.trip_wrapper tbody.agency_CTRAN.route_050 td.destination,
+table.trip_wrapper tbody.agency_CTRAN.route_050 td.destination div {
+	background-color: #2d9a47;
+	border-color: #2d9a47;
+	color: white;
+}
+
+table.trip_wrapper tbody.agency_CTRAN.route_051 td.route,
+table.trip_wrapper tbody.agency_CTRAN.route_051 td.destination,
+table.trip_wrapper tbody.agency_CTRAN.route_051 td.destination div {
+	background-color: #d2232a;
+	border-color: #d2232a;
+	color: white;
+}
+
 /* Canby Area Transit Colors */
 
 table.trip_wrapper tbody.agency_CAT.route_6266 td.route,
