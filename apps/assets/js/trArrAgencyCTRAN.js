@@ -51,11 +51,19 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 }
 
 function trArrAgencyCTRANEntryFilterCallback(entry) {
+	// PDX lat 45.5852698
+	console.log("raw");
 	console.log(entry);
 	entry.route_data.route_short_name = entry.route_data.route_id;
 	if (entry.route_data.route_id == "106") {
 		entry.route_data.route_short_name = "105X";
 	}
+	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
+	if (entry.stop_data.stop_lat < 45.5852698) {
+		entry.headsign = "C-TRAN "+entry.headsign;
+	}
+	console.log("massaged");
+	console.log(entry);
 	return entry;
 }
 
