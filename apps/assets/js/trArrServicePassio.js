@@ -172,8 +172,12 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 										trips_seen[entry.trip_id] == true;
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
-											console.log("callback pushing "+entry.trip_id);
-											if (entry.route_id == "050") console.log(entry);
+											
+											if (entry.route_id == "050") {
+												console.log(entry);
+												console.log("callback pushing "+entry.trip_id);
+												console.log(trips_seen);
+											}
 										} else {
 											local_queue.push(entry);
 										}
