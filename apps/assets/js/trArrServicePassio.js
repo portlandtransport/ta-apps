@@ -121,7 +121,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 			// loop through stops in request and see if we have arrivals for that stop
 
-			var trips_seen = {}; // look for dups
+			var trips_seen = []; // look for dups
 			
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
