@@ -53,7 +53,7 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 function trArrAgencyCTRANEntryFilterCallback(entry) {
 	// PDX lat 45.5852698
 	//console.log("raw");
-	if (entry.route_id == "051") {
+	if (false && entry.route_id == "051") {
 		console.log(entry.route_id+" "+entry.stop_id+" "+entry.trip_id);
 		console.log(entry);
 	}
