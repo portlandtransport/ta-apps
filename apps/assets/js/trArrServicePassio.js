@@ -150,6 +150,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									var minutes_to_arrival = Math.floor((entry.arrivalTime - now.getTime()) / 60000);
 									
 									entry.type = "estimated";
+									entry.minutes_to_arrival = minutes_to_arrival;
 									//console.log(arrival_trips[trip_id]);
 									entry.headsign = route_data.route_long_name;
 									entry.stop_id = stop.stop_id;
