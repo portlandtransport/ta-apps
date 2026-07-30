@@ -168,7 +168,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
 
-									if (minutes_to_arrival <= 120 && !trips_seen[entry.trip_id]) {
+									if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
 										trips_seen[entry.trip_id] = true;
 										console.log('seeing '+entry.trip_id);
 										console.log('immediate seen');
