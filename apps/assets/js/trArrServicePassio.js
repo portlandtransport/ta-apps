@@ -209,6 +209,15 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				
 			});
 
+			// filter queue for identical estimated time for same route and stop. This generally reflects showing the same arrival for different directions (i.e., turning around)
+			var filtered_queue = [];
+			var arrivals_seen = {};
+			local_queue.forEach((arrival) => {
+				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
+				console.log(unique_key);
+				//!Object.hasOwn(va_seen,entry.trip_id)
+			})
+
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = local_queue;
