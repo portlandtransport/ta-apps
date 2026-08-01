@@ -52,8 +52,14 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 
 function trArrAgencyCTRANEntryFilterCallback(entry) {
 	// PDX lat 45.5852698
-	console.log("raw");
-	console.log(entry);
+	//console.log("raw");
+	/*
+	if (false && entry.route_id == "051") {
+		console.log(entry.route_id+" "+entry.stop_id+" "+entry.trip_id);
+		console.log(entry);
+	}
+	*/
+
 	entry.route_data.route_short_name = entry.route_data.route_id;
 	if (entry.route_data.route_id == "106") {
 		entry.route_data.route_short_name = "105X";
@@ -66,8 +72,8 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		entry.route_data.route_short_name = "VINE";
 		entry.route_data.service_class = 2;
 	}
-	console.log("massaged");
-	console.log(entry);
+	//console.log("massaged");
+	//console.log(entry);
 	return entry;
 }
 

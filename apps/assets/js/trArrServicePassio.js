@@ -114,11 +114,14 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 			//console.log("Trips:");
 			//console.log(trips);
+			//console.log("GTFS invocation");
 			updater.update_connection_health(true);
 			var local_queue = [];
 			var update_time = localTime().getTime();
 
 			// loop through stops in request and see if we have arrivals for that stop
+
+			var trips_seen = {}; // look for dups
 			
 			updater.service_requests.forEach((stop) => {
 				if (stop.stop_id in trips) {
@@ -147,6 +150,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									var minutes_to_arrival = Math.floor((entry.arrivalTime - now.getTime()) / 60000);
 									
 									entry.type = "estimated";
+									entry.minutes_to_arrival = minutes_to_arrival;
 									//console.log(arrival_trips[trip_id]);
 									entry.headsign = route_data.route_long_name;
 									entry.stop_id = stop.stop_id;
@@ -165,9 +169,24 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
 
+									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
 									if (minutes_to_arrival <= 120) {
+										trips_seen[entry.trip_id] = true;
+										/*
+										console.log('seeing '+entry.trip_id);
+										console.log('immediate seen');
+										console.log(trips_seen);
+										*/
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
+											/*
+											if (entry.route_id == "050") {
+												console.log(entry);
+												console.log("callback pushing "+entry.trip_id);
+												console.log("seen");
+												console.log(trips_seen);
+											}
+											*/
 										} else {
 											local_queue.push(entry);
 										}
@@ -190,9 +209,22 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				
 			});
 
+			// filter queue for identical estimated time for same route and stop. This generally reflects showing the same arrival for different directions (i.e., turning around)
+			var filtered_queue = [];
+			var arrivals_seen = {};
+			local_queue.forEach((arrival) => {
+				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
+				//console.log(unique_key);
+				if (!Object.hasOwn(arrivals_seen,unique_key)) {
+					arrivals_seen[unique_key] = true;
+					filtered_queue.push(arrival);
+				}
+			})
+
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
-			updater.arrivals_queue = local_queue;
+			updater.arrivals_queue = filtered_queue;
+			//console.log("queue returned");
 			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 
