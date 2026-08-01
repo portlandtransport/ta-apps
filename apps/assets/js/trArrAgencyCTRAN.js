@@ -64,14 +64,23 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	if (entry.route_data.route_id == "106") {
 		entry.route_data.route_short_name = "105X";
 	}
+	if (entry.route_id == "050" || entry.route_id == "051") {
+		entry.route_data.route_short_name = "VINE";
+		entry.route_data.service_class = 1;
+	}
 	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
 	if (entry.stop_data.stop_lat < 45.5852698) {
 		entry.headsign = "C-TRAN "+entry.headsign;
+	} else {
+		// in Vancouver, assign local colors and services levels
+		if (entry.route_id == "105" || entry.route_id == "106") {
+			entry.route_data.service_class = 2;
+		}
+		if (entry.route_id == "060" || entry.route_id == "071") {
+			entry.route_data.service_class = 3;
+		}
 	}
-	if (entry.route_id == "050" || entry.route_id == "051") {
-		entry.route_data.route_short_name = "VINE";
-		entry.route_data.service_class = 2;
-	}
+
 	//console.log("massaged");
 	//console.log(entry);
 	return entry;
