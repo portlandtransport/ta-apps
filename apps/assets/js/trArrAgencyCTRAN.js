@@ -69,9 +69,13 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		entry.route_data.service_class = 1;
 	}
 	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
+
+	entry.headsign = entry.headsign = entry.headsign+" to "+entry.trip_data.trip_headsign;
+
 	if (entry.stop_data.stop_lat < 45.5852698) {
 		entry.headsign = "C-TRAN "+entry.headsign;
 	} else {
+		
 		// in Vancouver, assign local colors and services levels
 		if (entry.route_id == "105" || entry.route_id == "106") {
 			entry.route_data.service_class = 2;
