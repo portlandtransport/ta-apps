@@ -62,7 +62,7 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		entry.route_data.route_short_name = "VINE";
 		entry.route_data.service_class = 1;
 	}
-	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
+	entry.route_data.route_short_name = entry.stop_data.route_short_name.replace(/^0+/, ''); 
 
 	//entry.headsign = entry.headsign = entry.headsign+" to "+entry.route_data.trip_data.trip_headsign;
 
