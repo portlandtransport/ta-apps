@@ -64,7 +64,9 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	}
 	entry.route_data.route_short_name = entry.route_data.route_short_name.replace(/^0+/, ''); 
 
-	entry.headsign = entry.headsign = entry.headsign+" to "+entry.stop_data.trip_data.trip_headsign;
+	if (Object.hasOwn(entry.stop_data,'trip_data')) {
+		entry.headsign = entry.headsign = entry.headsign+" to "+entry.stop_data.trip_data.trip_headsign;
+	}	
 
 	if (entry.stop_data.stop_lat < 45.5852698) {
 		entry.headsign = "C-TRAN "+entry.headsign;
