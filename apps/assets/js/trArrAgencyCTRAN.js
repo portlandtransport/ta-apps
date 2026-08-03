@@ -14,19 +14,7 @@
    limitations under the License.
 */
 
-const trArrAgencyCTRANServiceLevels = {
-	'050' => 1,
-	'051' => 1,
-	'105' => 2,
-	'106' => 2,
-	'164' => 2,
-	'190' => 2,
-	'060' => 3,
-	'065' => 3,
-	'071' => 3,
-	'002' => 2,
-	'041' => 2
-}
+
 
 function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_requests) {
 		
@@ -67,6 +55,20 @@ function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_re
 function trArrAgencyCTRANEntryFilterCallback(entry) {
 	// PDX lat 45.5852698
 	//console.log(entry);
+
+	const trArrAgencyCTRANServiceLevels = {
+		'050' => 1,
+		'051' => 1,
+		'105' => 2,
+		'106' => 2,
+		'164' => 2,
+		'190' => 2,
+		'060' => 3,
+		'065' => 3,
+		'071' => 3,
+		'002' => 2,
+		'041' => 2
+	}
 
 	entry.route_data.route_short_name = entry.route_data.route_id;
 	if (entry.route_data.route_id == "106") {
