@@ -79,6 +79,9 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		if (entry.route_id == "060" || entry.route_id == "071") {
 			entry.route_data.service_class = 3;
 		}
+		if (entry.route_id == "002" || entry.route_id == "041") {
+			entry.route_data.service_class = 7;
+		}
 	}
 
 	//console.log("massaged");
