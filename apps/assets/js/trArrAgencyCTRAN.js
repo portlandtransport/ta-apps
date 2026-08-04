@@ -67,7 +67,10 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		'065' : 3,
 		'071' : 3,
 		'002' : 7,
-		'041' : 7
+		'009' : 7,
+		'041' : 7,
+		'047' : 7,
+		'048' : 7
 	}
 
 	entry.route_data.route_short_name = entry.route_data.route_id;
