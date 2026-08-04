@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+
+
 function trArrAgencyCTRANMakeServiceRequests(stops,options,stop_cache,service_requests) {
 		
 	if (typeof service_requests.Passio == "undefined") {
@@ -54,6 +56,23 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	// PDX lat 45.5852698
 	//console.log(entry);
 
+	const trArrAgencyCTRANServiceLevels = {
+		'050' : 1,
+		'051' : 1,
+		'105' : 2,
+		'106' : 2,
+		'164' : 2,
+		'190' : 2,
+		'060' : 3,
+		'065' : 3,
+		'071' : 3,
+		'002' : 7,
+		'009' : 7,
+		'041' : 7,
+		'047' : 7,
+		'048' : 7
+	}
+
 	entry.route_data.route_short_name = entry.route_data.route_id;
 	if (entry.route_data.route_id == "106") {
 		entry.route_data.route_short_name = "105X";
@@ -66,12 +85,18 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 
 	if (Object.hasOwn(entry.stop_data,'trip_data')) {
 		entry.headsign = entry.headsign = entry.headsign+" to "+entry.stop_data.trip_data[entry.trip_id].trip_headsign;
+		entry.headsign = entry.headsign.replace(/Express to Express to/,'Express to');
 	}	
 
 	if (entry.stop_data.stop_lat < 45.5852698) {
 		entry.headsign = "C-TRAN "+entry.headsign;
 	} else {
+
+		if (Object.hasOwn(trArrAgencyCTRANServiceLevels,entry.route_id)) {
+			entry.route_data.service_class = trArrAgencyCTRANServiceLevels[entry.route_id];
+		}
 		
+		/*
 		// in Vancouver, assign local colors and services levels
 		if (entry.route_id == "105" || entry.route_id == "106") {
 			entry.route_data.service_class = 2;
@@ -82,6 +107,7 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 		if (entry.route_id == "002" || entry.route_id == "041") {
 			entry.route_data.service_class = 7;
 		}
+			*/
 	}
 
 	//console.log("massaged");
