@@ -218,6 +218,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
 					arrivals_seen[unique_key] = true;
 					filtered_queue.push(arrival);
+				} else {
+					console.log("filtering out ");
+					console.log(arrival);
 				}
 			})
 
