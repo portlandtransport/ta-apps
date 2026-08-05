@@ -595,8 +595,13 @@ transitBoardByLine.initializePagePhase3 = function(data) {
 	// kill the test divs
 	jQuery("#wrapper1,#wrapper2").remove();
 
-	//console.log("ready to draw");
-	transitBoardByLine.ready_to_draw = true;
+	if (data.optionsConfig.initial_content != 0) {
+		var cover_delay = data.optionsConfig.initial_interval || 10;
+		// remove cover image after a few seconds
+		setTimeout(function() {
+			jQuery("#cover_image").fadeTo( "slow" , 0.0).remove(); 
+		},cover_delay*1000);
+	}
 
 }
 
