@@ -215,7 +215,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			local_queue.forEach((arrival) => {
 				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
 				//console.log(unique_key);
-				if (!Object.hasOwn(arrivals_seen,unique_key)) {
+				if (true || !Object.hasOwn(arrivals_seen,unique_key)) {
 					arrivals_seen[unique_key] = true;
 					filtered_queue.push(arrival);
 				} else {
