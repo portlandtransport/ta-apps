@@ -237,6 +237,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			//console.log("queue returned");
 			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
+			console.log("Passio queue length: "+updater.arrivals_queue.length);
 
 			// Create a new XMLHttpRequest object
 			//console.log(updater.arrivals_queue);
