@@ -86,9 +86,11 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	if (Object.hasOwn(entry.stop_data,'trip_data')) {
 		entry.headsign = entry.headsign = entry.headsign+" to "+entry.stop_data.trip_data[entry.trip_id].trip_headsign;
 		entry.headsign = entry.headsign.replace(/Express to Express to/,'Express to');
+		/*
 		if (location.hostname == "dev.transitappliance.com") {
 			entry.headsign = entry.headsign+" ("+entry.trip_id+")"
 		}
+		*/
 	}	
 
 	if (entry.stop_data.stop_lat < 45.5852698) {

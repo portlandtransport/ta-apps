@@ -129,10 +129,12 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var stop_trips = stop.stop_data.trips;
 					// match trips
 
+					/*
 					console.log("Stop trips:");
 					console.log(stop_trips);
 					console.log("Arrival trips:");
 					console.log(arrival_trips);
+					*/
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
@@ -171,8 +173,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
 
-									console.log("entry before time filtering");
-									console.log(entry);
+									//console.log("entry before time filtering");
+									//console.log(entry);
 
 									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
 									if (minutes_to_arrival <= 120) {
@@ -224,8 +226,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					arrivals_seen[unique_key] = true;
 					filtered_queue.push(arrival);
 				} else {
-					console.log("filtering out ");
-					console.log(arrival);
+					//console.log("filtering out ");
+					//console.log(arrival);
 				}
 			})
 
@@ -254,8 +256,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 				//var trips = parser.parse_response(xhr.response);
 				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
-				console.log("raw GTFS");
-				console.log(trips);
+				//console.log("raw GTFS");
+				//console.log(trips);
 
 				updater.process_results(trips);
 
