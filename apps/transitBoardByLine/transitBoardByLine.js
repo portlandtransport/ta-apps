@@ -1007,6 +1007,7 @@ transitBoardByLine.displayPage = function(data, callback) {
 			var id = removal_queue.shift();
 			//console.log("try to remove "+id);
 			transitBoardByLine.isotope_container.isotope( 'remove', jQuery("table."+id) );
+			jQuery("table."+id).remove();
 			process_removals();
 		} else {
 			process_insertions();
