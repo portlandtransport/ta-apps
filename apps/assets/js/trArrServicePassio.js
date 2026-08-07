@@ -231,6 +231,14 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = filtered_queue;
+
+			if (filtered_queue.length == 0) {
+				if (Object.hasOwn(trDebug,'report_empty_gtfs_feed')) {
+					if (typeof newrelic === "object") {
+						newrelic.addPageAction("PS2: Empty GTFS-RT Queue for: "+avl_agency_id);
+					}
+				}
+			}
 			if (Object.hasOwn(trDebug,'show_passio_contributions')) {
 				console.log("queue returned");
 				console.log(updater.arrivals_queue);
