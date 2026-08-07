@@ -18875,7 +18875,7 @@ function filter_queue(arrivalsQueue) {
 					tmp_queue.push(arrivalsQueue[i]);
 				}
 			} else {
-				if ( arrivalsQueue[i].headsign.match(/downtown vancouver/i) == null || !transitBoardByLine.suppress_downtown_only ) {
+				if ( arrivalsQueue[i].headsign.match(/downtown vancouver/i) == null || arrivalsQueue[i].headsign.match(/via downtown vancouver/i) != null || !transitBoardByLine.suppress_downtown_only ) {
 					tmp_queue.push(arrivalsQueue[i]);
 				}
 			}
