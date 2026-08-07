@@ -178,7 +178,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
 									if (minutes_to_arrival <= 120) {
-										trips_seen[entry.trip_id] = true;
+										if (!Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
+											trips_seen[entry.trip_id] = true;
+										}
+										
 										/*
 										console.log('seeing '+entry.trip_id);
 										console.log('immediate seen');
