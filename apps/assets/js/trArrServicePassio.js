@@ -246,7 +246,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 		const xhr = new XMLHttpRequest();
 
 		xhr.responseType = 'arraybuffer'
-		xhr.open('GET', updater.url, true);
+		xhr.open('GET', updater.url+"?"+Math.random(), true);
 
 		// Set up the event handler for when the request state changes
 		xhr.onreadystatechange = function() {
