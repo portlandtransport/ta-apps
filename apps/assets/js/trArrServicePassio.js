@@ -177,13 +177,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									//console.log(entry);
 
 									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
-									if (minutes_to_arrival <= 120) {
-										trips_seen[entry.trip_id] = true;
-										/*
-										console.log('seeing '+entry.trip_id);
-										console.log('immediate seen');
-										console.log(trips_seen);
-										*/
+									if (minutes_to_arrival <= 120 && minutes_to_arrival > -5) {
+
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
 											/*
@@ -223,7 +218,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
 				//console.log(unique_key);
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
-					arrivals_seen[unique_key] = true;
+					if (!Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
+						arrivals_seen[unique_key] = true;
+					}
 					filtered_queue.push(arrival);
 				} else {
 					//console.log("filtering out ");
@@ -234,8 +231,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			
 			// now copy to externally visble queue, making sure we're not in the middle of a query
 			updater.arrivals_queue = filtered_queue;
-			//console.log("queue returned");
-			//console.log(updater.arrivals_queue);
+			if (Object.hasOwn(trDebug,'show_passio_contributions')) {
+				console.log("queue returned");
+				console.log(updater.arrivals_queue);
+			}
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
 			//console.log("Passio queue length: "+updater.arrivals_queue.length);
 
@@ -247,7 +246,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 		const xhr = new XMLHttpRequest();
 
 		xhr.responseType = 'arraybuffer'
-		xhr.open('GET', updater.url, true);
+		xhr.open('GET', updater.url+"?"+Math.random(), true);
 
 		// Set up the event handler for when the request state changes
 		xhr.onreadystatechange = function() {

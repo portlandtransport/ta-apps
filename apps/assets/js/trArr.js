@@ -341,6 +341,16 @@ function trArr(input_params) {
 		this.appl[option] = opt_array;
 	}
 
+	// parse debug options
+	window.trDebug = {};
+	for (var option in this.query_params.debug) {
+		var opt_array = [];
+		for (var value in this.query_params.debug[option]) {
+			opt_array.push(value);
+		}
+		window.trDebug[option] = opt_array;
+	}
+
 	// Set it globally
 	if (this.appl.timezone != undefined) {
 		timezone = this.appl.timezone[0];
