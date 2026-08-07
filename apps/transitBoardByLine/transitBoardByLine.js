@@ -1272,8 +1272,14 @@ function filter_queue(arrivalsQueue) {
 	for (var i = 0; i < arrivalsQueue.length; i++) {
 		var milliseconds_until_arrival = arrivalsQueue[i].arrivalTime - now;
 		if (milliseconds_until_arrival >= 0 && milliseconds_until_arrival <= 24*60*60*1000) {
-			if ( arrivalsQueue[i].headsign.match(/downtown only/i) == null || !transitBoardByLine.suppress_downtown_only ) {
-				tmp_queue.push(arrivalsQueue[i]);
+			if (arrivalsQueue[i].stop_data.stop_lat < 45.5852698) {
+				if ( arrivalsQueue[i].headsign.match(/downtown only/i) == null || !transitBoardByLine.suppress_downtown_only ) {
+					tmp_queue.push(arrivalsQueue[i]);
+				}
+			} else {
+				if ( arrivalsQueue[i].headsign.match(/downtown vancouver/i) == null || !transitBoardByLine.suppress_downtown_only ) {
+					tmp_queue.push(arrivalsQueue[i]);
+				}
 			}
 		}
 	}
