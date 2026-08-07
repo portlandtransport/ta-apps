@@ -129,8 +129,12 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 					var stop_trips = stop.stop_data.trips;
 					// match trips
 
-					//console.log("Stop trips:");
-					//console.log(stop_trips);
+					/*
+					console.log("Stop trips:");
+					console.log(stop_trips);
+					console.log("Arrival trips:");
+					console.log(arrival_trips);
+					*/
 					
 					var targeted_trip_routes = {};
 					Object.keys(arrival_trips).forEach((trip_id) => {
@@ -168,6 +172,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									entry.last_updated = update_time;
 									entry.route_data.route_short_name = "&nbsp;"; // should get overriden by callback
 									entry.trip_id = trip_id;
+
+									//console.log("entry before time filtering");
+									//console.log(entry);
 
 									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
 									if (minutes_to_arrival <= 120) {
@@ -218,6 +225,9 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
 					arrivals_seen[unique_key] = true;
 					filtered_queue.push(arrival);
+				} else {
+					//console.log("filtering out ");
+					//console.log(arrival);
 				}
 			})
 
@@ -227,6 +237,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			//console.log("queue returned");
 			//console.log(updater.arrivals_queue);
 			//trArrLog("<PRE>"+dump(updater.arrivals_queue)+"</PRE>");
+			//console.log("Passio queue length: "+updater.arrivals_queue.length);
 
 			// Create a new XMLHttpRequest object
 			//console.log(updater.arrivals_queue);
@@ -246,6 +257,8 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 
 				//var trips = parser.parse_response(xhr.response);
 				var trips = window.tripUpdateParser.parseBuffer(xhr.response);
+				//console.log("raw GTFS");
+				//console.log(trips);
 
 				updater.process_results(trips);
 
