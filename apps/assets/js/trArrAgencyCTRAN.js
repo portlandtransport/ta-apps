@@ -115,10 +115,9 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 			*/
 	}
 	if (Object.hasOwn(trDebug,'report_callback_arrival')) {
-		entry.headsign = entry.headsign+" ("+entry.trip_id+")";
+		console.log(entry);
 	}
-	//console.log("massaged");
-	//console.log(entry);
+
 	return entry;
 }
 
