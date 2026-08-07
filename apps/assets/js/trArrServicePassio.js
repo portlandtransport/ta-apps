@@ -177,7 +177,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									//console.log(entry);
 
 									//if (minutes_to_arrival <= 120 && !Object.hasOwn(trips_seen,entry.trip_id)) {
-									if (minutes_to_arrival <= 120 and minutes_to_arrival > -5) {
+									if (minutes_to_arrival <= 120 && minutes_to_arrival > -5) {
 
 										if (typeof stop.callback == 'function') {
 											local_queue.push(stop.callback(entry));
