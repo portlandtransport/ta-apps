@@ -219,10 +219,10 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 			var filtered_queue = [];
 			var arrivals_seen = {};
 			local_queue.forEach((arrival) => {
-				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
+				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime+"-"+arrival.headsign+"-"+arrival.trip_id;
 				//console.log(unique_key);
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
-					if (false && !Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
+					if (!Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
 						arrivals_seen[unique_key] = true;
 					}
 					filtered_queue.push(arrival);
