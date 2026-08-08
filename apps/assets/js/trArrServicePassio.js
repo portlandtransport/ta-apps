@@ -180,7 +180,11 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									if (minutes_to_arrival <= 120 && minutes_to_arrival > -5) {
 
 										if (typeof stop.callback == 'function') {
-											local_queue.push(stop.callback(entry));
+											var modified = stop.callback(entry);
+											if (modified != null) {
+												local_queue.push(modified);
+											}
+											local_queue.push();
 											/*
 											if (entry.route_id == "050") {
 												console.log(entry);
