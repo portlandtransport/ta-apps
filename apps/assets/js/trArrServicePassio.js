@@ -222,7 +222,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
 				//console.log(unique_key);
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
-					if (!Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
+					if (false && !Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
 						arrivals_seen[unique_key] = true;
 					}
 					filtered_queue.push(arrival);
