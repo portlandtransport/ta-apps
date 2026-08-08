@@ -119,7 +119,7 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	}
 	
 	// kill inbound entries at Turtle Pl
-	if (entry.stop_id == '6136' && entry.headsign.match(/vancouver city center/i != null)) {
+	if (entry.stop_id == '6136' && entry.headsign.match(/vancouver city center/i) != null) {
 		entry = null;
 	}
 
