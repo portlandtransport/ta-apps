@@ -180,7 +180,11 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 									if (minutes_to_arrival <= 120 && minutes_to_arrival > -5) {
 
 										if (typeof stop.callback == 'function') {
-											local_queue.push(stop.callback(entry));
+											var modified = stop.callback(entry);
+											if (modified != null) {
+												local_queue.push(modified);
+											}
+											local_queue.push();
 											/*
 											if (entry.route_id == "050") {
 												console.log(entry);
@@ -218,7 +222,7 @@ function trArrPassioUpdater(service_requests,arrivals_object,avl_agency_id,agenc
 				var unique_key = arrival.route_id+"-"+arrival.stop_id+"-"+arrival.arrivalTime;
 				//console.log(unique_key);
 				if (!Object.hasOwn(arrivals_seen,unique_key)) {
-					if (!Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
+					if (false && !Object.hasOwn(trDebug,'suppress_trip_uniqueness')) {
 						arrivals_seen[unique_key] = true;
 					}
 					filtered_queue.push(arrival);
