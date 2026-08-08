@@ -117,6 +117,11 @@ function trArrAgencyCTRANEntryFilterCallback(entry) {
 	if (Object.hasOwn(trDebug,'report_callback_arrival')) {
 		console.log(entry);
 	}
+	
+	// kill inbound entries at Turtle Pl
+	if (entry.stop_id == '6136' && entry.headsign.match(/downtown vancouver/i != null)) {
+		entry = null;
+	}
 
 	return entry;
 }
