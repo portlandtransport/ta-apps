@@ -90,8 +90,8 @@ transitBoardByLine.platform = "";
 
 transitBoardByLine.isotope_container = null;
 
-transitBoardByLine.standing_messages.push("<span>TransitBoard&trade; is a product of Portland Transport.</span>");
-transitBoardByLine.standing_messages.push("<span>Learn more at http://transitappliance.com</span>");
+transitBoardByLine.standing_messages.push("<span>Transit Appliance is a product of Portland Transport.</span>");
+transitBoardByLine.standing_messages.push("<span>Learn more at https://transitappliance.com</span>");
 
 
 transitBoardByLine.formatted_arrival_time = function(arrival) {
@@ -141,7 +141,7 @@ transitBoardByLine.resetMessageQueue = function() {
 	if (transitBoardByLine.is_development) {
 		is_dev = "D ";
 	}
-  transitBoardByLine.messages.push("<span style=\"font-size: 60%\">["+is_dev+transitBoardByLine.start_time_formatted+" "+transitBoardByLine.appliance_id+" "+dimensions+" "+transitBoardByLine.animation_factor+" "+transitBoardByLine.platform+"]</span>");
+  	//transitBoardByLine.messages.push("<span style=\"font-size: 60%\">["+is_dev+transitBoardByLine.start_time_formatted+" "+transitBoardByLine.appliance_id+" "+dimensions+" "+transitBoardByLine.animation_factor+" "+transitBoardByLine.platform+"]</span>");
 }
 
 transitBoardByLine.advanceMessage = function() {
