@@ -29,8 +29,8 @@
 
 function trReplaceQueryParam(url, paramName, newValue) {
 	const regified = paramName.replace("[","\\[").replace("]","\\]");
-	console.log("parameter: "+paramName+", "+newValue);
-	console.log("old url: "+url);
+	//console.log("parameter: "+paramName+", "+newValue);
+	//console.log("old url: "+url);
 	// Regex matches: ([?&])paramName=[^&]*
 	// ([?&]) captures the separator (? or &) so we can preserve it
 	var newUrl = "";
@@ -44,7 +44,7 @@ function trReplaceQueryParam(url, paramName, newValue) {
 		const separator = url.includes('?') ? '&' : '?';
 		newUrl = `${url}${separator}${paramName}=${newValue}`;
 	}
-	console.log("new url: "+newUrl);
+	//console.log("new url: "+newUrl);
 	return newUrl;
 }
 
