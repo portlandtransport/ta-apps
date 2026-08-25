@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var options = {};
 	for (var option in query_params.option) {
 		var opt_array = [];
-		for (var value in this.query_params.option[option]) {
+		for (var value in query_params.option[option]) {
 			opt_array.push(value);
 		}
 		options[option] = opt_array;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var appliance = {};
 	for (var appl in query_params.appl) {
 		var opt_array = [];
-		for (var value in this.query_params.appl[appl]) {
+		for (var value in query_params.appl[appl]) {
 			opt_array.push(value);
 		}
 		appliance[appl] = opt_array;
