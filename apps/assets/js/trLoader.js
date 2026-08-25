@@ -27,6 +27,21 @@
 
 */
 
+function trReplaceQueryParam(url, paramName, newValue) {
+  // Regex matches: ([?&])paramName=[^&]*
+  // ([?&]) captures the separator (? or &) so we can preserve it
+  const regex = new RegExp(`([?&])${paramName}=[^&]*`, 'i');
+  
+  // If the parameter exists, replace its value while retaining the separator ($1)
+  if (regex.test(url)) {
+    return url.replace(regex, `$1${paramName}=${newValue}`);
+  }
+  
+  // If the parameter doesn't exist, append it properly
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}${paramName}=${newValue}`;
+}
+
 function trLoader(hwid,url_fix) {
 
 	var test_config = false;
@@ -360,18 +375,31 @@ function trLoader(hwid,url_fix) {
 	function redirectTo(theurl) { 
 		if (typeof url_fix == "object") {
 
+			/*
 			var url = jQuery.jurlp(theurl.app_url);
 			url.query({"appl[id]":url_fix.id});
 			url.query({"option[nickname]":url_fix.nickname});
 			url.query({"option[parentname]":url_fix.parentname});
-			if (typeof url_fix.lat != "undefined") {
-				url.query({"option[lat]":url_fix.lat});
+			*/
+			if (typeof url_fix.id != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "appl[id]", url_fix.id);
 			}
-			if (typeof url_fix.LOADING_ANIMATION != "undefined") {
-				url.query({"option[lng]":url_fix.lng});
+			if (typeof url_fix.nickname != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[nickname]", url_fix.nickname);
+			}
+			if (typeof url_fix.parentname != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[parentname]", url_fix.parentname);
+			}
+			if (typeof url_fix.lat != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[lat]", url_fix.lat);
+				//url.query({"option[lat]":url_fix.lat});
+			}
+			if (typeof url_fix.lng != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[lng]", url_fix.lng);
 			}
 
-			window.location.replace(url.href); 	
+			//window.location.replace(url.href); 	
+			window.location.replace(theurl.app_url); 	
 		} else {
 			if (test_config) {
 				theurl.app_url = theurl.app_url.replace("appl[id]=MAC:","appl[id]=TEST:");
