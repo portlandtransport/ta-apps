@@ -73,45 +73,48 @@ trArrParseQuery = function(qs) {
 	return params;
 }
 
-var query_params = trArrParseQuery();
 
-// turns options from objects into arrays
-var options = {};
-for (var option in query_params.option) {
-	var opt_array = [];
-	for (var value in this.query_params.option[option]) {
-		opt_array.push(value);
-	}
-	options[option] = opt_array;
-}
-
-var appliance = {};
-for (var appl in query_params.appl) {
-	var opt_array = [];
-	for (var value in this.query_params.appl[appl]) {
-		opt_array.push(value);
-	}
-	appliance[appl] = opt_array;
-}
-
-var url_fix = {
-	id: appliance.id[0],
-	nickname: options.nickname[0],
-	parentname: options.parentname[0]
-}
-
-if (url_fix.parentname == 'undefined') {
-	url_fix.parentname = url_fix.nickname;
-}
-
-//console.log(url_fix);		
-
-var  redirect_config 		= options.redirect;
-if (typeof redirect_config == "object") {
-	redirect_config = redirect_config[0];
-}
 
 document.addEventListener('DOMContentLoaded', function() {
+	var query_params = trArrParseQuery();
+
+	// turns options from objects into arrays
+	var options = {};
+	for (var option in query_params.option) {
+		var opt_array = [];
+		for (var value in query_params.option[option]) {
+			opt_array.push(value);
+		}
+		options[option] = opt_array;
+	}
+
+	var appliance = {};
+	for (var appl in query_params.appl) {
+		var opt_array = [];
+		for (var value in query_params.appl[appl]) {
+			opt_array.push(value);
+		}
+		appliance[appl] = opt_array;
+	}
+
+	var url_fix = {
+		id: appliance.id[0],
+		nickname: options.nickname[0],
+		parentname: options.parentname[0],
+		lng: options.lng[0],
+		lat: options.lat[0]
+	}
+
+	if (url_fix.parentname == 'undefined') {
+		url_fix.parentname = url_fix.nickname;
+	}
+
+	//console.log(url_fix);		
+
+	var  redirect_config 		= options.redirect;
+	if (typeof redirect_config == "object") {
+		redirect_config = redirect_config[0];
+	}
 	trLoader(redirect_config,url_fix);
 });
 
