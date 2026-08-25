@@ -15149,7 +15149,9 @@ for (var appl in query_params.appl) {
 var url_fix = {
 	id: appliance.id[0],
 	nickname: options.nickname[0],
-	parentname: options.parentname[0]
+	parentname: options.parentname[0],
+	lng: options.lng[0],
+	lat: options.lat[0]
 }
 
 if (url_fix.parentname == 'undefined') {
@@ -15164,7 +15166,9 @@ if (typeof redirect_config == "object") {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	trLoader(redirect_config,url_fix);
+	console.log(url_fix);
+	console.log(redirect_config);
+	//trLoader(redirect_config,url_fix);
 });
 
 
