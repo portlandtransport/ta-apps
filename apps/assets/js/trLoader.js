@@ -28,19 +28,26 @@
 */
 
 function trReplaceQueryParam(url, paramName, newValue) {
-  // Regex matches: ([?&])paramName=[^&]*
-  // ([?&]) captures the separator (? or &) so we can preserve it
-  const regex = new RegExp(`([?&])${paramName}=[^&]*`, 'i');
-  
-  // If the parameter exists, replace its value while retaining the separator ($1)
-  if (regex.test(url)) {
-    return url.replace(regex, `$1${paramName}=${newValue}`);
-  }
-  
-  // If the parameter doesn't exist, append it properly
-  const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}${paramName}=${newValue}`;
+	const regified = paramName.replace("[","\\[").replace("]","\\]");
+	//console.log("parameter: "+paramName+", "+newValue);
+	//console.log("old url: "+url);
+	// Regex matches: ([?&])paramName=[^&]*
+	// ([?&]) captures the separator (? or &) so we can preserve it
+	var newUrl = "";
+	const regex = new RegExp(`([?&])${regified}=[^&]*`, 'i');
+	
+	// If the parameter exists, replace its value while retaining the separator ($1)
+	if (regex.test(url)) {
+		newUrl = url.replace(regex, `$1${paramName}=${newValue}`);
+	} else {
+		// If the parameter doesn't exist, append it properly
+		const separator = url.includes('?') ? '&' : '?';
+		newUrl = `${url}${separator}${paramName}=${newValue}`;
+	}
+	//console.log("new url: "+newUrl);
+	return newUrl;
 }
+
 
 function trLoader(hwid,url_fix) {
 
