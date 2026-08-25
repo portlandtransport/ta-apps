@@ -14920,7 +14920,10 @@ function trLoader(hwid,url_fix) {
 				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[parentname]", url_fix.parentname);
 			}
 			if (typeof url_fix.lat != "undefined") {
+				console.log("new lat: "+url_fix.lat);
+				console.log("before lat: "+theurl.app_url);
 				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[lat]", url_fix.lat);
+				console.log("after lat: "+theurl.app_url);
 				//url.query({"option[lat]":url_fix.lat});
 			}
 			if (typeof url_fix.lng != "undefined") {
