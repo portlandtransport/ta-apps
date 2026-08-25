@@ -364,6 +364,12 @@ function trLoader(hwid,url_fix) {
 			url.query({"appl[id]":url_fix.id});
 			url.query({"option[nickname]":url_fix.nickname});
 			url.query({"option[parentname]":url_fix.parentname});
+			if (typeof url_fix.lat != "undefined") {
+				url.query({"option[lat]":url_fix.lat});
+			}
+			if (typeof url_fix.LOADING_ANIMATION != "undefined") {
+				url.query({"option[lng]":url_fix.lng});
+			}
 
 			window.location.replace(url.href); 	
 		} else {

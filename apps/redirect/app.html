@@ -14893,6 +14893,12 @@ function trLoader(hwid,url_fix) {
 			url.query({"appl[id]":url_fix.id});
 			url.query({"option[nickname]":url_fix.nickname});
 			url.query({"option[parentname]":url_fix.parentname});
+			if (typeof url_fix.lat != "undefined") {
+				url.query({"option[lat]":url_fix.lat});
+			}
+			if (typeof url_fix.LOADING_ANIMATION != "undefined") {
+				url.query({"option[lng]":url_fix.lng});
+			}
 
 			window.location.replace(url.href); 	
 		} else {
@@ -15125,47 +15131,48 @@ trArrParseQuery = function(qs) {
 	return params;
 }
 
-var query_params = trArrParseQuery();
 
-// turns options from objects into arrays
-var options = {};
-for (var option in query_params.option) {
-	var opt_array = [];
-	for (var value in this.query_params.option[option]) {
-		opt_array.push(value);
-	}
-	options[option] = opt_array;
-}
-
-var appliance = {};
-for (var appl in query_params.appl) {
-	var opt_array = [];
-	for (var value in this.query_params.appl[appl]) {
-		opt_array.push(value);
-	}
-	appliance[appl] = opt_array;
-}
-
-var url_fix = {
-	id: appliance.id[0],
-	nickname: options.nickname[0],
-	parentname: options.parentname[0],
-	lng: options.lng[0],
-	lat: options.lat[0]
-}
-
-if (url_fix.parentname == 'undefined') {
-	url_fix.parentname = url_fix.nickname;
-}
-
-//console.log(url_fix);		
-
-var  redirect_config 		= options.redirect;
-if (typeof redirect_config == "object") {
-	redirect_config = redirect_config[0];
-}
 
 document.addEventListener('DOMContentLoaded', function() {
+	var query_params = trArrParseQuery();
+
+	// turns options from objects into arrays
+	var options = {};
+	for (var option in query_params.option) {
+		var opt_array = [];
+		for (var value in this.query_params.option[option]) {
+			opt_array.push(value);
+		}
+		options[option] = opt_array;
+	}
+
+	var appliance = {};
+	for (var appl in query_params.appl) {
+		var opt_array = [];
+		for (var value in this.query_params.appl[appl]) {
+			opt_array.push(value);
+		}
+		appliance[appl] = opt_array;
+	}
+
+	var url_fix = {
+		id: appliance.id[0],
+		nickname: options.nickname[0],
+		parentname: options.parentname[0],
+		lng: options.lng[0],
+		lat: options.lat[0]
+	}
+
+	if (url_fix.parentname == 'undefined') {
+		url_fix.parentname = url_fix.nickname;
+	}
+
+	//console.log(url_fix);		
+
+	var  redirect_config 		= options.redirect;
+	if (typeof redirect_config == "object") {
+		redirect_config = redirect_config[0];
+	}
 	console.log(url_fix);
 	console.log(redirect_config);
 	//trLoader(redirect_config,url_fix);
