@@ -53,8 +53,11 @@ function trArrAgencyCATMakeServiceRequests(stops,options,stop_cache,service_requ
 function trArrAgencyCATEntryFilterCallback(entry) {
 
 	const route_initials = {
-		"6265": "LP",
-		"6266": "99X"
+		"9435": "LP",
+		"9434": "99X",
+		"9436": "99X",
+		"9437": "99X",
+		"9438": "99X"
 	}
 	//console.log("entry:");
 	//console.log(entry);
@@ -64,6 +67,5 @@ function trArrAgencyCATEntryFilterCallback(entry) {
 	//console.log(entry);
 	return entry;
 }
-
 
 
