@@ -57,7 +57,7 @@ function trArrAgencyCATEntryFilterCallback(entry) {
 		"6266": "99X"
 	}
 	//console.log("entry:");
-	//console.log(entry);
+	console.log(entry);
 	//console.log(route_initials[entry.route_data.route_id]);
 	entry.route_data.route_short_name = route_initials[entry.route_data.route_id];
 	entry.headsign = entry.headsign.replace("CAT ","");
