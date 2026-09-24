@@ -53,6 +53,7 @@ function trArrAgencyClackMakeServiceRequests(stops,options,stop_cache,service_re
 function trArrAgencyClackEntryFilterCallback(entry) {
 	const route_initials = {
 		"5396": "CX",
+		"9527": "CX",
 		"4154": "CI",
 		"6140": "ES",
 		"4155": "OC"
