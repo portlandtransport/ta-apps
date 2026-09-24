@@ -213,9 +213,9 @@ table.trip_wrapper tbody.agency_Clack.route_6140 td.destination div {
 	color: white;
 }
 
-table.trip_wrapper tbody.agency_Clack.route_5396 td.route,
-table.trip_wrapper tbody.agency_Clack.route_5396 td.destination,
-table.trip_wrapper tbody.agency_Clack.route_5396 td.destination div {
+table.trip_wrapper tbody.agency_Clack.route_9527 td.route,
+table.trip_wrapper tbody.agency_Clack.route_9527 td.destination,
+table.trip_wrapper tbody.agency_Clack.route_9527 td.destination div {
 	background-color: #9467BD;
 	border-color: #9467BD;
 	color: white;
@@ -13915,6 +13915,28 @@ function trAgencyCache() {
 
 */
 
+function trReplaceQueryParam(url, paramName, newValue) {
+	const regified = paramName.replace("[","\\[").replace("]","\\]");
+	//console.log("parameter: "+paramName+", "+newValue);
+	//console.log("old url: "+url);
+	// Regex matches: ([?&])paramName=[^&]*
+	// ([?&]) captures the separator (? or &) so we can preserve it
+	var newUrl = "";
+	const regex = new RegExp(`([?&])${regified}=[^&]*`, 'i');
+	
+	// If the parameter exists, replace its value while retaining the separator ($1)
+	if (regex.test(url)) {
+		newUrl = url.replace(regex, `$1${paramName}=${newValue}`);
+	} else {
+		// If the parameter doesn't exist, append it properly
+		const separator = url.includes('?') ? '&' : '?';
+		newUrl = `${url}${separator}${paramName}=${newValue}`;
+	}
+	//console.log("new url: "+newUrl);
+	return newUrl;
+}
+
+
 function trLoader(hwid,url_fix) {
 
 	var test_config = false;
@@ -14248,12 +14270,31 @@ function trLoader(hwid,url_fix) {
 	function redirectTo(theurl) { 
 		if (typeof url_fix == "object") {
 
+			/*
 			var url = jQuery.jurlp(theurl.app_url);
 			url.query({"appl[id]":url_fix.id});
 			url.query({"option[nickname]":url_fix.nickname});
 			url.query({"option[parentname]":url_fix.parentname});
+			*/
+			if (typeof url_fix.id != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "appl[id]", url_fix.id);
+			}
+			if (typeof url_fix.nickname != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[nickname]", url_fix.nickname);
+			}
+			if (typeof url_fix.parentname != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[parentname]", url_fix.parentname);
+			}
+			if (typeof url_fix.lat != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[lat]", url_fix.lat);
+				//url.query({"option[lat]":url_fix.lat});
+			}
+			if (typeof url_fix.lng != "undefined") {
+				theurl.app_url = trReplaceQueryParam(theurl.app_url, "option[lng]", url_fix.lng);
+			}
 
-			window.location.replace(url.href); 	
+			//window.location.replace(url.href); 	
+			window.location.replace(theurl.app_url); 	
 		} else {
 			if (test_config) {
 				theurl.app_url = theurl.app_url.replace("appl[id]=MAC:","appl[id]=TEST:");
