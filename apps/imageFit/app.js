@@ -198,8 +198,8 @@ window.onload = function() {
 			
 		};
 
-		img.onerror = function() {
-			//console.error("Image failed to load!");
+		img.onerror = function(event) {
+			console.error('Failed to load image:', event);
 			// Perform actions for a failed load, e.g., display a fallback image
 			if (typeof newrelic === "object") {
 				newrelic.addPageAction("IF0: Image load failed");
